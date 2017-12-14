@@ -1,0 +1,20 @@
+# dotfiles except allowed
+.*
+!.gitignore
+!.editorconfig
+!.eslintrc.yml
+!.eslintignore
+!.prettierignore
+!.babelrc
+!.travis.yml
+
+# dependencies
+node_modules/
+
+# build output
+lib/
+coverage/
+
+# lock files
+yarn.lock
+package-lock.json
