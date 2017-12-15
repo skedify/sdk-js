@@ -22,13 +22,15 @@ One would create an SDK with a simple constructor function:
 
 ```js
 const SDK = new Skedify.API(options);
-// eg const SDK = Skedify.API({ authp: 'client://sfUMCWu09e41WWNgyD2gJ0CgSBikiG9nhVo2iZSG', locale: 'nl-BE' })
+// eg const SDK = Skedify.API({ auth_provider: 'client://sfUMCWu09e41WWNgyD2gJ0CgSBikiG9nhVo2iZSG', locale: 'nl-BE' })
 ```
 
 This would allow various authentication strategies to be represented in a similar way, using a "schema" methodology.
 
 ## Options/configuration
+
 The sdk requires several configuration options. These might also be updated on the fly after the client was already created.
+
 ```js
 // READ the current configuration
 console.log(SDK.configuration)
@@ -42,8 +44,9 @@ SDK.configuration.locale = 'fr-BE'
 ```
 
 The options are:
-- **authp**: Authentication Provider, a string which symbolizes how/where to get an Authorization header
-- **locale**: A string combination of an ISO-639 Language Code and an ISO-3166 Country Code signifying the language preference of the user
+
+* **auth_provider**: Authentication Provider, a string which symbolizes how/where to get an Authorization header
+* **locale**: A string combination of an ISO-639 Language Code and an ISO-3166 Country Code signifying the language preference of the user
 
 ## Basic Usage
 
@@ -54,16 +57,16 @@ SDK.subjects() // the name of the collection is available as a function on the S
   .then(
     // the "collection" function performs a GET request to the corresponding endpoint and returns a Promise
     response => {
-      /*
-             * `response` is an object that represents the response from the API.
-             * It contains multiple attributes:
-             * - response.status: contains the status code from the response
-             * - response.headers: contains the headers in the response 
-             * - response.meta: contains the "meta" portion from the response
-             * - response.data: represents the actual "data" portion from the response.
-             *       This will be an array, where each item represents a member of the collection in
-             *       an "ActiveRecord"-like style
-             */
+      /**
+       * `response` is an object that represents the response from the API.
+       * It contains multiple attributes:
+       * - response.status: contains the status code from the response
+       * - response.headers: contains the headers in the response
+       * - response.meta: contains the "meta" portion from the response
+       * - response.data: represents the actual "data" portion from the response.
+       *       This will be an array, where each item represents a member of the collection in
+       *       an "ActiveRecord"-like style
+       */
       response.data.forEach(record => {
         record.id; // will be normalized: all ID's will be in string form
         record.title; // regular attributes will be accessible as properties
@@ -77,17 +80,17 @@ SDK.subjects() // the name of the collection is available as a function on the S
       });
     },
     error => {
-      /*
-             * `error` will always be an Error object.
-             * It might contain a property `error.response`, in which case
-             * `error.response` represents an error response returned from the API.
-             * If `error.response` is absent, the error would signify an error with
-             * transmission instead (eg network failure, abortion, ...)
-             * Errors will have a boolean property `retryable` and optionally a method `retry`.
-             * When `retry` is called (without parameters), it will behave as if the original
-             * request was made again and will return a new Promise with the same properties
-             * as the original call on the collection.
-             */
+      /**
+       * `error` will always be an Error object.
+       * It might contain a property `error.response`, in which case
+       * `error.response` represents an error response returned from the API.
+       * If `error.response` is absent, the error would signify an error with
+       * transmission instead (eg network failure, abortion, ...)
+       * Errors will have a boolean property `retryable` and optionally a method `retry`.
+       * When `retry` is called (without parameters), it will behave as if the original
+       * request was made again and will return a new Promise with the same properties
+       * as the original call on the collection.
+       */
     }
   );
 ```
@@ -105,20 +108,16 @@ This can be done by providing the ID of the member (as a string) to the collecti
 SDK.subjects("subject id here").then(
   // the function performs a GET request to the corresponding endpoint and returns a Promise
   response => {
-    /*
-             * `response` has the same properties as in the above call for the entire collection.
-             * However, response.data will not be an Array of records, but instead be one record.
-             */
+    /**
+     * `response` has the same properties as in the above call for the entire collection.
+     * However, response.data will not be an Array of records, but instead be one record.
+     */
   },
   error => {
     // `error` has the same properties as in the above call for the entire collection.
   }
 );
 ```
-
-> **ALTERNATIVE**: It was noted that we overload the collection name as a way to get either the collection or one item from it.
-> This might be confusing or complicate implementation.
-> We could also use `SDK.subjects.list()` vs `SDK.subjects.one()`
 
 ## Subresources
 
@@ -170,7 +169,9 @@ SDK.subjects()
 ```
 
 ## Sorting
+
 The user can request server-side sorting by using the `.sort` method. It requires a callback parameter that configures the sorting order
+
 ```js
 SDK.subjects().sort(item => {
     // criteriums of sorting are available as functions on item
@@ -182,7 +183,10 @@ SDK.subjects().sort(item => {
 })
 ```
 
-## Paging
+## ~~Paging~~
+
+> **NOTE:** Pagination is currently not supported by the API itself. However some endpoints (customers, offices and recently used subjects) have a `limit` query parameter.
+
 The user can limit the amount of responses by using the `.limit` method. To achieve paging, the user can either use the `.offset` method to manually skip a number of entities. For convenience, the user can also use the `.page` method which will deduce the offset based on the limit (=page size)
 
 ```js
@@ -190,25 +194,33 @@ SDK.subjects()
   .limit(10)
   .offset(10)
   .then(response => {
-    // in addition to the regular properties on response, it will also additionally have 
+    // in addition to the regular properties on response, it will also additionally have
     // a new `paging` property with the following props:
-    response.paging.size // the amount of entities per page (=limit)
-    response.paging.current // the current page you're on
-    response.paging.total // the total amount of entities
-    response.paging.pages // the amount of pages
-    response.paging.hasNext() // check if there is a next page
-    response.paging.hasPrevious() // check if there is a previous page
-    response.paging.next() // start loading the next page. This will return a new Promise wich will resolve in a new response
-    response.paging.previous() // start loading the previous page. This will return a new Promise wich will resolve in a new response
-  })
+    response.paging.size; // the amount of entities per page (=limit)
+    response.paging.current; // the current page you're on
+    response.paging.total; // the total amount of entities
+    response.paging.pages; // the amount of pages
+    response.paging.hasNext(); // check if there is a next page
+    response.paging.hasPrevious(); // check if there is a previous page
+    response.paging.next(); // start loading the next page. This will return a new Promise wich will resolve in a new response
+    response.paging.previous(); // start loading the previous page. This will return a new Promise wich will resolve in a new response
+  });
 
 // and also
-SDK.subjects().limit(10).page(3)
+SDK.subjects()
+  .limit(10)
+  .page(3);
+
 // is equivalent to
-SDK.subjects().limit(10).offset(10 * (3 - 1))
+SDK.subjects()
+  .limit(10)
+  .offset(10 * (3 - 1));
+
+// NOTE: the page() function requires the limit to be defined.
 ```
 
 ## Filters
+
 It should be possible to filter the result set based on certain conditions.
 
 ```js
@@ -222,7 +234,7 @@ SDK.subjects().filter(item =>
   )
 );
 // multiple filters can also be applied by chain-calling filter multiple times.
-SDK.filter(cb).filter(cb); // chaining filter implies AND
+SDK.filter(cb).filter(cb); // chaining filter implies `AND`
 // If the user wants multiple filters to be applied with OR semantics, they can use the method `.orFilter`
 SDK.filter(cb).orFilter(cb);
 ```
@@ -235,17 +247,17 @@ SDK.filter(cb).orFilter(cb);
 
 A new member of a collection can be created by using the `.new` method on the collection instead of calling it directly.
 Such an action will be validated before actually attempting to perform it.
-The user is required to confirm the action by calling the `.save` method on the record
+The user is required to confirm the action by calling the `.create` method on the record
 
 ```js
 SDK.appointments
   .new({
     /* insert properties of appointment here */
   })
-  .then(appointment => appointment.save(), validation_error => {})
+  .then(appointment => appointment.create(), validation_error => {})
   .then(
     response => {
-      // Response here?
+      // The actual response as defined above goes here
     },
     response_error => {}
   );
@@ -322,24 +334,31 @@ SDK.appointments('external://def').catch(error => {
 
 Some external applications might not follow our assumption that there is a one-on-one relation between external ID's and Skedify entities.
 In this case, it remains possible to interact with the collection as a whole and filter:
-```
-SDK.appointments().filter({ external_id: 'abc' })
+
+```js
+SDK.appointments().filter(item => {
+  item.external_id("abc");
+});
 ```
 
 We might provide utility functions on top of the shorthand for common use cases, but these can only be implemented once we have a strong understanding of what/how integrations will interact with the external ID's
+
 ```js
 // depending on user demand, we COULD support some of these utilities:
 // pretend like the first one is the correct one
-SDK.appointments('external://abc').firstOfMultiple().then(result => {
-    console.assert(result.data === appointment1)
-})
+SDK.appointments("external://abc")
+  .firstOfMultiple()
+  .then(result => {
+    console.assert(result.data === appointment1);
+  });
 // pretend like the most recently updated one is the correct one
-SDK.appointments('external://abc').mostRecentlyUpdatedOfMultiple().then(result => {
-    console.assert(result.data === appointment1)
-})
+SDK.appointments("external://abc")
+  .mostRecentlyUpdatedOfMultiple()
+  .then(result => {
+    console.assert(result.data === appointment1);
+  });
 // ... we should really wait and see what integrators want
 ```
-
 
 ## Diversions
 
@@ -354,12 +373,12 @@ SDK.offices("officeid").subjectSettings("subjectid");
 // instead of
 SDK.offices("officeid")
   .subjectSettings()
-  .filter({ subject_id: "subjectid" })
+  .filter(item => item.subject_id("subjectid"))
   .then(response => {
-      if (response.data.length !== 0) {
-          throw NotFoundError()
-      }
-  })
+    if (response.data.length !== 0) {
+      throw NotFoundError();
+    }
+  });
 ```
 
 ### Enterprise settings
@@ -381,18 +400,20 @@ SDK.enterpriseSettings().then(response => response.data[0]);
 Timetable is a special endpoint, where most of the "filters" are required. To emphasize this, the filters must be passed on with the original method call.
 
 ```js
-// IN SCOPE !!
-// We denken hier wel nog eens over na zekerst TODO: adriaan: namespace or not SDK.utils.timetable
 SDK.timetable({
   subject: "subject id",
   location: "location id",
   contacts: ["contact id", "contact id"] // optional
 });
+
 // instead of
-SDK.timetable().filter({
-  subject: "subject id",
-  location: "location id",
-  contacts: ["contact id", "contact id"] // optional
+.filter()
+SDK.timetable().filter(
+item => {
+  item.subject('subject id').location('location id')
+
+  // optional
+  item.contacts(['contact id 1', 'contact id 2'])
 });
 ```
 
@@ -401,14 +422,14 @@ SDK.timetable().filter({
 Since certain mutations are very common, there should be shorthands for those
 
 ```js
-// Expose those "shorthands" in SDK.utils.(...) or something similar
-// Out of scope for now, because the Plugin won't accept stuff
+// Out of scope for now, because the Plugin won't accept appointments
 
-// SDK.utils.appointments('appointment id').accept('possibility id')
-// SDK.utils.acceptPossibility('possibility id')
-// SDK.utils.acceptPossibility({
+// SDK.appointments('appointment id').accept('possibility id')
+// SDK.acceptPossibility('possibility id')
+// SDK.acceptPossibility({
 //    ...extra_data_here
 // })
+
 SDK.appointments('appointment id').accept('possibility id')
 // instead of
 SDK.appointments('appointment id').then({ data } => {
