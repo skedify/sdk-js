@@ -8,14 +8,17 @@ export default function createCollection(path, identityProvider) {
 
       const delayed_get = Object.assign(
         wait(0).then(() =>
-          identityProvider.getAuthorization().then(({ Realm, Authorization }) =>
-            request(`${Realm}${path}`, payload, {
-              method: 'GET',
-              headers: {
-                Authorization,
-              },
-            }).then(response => response.body.data)
-          )
+          identityProvider
+            .getAuthorization()
+            .then(({ Realm, Authorization }) =>
+              request(`${Realm}${path}`, payload, {
+                method: 'GET',
+                headers: {
+                  Authorization,
+                },
+              })
+            )
+            .then(response => response.body.data)
         ),
         {
           filter(filters) {
