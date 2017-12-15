@@ -1,5 +1,5 @@
-import createCollection from './createCollection'
-import createIdentityProvider from './IdentityProvider'
+// import createCollection from './createCollection'
+// import createIdentityProvider from './IdentityProvider'
 
 // export default class SkedifyAPI {
 //   constructor(idp) {
@@ -14,38 +14,42 @@ import createIdentityProvider from './IdentityProvider'
 //   }
 // }
 
-export default function SkedifyAPI(collectionName) {
-  const collection = (optionalID, options) => {
-    if (options === undefined) {
-      options = optionalID
-      optionalID = undefined
-      // we're interacting with a collection
-      const get = Promise.resolve([]) // schedule GET request
-      get.create = (data) => {
-        // cancel GET request
-        // make POST factory
-        const create  = Promise.resolve(data)
-        create.validate = Promise.resolve(create)
-        create.commit = Promise.resolve(data)
-      }
-      get.filter = () => get
-      get.include = () => get
-    } else {
-      // we're interacting with an instance
-    }
-  }
-
-  return collection
+export default function SkedifyAPI() {
+  // ignore
 }
 
-const endpoints = ['subjects', 'offices', 'enterprise_settings', 'timetable', 'appointments', 'contacts', 'customers']
+// export default function SkedifyAPI(collectionName) {
+//   const collection = (optionalID, options) => {
+//     if (options === undefined) {
+//       options = optionalID
+//       optionalID = undefined
+//       // we're interacting with a collection
+//       const get = Promise.resolve([]) // schedule GET request
+//       get.create = (data) => {
+//         // cancel GET request
+//         // make POST factory
+//         const create  = Promise.resolve(data)
+//         create.validate = Promise.resolve(create)
+//         create.commit = Promise.resolve(data)
+//       }
+//       get.filter = () => get
+//       get.include = () => get
+//     } else {
+//       // we're interacting with an instance
+//     }
+//   }
 
-Object.assign(
-  SkedifyAPI,
-  endpoints.reduce((bindings, endpoint) => {
-    bindings[ // convert endpoint to camelCase for binding attribute name
-      endpoint.replace(/_([a-z])/g, ([_, c]) => c.toUpperCase())
-    ] = SkedifyAPI.bind(null, endpoint)
-    return bindings
-  })
-)
+//   return collection
+// }
+
+// const endpoints = ['subjects', 'offices', 'enterprise_settings', 'timetable', 'appointments', 'contacts', 'customers']
+
+// Object.assign(
+//   SkedifyAPI,
+//   endpoints.reduce((bindings, endpoint) => {
+//     bindings[ // convert endpoint to camelCase for binding attribute name
+//       endpoint.replace(/_([a-z])/g, ([_, c]) => c.toUpperCase())
+//     ] = SkedifyAPI.bind(null, endpoint)
+//     return bindings
+//   })
+// )

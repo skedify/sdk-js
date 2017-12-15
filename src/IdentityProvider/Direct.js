@@ -1,4 +1,4 @@
-import filter from '../../filter'
+import filter from '../util/filter'
 
 export default class DirectIdentityProvider {
   constructor(options = {}) {

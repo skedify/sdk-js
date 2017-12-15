@@ -1,6 +1,6 @@
-import filter from '../../filter'
+import filter from '../util/filter'
 import request from '../request'
-import retry from '../../retry'
+import retry from '../util/retry'
 
 const MAX_ATTEMPTS = 3
 const REFETCH_WINDOW = 20
