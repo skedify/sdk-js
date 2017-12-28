@@ -20,7 +20,7 @@ export function mockResponse(data, meta, warnings, status = 200) {
         status: 200,
         response: {
           data: {
-            url: 'https://api.staging.skedify.io/enterprises/playground',
+            url: 'https://api.example.com',
           },
         },
       })

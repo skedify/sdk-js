@@ -1,4 +1,7 @@
-export const MAX_ATTEMPTS_REACHED = 'MAX_ATTEMPTS_REACHED'
+import isFunction from './isFunction'
+import createError from './createError'
+
+import { ERROR_RETRY, ERROR_RETRY_MAX_ATTEMPTS_REACHED } from '../constants'
 
 function delay(fn, ms) {
   return (...args) => {
@@ -8,20 +11,29 @@ function delay(fn, ms) {
   }
 }
 
-export default function retry(executor, options) {
-  if (options.max_attempts === 0) {
-    return Promise.reject(MAX_ATTEMPTS_REACHED)
+export default function retry(
+  executor,
+  { max_attempts = 3, delay_time = 1000, condition } = {}
+) {
+  if (max_attempts === 0) {
+    return Promise.reject(
+      createError(
+        'Max retry attempts reached.',
+        ERROR_RETRY,
+        ERROR_RETRY_MAX_ATTEMPTS_REACHED
+      )
+    )
   }
-  return new Promise(executor).catch(err => {
-    if (
-      !Function.prototype.isPrototypeOf(options.condition) ||
-      options.condition(err)
-    ) {
-      return retry(delay(executor, 1000), {
-        max_attempts: (options.max_attempts || 3) - 1,
-        condition: options.condition,
+
+  return new Promise(executor).catch(error => {
+    if (!isFunction(condition) || condition(error)) {
+      return retry(delay(executor, delay_time), {
+        max_attempts: max_attempts - 1,
+        delay_time,
+        condition,
       })
     }
-    throw err
+
+    throw error
   })
 }
