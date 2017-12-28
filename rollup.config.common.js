@@ -1,52 +1,62 @@
 import alias from 'rollup-plugin-alias'
 import buble from 'rollup-plugin-buble'
+import babel from 'rollup-plugin-babel'
 import commonjs from 'rollup-plugin-commonjs'
 import inject from 'rollup-plugin-inject'
-import replace from 'rollup-plugin-replace'
 import resolve from 'rollup-plugin-node-resolve'
 
 import PACKAGE from './package.json'
 
-export default {
-  format: 'iife',
+const defaultConfig = {
   exports: 'default',
-  moduleName: 'Skedify',
-  dest: `./lib/${ PACKAGE.name }.js`,
   plugins: [
     alias({
-      resolve: ['.js', '.jsx', '.css', ''],
+      resolve: ['.js', ''],
     }),
     resolve({
+      module: true,
       jsnext: true,
       main: true,
       browser: true,
-      extensions: [
-        '.js', '.jsx', '.css',
-        '/index.js', '/index.jsx', '/index.css',
-      ],
+      extensions: ['.js', '/index.js'],
+      preferBuiltins: false,
     }),
     commonjs({
-      namedExports: {
-        'node_modules/fecha/fecha.js': ['parse', 'format'],
-      },
+      namedExports: {},
     }),
     buble({
       namedFunctionExpressions: false,
       objectAssign: 'Object.assign',
-      jsx: 'jsx',
+    }),
+    babel({
+      exclude: ['node_modules/**'],
+      runtimeHelpers: true,
     }),
     inject({
-      include: '**/*.jsx?',
+      include: '**/*.js',
       exclude: 'node_modules/**',
-      modules: {
-        jsx: ['preact', 'h'],
-        Component: ['preact', 'Component'],
-      },
-    }),
-    replace({
-      PACKAGE: JSON.stringify(PACKAGE.name),
-      VERSION: JSON.stringify(PACKAGE.version),
     }),
   ],
-  banner: `/* Copyright ${ (new Date()).getUTCFullYear() } Skedify NV */`,
+  banner: `/* Copyright ${new Date().getUTCFullYear()} Skedify NV */`,
 }
+
+function createConfig(merger) {
+  return [
+    {
+      output: {
+        format: 'umd',
+        name: 'Skedify',
+        file: PACKAGE.main,
+      },
+    },
+    {
+      output: {
+        format: 'es',
+        name: 'Skedify',
+        file: PACKAGE.module,
+      },
+    },
+  ].map(config => merger(Object.assign({}, defaultConfig, config)))
+}
+
+export default createConfig

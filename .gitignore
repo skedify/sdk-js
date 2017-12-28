@@ -1,5 +1,6 @@
 # dotfiles except allowed
 .*
+!.gitattributes
 !.gitignore
 !.editorconfig
 !.eslintrc.yml

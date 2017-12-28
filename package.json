@@ -38,8 +38,6 @@
     "commitmsg": "commitlint -e $GIT_PARAMS",
     "prepush": "npm test && npm run check-coverage",
     "prepublish": "npm run build",
-    "postmerge": "npm install",
-    "postrewrite": "npm install",
     "semantic-release": "semantic-release pre && npm publish && semantic-release post",
     "commit": "git-cz"
   },

@@ -1,15 +1,22 @@
 module.exports = {
-  setupFiles: ['./pretest.js'],
-  moduleDirectories: ['<rootDir>/node_modules'],
-  testMatch: [
-    '<rootDir>/src/**/__tests__/**/*.js?(x)',
-    '<rootDir>/src/**/?(*.)(spec|test).js?(x)',
+  setupFiles: [],
+  moduleFileExtensions: ['js'],
+  transformIgnorePatterns: [
+    'node_modules/(?!(babel-plugin-transform-polyfills)/)',
   ],
-  testPathIgnorePatterns: ['<rootDir>/node_modules/'],
-  collectCoverageFrom: ['src/**/*.js'],
-  testEnvironment: 'node',
+  globals: {
+    'process.env.NODE_ENV': 'test',
+    IS_PRODUCTION: false,
+    IS_DEVELOPMENT: false,
+    IS_TEST: true,
+  },
+  collectCoverageFrom: [
+    'src/**/*.js',
+    '!src/**/*.dev.js',
+    '!src/util/external/**/*.js',
+  ],
   coverageDirectory: './coverage/',
-  collectCoverage: true,
+  collectCoverage: false,
   coverageThreshold: {
     global: {
       branches: 100,

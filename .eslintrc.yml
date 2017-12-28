@@ -6,16 +6,20 @@ env:
   es6: true
   browser: true
   node: true
+  jest: true
 parser: babel-eslint
 parserOptions:
   sourceType: module
-  ecmaVersion: 6
+  ecmaVersion: 8
   ecmaFeatures:
     impliedStrict: true
     experimentalObjectRestSpread: true
 globals:
   PACKAGE: yes
   VERSION: yes
+  IS_PRODUCTION: yes
+  IS_DEVELOPMENT: yes
+  IS_TEST: yes
 plugins:
   - better
   - filenames
@@ -190,7 +194,7 @@ rules:
   max-depth: 2
   max-nested-callbacks:
     - 2
-    - max: 2
+    - max: 3
   max-params:
     - 1
     - max: 5

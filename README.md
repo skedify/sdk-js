@@ -22,7 +22,7 @@ One would create an SDK with a simple constructor function:
 
 ```js
 const SDK = new Skedify.API(options);
-// eg const SDK = Skedify.API({ auth_provider: 'client://sfUMCWu09e41WWNgyD2gJ0CgSBikiG9nhVo2iZSG', locale: 'nl-BE' })
+// eg const SDK = Skedify.API({ auth_provider: 'client://client_id=sfUMCWu09e41WWNgyD2gJ0CgSBikiG9nhVo2iZSG@realm=https://api.example.com', locale: 'nl-BE' })
 ```
 
 This would allow various authentication strategies to be represented in a similar way, using a "schema" methodology.
@@ -35,12 +35,8 @@ The sdk requires several configuration options. These might also be updated on t
 // READ the current configuration
 console.log(SDK.configuration)
 
-// EDIT the current configuration
-// - either merge new options with the old ones
+// EDIT the current configuration by merging a new object
 SDK.configure({ ... })
-// - or replace/edit them directly
-SDK.configuration = {}
-SDK.configuration.locale = 'fr-BE'
 ```
 
 The options are:
@@ -228,9 +224,9 @@ SDK.subjects().filter(item =>
   item.or(
     item
       .schedulable_at_office(["3"]) // chaining means AND implicitly
-      .schedulable_with_contacts(["1", "2"])
+      .schedulable_with_contact(["1", "2"])
       .schedulable(),
-    item.schedulable_at_office(["6"]).schedulable_with_contacts(["4", "5"])
+    item.schedulable_at_office(["6"]).schedulable_with_contact(["4", "5"])
   )
 );
 // multiple filters can also be applied by chain-calling filter multiple times.
