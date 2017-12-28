@@ -7,6 +7,7 @@ export default createConfig(common =>
     input: './src/Skedify.dev.js',
     output: Object.assign({}, common.output, {
       sourcemap: true,
+      indent: true,
     }),
     plugins: common.plugins.concat([
       replace({
@@ -16,6 +17,5 @@ export default createConfig(common =>
         IS_TEST: JSON.stringify(false),
       }),
     ]),
-    indent: true,
   })
 )

@@ -8,7 +8,10 @@ import resolve from 'rollup-plugin-node-resolve'
 import PACKAGE from './package.json'
 
 const defaultConfig = {
-  exports: 'default',
+  output: {
+    exports: 'default',
+    banner: `/* Copyright ${new Date().getUTCFullYear()} Skedify NV */`,
+  },
   plugins: [
     alias({
       resolve: ['.js', ''],
@@ -37,7 +40,6 @@ const defaultConfig = {
       exclude: 'node_modules/**',
     }),
   ],
-  banner: `/* Copyright ${new Date().getUTCFullYear()} Skedify NV */`,
 }
 
 function createConfig(merger) {

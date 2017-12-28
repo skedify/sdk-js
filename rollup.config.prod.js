@@ -9,6 +9,7 @@ export default createConfig(common =>
     input: './src/Skedify.js',
     output: Object.assign({}, common.output, {
       sourcemap: false,
+      indent: false,
     }),
     plugins: common.plugins.concat([
       replace({
@@ -30,6 +31,5 @@ export default createConfig(common =>
         minify
       ),
     ]),
-    indent: false,
   })
 )
