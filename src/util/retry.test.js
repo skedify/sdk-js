@@ -24,7 +24,7 @@ describe('retry', () => {
             reject()
           }
         },
-        { delay_time: 2 }
+        { delay_time: 0 }
       )
     ).toEqual('good')
 
@@ -35,10 +35,13 @@ describe('retry', () => {
     const mock = jest.fn()
 
     await expect(
-      retry((resolve, reject) => {
-        mock()
-        reject()
-      })
+      retry(
+        (resolve, reject) => {
+          mock()
+          reject()
+        },
+        { delay_time: 0 }
+      )
     ).rejects.toThrowErrorMatchingSnapshot()
 
     expect(mock).toHaveBeenCalledTimes(3)
@@ -59,7 +62,7 @@ describe('retry', () => {
             reject()
           }
         },
-        { max_attempts: 10, delay_time: 2 }
+        { max_attempts: 10, delay_time: 0 }
       )
     ).toEqual('good')
 
@@ -72,7 +75,7 @@ describe('retry', () => {
         (resolve, reject) => {
           reject(new Error('Still rejected'))
         },
-        { delay_time: 2, condition: () => false }
+        { delay_time: 0, condition: () => false }
       )
     ).rejects.toThrowErrorMatchingSnapshot()
   })
