@@ -320,14 +320,15 @@ const appointment2 = {
 }
 // then this appointment would be addressable by using either of these
 SDK.appointments('external://abc').catch(error => {
-    console.assert(error instanceof SDK.MoreThanOneFoundError)
+  console.assert(error.type === API.ERROR_RESPONSE)
+  console.assert(error.subtype === API.ERROR_RESPONSE_MULTIPLE_RESULTS_FOUND)
 
-    // Maybe we need error.data to be consistent
-    // So that we can also use error.warnings, error.status, ...
-    console.assert(error.alternatives ~= [appointment1, appointment2])
+  console.assert(error.alternatives ~= [appointment1, appointment2])
+  console.assert(error.response.data === error.alternatives)
 })
 SDK.appointments('external://def').catch(error => {
-    console.assert(error instanceof SDK.NoneFoundError)
+  console.assert(error.type === API.ERROR_RESPONSE)
+  console.assert(error.subtype === API.ERROR_RESPONSE_NO_RESULTS_FOUND)
 })
 ```
 
