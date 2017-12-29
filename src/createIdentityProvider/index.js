@@ -1,4 +1,5 @@
 import createError from '../util/createError'
+import { MISCONFIGURED, MISCONFIGURED_AUTH_PROVIDER } from '../constants'
 import joinAsSpeech, { AND } from '../util/joinAsSpeech'
 
 import Client from './Client'
@@ -17,7 +18,9 @@ export default function createIdentityProvider(idp_descriptor, idps = IDPS) {
     throw createError(
       `Identity provider \`${type}\` does not exist. The only ${
         providers.length === 1 ? `option is` : `options are`
-      } ${joinAsSpeech(AND, providers)}.`
+      } ${joinAsSpeech(AND, providers)}.`,
+      MISCONFIGURED,
+      MISCONFIGURED_AUTH_PROVIDER
     )
   }
 
