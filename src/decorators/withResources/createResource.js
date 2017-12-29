@@ -14,7 +14,7 @@ import {
   ERROR_RESOURCE,
   ERROR_RESOURCE_INVALID_INCLUDE,
   ERROR_RESOURCE_INVALID_FILTER,
-  ERROR_RESOURCE_INVLID_RESPONSE_INTERCEPTOR,
+  ERROR_RESOURCE_INVALID_RESPONSE_INTERCEPTOR,
 } from '../../constants'
 
 const SHOULD_FORCE_AUTHORIZATION_REQUEST = IS_TEST
@@ -168,7 +168,7 @@ export default function createResource(identityProvider, resourceInfo, parent) {
         throw createError(
           `You tried to call \`.addResponseInterceptor(${cb})\` but it must receive a function.`,
           ERROR_RESOURCE,
-          ERROR_RESOURCE_INVLID_RESPONSE_INTERCEPTOR
+          ERROR_RESOURCE_INVALID_RESPONSE_INTERCEPTOR
         )
       }
 

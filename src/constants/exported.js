@@ -3,7 +3,7 @@ import createToken from '../util/createToken'
 export const ERROR_RESOURCE = createToken()
 export const ERROR_RESOURCE_INVALID_FILTER = createToken()
 export const ERROR_RESOURCE_INVALID_INCLUDE = createToken()
-export const ERROR_RESOURCE_INVLID_RESPONSE_INTERCEPTOR = createToken()
+export const ERROR_RESOURCE_INVALID_RESPONSE_INTERCEPTOR = createToken()
 export const ERROR_RESOURCE_MISSING_ARGUMENT = createToken()
 
 export const ERROR_RESPONSE = createToken()
