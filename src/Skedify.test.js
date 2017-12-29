@@ -411,11 +411,12 @@ describe('API', () => {
         },
       ])
 
-      expect.assertions(2)
+      expect.assertions(3)
 
       return SDK.customers('external://abc123').catch(error => {
         expect(error).toMatchSnapshot()
-        expect(error.data).toMatchSnapshot()
+        expect(error.response.data).toMatchSnapshot()
+        expect(error.response.data).toBe(error.alternatives)
       })
     })
 
@@ -426,7 +427,7 @@ describe('API', () => {
 
       return SDK.customers('external://abc123').catch(error => {
         expect(error).toMatchSnapshot()
-        expect(error.data).toMatchSnapshot()
+        expect(error.response.data).toMatchSnapshot()
       })
     })
   })

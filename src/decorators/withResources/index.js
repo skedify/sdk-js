@@ -91,7 +91,6 @@ export function withResources(resources = rootResources, parent = undefined) {
                   }[type]
                 ](value)
               )
-
               .addResponseInterceptor(response => {
                 /**
                  * Return the first result if there is only 1 result
@@ -112,7 +111,7 @@ export function withResources(resources = rootResources, parent = undefined) {
                       ERROR_RESPONSE,
                       ERROR_RESPONSE_MULTIPLE_RESULTS_FOUND
                     ),
-                    response
+                    { response, alternatives: response.data }
                   )
                 }
 
@@ -125,7 +124,7 @@ export function withResources(resources = rootResources, parent = undefined) {
                     ERROR_RESPONSE,
                     ERROR_RESPONSE_NO_RESULTS_FOUND
                   ),
-                  response
+                  { response }
                 )
               })
           }
