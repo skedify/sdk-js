@@ -22,7 +22,7 @@ One would create an SDK with a simple constructor function:
 
 ```js
 const SDK = new Skedify.API(options);
-// eg const SDK = Skedify.API({ auth_provider: 'client://client_id=sfUMCWu09e41WWNgyD2gJ0CgSBikiG9nhVo2iZSG@realm=https://api.example.com', locale: 'nl-BE' })
+// eg const SDK = Skedify.API({ auth_provider: 'client://client_id=sfUMCWu09e41WWNgyD2gJ0CgSBikiG9nhVo2iZSG&realm=https://api.example.com', locale: 'nl-BE' })
 ```
 
 This would allow various authentication strategies to be represented in a similar way, using a "schema" methodology.
@@ -321,6 +321,9 @@ const appointment2 = {
 // then this appointment would be addressable by using either of these
 SDK.appointments('external://abc').catch(error => {
     console.assert(error instanceof SDK.MoreThanOneFoundError)
+
+    // Maybe we need error.data to be consistent
+    // So that we can also use error.warnings, error.status, ...
     console.assert(error.alternatives ~= [appointment1, appointment2])
 })
 SDK.appointments('external://def').catch(error => {
