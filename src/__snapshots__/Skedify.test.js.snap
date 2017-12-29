@@ -220,6 +220,25 @@ Object {
 }
 `;
 
+exports[`API API/Resources/Subjects should error when a external://abc123 call returns multiple records 1`] = `[Error: Multiple results found]`;
+
+exports[`API API/Resources/Subjects should error when a external://abc123 call returns multiple records 2`] = `
+Array [
+  Object {
+    "external_id": "abc123",
+    "id": "123",
+  },
+  Object {
+    "external_id": "abc123",
+    "id": "456",
+  },
+]
+`;
+
+exports[`API API/Resources/Subjects should error when a external://abc123 call returns no records 1`] = `[Error: No results found]`;
+
+exports[`API API/Resources/Subjects should error when a external://abc123 call returns no records 2`] = `Array []`;
+
 exports[`API API/Resources/Subjects should make all the includes unique 1`] = `
 Object {
   "data": undefined,
@@ -233,6 +252,19 @@ Object {
     "include": "questions,subject_category",
   },
   "url": "https://api.example.com/subjects",
+}
+`;
+
+exports[`API API/Resources/Subjects should result in a single resource response when using external identifiers 1`] = `
+Object {
+  "data": Object {
+    "external_id": "abc123",
+    "id": "123",
+  },
+  "headers": undefined,
+  "meta": undefined,
+  "status": 200,
+  "warnings": undefined,
 }
 `;
 
@@ -253,6 +285,8 @@ exports[`API API/Resources/Subjects should throw when a subresource with id is u
 exports[`API API/Resources/Subjects should throw when include is used before the subresource is used 1`] = `"You tried to call \`.questions()\` as a sub resource on \`.subjects(1)\`, but \`.include(\\"subject_category\\")\` was already called and you can not call \`.include()\` before calling a sub resource."`;
 
 exports[`API API/Resources/Subjects should throw when include is used before the subresource is used 2`] = `"You tried to call \`.questions(123)\` as a sub resource on \`.subjects(1)\`, but \`.include(\\"subject_category\\")\` was already called and you can not call \`.include()\` before calling a sub resource."`;
+
+exports[`API should error when an interceptor is added but it is not function 1`] = `"You tried to call \`.addResponseInterceptor(null)\` but it must receive a function."`;
 
 exports[`API/Config should throw an error when overriding items on the configuration object directly 1`] = `"Cannot assign to read only property 'locale' of object '#<Object>'"`;
 

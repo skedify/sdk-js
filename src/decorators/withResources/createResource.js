@@ -14,6 +14,7 @@ import {
   ERROR_RESOURCE,
   ERROR_RESOURCE_INVALID_INCLUDE,
   ERROR_RESOURCE_INVALID_FILTER,
+  ERROR_RESOURCE_INVLID_RESPONSE_INTERCEPTOR,
 } from '../../constants'
 
 const SHOULD_FORCE_AUTHORIZATION_REQUEST = IS_TEST
@@ -44,6 +45,19 @@ export default function createResource(identityProvider, resourceInfo, parent) {
     headers: {},
   }
 
+  const responseInterceptors = []
+
+  function executeResponseInterceptors(response) {
+    if (responseInterceptors.length <= 0) {
+      return response
+    }
+
+    return responseInterceptors.reduce(
+      (next, interceptor) => interceptor(next),
+      response
+    )
+  }
+
   function createRequest({ Realm, Authorization }) {
     return network(
       createCallConfig(
@@ -52,8 +66,7 @@ export default function createResource(identityProvider, resourceInfo, parent) {
             Realm,
             createParentURL(parent),
             resourceInfo.resource,
-            resourceInfo.identifier &&
-              encodeURIComponent(resourceInfo.identifier)
+            resourceInfo.identifier
           ),
           headers: {
             Authorization,
@@ -150,11 +163,26 @@ export default function createResource(identityProvider, resourceInfo, parent) {
       return this
     }
 
+    addResponseInterceptor(cb) {
+      if (!isFunction(cb)) {
+        throw createError(
+          `You tried to call \`.addResponseInterceptor(${cb})\` but it must receive a function.`,
+          ERROR_RESOURCE,
+          ERROR_RESOURCE_INVLID_RESPONSE_INTERCEPTOR
+        )
+      }
+
+      responseInterceptors.push(cb)
+
+      return this
+    }
+
     then(resolve, reject) {
       return identityProvider
         .getAuthorization(SHOULD_FORCE_AUTHORIZATION_REQUEST)
         .then(createRequest)
         .then(normalizeResponse)
+        .then(executeResponseInterceptors)
         .then(resolve, reject)
     }
 

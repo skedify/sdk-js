@@ -6,6 +6,9 @@ import {
   ERROR_RESOURCE,
   ERROR_SUBRESOURCE_INVALID_PARENT_ID,
   ERROR_SUBRESOURCE_INCLUDE_ALREADY_CALLED,
+  ERROR_RESPONSE,
+  ERROR_RESPONSE_NO_RESULTS_FOUND,
+  ERROR_RESPONSE_MULTIPLE_RESULTS_FOUND,
 } from '../../constants'
 
 import createResource from './createResource'
@@ -80,13 +83,51 @@ export function withResources(resources = rootResources, parent = undefined) {
                 method: key,
               }),
               parent
-            ).filter(item =>
-              item[
-                {
-                  external: 'external_id',
-                }[type]
-              ](value)
             )
+              .filter(item =>
+                item[
+                  {
+                    external: 'external_id',
+                  }[type]
+                ](value)
+              )
+
+              .addResponseInterceptor(response => {
+                /**
+                 * Return the first result if there is only 1 result
+                 */
+                if (response.data && response.data.length === 1) {
+                  return Object.assign({}, response, {
+                    data: response.data[0],
+                  })
+                }
+
+                /**
+                 * Only 1 value is allowed
+                 */
+                if (response.data && response.data.length > 1) {
+                  throw Object.assign(
+                    createError(
+                      'Multiple results found',
+                      ERROR_RESPONSE,
+                      ERROR_RESPONSE_MULTIPLE_RESULTS_FOUND
+                    ),
+                    response
+                  )
+                }
+
+                /**
+                 * No results found
+                 */
+                throw Object.assign(
+                  createError(
+                    'No results found',
+                    ERROR_RESPONSE,
+                    ERROR_RESPONSE_NO_RESULTS_FOUND
+                  ),
+                  response
+                )
+              })
           }
 
           /**

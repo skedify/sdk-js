@@ -149,6 +149,20 @@ describe('API', () => {
       })
   })
 
+  it('should be possible to add a response interceptor before the call is made', async () => {
+    const mock = jest.fn()
+
+    await matchRequest(SDK.subjects().addResponseInterceptor(mock))
+
+    expect(mock).toHaveBeenCalled()
+  })
+
+  it('should error when an interceptor is added but it is not function', () => {
+    expect(() =>
+      SDK.subjects().addResponseInterceptor(null)
+    ).toThrowErrorMatchingSnapshot()
+  })
+
   it('should convert all the `id` and `XXX_id` keys to strings', () => {
     mockResponse([
       { id: 1, foo: 'foo' },
@@ -349,8 +363,55 @@ describe('API', () => {
 
     it('should be possible to use a shorthand for using external ids', async () => {
       expect(
-        await matchRequest(SDK.customers('external://abc123'))
+        await matchRequest(SDK.customers('external://abc123'), [
+          {
+            id: 123,
+            external: 'abc123',
+          },
+        ])
       ).toMatchSnapshot()
+    })
+
+    it('should result in a single resource response when using external identifiers', async () => {
+      mockResponse([
+        {
+          id: 123,
+          external_id: 'abc123',
+        },
+      ])
+
+      expect(await SDK.customers('external://abc123')).toMatchSnapshot()
+    })
+
+    it('should error when a external://abc123 call returns multiple records', () => {
+      mockResponse([
+        {
+          id: 123,
+          external_id: 'abc123',
+        },
+        {
+          id: 456,
+          external_id: 'abc123',
+        },
+      ])
+
+      expect.assertions(2)
+
+      return SDK.customers('external://abc123').catch(error => {
+        expect(error).toMatchSnapshot()
+        expect(error.data).toMatchSnapshot()
+      })
+    })
+
+    it('should error when a external://abc123 call returns no records', () => {
+      mockResponse([])
+
+      expect.assertions(2)
+
+      return SDK.customers('external://abc123').catch(error => {
+        expect(error).toMatchSnapshot()
+        expect(error.data).toMatchSnapshot()
+      })
     })
   })
 })
