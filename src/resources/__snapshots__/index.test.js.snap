@@ -67,6 +67,18 @@ Object {
     "sub_resources": Object {},
   },
   "default": [Function],
+  "employees": Object {
+    "allowed_includes": Array [
+      "user",
+      "enterprise",
+    ],
+    "filters": Array [
+      "email",
+      "external_id",
+    ],
+    "resource": "employees",
+    "sub_resources": Object {},
+  },
   "enterpriseSettings": Object {
     "allowed_includes": Array [],
     "filters": Array [],
