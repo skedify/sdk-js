@@ -1,6 +1,5 @@
 import alias from 'rollup-plugin-alias'
 import buble from 'rollup-plugin-buble'
-import babel from 'rollup-plugin-babel'
 import commonjs from 'rollup-plugin-commonjs'
 import inject from 'rollup-plugin-inject'
 import resolve from 'rollup-plugin-node-resolve'
@@ -30,10 +29,6 @@ const defaultConfig = {
     buble({
       namedFunctionExpressions: false,
       objectAssign: 'Object.assign',
-    }),
-    babel({
-      exclude: ['node_modules/**'],
-      runtimeHelpers: true,
     }),
     inject({
       include: '**/*.js',

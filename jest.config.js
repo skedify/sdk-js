@@ -1,9 +1,6 @@
 module.exports = {
   setupFiles: [],
   moduleFileExtensions: ['js'],
-  transformIgnorePatterns: [
-    'node_modules/(?!(babel-plugin-transform-polyfills)/)',
-  ],
   globals: {
     'process.env.NODE_ENV': 'test',
     IS_PRODUCTION: false,
