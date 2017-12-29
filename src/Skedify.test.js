@@ -116,8 +116,16 @@ describe('API', () => {
 
   it('should invoke a call when .then is called', () => {
     mockResponse([
-      { id: 1, firstName: 'Fred', lastName: 'Flintstone' },
-      { id: 2, firstName: 'Wilma', lastName: 'Flintstone' },
+      {
+        id: 1,
+        title: 'My Subject',
+        description: 'My super interesting subject',
+      },
+      {
+        id: 2,
+        title: 'Your Subject',
+        description: 'Your super interesting subject',
+      },
     ])
 
     const mock = jest.fn()
@@ -134,8 +142,16 @@ describe('API', () => {
   it('should invoke a call when .catch is called', () => {
     // It propagates to the .then call
     mockResponse([
-      { id: 1, firstName: 'Fred', lastName: 'Flintstone' },
-      { id: 2, firstName: 'Wilma', lastName: 'Flintstone' },
+      {
+        id: 1,
+        title: 'My Subject',
+        description: 'My super interesting subject',
+      },
+      {
+        id: 2,
+        title: 'Your Subject',
+        description: 'Your super interesting subject',
+      },
     ])
 
     const mock = jest.fn()
@@ -157,7 +173,7 @@ describe('API', () => {
     expect(mock).toHaveBeenCalled()
   })
 
-  it('should error when an interceptor is added but it is not function', () => {
+  it('should throw an error when an interceptor is added but it is not a function', () => {
     expect(() =>
       SDK.subjects().addResponseInterceptor(null)
     ).toThrowErrorMatchingSnapshot()
@@ -250,7 +266,7 @@ describe('API', () => {
       expect(await matchRequest(SDK.subjects(1).questions(2))).toMatchSnapshot()
     })
 
-    it('should be possible to use subresources with its id and includes', async () => {
+    it('should be possible to use subresources by id and includes', async () => {
       expect(
         await matchRequest(
           SDK.subjects(1)
@@ -260,15 +276,15 @@ describe('API', () => {
       ).toMatchSnapshot()
     })
 
-    it('should throw when a subresource is used but no id is provided', () => {
+    it('should throw an error when a subresource is used but no id is provided', () => {
       expect(() => SDK.subjects().questions()).toThrowErrorMatchingSnapshot()
     })
 
-    it('should throw when a subresource with id is used but no parent id is provided', () => {
+    it('should throw an error when a subresource with id is used but no parent id is provided', () => {
       expect(() => SDK.subjects().questions(123)).toThrowErrorMatchingSnapshot()
     })
 
-    it('should throw when include is used before the subresource is used', () => {
+    it('should throw an error when include is used before the subresource is used', () => {
       expect(() =>
         SDK.subjects(1)
           .include('subject_category')
@@ -383,7 +399,7 @@ describe('API', () => {
       expect(await SDK.customers('external://abc123')).toMatchSnapshot()
     })
 
-    it('should error when a external://abc123 call returns multiple records', () => {
+    it('should throw an error when an external://abc123 call returns multiple records', () => {
       mockResponse([
         {
           id: 123,
@@ -403,7 +419,7 @@ describe('API', () => {
       })
     })
 
-    it('should error when a external://abc123 call returns no records', () => {
+    it('should throw an error when an external://abc123 call returns no records', () => {
       mockResponse([])
 
       expect.assertions(2)
