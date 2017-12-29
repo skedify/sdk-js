@@ -280,6 +280,8 @@ exports[`API API/Resources/Subjects should throw an error when include is used b
 
 exports[`API API/Resources/Subjects should throw an error when include is used before the subresource is used 2`] = `"You tried to call \`.questions(123)\` as a sub resource on \`.subjects(1)\`, but \`.include(\\"subject_category\\")\` was already called and you can not call \`.include()\` before calling a sub resource."`;
 
+exports[`API API/Resources/Subjects should throw an error when including a value but there are no includes defined on the resource 1`] = `"You tried to call \`.include(\\"invalid\\")\` but there are no includes defined for timetable."`;
+
 exports[`API API/Resources/Subjects should throw an error when including a value that is not defined on the resource 1`] = `"You tried to call \`.include(\\"invalid\\")\` but the only valid includes for subjects are \`questions\`, \`subject_category\`, \`languages\` and \`languages.translations\`."`;
 
 exports[`API API/Resources/Subjects should throw an error when no values are passed for the timetable shorthand 1`] = `"You tried to call .timetable({}) but \`subject\`, \`office\`, \`start\` and \`end\` are required."`;

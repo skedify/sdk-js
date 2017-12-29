@@ -258,6 +258,17 @@ describe('API', () => {
       ).toThrowErrorMatchingSnapshot()
     })
 
+    it('should throw an error when including a value but there are no includes defined on the resource', () => {
+      expect(() =>
+        SDK.timetable({
+          subject: 316,
+          office: 1308,
+          start: '2017-12-21',
+          end: '2017-12-26',
+        }).include('invalid')
+      ).toThrowErrorMatchingSnapshot()
+    })
+
     it('should be possible to use subresources', async () => {
       expect(await matchRequest(SDK.subjects(1).questions())).toMatchSnapshot()
     })

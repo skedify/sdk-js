@@ -106,18 +106,30 @@ export default function createResource(identityProvider, resourceInfo, parent) {
           include => !resourceInfo.allowed_includes.includes(include)
         )
       ) {
-        throw createError(
-          `You tried to call \`.include(${__data.include
-            .map(item => `"${item}"`)
-            .join(', ')})\` but the only valid includes for ${
-            resourceInfo.resource
-          } are ${joinAsSpeech(
-            AND,
-            resourceInfo.allowed_includes.map(item => `\`${item}\``)
-          )}.`,
-          ERROR_RESOURCE,
-          ERROR_RESOURCE_INVALID_INCLUDE
-        )
+        if (resourceInfo.allowed_includes.length === 0) {
+          throw createError(
+            `You tried to call \`.include(${__data.include
+              .map(item => `"${item}"`)
+              .join(', ')})\` but there are no includes defined for ${
+              resourceInfo.resource
+            }.`,
+            ERROR_RESOURCE,
+            ERROR_RESOURCE_INVALID_INCLUDE
+          )
+        } else {
+          throw createError(
+            `You tried to call \`.include(${__data.include
+              .map(item => `"${item}"`)
+              .join(', ')})\` but the only valid includes for ${
+              resourceInfo.resource
+            } are ${joinAsSpeech(
+              AND,
+              resourceInfo.allowed_includes.map(item => `\`${item}\``)
+            )}.`,
+            ERROR_RESOURCE,
+            ERROR_RESOURCE_INVALID_INCLUDE
+          )
+        }
       }
 
       return this
