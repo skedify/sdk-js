@@ -241,7 +241,10 @@ describe('API', () => {
     it('should be possible to add includes to the subjects collection', async () => {
       expect(
         await matchRequest(
-          SDK.subjects().include('questions', 'subject_category')
+          SDK.subjects().include(
+            SDK.include.questions,
+            SDK.include.subject_category
+          )
         )
       ).toMatchSnapshot()
     })
@@ -250,8 +253,8 @@ describe('API', () => {
       expect(
         await matchRequest(
           SDK.subjects()
-            .include('questions')
-            .include('subject_category')
+            .include(SDK.include.questions)
+            .include(SDK.include.subject_category)
         )
       ).toMatchSnapshot()
     })
@@ -260,8 +263,8 @@ describe('API', () => {
       expect(
         await matchRequest(
           SDK.subjects()
-            .include('questions', 'questions')
-            .include('subject_category', 'questions')
+            .include(SDK.include.questions, SDK.include.questions)
+            .include(SDK.include.subject_category, SDK.include.questions)
         )
       ).toMatchSnapshot()
     })
@@ -269,7 +272,10 @@ describe('API', () => {
     it('should be possible to add includes to the a single subject', async () => {
       expect(
         await matchRequest(
-          SDK.subjects(1).include('questions', 'subject_category')
+          SDK.subjects(1).include(
+            SDK.include.questions,
+            SDK.include.subject_category
+          )
         )
       ).toMatchSnapshot()
     })
@@ -304,7 +310,7 @@ describe('API', () => {
         await matchRequest(
           SDK.subjects(1)
             .questions(2)
-            .include('options')
+            .include(SDK.include.options)
         )
       ).toMatchSnapshot()
     })
@@ -320,13 +326,13 @@ describe('API', () => {
     it('should throw an error when include is used before the subresource is used', () => {
       expect(() =>
         SDK.subjects(1)
-          .include('subject_category')
+          .include(SDK.include.subject_category)
           .questions()
       ).toThrowErrorMatchingSnapshot()
 
       expect(() =>
         SDK.subjects(1)
-          .include('subject_category')
+          .include(SDK.include.subject_category)
           .questions(123)
       ).toThrowErrorMatchingSnapshot()
     })

@@ -138,18 +138,18 @@ An include is described by the "collection" method on SDK. You can pass multiple
 
 ```js
 SDK.subjects()
-  .include(SDK.subject_categories, SDK.subjects.questions)
+  .include(SDK.include.subject_category, SDK.include.subjects.questions)
   .then(response => {}, error => {});
 // is the same as
 SDK.subjects()
-  .include(SDK.subject_categories)
-  .include(SDK.subjects.questions)
+  .include(SDK.include.subject_category)
+  .include(SDK.include.subjects.questions)
   .then(response => {}, error => {});
 
 // also:
 
 SDK.subjects()
-  .include(SDK.subject_categories, SDK.subjects.questions)
+  .include(SDK.include.subject_category, SDK.include.subjects.questions)
   .then(
     response => {
       response.data.forEach(subjectRecord => {
