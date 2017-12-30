@@ -288,6 +288,95 @@ exports[`API API/Resources/Subjects should throw an error when no values are pas
 
 exports[`API API/Resources/Subjects should throw an error when required props are missing from a shorthand call (timetable) 1`] = `"You tried to call .timetable({\\"subject\\":316,\\"end\\":\\"2017-12-26\\"}) but \`office\` and \`start\` are also required."`;
 
+exports[`API should expose all available includes on the Skedify.API instance 1`] = `
+Object {
+  "accepted_possibility": Object {
+    "toString": [Function],
+  },
+  "answers": Object {
+    "toString": [Function],
+  },
+  "appointments": Object {
+    "toString": [Function],
+  },
+  "contact": Object {
+    "employee": Object {
+      "toString": [Function],
+    },
+    "toString": [Function],
+    "user": Object {
+      "toString": [Function],
+    },
+  },
+  "contacts": Object {
+    "subjects": Object {
+      "toString": [Function],
+    },
+    "toString": [Function],
+  },
+  "customer": Object {
+    "toString": [Function],
+  },
+  "enterprise": Object {
+    "toString": [Function],
+  },
+  "initiated_by": Object {
+    "toString": [Function],
+  },
+  "languages": Object {
+    "toString": [Function],
+    "translations": Object {
+      "toString": [Function],
+    },
+  },
+  "office": Object {
+    "toString": [Function],
+  },
+  "offices": Object {
+    "subject_settings": Object {
+      "toString": [Function],
+    },
+    "toString": [Function],
+  },
+  "options": Object {
+    "toString": [Function],
+  },
+  "possibilities": Object {
+    "created_by": Object {
+      "toString": [Function],
+    },
+    "toString": [Function],
+  },
+  "question": Object {
+    "toString": [Function],
+  },
+  "questions": Object {
+    "toString": [Function],
+  },
+  "subject": Object {
+    "subject_category": Object {
+      "toString": [Function],
+    },
+    "toString": [Function],
+  },
+  "subject_category": Object {
+    "toString": [Function],
+  },
+  "subject_settings": Object {
+    "toString": [Function],
+  },
+  "subjects": Object {
+    "subject_category": Object {
+      "toString": [Function],
+    },
+    "toString": [Function],
+  },
+  "user": Object {
+    "toString": [Function],
+  },
+}
+`;
+
 exports[`API should throw an error when an interceptor is added but it is not a function 1`] = `"You tried to call \`.addResponseInterceptor(null)\` but it must receive a function."`;
 
 exports[`API/Config should throw an error when overriding items on the configuration object directly 1`] = `"Cannot assign to read only property 'locale' of object '#<Object>'"`;

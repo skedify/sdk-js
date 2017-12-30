@@ -6,6 +6,8 @@ import network from './util/network'
 import Skedify from './Skedify'
 import { mockResponse, matchRequest } from '../test/testUtils'
 
+import * as exported from './constants/exported'
+
 /**
  * We need to make sure that the public API works correctly
  * The tests in this file will only interact with the public API itself
@@ -19,6 +21,13 @@ describe('API/Utils', () => {
         Baz: 'http://foo.bar.baz/',
       })
     ).toEqual('client://Foo=Foo&Bar=Bar&Baz=http%3A%2F%2Ffoo.bar.baz%2F')
+  })
+
+  it('should expose all error types and subtypes on the Skedify.API object', () => {
+    Object.keys(exported).forEach(key => {
+      expect(Skedify.API).toHaveProperty(key)
+      expect(Skedify.API[key]).toBe(exported[key])
+    })
   })
 })
 
@@ -112,6 +121,19 @@ describe('API', () => {
 
   afterEach(() => {
     moxios.uninstall(network)
+  })
+
+  it('should expose all available includes on the Skedify.API instance', () => {
+    expect(SDK.include).toBeDefined()
+
+    // The full object definition
+    expect(SDK.include).toMatchSnapshot()
+
+    // Some examples: note that we use interpolation to trigger the .toString() method
+    expect(`${SDK.include.subject}`).toEqual('subject')
+    expect(`${SDK.include.subject.subject_category}`).toEqual(
+      'subject.subject_category'
+    )
   })
 
   it('should invoke a call when .then is called', () => {
