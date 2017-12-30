@@ -294,7 +294,7 @@ describe('API', () => {
     )
   })
 
-  describe('API/Resources/Subjects', () => {
+  describe('API/Resources', () => {
     it('should expose a .subjects() resource method', () => {
       expect(SDK.subjects).toBeInstanceOf(Function)
     })
