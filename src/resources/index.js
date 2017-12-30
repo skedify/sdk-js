@@ -1,16 +1,3 @@
-export default function createResourceDescription(
-  resource,
-  { includes = [], filters = [] } = {},
-  sub_resources = {}
-) {
-  return {
-    resource,
-    allowed_includes: includes,
-    filters,
-    sub_resources,
-  }
-}
-
 export * from './appointments'
 export * from './contacts'
 export * from './customers'

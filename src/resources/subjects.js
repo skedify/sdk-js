@@ -1,4 +1,4 @@
-import createResourceDescription from '.'
+import createResourceDescription from './util/createResourceDescription'
 
 export const subjects = createResourceDescription(
   'subjects',
