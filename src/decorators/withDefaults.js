@@ -16,12 +16,17 @@ function createAcceptLanguageHeader(locale) {
     .join(', ')
 }
 
+function installDefaultHeaders({ locale }) {
+  network.defaults.headers.common[
+    'Accept-Language'
+  ] = createAcceptLanguageHeader(locale)
+}
+
 export function withDefaults() {
   return instance => {
-    const { locale } = instance.configuration
+    installDefaultHeaders(instance.configuration)
 
-    network.defaults.headers.common[
-      'Accept-Language'
-    ] = createAcceptLanguageHeader(locale)
+    // Listen when configuration changes occur
+    instance.onConfigurationChange(installDefaultHeaders)
   }
 }

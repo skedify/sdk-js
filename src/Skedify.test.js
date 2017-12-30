@@ -103,6 +103,46 @@ describe('API/Config', () => {
       SDK.configuration.locale = 'fr-BE'
     }).toThrowErrorMatchingSnapshot()
   })
+
+  it('should be possible to listen for configuration changes', () => {
+    const mock = jest.fn()
+
+    const SDK = new Skedify.API({
+      auth_provider,
+      locale: 'nl-BE',
+    })
+
+    SDK.onConfigurationChange(mock)
+
+    SDK.configure({ locale: 'fr-BE' })
+
+    expect(mock).toHaveBeenCalled()
+  })
+
+  it('should throw an error when onConfigurationChange is not passed a function', () => {
+    const SDK = new Skedify.API({
+      auth_provider,
+      locale: 'nl-BE',
+    })
+
+    expect(() => SDK.onConfigurationChange(null)).toThrowErrorMatchingSnapshot()
+  })
+
+  it('should be possible to "un"-listen for configuration changes', () => {
+    const mock = jest.fn()
+
+    const SDK = new Skedify.API({
+      auth_provider,
+      locale: 'nl-BE',
+    })
+
+    const unlisten = SDK.onConfigurationChange(mock)
+    unlisten()
+
+    SDK.configure({ locale: 'fr-BE' })
+
+    expect(mock).not.toHaveBeenCalled()
+  })
 })
 
 describe('API', () => {
@@ -185,6 +225,35 @@ describe('API', () => {
       .then(() => {
         expect(mock).not.toHaveBeenCalled()
       })
+  })
+
+  it('should relfect configuration changes in the request (locale)', async () => {
+    expect(await matchRequest(SDK.subjects())).toMatchSnapshot()
+
+    const before = SDK.configuration
+
+    SDK.configure({ locale: 'fr-BE' })
+
+    expect(await matchRequest(SDK.subjects())).toMatchSnapshot()
+
+    SDK.configure(before)
+  })
+
+  it('should relfect configuration changes in the request (auth_provider)', async () => {
+    expect(await matchRequest(SDK.subjects())).toMatchSnapshot()
+
+    const before = SDK.configuration
+
+    SDK.configure({
+      auth_provider: Skedify.API.createAuthProviderString('client', {
+        client_id: 'someclientidtokengoeshere',
+        realm: 'https://api.other.example.com',
+      }),
+    })
+
+    expect(await matchRequest(SDK.subjects())).toMatchSnapshot()
+
+    SDK.configure(before)
   })
 
   it('should be possible to add a response interceptor before the call is made', async () => {

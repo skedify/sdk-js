@@ -1,6 +1,7 @@
 import validate from './validate'
 
 import createError from '../../util/createError'
+import isFunction from '../../util/isFunction'
 
 export function withConfig(initialConfig) {
   let _configuration = validate(initialConfig)
@@ -9,11 +10,17 @@ export function withConfig(initialConfig) {
     _configuration = validate(Object.assign({}, _configuration, config))
   }
 
+  const configurationChangeListeners = []
+
   return instance => {
     Object.defineProperties(instance, {
       configure: {
         value(config) {
-          return configure(config)
+          configure(config)
+
+          configurationChangeListeners.forEach(listener =>
+            listener(_configuration)
+          )
         },
         enumerable: true,
       },
@@ -27,6 +34,25 @@ export function withConfig(initialConfig) {
           )
         },
         enumerable: true,
+      },
+      onConfigurationChange: {
+        value(cb) {
+          if (!isFunction(cb)) {
+            throw createError(
+              `You tried to call \`.onConfigurationChange(${cb})\` but it must receive a function.`
+            )
+          }
+
+          // Add to the list of listeners
+          configurationChangeListeners.push(cb)
+
+          // Return an "un"-listen method
+          return () => {
+            const idx = configurationChangeListeners.indexOf(cb)
+
+            configurationChangeListeners.splice(idx, 1)
+          }
+        },
       },
     })
   }

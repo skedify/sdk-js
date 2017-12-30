@@ -14,13 +14,19 @@ export function mockResponse(data, meta, warnings, status = 200) {
       },
     })
 
+    // We assume here that the url used to request access_tokens is the base url
+    // minus the `/access_tokens`. This is easier when we test configuration changes.
+    const proxy_url = moxios.requests
+      .mostRecent()
+      .config.url.replace('/access_tokens', '')
+
     // Mock the proxy call
     moxios.wait(() => {
       moxios.requests.mostRecent().respondWith({
         status: 200,
         response: {
           data: {
-            url: 'https://api.example.com',
+            url: proxy_url,
           },
         },
       })
