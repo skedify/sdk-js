@@ -99,7 +99,7 @@ export default function createResource(identityProvider, resourceInfo, parent) {
     }
 
     include(...includes) {
-      __data.include = [...__data.include, ...includes]
+      __data.include = [...__data.include, ...includes].map(String)
 
       if (
         __data.include.some(
