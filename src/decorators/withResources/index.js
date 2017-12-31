@@ -1,7 +1,7 @@
 import * as rootResources from '../../resources'
 
 import createResource from './createResource'
-import createResourceUsingExternalIdentifier from './createResourceUsingExternalIdentifier'
+import withExternalIdentifier from './withExternalIdentifier'
 import { validateIncludeAlreadyCalled, validateParentId } from './invariants'
 
 export function withResources(resources = rootResources, parent = undefined) {
@@ -31,13 +31,15 @@ export function withResources(resources = rootResources, parent = undefined) {
              * Allow for "external://abc"
              */
             if (`${identifier}`.includes('://')) {
-              return createResourceUsingExternalIdentifier({
-                identifier,
-                instance,
-                resource,
-                name,
-                parent,
-              })
+              return withExternalIdentifier(identifier)(
+                createResource(
+                  instance.__meta.identityProvider,
+                  Object.assign({}, resource, {
+                    name,
+                  }),
+                  parent
+                )
+              )
             }
 
             /**
@@ -54,7 +56,6 @@ export function withResources(resources = rootResources, parent = undefined) {
               const newResource = createResource(
                 instance.__meta.identityProvider,
                 Object.assign({}, resource, {
-                  identifier: undefined,
                   data,
                   method: 'post',
                   name: 'new',
