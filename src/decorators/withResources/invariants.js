@@ -2,8 +2,13 @@ import {
   createResourceError,
   createResponseError,
 } from '../../util/createError'
+import { joinAsSpeech, AND, OR } from '../../util/joinAsSpeech'
+import isFunction from '../../util/isFunction'
 
 import {
+  ERROR_RESOURCE_INVALID_FILTER,
+  ERROR_RESOURCE_INVALID_INCLUDE,
+  ERROR_RESOURCE_INVALID_RESPONSE_INTERCEPTOR,
   ERROR_RESOURCE,
   ERROR_RESPONSE_MULTIPLE_RESULTS_FOUND,
   ERROR_RESPONSE_NO_RESULTS_FOUND,
@@ -15,7 +20,7 @@ import {
 /**
  * Error when trying to use subresources but the parent has no `id`.
  */
-export function validateInvalidParentId({ parent, key, identifier }) {
+export function validateParentId({ parent, key, identifier }) {
   if (parent.__meta.identifier === undefined) {
     throw createResourceError(
       `You tried to call \`.${
@@ -56,7 +61,7 @@ export function validateIncludeAlreadyCalled({ parent, key, identifier }) {
 /**
  * Only 1 value is allowed
  */
-export function validateMultipleResultsFound({ response }) {
+export function validateResponseFromExternalIdentifier({ response }) {
   if (response.data && response.data.length > 1) {
     throw Object.assign(
       createResponseError(
@@ -67,18 +72,86 @@ export function validateMultipleResultsFound({ response }) {
       { response, alternatives: response.data }
     )
   }
+
+  if (!response.data || response.data.length <= 0) {
+    throw Object.assign(
+      createResponseError(
+        'No results found',
+        ERROR_RESPONSE,
+        ERROR_RESPONSE_NO_RESULTS_FOUND
+      ),
+      { response }
+    )
+  }
 }
 
 /**
- * No results found
+ * Error when the resource includes "includes" that are not recognized for the current resource
  */
-export function validateNoResultsFound({ response }) {
-  throw Object.assign(
-    createResponseError(
-      'No results found',
-      ERROR_RESPONSE,
-      ERROR_RESPONSE_NO_RESULTS_FOUND
-    ),
-    { response }
-  )
+export function validateIncludes({ resourceDescription, __data }) {
+  if (
+    __data.include.some(
+      include => !resourceDescription.allowed_includes.includes(include)
+    )
+  ) {
+    if (resourceDescription.allowed_includes.length === 0) {
+      throw createResourceError(
+        `You tried to call \`.include(${__data.include
+          .map(item => `"${item}"`)
+          .join(', ')})\` but there are no includes defined for ${
+          resourceDescription.resource
+        }.`,
+        ERROR_RESOURCE,
+        ERROR_RESOURCE_INVALID_INCLUDE
+      )
+    } else {
+      throw createResourceError(
+        `You tried to call \`.include(${__data.include
+          .map(item => `"${item}"`)
+          .join(', ')})\` but the only valid includes for ${
+          resourceDescription.resource
+        } are ${joinAsSpeech(
+          AND,
+          resourceDescription.allowed_includes.map(item => `\`${item}\``)
+        )}.`,
+        ERROR_RESOURCE,
+        ERROR_RESOURCE_INVALID_INCLUDE
+      )
+    }
+  }
+}
+
+export function validateAddResponseInterceptorCallback({ callback }) {
+  if (!isFunction(callback)) {
+    throw createResourceError(
+      `You tried to call \`.addResponseInterceptor(${callback})\` but it must receive a function.`,
+      ERROR_RESOURCE,
+      ERROR_RESOURCE_INVALID_RESPONSE_INTERCEPTOR
+    )
+  }
+}
+
+export function validateFilterCallback({ callback, __data }) {
+  if (!isFunction(callback)) {
+    throw createResourceError(
+      `\`.filter()\` expects a callback, but is given \`.filter(${callback})\``,
+      ERROR_RESOURCE,
+      ERROR_RESOURCE_INVALID_FILTER
+    )
+  }
+}
+
+export function validateFilterCallbackExecution({ resourceDescription }, run) {
+  try {
+    run()
+  } catch (err) {
+    throw createResourceError(
+      `${err.message}. You can only call ${joinAsSpeech(
+        OR,
+        resourceDescription.filters.map(filter => `\`.${filter}()\``)
+      )}.`,
+      ERROR_RESOURCE,
+      ERROR_RESOURCE_INVALID_FILTER
+    )
+  }
 }

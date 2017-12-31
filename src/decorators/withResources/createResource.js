@@ -4,22 +4,17 @@ import network from '../../util/network'
 
 import { withResources } from '.'
 import { applyDecorators } from '..'
-import { createResourceError } from '../../util/createError'
-import isFunction from '../../util/isFunction'
 import normalizeResponse from './normalizeResponse'
-
-import joinAsSpeech, { AND, OR } from '../../util/joinAsSpeech'
-
-import {
-  ERROR_RESOURCE,
-  ERROR_RESOURCE_INVALID_INCLUDE,
-  ERROR_RESOURCE_INVALID_FILTER,
-  ERROR_RESOURCE_INVALID_RESPONSE_INTERCEPTOR,
-} from '../../constants'
 
 const SHOULD_FORCE_AUTHORIZATION_REQUEST = IS_TEST
 
 import createCallConfig from './createCallConfig'
+import {
+  validateFilterCallback,
+  validateIncludes,
+  validateFilterCallbackExecution,
+  validateAddResponseInterceptorCallback,
+} from './invariants'
 
 function createURL(...parts) {
   return parts.filter(Boolean).join('/')
@@ -37,10 +32,14 @@ function createParentURL(parent) {
   )
 }
 
-export default function createResource(identityProvider, resourceInfo, parent) {
+export default function createResource(
+  identityProvider,
+  resourceDescription,
+  parent
+) {
   const __data = {
-    method: resourceInfo.method || 'get',
-    data: resourceInfo.data || undefined,
+    method: resourceDescription.method,
+    data: resourceDescription.data,
     include: [],
     filters: {},
     headers: {},
@@ -66,8 +65,8 @@ export default function createResource(identityProvider, resourceInfo, parent) {
           url: createURL(
             Realm,
             createParentURL(parent),
-            resourceInfo.resource,
-            resourceInfo.identifier
+            resourceDescription.resource,
+            resourceDescription.identifier
           ),
           headers: {
             Authorization,
@@ -84,10 +83,12 @@ export default function createResource(identityProvider, resourceInfo, parent) {
        * Allow for sub resources
        */
       if (
-        resourceInfo.sub_resources &&
-        Object.keys(resourceInfo.sub_resources).length > 0
+        resourceDescription.sub_resources &&
+        Object.keys(resourceDescription.sub_resources).length > 0
       ) {
-        applyDecorators(withResources(resourceInfo.sub_resources, this))(this)
+        applyDecorators(withResources(resourceDescription.sub_resources, this))(
+          this
+        )
       }
 
       /**
@@ -102,50 +103,18 @@ export default function createResource(identityProvider, resourceInfo, parent) {
     include(...includes) {
       __data.include = [...__data.include, ...includes].map(String)
 
-      if (
-        __data.include.some(
-          include => !resourceInfo.allowed_includes.includes(include)
-        )
-      ) {
-        if (resourceInfo.allowed_includes.length === 0) {
-          throw createResourceError(
-            `You tried to call \`.include(${__data.include
-              .map(item => `"${item}"`)
-              .join(', ')})\` but there are no includes defined for ${
-              resourceInfo.resource
-            }.`,
-            ERROR_RESOURCE,
-            ERROR_RESOURCE_INVALID_INCLUDE
-          )
-        } else {
-          throw createResourceError(
-            `You tried to call \`.include(${__data.include
-              .map(item => `"${item}"`)
-              .join(', ')})\` but the only valid includes for ${
-              resourceInfo.resource
-            } are ${joinAsSpeech(
-              AND,
-              resourceInfo.allowed_includes.map(item => `\`${item}\``)
-            )}.`,
-            ERROR_RESOURCE,
-            ERROR_RESOURCE_INVALID_INCLUDE
-          )
-        }
-      }
+      validateIncludes({ resourceDescription, __data })
 
       return this
     }
 
     filter(callback) {
-      if (!isFunction(callback)) {
-        throw createResourceError(
-          `\`.filter()\` expects a callback, but is given \`.filter(${callback})\``,
-          ERROR_RESOURCE,
-          ERROR_RESOURCE_INVALID_FILTER
-        )
-      }
+      validateFilterCallback({ callback, __data })
 
-      const filterable = resourceInfo.filters.reduce(
+      /**
+       * Create an object with each "filterable" value as a function
+       */
+      const filterable = resourceDescription.filters.reduce(
         (item, filter) =>
           Object.assign(item, {
             [filter](params) {
@@ -160,32 +129,17 @@ export default function createResource(identityProvider, resourceInfo, parent) {
         {}
       )
 
-      try {
+      validateFilterCallbackExecution({ resourceDescription }, () => {
         callback(filterable)
-      } catch (err) {
-        throw createResourceError(
-          `${err.message}. You can only call ${joinAsSpeech(
-            OR,
-            resourceInfo.filters.map(filter => `\`.${filter}()\``)
-          )}.`,
-          ERROR_RESOURCE,
-          ERROR_RESOURCE_INVALID_FILTER
-        )
-      }
+      })
 
       return this
     }
 
-    addResponseInterceptor(cb) {
-      if (!isFunction(cb)) {
-        throw createResourceError(
-          `You tried to call \`.addResponseInterceptor(${cb})\` but it must receive a function.`,
-          ERROR_RESOURCE,
-          ERROR_RESOURCE_INVALID_RESPONSE_INTERCEPTOR
-        )
-      }
+    addResponseInterceptor(callback) {
+      validateAddResponseInterceptorCallback({ callback })
 
-      responseInterceptors.push(cb)
+      responseInterceptors.push(callback)
 
       return this
     }
@@ -211,7 +165,7 @@ export default function createResource(identityProvider, resourceInfo, parent) {
     __meta: {
       enumerable: false,
       get() {
-        return Object.assign(resourceInfo, {
+        return Object.assign(resourceDescription, {
           parent,
           identityProvider,
           __data,

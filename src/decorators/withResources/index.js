@@ -3,9 +3,8 @@ import * as rootResources from '../../resources'
 import createResource from './createResource'
 import {
   validateIncludeAlreadyCalled,
-  validateInvalidParentId,
-  validateMultipleResultsFound,
-  validateNoResultsFound,
+  validateParentId,
+  validateResponseFromExternalIdentifier,
 } from './invariants'
 
 export function withResources(resources = rootResources, parent = undefined) {
@@ -18,7 +17,7 @@ export function withResources(resources = rootResources, parent = undefined) {
          * If we have a parent, we are a "sub resource".
          */
         if (parent) {
-          validateInvalidParentId({ parent, key, identifier })
+          validateParentId({ parent, key, identifier })
           validateIncludeAlreadyCalled({ parent, key, identifier })
         }
 
@@ -34,37 +33,31 @@ export function withResources(resources = rootResources, parent = undefined) {
           /**
            * Create the resource object and immediately start filtering.
            */
-          return (
-            createResource(
-              instance.__meta.identityProvider,
-              Object.assign({}, resource, {
-                identifier: undefined,
-                name: key,
-              }),
-              parent
-            )
-              .filter(item =>
-                item[
-                  {
-                    external: 'external_id',
-                  }[externalIdentifierType]
-                ](externalIdentifierValue)
-              )
-              // eslint-disable-next-line consistent-return
-              .addResponseInterceptor(response => {
-                /**
-                 * Return the first result if there is only 1 result
-                 */
-                if (response.data && response.data.length === 1) {
-                  return Object.assign({}, response, {
-                    data: response.data[0],
-                  })
-                }
-
-                validateMultipleResultsFound({ response })
-                validateNoResultsFound({ response })
-              })
+          return createResource(
+            instance.__meta.identityProvider,
+            Object.assign({}, resource, {
+              identifier: undefined,
+              name: key,
+            }),
+            parent
           )
+            .filter(item =>
+              item[
+                {
+                  external: 'external_id',
+                }[externalIdentifierType]
+              ](externalIdentifierValue)
+            )
+            .addResponseInterceptor(response => {
+              validateResponseFromExternalIdentifier({ response })
+
+              /**
+               * Return the first result
+               */
+              return Object.assign({}, response, {
+                data: response.data[0],
+              })
+            })
         }
 
         /**
