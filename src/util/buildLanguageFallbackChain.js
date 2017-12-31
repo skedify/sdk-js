@@ -1,5 +1,5 @@
 function buildChain(language, chain = [language]) {
-  if (language.indexOf('-') === -1) {
+  if (!language.includes('-')) {
     return chain
   }
 
