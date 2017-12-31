@@ -1,7 +1,7 @@
 /* eslint-disable max-nested-callbacks */
 import moxios from 'moxios'
 
-import network from '../util/network'
+import network from '../../util/network'
 
 import Client from './Client'
 

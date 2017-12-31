@@ -1,15 +1,15 @@
-import network from '../util/network'
+import network from '../../util/network'
 
-import pick from '../util/pick'
-import retry from '../util/retry'
+import pick from '../../util/pick'
+import retry from '../../util/retry'
 
-import createError from '../util/createError'
+import createError from '../../util/createError'
 
 import {
   MISCONFIGURED,
   MISCONFIGURED_CLIENT_ID,
   MISCONFIGURED_REALM,
-} from '../constants'
+} from '../../constants'
 
 const MAX_ATTEMPTS = 3
 const REFETCH_WINDOW = 20

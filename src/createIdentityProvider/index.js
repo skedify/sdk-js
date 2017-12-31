@@ -2,7 +2,7 @@ import createError from '../util/createError'
 import { MISCONFIGURED, MISCONFIGURED_AUTH_PROVIDER } from '../constants'
 import joinAsSpeech, { AND } from '../util/joinAsSpeech'
 
-import Client from './Client'
+import Client from './identityProviders/Client'
 import parse from './parseIdentityProviderString'
 
 const IDPS = {
