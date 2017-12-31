@@ -37,7 +37,7 @@ export default function createResource(
   resourceDescription,
   parent
 ) {
-  const __data = {
+  const requestConfig = {
     method: resourceDescription.method,
     data: resourceDescription.data,
     include: [],
@@ -72,7 +72,7 @@ export default function createResource(
             Authorization,
           },
         },
-        __data
+        requestConfig
       )
     )
   }
@@ -101,15 +101,17 @@ export default function createResource(
     }
 
     include(...includes) {
-      __data.include = [...__data.include, ...includes].map(String)
+      requestConfig.include = [...requestConfig.include, ...includes].map(
+        String
+      )
 
-      validateIncludes({ resourceDescription, __data })
+      validateIncludes({ resourceDescription, requestConfig })
 
       return this
     }
 
     filter(callback) {
-      validateFilterCallback({ callback, __data })
+      validateFilterCallback({ callback })
 
       /**
        * Create an object with each "filterable" value as a function
@@ -118,9 +120,9 @@ export default function createResource(
         (item, filter) =>
           Object.assign(item, {
             [filter](params) {
-              __data.filters = Object.assign({}, __data.filters, {
-                [filter]: Array.isArray(__data.filters[filter])
-                  ? [...__data.filters[filter], ...params]
+              requestConfig.filters = Object.assign({}, requestConfig.filters, {
+                [filter]: Array.isArray(requestConfig.filters[filter])
+                  ? [...requestConfig.filters[filter], ...params]
                   : params !== undefined ? params : true, // Convert undefined to true
               })
               return filterable
@@ -168,7 +170,7 @@ export default function createResource(
         return Object.assign(resourceDescription, {
           parent,
           identityProvider,
-          __data,
+          requestConfig,
         })
       },
     },

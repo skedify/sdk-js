@@ -20,12 +20,12 @@ import {
 /**
  * Error when trying to use subresources but the parent has no `id`.
  */
-export function validateParentId({ parent, key, identifier }) {
+export function validateParentId({ parent, name, identifier }) {
   if (parent.__meta.identifier === undefined) {
     throw createResourceError(
       `You tried to call \`.${
         parent.__meta.name
-      }(/* MISSING IDENTIFIER */).${key}(${
+      }(/* MISSING IDENTIFIER */).${name}(${
         identifier === undefined ? '' : JSON.stringify(identifier)
       })\` but the parent id is missing.`,
       ERROR_RESOURCE,
@@ -37,17 +37,17 @@ export function validateParentId({ parent, key, identifier }) {
 /**
  * Error when parent has includes defined already.
  */
-export function validateIncludeAlreadyCalled({ parent, key, identifier }) {
+export function validateIncludeAlreadyCalled({ parent, name, identifier }) {
   if (
-    Array.isArray(parent.__meta.__data.include) &&
-    parent.__meta.__data.include.length > 0
+    Array.isArray(parent.__meta.requestConfig.include) &&
+    parent.__meta.requestConfig.include.length > 0
   ) {
     throw createResourceError(
-      `You tried to call \`.${key}(${
+      `You tried to call \`.${name}(${
         identifier === undefined ? '' : JSON.stringify(identifier)
       })\` as a sub resource on \`.${parent.__meta.name}(${JSON.stringify(
         parent.__meta.identifier
-      )})\`, but \`.include(${parent.__meta.__data.include
+      )})\`, but \`.include(${parent.__meta.requestConfig.include
         .map(item => `"${item}"`)
         .join(
           ', '
@@ -88,15 +88,15 @@ export function validateResponseFromExternalIdentifier({ response }) {
 /**
  * Error when the resource includes "includes" that are not recognized for the current resource
  */
-export function validateIncludes({ resourceDescription, __data }) {
+export function validateIncludes({ resourceDescription, requestConfig }) {
   if (
-    __data.include.some(
+    requestConfig.include.some(
       include => !resourceDescription.allowed_includes.includes(include)
     )
   ) {
     if (resourceDescription.allowed_includes.length === 0) {
       throw createResourceError(
-        `You tried to call \`.include(${__data.include
+        `You tried to call \`.include(${requestConfig.include
           .map(item => `"${item}"`)
           .join(', ')})\` but there are no includes defined for ${
           resourceDescription.resource
@@ -106,7 +106,7 @@ export function validateIncludes({ resourceDescription, __data }) {
       )
     } else {
       throw createResourceError(
-        `You tried to call \`.include(${__data.include
+        `You tried to call \`.include(${requestConfig.include
           .map(item => `"${item}"`)
           .join(', ')})\` but the only valid includes for ${
           resourceDescription.resource
@@ -131,7 +131,7 @@ export function validateAddResponseInterceptorCallback({ callback }) {
   }
 }
 
-export function validateFilterCallback({ callback, __data }) {
+export function validateFilterCallback({ callback }) {
   if (!isFunction(callback)) {
     throw createResourceError(
       `\`.filter()\` expects a callback, but is given \`.filter(${callback})\``,
