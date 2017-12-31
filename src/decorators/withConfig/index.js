@@ -6,17 +6,13 @@ import isFunction from '../../util/isFunction'
 export function withConfig(initialConfig) {
   let _configuration = validate(initialConfig)
 
-  function configure(config) {
-    _configuration = validate(Object.assign({}, _configuration, config))
-  }
-
   const configurationChangeListeners = []
 
   return instance => {
     Object.defineProperties(instance, {
       configure: {
         value(config) {
-          configure(config)
+          _configuration = validate(Object.assign({}, _configuration, config))
 
           configurationChangeListeners.forEach(listener =>
             listener(_configuration)
