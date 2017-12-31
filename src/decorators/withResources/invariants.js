@@ -1,4 +1,7 @@
-import createError from '../../util/createError'
+import {
+  createResourceError,
+  createResponseError,
+} from '../../util/createError'
 
 import {
   ERROR_RESOURCE,
@@ -14,7 +17,7 @@ import {
  */
 export function validateInvalidParentId({ parent, key, identifier }) {
   if (parent.__meta.identifier === undefined) {
-    throw createError(
+    throw createResourceError(
       `You tried to call \`.${
         parent.__meta.name
       }(/* MISSING IDENTIFIER */).${key}(${
@@ -34,7 +37,7 @@ export function validateIncludeAlreadyCalled({ parent, key, identifier }) {
     Array.isArray(parent.__meta.__data.include) &&
     parent.__meta.__data.include.length > 0
   ) {
-    throw createError(
+    throw createResourceError(
       `You tried to call \`.${key}(${
         identifier === undefined ? '' : JSON.stringify(identifier)
       })\` as a sub resource on \`.${parent.__meta.name}(${JSON.stringify(
@@ -56,7 +59,7 @@ export function validateIncludeAlreadyCalled({ parent, key, identifier }) {
 export function validateMultipleResultsFound({ response }) {
   if (response.data && response.data.length > 1) {
     throw Object.assign(
-      createError(
+      createResponseError(
         'Multiple results found',
         ERROR_RESPONSE,
         ERROR_RESPONSE_MULTIPLE_RESULTS_FOUND
@@ -71,7 +74,7 @@ export function validateMultipleResultsFound({ response }) {
  */
 export function validateNoResultsFound({ response }) {
   throw Object.assign(
-    createError(
+    createResponseError(
       'No results found',
       ERROR_RESPONSE,
       ERROR_RESPONSE_NO_RESULTS_FOUND

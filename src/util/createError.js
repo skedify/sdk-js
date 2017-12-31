@@ -1,4 +1,4 @@
-export default function createError(message, type, subtype) {
+function createError(message, type, subtype) {
   const error = new Error(message)
 
   // If we want we can do something with the errors in here?
@@ -13,3 +13,21 @@ export default function createError(message, type, subtype) {
     stack: `Error: ${message}\n\tat <SkedifyInternals>`,
   })
 }
+
+export default Object.assign(createError, {
+  withNamespace(namespace) {
+    return (message, ...args) =>
+      createError(`[${namespace.toUpperCase()}]: ${message}`, ...args)
+  },
+})
+
+/**
+ * Shorthands
+ */
+export const createConfigError = createError.withNamespace('config')
+export const createIdentityProviderError = createError.withNamespace(
+  'identity provider'
+)
+export const createResourceError = createError.withNamespace('resource')
+export const createResponseError = createError.withNamespace('response')
+export const createRetryError = createError.withNamespace('retry')

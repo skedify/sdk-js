@@ -4,7 +4,7 @@ import network from '../../util/network'
 
 import { withResources } from '.'
 import { applyDecorators } from '..'
-import createError from '../../util/createError'
+import { createResourceError } from '../../util/createError'
 import isFunction from '../../util/isFunction'
 import normalizeResponse from './normalizeResponse'
 
@@ -108,7 +108,7 @@ export default function createResource(identityProvider, resourceInfo, parent) {
         )
       ) {
         if (resourceInfo.allowed_includes.length === 0) {
-          throw createError(
+          throw createResourceError(
             `You tried to call \`.include(${__data.include
               .map(item => `"${item}"`)
               .join(', ')})\` but there are no includes defined for ${
@@ -118,7 +118,7 @@ export default function createResource(identityProvider, resourceInfo, parent) {
             ERROR_RESOURCE_INVALID_INCLUDE
           )
         } else {
-          throw createError(
+          throw createResourceError(
             `You tried to call \`.include(${__data.include
               .map(item => `"${item}"`)
               .join(', ')})\` but the only valid includes for ${
@@ -138,7 +138,7 @@ export default function createResource(identityProvider, resourceInfo, parent) {
 
     filter(callback) {
       if (!isFunction(callback)) {
-        throw createError(
+        throw createResourceError(
           `\`.filter()\` expects a callback, but is given \`.filter(${callback})\``,
           ERROR_RESOURCE,
           ERROR_RESOURCE_INVALID_FILTER
@@ -163,7 +163,7 @@ export default function createResource(identityProvider, resourceInfo, parent) {
       try {
         callback(filterable)
       } catch (err) {
-        throw createError(
+        throw createResourceError(
           `${err.message}. You can only call ${joinAsSpeech(
             OR,
             resourceInfo.filters.map(filter => `\`.${filter}()\``)
@@ -178,7 +178,7 @@ export default function createResource(identityProvider, resourceInfo, parent) {
 
     addResponseInterceptor(cb) {
       if (!isFunction(cb)) {
-        throw createError(
+        throw createResourceError(
           `You tried to call \`.addResponseInterceptor(${cb})\` but it must receive a function.`,
           ERROR_RESOURCE,
           ERROR_RESOURCE_INVALID_RESPONSE_INTERCEPTOR

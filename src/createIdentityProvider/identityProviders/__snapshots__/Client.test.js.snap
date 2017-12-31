@@ -13,8 +13,8 @@ Object {
 }
 `;
 
-exports[`Identity Provider # Client should error when client_id is not given 1`] = `"client_id is a required option for \`Client\`"`;
+exports[`Identity Provider # Client should error when client_id is not given 1`] = `"[IDENTITY PROVIDER]: client_id is a required option for \`Client\`"`;
 
-exports[`Identity Provider # Client should error when no options are given 1`] = `"client_id is a required option for \`Client\`"`;
+exports[`Identity Provider # Client should error when no options are given 1`] = `"[IDENTITY PROVIDER]: client_id is a required option for \`Client\`"`;
 
-exports[`Identity Provider # Client should error when realm is not given 1`] = `"realm is a required option for \`Client\`"`;
+exports[`Identity Provider # Client should error when realm is not given 1`] = `"[IDENTITY PROVIDER]: realm is a required option for \`Client\`"`;

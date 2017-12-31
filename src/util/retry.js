@@ -1,5 +1,5 @@
 import isFunction from './isFunction'
-import createError from './createError'
+import { createRetryError } from './createError'
 
 import { ERROR_RETRY, ERROR_RETRY_MAX_ATTEMPTS_REACHED } from '../constants'
 
@@ -17,7 +17,7 @@ export default function retry(
 ) {
   if (max_attempts === 0) {
     return Promise.reject(
-      createError(
+      createRetryError(
         'Max retry attempts reached.',
         ERROR_RETRY,
         ERROR_RETRY_MAX_ATTEMPTS_REACHED

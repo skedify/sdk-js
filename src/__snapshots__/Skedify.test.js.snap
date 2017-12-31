@@ -264,11 +264,11 @@ Object {
 }
 `;
 
-exports[`API API/Resources should throw an error when a subresource is used but no id is provided 1`] = `"You tried to call \`.subjects(/* MISSING IDENTIFIER */).questions()\` but the parent id is missing."`;
+exports[`API API/Resources should throw an error when a subresource is used but no id is provided 1`] = `"[RESOURCE]: You tried to call \`.subjects(/* MISSING IDENTIFIER */).questions()\` but the parent id is missing."`;
 
-exports[`API API/Resources should throw an error when a subresource with id is used but no parent id is provided 1`] = `"You tried to call \`.subjects(/* MISSING IDENTIFIER */).questions(123)\` but the parent id is missing."`;
+exports[`API API/Resources should throw an error when a subresource with id is used but no parent id is provided 1`] = `"[RESOURCE]: You tried to call \`.subjects(/* MISSING IDENTIFIER */).questions(123)\` but the parent id is missing."`;
 
-exports[`API API/Resources should throw an error when an external://abc123 call returns multiple records 1`] = `[Error: Multiple results found]`;
+exports[`API API/Resources should throw an error when an external://abc123 call returns multiple records 1`] = `[Error: [RESPONSE]: Multiple results found]`;
 
 exports[`API API/Resources should throw an error when an external://abc123 call returns multiple records 2`] = `
 Array [
@@ -283,25 +283,25 @@ Array [
 ]
 `;
 
-exports[`API API/Resources should throw an error when an external://abc123 call returns no records 1`] = `[Error: No results found]`;
+exports[`API API/Resources should throw an error when an external://abc123 call returns no records 1`] = `[Error: [RESPONSE]: No results found]`;
 
 exports[`API API/Resources should throw an error when an external://abc123 call returns no records 2`] = `Array []`;
 
-exports[`API API/Resources should throw an error when calling a non existing filter function 1`] = `"item.nonExistingMethod is not a function. You can only call \`.category_id()\`, \`.external_id()\`, \`.schedulable_at_office()\`, \`.schedulable_with_contact()\` or \`.schedulable()\`."`;
+exports[`API API/Resources should throw an error when calling a non existing filter function 1`] = `"[RESOURCE]: item.nonExistingMethod is not a function. You can only call \`.category_id()\`, \`.external_id()\`, \`.schedulable_at_office()\`, \`.schedulable_with_contact()\` or \`.schedulable()\`."`;
 
-exports[`API API/Resources should throw an error when filter did not receive a callback 1`] = `"\`.filter()\` expects a callback, but is given \`.filter(undefined)\`"`;
+exports[`API API/Resources should throw an error when filter did not receive a callback 1`] = `"[RESOURCE]: \`.filter()\` expects a callback, but is given \`.filter(undefined)\`"`;
 
-exports[`API API/Resources should throw an error when include is used before the subresource is used 1`] = `"You tried to call \`.questions()\` as a sub resource on \`.subjects(1)\`, but \`.include(\\"subject_category\\")\` was already called and you can not call \`.include()\` before calling a sub resource."`;
+exports[`API API/Resources should throw an error when include is used before the subresource is used 1`] = `"[RESOURCE]: You tried to call \`.questions()\` as a sub resource on \`.subjects(1)\`, but \`.include(\\"subject_category\\")\` was already called and you can not call \`.include()\` before calling a sub resource."`;
 
-exports[`API API/Resources should throw an error when include is used before the subresource is used 2`] = `"You tried to call \`.questions(123)\` as a sub resource on \`.subjects(1)\`, but \`.include(\\"subject_category\\")\` was already called and you can not call \`.include()\` before calling a sub resource."`;
+exports[`API API/Resources should throw an error when include is used before the subresource is used 2`] = `"[RESOURCE]: You tried to call \`.questions(123)\` as a sub resource on \`.subjects(1)\`, but \`.include(\\"subject_category\\")\` was already called and you can not call \`.include()\` before calling a sub resource."`;
 
-exports[`API API/Resources should throw an error when including a value but there are no includes defined on the resource 1`] = `"You tried to call \`.include(\\"invalid\\")\` but there are no includes defined for timetable."`;
+exports[`API API/Resources should throw an error when including a value but there are no includes defined on the resource 1`] = `"[RESOURCE]: You tried to call \`.include(\\"invalid\\")\` but there are no includes defined for timetable."`;
 
-exports[`API API/Resources should throw an error when including a value that is not defined on the resource 1`] = `"You tried to call \`.include(\\"invalid\\")\` but the only valid includes for subjects are \`questions\`, \`subject_category\`, \`languages\` and \`languages.translations\`."`;
+exports[`API API/Resources should throw an error when including a value that is not defined on the resource 1`] = `"[RESOURCE]: You tried to call \`.include(\\"invalid\\")\` but the only valid includes for subjects are \`questions\`, \`subject_category\`, \`languages\` and \`languages.translations\`."`;
 
-exports[`API API/Resources should throw an error when no values are passed for the timetable shorthand 1`] = `"You tried to call .timetable({}) but \`subject\`, \`office\`, \`start\` and \`end\` are required."`;
+exports[`API API/Resources should throw an error when no values are passed for the timetable shorthand 1`] = `"[RESOURCE]: You tried to call .timetable({}) but \`subject\`, \`office\`, \`start\` and \`end\` are required."`;
 
-exports[`API API/Resources should throw an error when required props are missing from a shorthand call (timetable) 1`] = `"You tried to call .timetable({\\"subject\\":316,\\"end\\":\\"2017-12-26\\"}) but \`office\` and \`start\` are also required."`;
+exports[`API API/Resources should throw an error when required props are missing from a shorthand call (timetable) 1`] = `"[RESOURCE]: You tried to call .timetable({\\"subject\\":316,\\"end\\":\\"2017-12-26\\"}) but \`office\` and \`start\` are also required."`;
 
 exports[`API should expose all available includes on the Skedify.API instance 1`] = `
 Object {
@@ -448,10 +448,10 @@ Object {
 }
 `;
 
-exports[`API should throw an error when an interceptor is added but it is not a function 1`] = `"You tried to call \`.addResponseInterceptor(null)\` but it must receive a function."`;
+exports[`API should throw an error when an interceptor is added but it is not a function 1`] = `"[RESOURCE]: You tried to call \`.addResponseInterceptor(null)\` but it must receive a function."`;
 
-exports[`API/Config should throw an error when onConfigurationChange is not passed a function 1`] = `"You tried to call \`.onConfigurationChange(null)\` but it must receive a function."`;
+exports[`API/Config should throw an error when onConfigurationChange is not passed a function 1`] = `"[CONFIG]: You tried to call \`.onConfigurationChange(null)\` but it must receive a function."`;
 
 exports[`API/Config should throw an error when overriding items on the configuration object directly 1`] = `"Cannot assign to read only property 'locale' of object '#<Object>'"`;
 
-exports[`API/Config should throw an error when overriding the whole config object 1`] = `"You are not allowed to change the configuration object directly. Please use \`.configure({})\` instead."`;
+exports[`API/Config should throw an error when overriding the whole config object 1`] = `"[CONFIG]: You are not allowed to change the configuration object directly. Please use \`.configure({})\` instead."`;

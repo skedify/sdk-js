@@ -1,4 +1,4 @@
-import createError from '../../util/createError'
+import { createResourceError } from '../../util/createError'
 import {
   ERROR_RESOURCE,
   ERROR_RESOURCE_MISSING_ARGUMENT,
@@ -15,7 +15,7 @@ export default function assert(call, given, required = Object.keys(given)) {
     .reduce((res, key) => Object.assign(res, { [key]: given[key] }), {})
 
   if (missing.length > 0) {
-    throw createError(
+    throw createResourceError(
       `You tried to call .${call}(${JSON.stringify(
         actualGiven
       )}) but ${joinAsSpeech(AND, missing)} ${

@@ -1,6 +1,6 @@
 import validate from './validate'
 
-import createError from '../../util/createError'
+import { createConfigError } from '../../util/createError'
 import isFunction from '../../util/isFunction'
 
 export function withConfig(initialConfig) {
@@ -29,7 +29,7 @@ export function withConfig(initialConfig) {
           return Object.freeze(_configuration)
         },
         set() {
-          throw createError(
+          throw createConfigError(
             'You are not allowed to change the configuration object directly. Please use `.configure({})` instead.'
           )
         },
@@ -38,7 +38,7 @@ export function withConfig(initialConfig) {
       onConfigurationChange: {
         value(cb) {
           if (!isFunction(cb)) {
-            throw createError(
+            throw createConfigError(
               `You tried to call \`.onConfigurationChange(${cb})\` but it must receive a function.`
             )
           }

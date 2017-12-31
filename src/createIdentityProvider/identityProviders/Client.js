@@ -3,7 +3,7 @@ import network from '../../util/network'
 import pick from '../../util/pick'
 import retry from '../../util/retry'
 
-import createError from '../../util/createError'
+import { createIdentityProviderError } from '../../util/createError'
 
 import {
   MISCONFIGURED,
@@ -20,7 +20,7 @@ export default class Client {
     this._options = pick(options, 'client_id', 'realm')
 
     if (!this._options.client_id) {
-      throw createError(
+      throw createIdentityProviderError(
         'client_id is a required option for `Client`',
         MISCONFIGURED,
         MISCONFIGURED_CLIENT_ID
@@ -28,7 +28,7 @@ export default class Client {
     }
 
     if (!this._options.realm) {
-      throw createError(
+      throw createIdentityProviderError(
         'realm is a required option for `Client`',
         MISCONFIGURED,
         MISCONFIGURED_REALM

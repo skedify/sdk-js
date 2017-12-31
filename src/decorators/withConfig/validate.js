@@ -1,4 +1,4 @@
-import createError from '../../util/createError'
+import { createConfigError } from '../../util/createError'
 
 import {
   MISCONFIGURED,
@@ -8,15 +8,15 @@ import {
 
 export default function validate(config = {}) {
   if (!(config instanceof Object)) {
-    throw createError(
-      `[CONFIG]: expected object but received '${config}'`,
+    throw createConfigError(
+      `expected object but received '${config}'`,
       MISCONFIGURED
     )
   }
 
   if (!config.hasOwnProperty('locale') || config.locale === undefined) {
-    throw createError(
-      '[CONFIG]: locale must be configured.',
+    throw createConfigError(
+      'locale must be configured.',
       MISCONFIGURED,
       MISCONFIGURED_LOCALE
     )
@@ -26,8 +26,8 @@ export default function validate(config = {}) {
     !config.hasOwnProperty('auth_provider') ||
     config.auth_provider === undefined
   ) {
-    throw createError(
-      '[CONFIG]: auth_provider must be configured.',
+    throw createConfigError(
+      'auth_provider must be configured.',
       MISCONFIGURED,
       MISCONFIGURED_AUTH_PROVIDER
     )

@@ -38,4 +38,14 @@ describe('createError', () => {
     expect(error.type).toEqual('MISCONFIGURED')
     expect(error.subtype).toEqual('MISCONFIGURED_CLIENT_ID')
   })
+
+  it('should be possible to create an error with a namespace', () => {
+    const createNamespacedError = createError.withNamespace('Namespace')
+    const error = createNamespacedError('Some Error')
+
+    expect(error).toBeInstanceOf(Error)
+    expect(error.message).toEqual('[NAMESPACE]: Some Error')
+
+    expect(error.internal_stack).toBeDefined()
+  })
 })
