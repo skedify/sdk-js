@@ -66,6 +66,21 @@ Object {
 }
 `;
 
+exports[`API API/Resources should be possible to create an entity 1`] = `
+Object {
+  "data": "{\\"subject_id\\":123,\\"office_id\\":456,\\"meeting_type\\":\\"office\\",\\"answers\\":[],\\"initiated_by_type\\":\\"customer\\",\\"customer\\":{},\\"possibilities\\":[]}",
+  "headers": Object {
+    "Accept": "application/json, text/plain, */*",
+    "Accept-Language": "nl-BE, nl;q=0.5",
+    "Authorization": "Bearer rMOUIcH85oh44KD7RM4XRk7jFPiG8RMLi2IPqFsQ",
+    "Content-Type": "application/json;charset=utf-8",
+  },
+  "method": "post",
+  "params": undefined,
+  "url": "https://api.example.com/appointments",
+}
+`;
+
 exports[`API API/Resources should be possible to make subsequent calls to include to add multiple includes 1`] = `
 Object {
   "data": undefined,

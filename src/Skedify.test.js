@@ -538,5 +538,23 @@ describe('API', () => {
         expect(error.response.data).toMatchSnapshot()
       })
     })
+
+    it('should be possible to create an entity', async () => {
+      expect(
+        await matchRequest(
+          SDK.appointments
+            .new({
+              subject_id: 123,
+              office_id: 456,
+              meeting_type: 'office',
+              answers: [],
+              initiated_by_type: 'customer',
+              customer: {},
+              possibilities: [],
+            })
+            .then(appointment => appointment.create())
+        )
+      ).toMatchSnapshot()
+    })
   })
 })

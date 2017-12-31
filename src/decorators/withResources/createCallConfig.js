@@ -2,7 +2,7 @@ import stringifyQueryParamValues from './stringifyQueryParamValues'
 
 export default function createCallConfig(
   defaultConfig,
-  { include, filters, method }
+  { include, filters, method, data }
 ) {
   const config = Object.assign({ method }, defaultConfig)
 
@@ -26,6 +26,13 @@ export default function createCallConfig(
    * Setup params and stringify each value
    */
   config.params = stringifyQueryParamValues(config.params)
+
+  /**
+   * Setup post data
+   */
+  if (data !== undefined) {
+    config.data = data
+  }
 
   /**
    * Return the config

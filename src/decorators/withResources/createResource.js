@@ -39,7 +39,8 @@ function createParentURL(parent) {
 
 export default function createResource(identityProvider, resourceInfo, parent) {
   const __data = {
-    method: 'get',
+    method: resourceInfo.method || 'get',
+    data: resourceInfo.data || undefined,
     include: [],
     filters: {},
     headers: {},
