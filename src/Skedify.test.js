@@ -416,6 +416,16 @@ describe('API', () => {
       ).toMatchSnapshot()
     })
 
+    it('should filter out undefined values when using filters', async () => {
+      expect(
+        await matchRequest(
+          SDK.subjects(1).filter(item =>
+            item.schedulable_with_contact(['1', undefined, '2'])
+          )
+        )
+      ).toMatchSnapshot()
+    })
+
     it('should throw an error when filter did not receive a callback', () => {
       expect(() => SDK.subjects(1).filter()).toThrowErrorMatchingSnapshot()
     })
