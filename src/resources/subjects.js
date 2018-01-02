@@ -22,7 +22,6 @@ export const subjects = createResourceDescription(
       'questions',
       {
         includes: ['options', 'languages', 'languages.translations'],
-        filters: ['category'],
       },
       {
         languages: createResourceDescription('languages'),

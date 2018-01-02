@@ -139,9 +139,7 @@ Object {
           "languages",
           "languages.translations",
         ],
-        "filters": Array [
-          "category",
-        ],
+        "filters": Array [],
         "resource": "questions",
         "sub_resources": Object {
           "languages": Object {
