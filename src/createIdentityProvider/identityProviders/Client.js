@@ -1,6 +1,5 @@
 import network from '../../util/network'
 
-import pick from '../../util/pick'
 import retry from '../../util/retry'
 
 import { createIdentityProviderError } from '../../util/createError'
@@ -16,10 +15,10 @@ const REFETCH_WINDOW = 20
 const S_TO_MS = 1000
 
 export default class Client {
-  constructor(options = {}) {
-    this._options = pick(options, 'client_id', 'realm')
+  constructor({ client_id, realm } = {}) {
+    this._options = { client_id, realm }
 
-    if (!this._options.client_id) {
+    if (!client_id) {
       throw createIdentityProviderError(
         'client_id is a required option for `Client`',
         MISCONFIGURED,
@@ -27,7 +26,7 @@ export default class Client {
       )
     }
 
-    if (!this._options.realm) {
+    if (!realm) {
       throw createIdentityProviderError(
         'realm is a required option for `Client`',
         MISCONFIGURED,
@@ -37,13 +36,15 @@ export default class Client {
   }
 
   getAuthorization(force = false) {
+    const { client_id, realm } = this._options
+
     if (this._current === undefined || force) {
       this._current = retry(
         (resolve, reject) => {
           network
-            .post(`${this._options.realm}/access_tokens`, {
+            .post(`${realm}/access_tokens`, {
               grant_type: 'public_client',
-              client_id: this._options.client_id,
+              client_id: client_id,
             })
             .then(resolve, reject)
         },
@@ -54,7 +55,7 @@ export default class Client {
         .then(({ data }) => ({
           Authorization: `${data.token_type} ${data.access_token}`,
           Expiration: data.expires_in,
-          Realm: this._options.realm,
+          Realm: realm,
         }))
         .then(({ Realm, Authorization, Expiration }) =>
           network
