@@ -1,8 +1,10 @@
 import stringifyQueryParamValues from './stringifyQueryParamValues'
 
+import { HTTP_VERB_GET } from '../../constants'
+
 export default function createCallConfig(
   defaultConfig,
-  { include, filters, method = 'get', data }
+  { include, filters, method = HTTP_VERB_GET, data }
 ) {
   const config = Object.assign({ method, data }, defaultConfig)
 
