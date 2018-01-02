@@ -15,8 +15,6 @@ export function withResources(resources = rootResources, parent = undefined) {
        */
       Object.defineProperty(instance, name, {
         enumerable: true,
-        configurable: false,
-        writable: false,
         value: Object.assign(
           identifier => {
             /**

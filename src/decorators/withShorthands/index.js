@@ -9,8 +9,6 @@ export function withShorthands() {
           Object.assign(descriptor, {
             [key]: {
               enumerable: true,
-              configurable: false,
-              writable: false,
               value: shorthands[key](instance),
             },
           }),
