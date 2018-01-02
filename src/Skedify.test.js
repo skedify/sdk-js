@@ -47,6 +47,23 @@ describe('API/Config', () => {
     expect(() => new Skedify.API({ auth_provider })).toThrow()
   })
 
+  it('should throw an error when the locale is wrongly formatted', () => {
+    const invalids = [
+      'NL', // Because it needs to be lowercase.
+      'nl-be', // Because the "be" needs to be uppercase.
+      'nl-BE+VWV', // Because + is not allowed.
+      'nl-BE-', // There can not be a lost dash on the end.
+      'nl-BE-VWVX', // Because maximum 3 characters in the last place are allowed.
+      'nl-BE-vwv', // The last branch should be uppercase as well.
+    ]
+
+    invalids.forEach(locale => {
+      expect(() => new Skedify.API({ locale, auth_provider })).toThrowError(
+        '[CONFIG]: locale is not valid.'
+      )
+    })
+  })
+
   it('should be possible to read the config', () => {
     const config = {
       auth_provider,
