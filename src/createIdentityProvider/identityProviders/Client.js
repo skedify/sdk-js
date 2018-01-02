@@ -12,7 +12,10 @@ import {
 
 const MAX_ATTEMPTS = 3
 const REFETCH_WINDOW = 20
-const S_TO_MS = 1000
+
+function secondsToMilliseconds(seconds) {
+  return seconds * 1000
+}
 
 export default class Client {
   constructor({ client_id, realm } = {}) {
@@ -71,7 +74,7 @@ export default class Client {
         .then(access => {
           setTimeout(
             this.getAuthorization.bind(this, true),
-            (access.Expiration - REFETCH_WINDOW) * S_TO_MS
+            secondsToMilliseconds(access.Expiration - REFETCH_WINDOW)
           )
           return access
         })
