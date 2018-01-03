@@ -1,0 +1,172 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`resources should define all the resources 1`] = `
+Object {
+  "appointments": Object {
+    "allowed_includes": Array [
+      "subject",
+      "subject.subject_category",
+      "office",
+      "customer",
+      "contact",
+      "contact.employee",
+      "contact.user",
+      "possibilities",
+      "possibilities.created_by",
+      "accepted_possibility",
+      "answers",
+      "initiated_by",
+    ],
+    "filters": Array [
+      "state",
+      "start",
+      "end",
+    ],
+    "resource": "appointments",
+    "sub_resources": Object {
+      "answers": Object {
+        "allowed_includes": Array [
+          "question",
+        ],
+        "filters": Array [],
+        "resource": "answers",
+        "sub_resources": Object {},
+      },
+      "possibilities": Object {
+        "allowed_includes": Array [],
+        "filters": Array [],
+        "resource": "possibilities",
+        "sub_resources": Object {},
+      },
+    },
+  },
+  "contacts": Object {
+    "allowed_includes": Array [
+      "user",
+      "offices",
+      "offices.subject_settings",
+      "subjects",
+      "subjects.subject_category",
+      "appointments",
+    ],
+    "filters": Array [
+      "offices",
+      "schedulable",
+    ],
+    "resource": "contacts",
+    "sub_resources": Object {},
+  },
+  "customers": Object {
+    "allowed_includes": Array [],
+    "filters": Array [
+      "external_id",
+      "match",
+      "limit",
+    ],
+    "resource": "customers",
+    "sub_resources": Object {},
+  },
+  "employees": Object {
+    "allowed_includes": Array [
+      "user",
+      "enterprise",
+    ],
+    "filters": Array [
+      "email",
+      "external_id",
+    ],
+    "resource": "employees",
+    "sub_resources": Object {},
+  },
+  "enterpriseSettings": Object {
+    "allowed_includes": Array [],
+    "filters": Array [],
+    "resource": "enterprise_settings",
+    "sub_resources": Object {},
+  },
+  "offices": Object {
+    "allowed_includes": Array [
+      "subject_settings",
+      "contacts",
+      "contacts.subjects",
+    ],
+    "filters": Array [
+      "external_id",
+      "schedulable_for_subject",
+      "schedulable_with_contact",
+      "schedulable",
+    ],
+    "resource": "offices",
+    "sub_resources": Object {
+      "subjectSettings": Object {
+        "allowed_includes": Array [],
+        "filters": Array [
+          "subject_id",
+        ],
+        "resource": "subject_settings",
+        "sub_resources": Object {},
+      },
+    },
+  },
+  "subjectCategories": Object {
+    "allowed_includes": Array [
+      "languages",
+      "languages.translations",
+    ],
+    "filters": Array [],
+    "resource": "subject_categories",
+    "sub_resources": Object {},
+  },
+  "subjects": Object {
+    "allowed_includes": Array [
+      "questions",
+      "subject_category",
+      "languages",
+      "languages.translations",
+    ],
+    "filters": Array [
+      "category_id",
+      "external_id",
+      "schedulable_at_office",
+      "schedulable_with_contact",
+      "schedulable",
+    ],
+    "resource": "subjects",
+    "sub_resources": Object {
+      "questions": Object {
+        "allowed_includes": Array [
+          "options",
+          "languages",
+          "languages.translations",
+        ],
+        "filters": Array [],
+        "resource": "questions",
+        "sub_resources": Object {
+          "languages": Object {
+            "allowed_includes": Array [],
+            "filters": Array [],
+            "resource": "languages",
+            "sub_resources": Object {},
+          },
+          "options": Object {
+            "allowed_includes": Array [],
+            "filters": Array [],
+            "resource": "options",
+            "sub_resources": Object {},
+          },
+        },
+      },
+      "timetable": Object {
+        "allowed_includes": Array [],
+        "filters": Array [
+          "office",
+          "start",
+          "end",
+        ],
+        "resource": "timetable",
+        "sub_resources": Object {},
+      },
+    },
+  },
+}
+`;

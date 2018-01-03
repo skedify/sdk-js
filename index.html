@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Skedify SDK</title>
+</head>
+
+<body>
+
+  <h1>Documentation</h1>
+  <pre>Open devtools, so that you can play with `SDK`.</pre>
+
+  <script src="./lib/skedify-sdk.js"></script>
+  <script>
+    window.SDK = new Skedify.API({
+      locale: 'nl-BE',
+      auth_provider: Skedify.API.createAuthProviderString('client', {
+        client_id: 'client id goes here',
+        realm: 'https://api.example.com',
+      }),
+    })
+  </script>
+</body>
+
+</html>

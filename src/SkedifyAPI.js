@@ -1,55 +1,40 @@
-// import createCollection from './createCollection'
-// import createIdentityProvider from './IdentityProvider'
+import {
+  applyDecorators,
+  withConfig,
+  withDefaults,
+  withExposedIncludes,
+  withIdentityProvider,
+  withResources,
+  withShorthands,
+} from './decorators'
 
-// export default class SkedifyAPI {
-//   constructor(idp) {
-//     const identityProvider = createIdentityProvider(idp)
+import * as exported from './exported'
 
-//     this.appointments = createCollection('/appointments', identityProvider)
-//     this.subjects = createCollection('/subjects', identityProvider)
-//     this.subject_categories = createCollection(
-//       '/subject_categories',
-//       identityProvider
-//     )
-//   }
-// }
-
-export default function SkedifyAPI() {
-  // ignore
+export default class SkedifyAPI {
+  constructor(config) {
+    applyDecorators(
+      withConfig(config),
+      withDefaults(),
+      withIdentityProvider(),
+      withResources(),
+      withShorthands(),
+      withExposedIncludes()
+    )(this)
+  }
 }
 
-// export default function SkedifyAPI(collectionName) {
-//   const collection = (optionalID, options) => {
-//     if (options === undefined) {
-//       options = optionalID
-//       optionalID = undefined
-//       // we're interacting with a collection
-//       const get = Promise.resolve([]) // schedule GET request
-//       get.create = (data) => {
-//         // cancel GET request
-//         // make POST factory
-//         const create  = Promise.resolve(data)
-//         create.validate = Promise.resolve(create)
-//         create.commit = Promise.resolve(data)
-//       }
-//       get.filter = () => get
-//       get.include = () => get
-//     } else {
-//       // we're interacting with an instance
-//     }
-//   }
-
-//   return collection
-// }
-
-// const endpoints = ['subjects', 'offices', 'enterprise_settings', 'timetable', 'appointments', 'contacts', 'customers']
-
-// Object.assign(
-//   SkedifyAPI,
-//   endpoints.reduce((bindings, endpoint) => {
-//     bindings[ // convert endpoint to camelCase for binding attribute name
-//       endpoint.replace(/_([a-z])/g, ([_, c]) => c.toUpperCase())
-//     ] = SkedifyAPI.bind(null, endpoint)
-//     return bindings
-//   })
-// )
+/**
+ * Export everything that should be exported
+ */
+Object.defineProperties(
+  SkedifyAPI,
+  Object.keys(exported).reduce(
+    (acc, key) =>
+      Object.assign(acc, {
+        [key]: {
+          value: exported[key],
+        },
+      }),
+    {}
+  )
+)

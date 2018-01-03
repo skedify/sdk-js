@@ -1,0 +1,13 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`parseIdentityProviderString should throw an error when there are no options 1`] = `"[IDENTITY PROVIDER]: You should provide \`options\` for the identity provider."`;
+
+exports[`parseIdentityProviderString should throw an error when there is an invalid value 1`] = `"[IDENTITY PROVIDER]: You should provide a \`type\` as identity provider."`;
+
+exports[`parseIdentityProviderString should throw an error when there is an invalid value 2`] = `"[IDENTITY PROVIDER]: You should provide a \`type\` as identity provider."`;
+
+exports[`parseIdentityProviderString should throw an error when there is an invalid value 3`] = `"Cannot read property 'split' of null"`;
+
+exports[`parseIdentityProviderString should throw an error when there is no type and no options 1`] = `"[IDENTITY PROVIDER]: You should provide a \`type\` as identity provider."`;
+
+exports[`parseIdentityProviderString should throw an error when there is no type but there are options 1`] = `"[IDENTITY PROVIDER]: You should provide a \`type\` as identity provider."`;

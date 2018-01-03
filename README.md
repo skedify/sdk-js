@@ -22,7 +22,7 @@ One would create an SDK with a simple constructor function:
 
 ```js
 const SDK = new Skedify.API(options);
-// eg const SDK = Skedify.API({ auth_provider: 'client://sfUMCWu09e41WWNgyD2gJ0CgSBikiG9nhVo2iZSG', locale: 'nl-BE' })
+// eg const SDK = Skedify.API({ auth_provider: 'client://client_id=sfUMCWu09e41WWNgyD2gJ0CgSBikiG9nhVo2iZSG&realm=https://api.example.com', locale: 'nl-BE' })
 ```
 
 This would allow various authentication strategies to be represented in a similar way, using a "schema" methodology.
@@ -35,12 +35,8 @@ The sdk requires several configuration options. These might also be updated on t
 // READ the current configuration
 console.log(SDK.configuration)
 
-// EDIT the current configuration
-// - either merge new options with the old ones
+// EDIT the current configuration by merging a new object
 SDK.configure({ ... })
-// - or replace/edit them directly
-SDK.configuration = {}
-SDK.configuration.locale = 'fr-BE'
 ```
 
 The options are:
@@ -142,18 +138,18 @@ An include is described by the "collection" method on SDK. You can pass multiple
 
 ```js
 SDK.subjects()
-  .include(SDK.subject_categories, SDK.subjects.questions)
+  .include(SDK.include.subject_category, SDK.include.subjects.questions)
   .then(response => {}, error => {});
 // is the same as
 SDK.subjects()
-  .include(SDK.subject_categories)
-  .include(SDK.subjects.questions)
+  .include(SDK.include.subject_category)
+  .include(SDK.include.subjects.questions)
   .then(response => {}, error => {});
 
 // also:
 
 SDK.subjects()
-  .include(SDK.subject_categories, SDK.subjects.questions)
+  .include(SDK.include.subject_category, SDK.include.subjects.questions)
   .then(
     response => {
       response.data.forEach(subjectRecord => {
@@ -228,9 +224,9 @@ SDK.subjects().filter(item =>
   item.or(
     item
       .schedulable_at_office(["3"]) // chaining means AND implicitly
-      .schedulable_with_contacts(["1", "2"])
+      .schedulable_with_contact(["1", "2"])
       .schedulable(),
-    item.schedulable_at_office(["6"]).schedulable_with_contacts(["4", "5"])
+    item.schedulable_at_office(["6"]).schedulable_with_contact(["4", "5"])
   )
 );
 // multiple filters can also be applied by chain-calling filter multiple times.
@@ -324,11 +320,15 @@ const appointment2 = {
 }
 // then this appointment would be addressable by using either of these
 SDK.appointments('external://abc').catch(error => {
-    console.assert(error instanceof SDK.MoreThanOneFoundError)
-    console.assert(error.alternatives ~= [appointment1, appointment2])
+  console.assert(error.type === API.ERROR_RESPONSE)
+  console.assert(error.subtype === API.ERROR_RESPONSE_MULTIPLE_RESULTS_FOUND)
+
+  console.assert(error.alternatives ~= [appointment1, appointment2])
+  console.assert(error.response.data === error.alternatives)
 })
 SDK.appointments('external://def').catch(error => {
-    console.assert(error instanceof SDK.NoneFoundError)
+  console.assert(error.type === API.ERROR_RESPONSE)
+  console.assert(error.subtype === API.ERROR_RESPONSE_NO_RESULTS_FOUND)
 })
 ```
 

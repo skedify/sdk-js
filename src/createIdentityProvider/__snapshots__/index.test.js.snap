@@ -1,0 +1,11 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`createIdentityProvider should error when a provider does not exist 1`] = `"[IDENTITY PROVIDER]: Identity provider \`example\` does not exist. The only option is \`client\`."`;
+
+exports[`createIdentityProvider should error when a provider does not exist 2`] = `"[IDENTITY PROVIDER]: Identity provider \`example\` does not exist. The only options are \`client\` and \`direct\`."`;
+
+exports[`createIdentityProvider should error when a the idp descriptor is not defined or invalid 1`] = `"[IDENTITY PROVIDER]: You should provide a \`type\` as identity provider."`;
+
+exports[`createIdentityProvider should error when a the idp descriptor is not defined or invalid 2`] = `"[IDENTITY PROVIDER]: You should provide a \`type\` as identity provider."`;
+
+exports[`createIdentityProvider should error when a the idp descriptor is not defined or invalid 3`] = `"[IDENTITY PROVIDER]: You should provide \`options\` for the identity provider."`;

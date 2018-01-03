@@ -2,7 +2,8 @@
   "name": "skedify-sdk",
   "version": "0.0.0-development",
   "description": "Javascript SDK that helps integrators to interact with the Skedify API",
-  "main": "lib/index.js",
+  "main": "lib/skedify-sdk.js",
+  "module": "lib/skedify-sdk.es6.js",
   "repository": {
     "type": "git",
     "url": "https://github.com/skedify/sdk-js.git"
@@ -24,39 +25,45 @@
     "prebuild": "rimraf lib",
     "build": "rollup -c rollup.config.prod.js",
     "watch": "rollup -c rollup.config.dev.js --watch",
-    "test": "NODE_ENV=test jest",
+    "test": "cross-env NODE_ENV=test jest",
     "tdd": "npm run test -- --watch",
+    "docs": "serve --open",
+    "reload": "livereload lib/",
+    "start": "npm-run-all --parallel watch reload docs",
     "lint": "eslint src",
     "format": "npm run lint -- --fix",
-    "check-coverage": "CI=true NODE_ENV=test jest --coverage",
+    "check-coverage": "cross-env CI=true NODE_ENV=test jest --coverage",
     "publish-coverage": "codecov",
     "precommit": "npm run lint",
     "commitmsg": "commitlint -e $GIT_PARAMS",
     "prepush": "npm test && npm run check-coverage",
     "prepublish": "npm run build",
-    "postmerge": "npm install",
-    "postrewrite": "npm install",
-    "semantic-release": "semantic-release pre && npm publish && semantic-release post",
+    "semantic-release": "semantic-release",
     "commit": "git-cz"
   },
   "devDependencies": {
-    "@commitlint/cli": "^5.2.5",
+    "@commitlint/cli": "^5.2.8",
     "@commitlint/config-conventional": "^5.2.3",
-    "babel-eslint": "^8.0.3",
+    "babel-eslint": "^8.1.2",
+    "babel-preset-env": "^1.6.1",
     "codecov": "^3.0.0",
     "commitizen": "^2.9.6",
+    "cross-env": "^5.1.3",
     "cz-conventional-changelog": "^2.1.0",
-    "eslint": "^4.13.1",
+    "eslint": "^4.14.0",
     "eslint-config-prettier": "^2.9.0",
     "eslint-plugin-better": "^0.1.5",
     "eslint-plugin-filenames": "^1.2.0",
-    "eslint-plugin-prettier": "^2.3.1",
+    "eslint-plugin-prettier": "^2.4.0",
     "eslint-plugin-require-in-package": "^1.0.3",
     "husky": "^0.14.3",
-    "jest": "^21.2.1",
+    "jest": "^22.0.4",
+    "livereload": "^0.6.3",
+    "moxios": "^0.4.0",
+    "npm-run-all": "^4.1.2",
     "prettier": "^1.9.2",
     "rimraf": "^2.6.2",
-    "rollup": "^0.52.1",
+    "rollup": "^0.53.2",
     "rollup-plugin-alias": "^1.4.0",
     "rollup-plugin-buble": "^0.18.0",
     "rollup-plugin-commonjs": "^8.2.6",
@@ -65,11 +72,16 @@
     "rollup-plugin-replace": "^2.0.0",
     "rollup-plugin-uglify": "^2.0.1",
     "rollup-watch": "^4.3.1",
-    "semantic-release": "^8.2.0"
+    "semantic-release": "^11.0.2",
+    "serve": "^6.4.3",
+    "uglify-es": "^3.3.4"
   },
   "config": {
     "commitizen": {
       "path": "cz-conventional-changelog"
     }
+  },
+  "dependencies": {
+    "axios": "^0.17.1"
   }
 }
