@@ -3,7 +3,12 @@ import createResourceDescription from './util/createResourceDescription'
 export const offices = createResourceDescription(
   'offices',
   {
-    includes: ['subject_settings', 'contacts', 'contacts.subjects'],
+    includes: [
+      'subject_settings',
+      'contacts',
+      'contacts.subjects',
+      'contacts.user',
+    ],
     filters: [
       'external_id',
       'schedulable_for_subject',

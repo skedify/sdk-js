@@ -89,6 +89,7 @@ Object {
       "subject_settings",
       "contacts",
       "contacts.subjects",
+      "contacts.user",
     ],
     "filters": Array [
       "external_id",
