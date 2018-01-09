@@ -344,6 +344,9 @@ Object {
       "toString": [Function],
     },
     "toString": [Function],
+    "user": Object {
+      "toString": [Function],
+    },
   },
   "customer": Object {
     "toString": [Function],
@@ -408,7 +411,7 @@ Object {
 }
 `;
 
-exports[`API should relfect configuration changes in the request (auth_provider) 1`] = `
+exports[`API should reflect configuration changes in the request (auth_provider) 1`] = `
 Object {
   "data": undefined,
   "headers": Object {
@@ -422,7 +425,7 @@ Object {
 }
 `;
 
-exports[`API should relfect configuration changes in the request (auth_provider) 2`] = `
+exports[`API should reflect configuration changes in the request (auth_provider) 2`] = `
 Object {
   "data": undefined,
   "headers": Object {

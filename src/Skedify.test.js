@@ -256,7 +256,7 @@ describe('API', () => {
     SDK.configure(before)
   })
 
-  it('should relfect configuration changes in the request (auth_provider)', async () => {
+  it('should reflect configuration changes in the request (auth_provider)', async () => {
     expect(await matchRequest(SDK.subjects())).toMatchSnapshot()
 
     const before = SDK.configuration
