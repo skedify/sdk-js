@@ -5,7 +5,7 @@ Object {
   "data": undefined,
   "headers": Object {
     "Accept": "application/json, text/plain, */*",
-    "Accept-Language": "nl-BE, nl;q=0.5",
+    "Accept-Language": "nl-BE, nl;q=0.667, *;q=0.333",
     "Authorization": "Bearer rMOUIcH85oh44KD7RM4XRk7jFPiG8RMLi2IPqFsQ",
   },
   "method": "get",
@@ -21,7 +21,7 @@ Object {
   "data": undefined,
   "headers": Object {
     "Accept": "application/json, text/plain, */*",
-    "Accept-Language": "nl-BE, nl;q=0.5",
+    "Accept-Language": "nl-BE, nl;q=0.667, *;q=0.333",
     "Authorization": "Bearer rMOUIcH85oh44KD7RM4XRk7jFPiG8RMLi2IPqFsQ",
   },
   "method": "get",
@@ -37,7 +37,7 @@ Object {
   "data": undefined,
   "headers": Object {
     "Accept": "application/json, text/plain, */*",
-    "Accept-Language": "nl-BE, nl;q=0.5",
+    "Accept-Language": "nl-BE, nl;q=0.667, *;q=0.333",
     "Authorization": "Bearer rMOUIcH85oh44KD7RM4XRk7jFPiG8RMLi2IPqFsQ",
   },
   "method": "get",
@@ -53,7 +53,7 @@ Object {
   "data": undefined,
   "headers": Object {
     "Accept": "application/json, text/plain, */*",
-    "Accept-Language": "nl-BE, nl;q=0.5",
+    "Accept-Language": "nl-BE, nl;q=0.667, *;q=0.333",
     "Authorization": "Bearer rMOUIcH85oh44KD7RM4XRk7jFPiG8RMLi2IPqFsQ",
   },
   "method": "get",
@@ -71,7 +71,7 @@ Object {
   "data": "{\\"subject_id\\":123,\\"office_id\\":456,\\"meeting_type\\":\\"office\\",\\"answers\\":[],\\"initiated_by_type\\":\\"customer\\",\\"customer\\":{},\\"possibilities\\":[]}",
   "headers": Object {
     "Accept": "application/json, text/plain, */*",
-    "Accept-Language": "nl-BE, nl;q=0.5",
+    "Accept-Language": "nl-BE, nl;q=0.667, *;q=0.333",
     "Authorization": "Bearer rMOUIcH85oh44KD7RM4XRk7jFPiG8RMLi2IPqFsQ",
     "Content-Type": "application/json;charset=utf-8",
   },
@@ -86,7 +86,7 @@ Object {
   "data": undefined,
   "headers": Object {
     "Accept": "application/json, text/plain, */*",
-    "Accept-Language": "nl-BE, nl;q=0.5",
+    "Accept-Language": "nl-BE, nl;q=0.667, *;q=0.333",
     "Authorization": "Bearer rMOUIcH85oh44KD7RM4XRk7jFPiG8RMLi2IPqFsQ",
   },
   "method": "get",
@@ -102,7 +102,7 @@ Object {
   "data": undefined,
   "headers": Object {
     "Accept": "application/json, text/plain, */*",
-    "Accept-Language": "nl-BE, nl;q=0.5",
+    "Accept-Language": "nl-BE, nl;q=0.667, *;q=0.333",
     "Authorization": "Bearer rMOUIcH85oh44KD7RM4XRk7jFPiG8RMLi2IPqFsQ",
   },
   "method": "get",
@@ -118,7 +118,7 @@ Object {
   "data": undefined,
   "headers": Object {
     "Accept": "application/json, text/plain, */*",
-    "Accept-Language": "nl-BE, nl;q=0.5",
+    "Accept-Language": "nl-BE, nl;q=0.667, *;q=0.333",
     "Authorization": "Bearer rMOUIcH85oh44KD7RM4XRk7jFPiG8RMLi2IPqFsQ",
   },
   "method": "get",
@@ -132,7 +132,7 @@ Object {
   "data": undefined,
   "headers": Object {
     "Accept": "application/json, text/plain, */*",
-    "Accept-Language": "nl-BE, nl;q=0.5",
+    "Accept-Language": "nl-BE, nl;q=0.667, *;q=0.333",
     "Authorization": "Bearer rMOUIcH85oh44KD7RM4XRk7jFPiG8RMLi2IPqFsQ",
   },
   "method": "get",
@@ -146,7 +146,7 @@ Object {
   "data": undefined,
   "headers": Object {
     "Accept": "application/json, text/plain, */*",
-    "Accept-Language": "nl-BE, nl;q=0.5",
+    "Accept-Language": "nl-BE, nl;q=0.667, *;q=0.333",
     "Authorization": "Bearer rMOUIcH85oh44KD7RM4XRk7jFPiG8RMLi2IPqFsQ",
   },
   "method": "get",
@@ -162,7 +162,7 @@ Object {
   "data": undefined,
   "headers": Object {
     "Accept": "application/json, text/plain, */*",
-    "Accept-Language": "nl-BE, nl;q=0.5",
+    "Accept-Language": "nl-BE, nl;q=0.667, *;q=0.333",
     "Authorization": "Bearer rMOUIcH85oh44KD7RM4XRk7jFPiG8RMLi2IPqFsQ",
   },
   "method": "get",
@@ -180,7 +180,7 @@ Object {
   "data": undefined,
   "headers": Object {
     "Accept": "application/json, text/plain, */*",
-    "Accept-Language": "nl-BE, nl;q=0.5",
+    "Accept-Language": "nl-BE, nl;q=0.667, *;q=0.333",
     "Authorization": "Bearer rMOUIcH85oh44KD7RM4XRk7jFPiG8RMLi2IPqFsQ",
   },
   "method": "get",
@@ -194,7 +194,7 @@ Object {
   "data": undefined,
   "headers": Object {
     "Accept": "application/json, text/plain, */*",
-    "Accept-Language": "nl-BE, nl;q=0.5",
+    "Accept-Language": "nl-BE, nl;q=0.667, *;q=0.333",
     "Authorization": "Bearer rMOUIcH85oh44KD7RM4XRk7jFPiG8RMLi2IPqFsQ",
   },
   "method": "get",
@@ -210,7 +210,7 @@ Object {
   "data": undefined,
   "headers": Object {
     "Accept": "application/json, text/plain, */*",
-    "Accept-Language": "nl-BE, nl;q=0.5",
+    "Accept-Language": "nl-BE, nl;q=0.667, *;q=0.333",
     "Authorization": "Bearer rMOUIcH85oh44KD7RM4XRk7jFPiG8RMLi2IPqFsQ",
   },
   "method": "get",
@@ -224,7 +224,7 @@ Object {
   "data": undefined,
   "headers": Object {
     "Accept": "application/json, text/plain, */*",
-    "Accept-Language": "nl-BE, nl;q=0.5",
+    "Accept-Language": "nl-BE, nl;q=0.667, *;q=0.333",
     "Authorization": "Bearer rMOUIcH85oh44KD7RM4XRk7jFPiG8RMLi2IPqFsQ",
   },
   "method": "get",
@@ -240,7 +240,7 @@ Object {
   "data": undefined,
   "headers": Object {
     "Accept": "application/json, text/plain, */*",
-    "Accept-Language": "nl-BE, nl;q=0.5",
+    "Accept-Language": "nl-BE, nl;q=0.667, *;q=0.333",
     "Authorization": "Bearer rMOUIcH85oh44KD7RM4XRk7jFPiG8RMLi2IPqFsQ",
   },
   "method": "get",
@@ -256,7 +256,7 @@ Object {
   "data": undefined,
   "headers": Object {
     "Accept": "application/json, text/plain, */*",
-    "Accept-Language": "nl-BE, nl;q=0.5",
+    "Accept-Language": "nl-BE, nl;q=0.667, *;q=0.333",
     "Authorization": "Bearer rMOUIcH85oh44KD7RM4XRk7jFPiG8RMLi2IPqFsQ",
   },
   "method": "get",
@@ -416,7 +416,7 @@ Object {
   "data": undefined,
   "headers": Object {
     "Accept": "application/json, text/plain, */*",
-    "Accept-Language": "nl-BE, nl;q=0.5",
+    "Accept-Language": "nl-BE, nl;q=0.667, *;q=0.333",
     "Authorization": "Bearer rMOUIcH85oh44KD7RM4XRk7jFPiG8RMLi2IPqFsQ",
   },
   "method": "get",
@@ -430,7 +430,7 @@ Object {
   "data": undefined,
   "headers": Object {
     "Accept": "application/json, text/plain, */*",
-    "Accept-Language": "nl-BE, nl;q=0.5",
+    "Accept-Language": "nl-BE, nl;q=0.667, *;q=0.333",
     "Authorization": "Bearer rMOUIcH85oh44KD7RM4XRk7jFPiG8RMLi2IPqFsQ",
   },
   "method": "get",
@@ -444,7 +444,7 @@ Object {
   "data": undefined,
   "headers": Object {
     "Accept": "application/json, text/plain, */*",
-    "Accept-Language": "nl-BE, nl;q=0.5",
+    "Accept-Language": "nl-BE, nl;q=0.667, *;q=0.333",
     "Authorization": "Bearer rMOUIcH85oh44KD7RM4XRk7jFPiG8RMLi2IPqFsQ",
   },
   "method": "get",
@@ -458,7 +458,7 @@ Object {
   "data": undefined,
   "headers": Object {
     "Accept": "application/json, text/plain, */*",
-    "Accept-Language": "fr-BE, fr;q=0.5",
+    "Accept-Language": "fr-BE, fr;q=0.667, *;q=0.333",
     "Authorization": "Bearer rMOUIcH85oh44KD7RM4XRk7jFPiG8RMLi2IPqFsQ",
   },
   "method": "get",
