@@ -1,4 +1,5 @@
 {
+  "plugins": ["transform-polyfills"],
   "env": {
     "test": {
       "presets": ["env"]
