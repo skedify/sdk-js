@@ -3,6 +3,7 @@ import buble from 'rollup-plugin-buble'
 import commonjs from 'rollup-plugin-commonjs'
 import inject from 'rollup-plugin-inject'
 import resolve from 'rollup-plugin-node-resolve'
+import babel from 'rollup-plugin-babel'
 
 import PACKAGE from './package.json'
 
@@ -25,6 +26,10 @@ const defaultConfig = {
     }),
     commonjs({
       namedExports: {},
+    }),
+    babel({
+      exclude: ['node_modules/**'],
+      runtimeHelpers: true,
     }),
     buble({
       namedFunctionExpressions: false,
