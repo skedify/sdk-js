@@ -7,6 +7,9 @@ module.exports = {
     IS_DEVELOPMENT: false,
     IS_TEST: true,
   },
+  transformIgnorePatterns: [
+    'node_modules/(?!(babel-plugin-transform-polyfills)/)',
+  ],
   collectCoverageFrom: [
     'src/**/*.js',
     '!src/**/*.dev.js',
