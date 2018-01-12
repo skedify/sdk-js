@@ -4,6 +4,7 @@ import buildLanguageFallbackChain from '../util/buildLanguageFallbackChain'
 
 function createAcceptLanguageHeader(locale) {
   return buildLanguageFallbackChain(locale)
+    .concat('*')
     .map((lang, index, locales) => {
       if (index === 0) {
         return lang
