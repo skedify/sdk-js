@@ -47,6 +47,14 @@ describe('API/Config', () => {
     expect(() => new Skedify.API({ auth_provider })).toThrow()
   })
 
+  it('should allow correct forms of locale values', () => {
+    const valids = ['nl', 'nl-BE', 'nl-BE-VWV']
+
+    valids.forEach(locale => {
+      expect(() => new Skedify.API({ locale, auth_provider })).not.toThrow()
+    })
+  })
+
   it('should throw an error when the locale is wrongly formatted', () => {
     const invalids = [
       'NL', // Because it needs to be lowercase.
