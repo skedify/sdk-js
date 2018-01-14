@@ -28,7 +28,7 @@ const defaultConfig = {
       namedExports: {},
     }),
     babel({
-      exclude: ['node_modules/**'],
+      include: ['node_modules/axios/**', 'src/**'],
       runtimeHelpers: true,
     }),
     buble({
