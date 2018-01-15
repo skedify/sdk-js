@@ -458,7 +458,7 @@ Object {
   "data": undefined,
   "headers": Object {
     "Accept": "application/json, text/plain, */*",
-    "Accept-Language": "fr-BE, fr;q=0.667, *;q=0.333",
+    "Accept-Language": "nl-BE, nl;q=0.667, *;q=0.333",
     "Authorization": "Bearer rMOUIcH85oh44KD7RM4XRk7jFPiG8RMLi2IPqFsQ",
   },
   "method": "get",

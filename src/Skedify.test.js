@@ -262,18 +262,18 @@ describe('API', () => {
     SDK.configure(before)
   })
 
-  it.only('should not reflect configuration changes in another instance (locale)', async () => {
+  it('should not reflect configuration changes in another instance (locale)', async () => {
     expect(await matchRequest(SDK.subjects())).toMatchSnapshot()
     const SDK2 = new Skedify.API({
       auth_provider,
       locale: 'fr-BE',
     })
+
     expect(await matchRequest(SDK.subjects())).toMatchSnapshot()
-    moxios.uninstall(SDK.__meta.network)
     moxios.install(SDK2.__meta.network)
+
     expect(await matchRequest(SDK2.subjects())).toMatchSnapshot()
     moxios.uninstall(SDK2.__meta.network)
-    moxios.install(SDK.__meta.network)
   })
 
   it('should reflect configuration changes in the request (auth_provider)', async () => {
