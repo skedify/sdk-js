@@ -33,10 +33,6 @@ export default function createResource(
   resourceDescription,
   parent
 ) {
-  if (network === undefined) {
-    const err = new Error('network is undefined')
-    throw err
-  }
   const requestConfig = {
     method: resourceDescription.method,
     data: resourceDescription.data,

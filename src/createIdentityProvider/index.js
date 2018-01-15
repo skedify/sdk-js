@@ -16,9 +16,10 @@ export default function createIdentityProvider(idp_descriptor, network) {
     const providers = Object.keys(IDPS).map(key => `\`${key}\``)
 
     throw createIdentityProviderError(
-      `Identity provider \`${type}\` does not exist. The only ${
-        providers.length === 1 ? `option is` : `options are`
-      } ${joinAsSpeech(AND, providers)}.`,
+      `Identity provider \`${type}\` does not exist. The only option is ${joinAsSpeech(
+        AND,
+        providers
+      )}.`,
       MISCONFIGURED,
       MISCONFIGURED_AUTH_PROVIDER
     )
