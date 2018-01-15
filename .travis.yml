@@ -10,7 +10,7 @@ node_js:
   - '6'
 after_success:
   - npm run publish-coverage
-  - npm run semantic-release
+  - npm run travis-deploy-once "npm run semantic-release"
 branches:
   except:
     - /^v\d+\.\d+\.\d+$/
