@@ -33,7 +33,7 @@ export function withResources(resources = rootResources, parent = undefined) {
             if (`${identifier}`.includes('://')) {
               return withExternalIdentifier(identifier)(
                 createResource(
-                  instance.__meta.identityProvider,
+                  instance.__meta,
                   Object.assign({}, resource, {
                     name,
                   }),
@@ -46,7 +46,7 @@ export function withResources(resources = rootResources, parent = undefined) {
              * Create the resource object.
              */
             return createResource(
-              instance.__meta.identityProvider,
+              instance.__meta,
               Object.assign({}, resource, { identifier, name }),
               parent
             )
@@ -54,7 +54,7 @@ export function withResources(resources = rootResources, parent = undefined) {
           {
             new(data) {
               const newResource = createResource(
-                instance.__meta.identityProvider,
+                instance.__meta,
                 Object.assign({}, resource, {
                   data,
                   method: HTTP_VERB_POST,

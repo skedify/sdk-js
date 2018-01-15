@@ -9,11 +9,11 @@ const IDPS = {
   client: Client,
 }
 
-export default function createIdentityProvider(idp_descriptor, idps = IDPS) {
+export default function createIdentityProvider(idp_descriptor, network) {
   const { type, options } = parse(idp_descriptor)
 
-  if (idps[type] === undefined) {
-    const providers = Object.keys(idps).map(key => `\`${key}\``)
+  if (IDPS[type] === undefined) {
+    const providers = Object.keys(IDPS).map(key => `\`${key}\``)
 
     throw createIdentityProviderError(
       `Identity provider \`${type}\` does not exist. The only ${
@@ -24,5 +24,5 @@ export default function createIdentityProvider(idp_descriptor, idps = IDPS) {
     )
   }
 
-  return new idps[type](options)
+  return new IDPS[type](network, options)
 }

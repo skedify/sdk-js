@@ -13,12 +13,5 @@ describe('createIdentityProvider', () => {
     expect(() =>
       createIdentityProvider('example://some=options')
     ).toThrowErrorMatchingSnapshot()
-
-    expect(() =>
-      createIdentityProvider('example://some=options', {
-        client: 'client provider',
-        direct: 'direct provider',
-      })
-    ).toThrowErrorMatchingSnapshot()
   })
 })

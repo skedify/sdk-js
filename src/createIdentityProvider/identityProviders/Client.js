@@ -1,5 +1,3 @@
-import network from '../../util/network'
-
 import retry from '../../util/retry'
 
 import { createIdentityProviderError } from '../../util/createError'
@@ -18,8 +16,9 @@ function secondsToMilliseconds(seconds) {
 }
 
 export default class Client {
-  constructor({ client_id, realm } = {}) {
+  constructor(network, { client_id, realm } = {}) {
     this._options = { client_id, realm }
+    this._network = network
 
     if (!client_id) {
       throw createIdentityProviderError(
@@ -44,7 +43,7 @@ export default class Client {
     if (this._current === undefined || force) {
       this._current = retry(
         (resolve, reject) => {
-          network
+          this._network
             .post(`${realm}/access_tokens`, {
               grant_type: 'public_client',
               client_id: client_id,
@@ -61,7 +60,7 @@ export default class Client {
           Realm: realm,
         }))
         .then(({ Realm, Authorization, Expiration }) =>
-          network
+          this._network
             .get(`${Realm}/integrations/proxy`, {
               headers: { Authorization },
             })

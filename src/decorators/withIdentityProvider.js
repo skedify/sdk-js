@@ -3,19 +3,10 @@ import createIdentityProvider from '../createIdentityProvider'
 function install(auth_provider) {
   return {
     on(instance) {
-      if (instance.__meta && instance.__meta.identityProvider) {
-        instance.__meta.identityProvider = createIdentityProvider(auth_provider)
-        return
-      }
-
-      Object.defineProperties(instance, {
-        __meta: {
-          enumerable: false,
-          value: Object.assign({}, instance.__meta, {
-            identityProvider: createIdentityProvider(auth_provider),
-          }),
-        },
-      })
+      instance.__meta.identityProvider = createIdentityProvider(
+        auth_provider,
+        instance.__meta.network
+      )
     },
   }
 }

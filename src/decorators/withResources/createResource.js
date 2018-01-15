@@ -1,7 +1,3 @@
-/* eslint-disable class-methods-use-this */
-
-import network from '../../util/network'
-
 import { withResources } from '.'
 import { applyDecorators } from '..'
 import normalizeResponse from './normalizeResponse'
@@ -33,10 +29,14 @@ function createParentURL(parent) {
 }
 
 export default function createResource(
-  identityProvider,
+  { identityProvider, network },
   resourceDescription,
   parent
 ) {
+  if (network === undefined) {
+    const err = new Error('network is undefined')
+    throw err
+  }
   const requestConfig = {
     method: resourceDescription.method,
     data: resourceDescription.data,
@@ -48,12 +48,8 @@ export default function createResource(
   const responseInterceptors = []
 
   function executeResponseInterceptors(response) {
-    if (responseInterceptors.length <= 0) {
-      return response
-    }
-
     return responseInterceptors.reduce(
-      (next, interceptor) => interceptor(next),
+      (interceptee, interceptor) => interceptor(interceptee),
       response
     )
   }
@@ -90,14 +86,6 @@ export default function createResource(
           this
         )
       }
-
-      /**
-       * Binding on this
-       */
-      this.include = this.include.bind(this)
-      this.filter = this.filter.bind(this)
-      this.then = this.then.bind(this)
-      this.catch = this.catch.bind(this)
     }
 
     include(...includes) {
@@ -146,17 +134,18 @@ export default function createResource(
       return this
     }
 
-    then(resolve, reject) {
+    // eslint-disable-next-line class-methods-use-this
+    then(onFulfilled, onRejected) {
       return identityProvider
         .getAuthorization(SHOULD_FORCE_AUTHORIZATION_REQUEST)
         .then(createRequest)
         .then(normalizeResponse)
         .then(executeResponseInterceptors)
-        .then(resolve, reject)
+        .then(onFulfilled, onRejected)
     }
 
-    catch(reject) {
-      return this.then(undefined, reject)
+    catch(onRejected) {
+      return this.then(undefined, onRejected)
     }
   }
 
@@ -170,6 +159,7 @@ export default function createResource(
         return Object.assign(resourceDescription, {
           parent,
           identityProvider,
+          network,
           requestConfig,
         })
       },
