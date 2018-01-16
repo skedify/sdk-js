@@ -1,12 +1,13 @@
 /* eslint-disable max-nested-callbacks */
 import moxios from 'moxios'
-
-import network from '../../util/network'
+import axios from 'axios'
 
 import Client from './Client'
 
 describe('Identity Provider # Client', () => {
+  let network
   beforeEach(() => {
+    network = axios.create()
     moxios.install(network)
   })
 
@@ -15,7 +16,7 @@ describe('Identity Provider # Client', () => {
   })
 
   it('should be able to create an identity provider instance', () => {
-    const client = new Client({
+    const client = new Client(network, {
       client_id: 'client 123',
       realm: 'https://example.com',
     })
@@ -24,13 +25,13 @@ describe('Identity Provider # Client', () => {
   })
 
   it('should error when no options are given', () => {
-    expect(() => new Client()).toThrowErrorMatchingSnapshot()
+    expect(() => new Client(network)).toThrowErrorMatchingSnapshot()
   })
 
   it('should error when client_id is not given', () => {
     expect(
       () =>
-        new Client({
+        new Client(network, {
           realm: 'https://example.com',
         })
     ).toThrowErrorMatchingSnapshot()
@@ -39,14 +40,14 @@ describe('Identity Provider # Client', () => {
   it('should error when realm is not given', () => {
     expect(
       () =>
-        new Client({
+        new Client(network, {
           client_id: 'client 123',
         })
     ).toThrowErrorMatchingSnapshot()
   })
 
   it('should be possible to authenticate', async () => {
-    const client = new Client({
+    const client = new Client(network, {
       client_id: 'client 123',
       realm: 'https://example.com',
     })
@@ -93,7 +94,7 @@ describe('Identity Provider # Client', () => {
   })
 
   it('should be possible to re-use the same auth request', async () => {
-    const client = new Client({
+    const client = new Client(network, {
       client_id: 'client 123',
       realm: 'https://example.com',
     })

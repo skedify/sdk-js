@@ -1,8 +1,6 @@
 /* eslint-disable max-nested-callbacks */
 import moxios from 'moxios'
 
-import network from './util/network'
-
 import Skedify from './Skedify'
 import { mockResponse, matchRequest } from '../test/testUtils'
 
@@ -45,6 +43,14 @@ describe('API/Config', () => {
   it('should throw an error when the mandatory config items are not present', () => {
     expect(() => new Skedify.API({ locale: 'nl-BE' })).toThrow()
     expect(() => new Skedify.API({ auth_provider })).toThrow()
+  })
+
+  it('should allow correct forms of locale values', () => {
+    const valids = ['nl', 'nl-BE', 'nl-BE-VWV']
+
+    valids.forEach(locale => {
+      expect(() => new Skedify.API({ locale, auth_provider })).not.toThrow()
+    })
   })
 
   it('should throw an error when the locale is wrongly formatted', () => {
@@ -173,11 +179,11 @@ describe('API', () => {
   })
 
   beforeEach(() => {
-    moxios.install(network)
+    moxios.install(SDK.__meta.network)
   })
 
   afterEach(() => {
-    moxios.uninstall(network)
+    moxios.uninstall(SDK.__meta.network)
   })
 
   it('should expose all available includes on the Skedify.API instance', () => {
@@ -244,7 +250,7 @@ describe('API', () => {
       })
   })
 
-  it('should relfect configuration changes in the request (locale)', async () => {
+  it('should reflect configuration changes in the request (locale)', async () => {
     expect(await matchRequest(SDK.subjects())).toMatchSnapshot()
 
     const before = SDK.configuration
@@ -254,6 +260,20 @@ describe('API', () => {
     expect(await matchRequest(SDK.subjects())).toMatchSnapshot()
 
     SDK.configure(before)
+  })
+
+  it('should not reflect configuration changes in another instance (locale)', async () => {
+    expect(await matchRequest(SDK.subjects())).toMatchSnapshot()
+    const SDK2 = new Skedify.API({
+      auth_provider,
+      locale: 'fr-BE',
+    })
+
+    expect(await matchRequest(SDK.subjects())).toMatchSnapshot()
+    moxios.install(SDK2.__meta.network)
+
+    expect(await matchRequest(SDK2.subjects())).toMatchSnapshot()
+    moxios.uninstall(SDK2.__meta.network)
   })
 
   it('should reflect configuration changes in the request (auth_provider)', async () => {

@@ -42,7 +42,19 @@ SDK.configure({ ... })
 The options are:
 
 * **auth_provider**: Authentication Provider, a string which symbolizes how/where to get an Authorization header
-* **locale**: A string combination of an ISO-639 Language Code and an ISO-3166 Country Code signifying the language preference of the user
+* **locale**: A string combination of an ISO-639 Language Code and an optional ISO-3166 Country Code signifying the language preference of the user:
+
+  * **Correct values:**
+
+    * `nl`
+    * `nl-BE`
+    * `nl-BE-VWV`
+
+  * **Incorrect values:**
+
+    * `NL`: The first part should be lowercase.
+    * `nl-be`: The second part should be uppercase.
+    * `nl-BE-VWVX`: The last part can only contain 2 or 3 characters.
 
 ## Basic Usage
 

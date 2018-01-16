@@ -6,6 +6,8 @@ import {
   withIdentityProvider,
   withResources,
   withShorthands,
+  withMeta,
+  withNetwork,
 } from './decorators'
 
 import * as exported from './exported'
@@ -13,6 +15,8 @@ import * as exported from './exported'
 export default class SkedifyAPI {
   constructor(config) {
     applyDecorators(
+      withMeta(),
+      withNetwork(),
       withConfig(config),
       withDefaults(),
       withIdentityProvider(),
