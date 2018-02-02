@@ -97,6 +97,7 @@ Object {
       "schedulable_with_contact",
       "schedulable",
       "nearest_to_geo",
+      "limit",
     ],
     "resource": "offices",
     "sub_resources": Object {

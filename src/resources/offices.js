@@ -15,6 +15,7 @@ export const offices = createResourceDescription(
       'schedulable_with_contact',
       'schedulable',
       'nearest_to_geo',
+      'limit',
     ],
   },
   {
