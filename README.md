@@ -451,6 +451,77 @@ SDK.appointments('appointment id').then({ data } => {
 })
 ```
 
+## Testing
+
+If you want to test your application's code, you can use these test utils so that you can safely execute the calls.
+
+```js
+import {
+  installSkedifySDKMock,
+  uninstallSkedifySDKMock,
+  matchRequest,
+  mockResponse
+} from "skedify-sdk/lib/test-utils";
+const SDK = new Skedify.API(options);
+
+/**
+ * This will uninstall the mock, after this real calls will be executed.
+ */
+uninstallSkedifySDKMock(SDK);
+
+/**
+ * This will install the mock, all calls made using `SDK`, will be mocked.
+ */
+installSkedifySDKMock(SDK);
+
+/**
+ * You can mock the response, the mockResponse function can receive the following values:
+ *
+ * E.g.: mockResponse(data, meta, warnings, status = 200)
+ */
+mockResponse({
+  id: 1,
+  name: 'subject 1'
+})
+SDK.subjects().then(console.log)
+
+// Result:
+
+{
+  status: 200,
+  headers: undefined,
+  data: { id: '1', name: 'subject 1' },
+  warnings: undefined,
+  meta: undefined
+}
+
+
+/**
+ * Assuming you use a testing framework like Jest, you can use this:
+ *
+ * matchRequest will internally call the mockResponse, so you can use it as:
+ *
+ * E.g.: matchRequest(promise, data, meta, warnings, status = 200)
+ */
+it("should make a call to fetch all subjects", async () => {
+  expect(await matchRequest(SDK.subjects())).toMatchSnapshot()
+})
+
+// Result:
+
+Object {
+  "data": undefined,
+  "headers": Object {
+    "Accept": "application/json, text/plain, */*",
+    "Accept-Language": "nl-BE, nl;q=0.667, *;q=0.333",
+    "Authorization": "Bearer fake_example_access_token",
+  },
+  "method": "get",
+  "params": undefined,
+  "url": "https://api.example.com/subjects",
+}
+```
+
 ## Contributing
 
 Use `npm run commit` when you want to commit a change.
