@@ -308,7 +308,7 @@ describe('API', () => {
     ).toThrowErrorMatchingSnapshot()
   })
 
-  it('should convert all the `id` and `XXX_id` keys to strings', () => {
+  it('should convert all the `id` and `XXX_id` keys to strings', async () => {
     mockResponse([
       { id: 1, foo: 'foo' },
       {
@@ -320,16 +320,16 @@ describe('API', () => {
 
     expect.assertions(1)
 
-    return SDK.subjects().then(({ data }) =>
-      expect(data).toEqual([
-        { id: '1', foo: 'foo' },
-        {
-          id: '2',
-          bar: 'bar',
-          deep: [{ office_id: '5' }],
-        },
-      ])
-    )
+    const { data } = await SDK.subjects()
+
+    expect(data).toEqual([
+      { id: '1', foo: 'foo' },
+      {
+        id: '2',
+        bar: 'bar',
+        deep: [{ office_id: '5' }],
+      },
+    ])
   })
 
   describe('API/Resources', () => {
