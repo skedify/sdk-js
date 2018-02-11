@@ -1,8 +1,12 @@
 /* eslint-disable max-nested-callbacks */
-import moxios from 'moxios'
+import {
+  installSkedifySDKMock,
+  uninstallSkedifySDKMock,
+  mockResponse,
+  matchRequest,
+} from './Skedify.testing'
 
 import Skedify from './Skedify'
-import { mockResponse, matchRequest } from '../test/testUtils'
 
 import * as exported from './constants/exported'
 
@@ -179,11 +183,8 @@ describe('API', () => {
   })
 
   beforeEach(() => {
-    moxios.install(SDK.__meta.network)
-  })
-
-  afterEach(() => {
-    moxios.uninstall(SDK.__meta.network)
+    uninstallSkedifySDKMock(SDK)
+    installSkedifySDKMock(SDK)
   })
 
   it('should expose all available includes on the Skedify.API instance', () => {
@@ -270,10 +271,10 @@ describe('API', () => {
     })
 
     expect(await matchRequest(SDK.subjects())).toMatchSnapshot()
-    moxios.install(SDK2.__meta.network)
+    installSkedifySDKMock(SDK2)
 
     expect(await matchRequest(SDK2.subjects())).toMatchSnapshot()
-    moxios.uninstall(SDK2.__meta.network)
+    uninstallSkedifySDKMock(SDK2)
   })
 
   it('should reflect configuration changes in the request (auth_provider)', async () => {
