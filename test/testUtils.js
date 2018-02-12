@@ -8,7 +8,7 @@ export function mockResponse(data, meta, warnings, status = 200) {
     moxios.requests.mostRecent().respondWith({
       status: 200,
       response: {
-        access_token: 'rMOUIcH85oh44KD7RM4XRk7jFPiG8RMLi2IPqFsQ',
+        access_token: 'fake_example_access_token',
         token_type: 'Bearer',
         expires_in: 5400,
       },

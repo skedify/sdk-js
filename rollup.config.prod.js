@@ -4,7 +4,9 @@ import replace from 'rollup-plugin-replace'
 
 import createConfig from './rollup.config.common'
 
-export default createConfig(common =>
+import testUtilsBuild from './rollup.config.test-utils'
+
+const productionBuild = createConfig(common =>
   Object.assign({}, common, {
     input: './src/Skedify.js',
     output: Object.assign({}, common.output, {
@@ -33,3 +35,5 @@ export default createConfig(common =>
     ]),
   })
 )
+
+export default [].concat(productionBuild, testUtilsBuild)
