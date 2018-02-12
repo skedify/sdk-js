@@ -175,6 +175,25 @@ Object {
 }
 `;
 
+exports[`API API/Resources should be possible to use shorthands (timetable) with optional values like contacts 1`] = `
+Object {
+  "data": undefined,
+  "headers": Object {
+    "Accept": "application/json, text/plain, */*",
+    "Accept-Language": "nl-BE, nl;q=0.667, *;q=0.333",
+    "Authorization": "Bearer fake_example_access_token",
+  },
+  "method": "get",
+  "params": Object {
+    "contacts": "1,2,3",
+    "end": "2017-12-26",
+    "office": 1308,
+    "start": "2017-12-21",
+  },
+  "url": "https://api.example.com/subjects/316/timetable",
+}
+`;
+
 exports[`API API/Resources should be possible to use subresources 1`] = `
 Object {
   "data": undefined,
