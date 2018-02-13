@@ -1,4 +1,4 @@
-/* eslint-disable max-nested-callbacks */
+/* eslint-disable max-nested-callbacks, max-statements */
 import {
   installSkedifySDKMock,
   uninstallSkedifySDKMock,
@@ -515,6 +515,20 @@ describe('API', () => {
             office: 1308,
             start: '2017-12-21',
             end: '2017-12-26',
+          })
+        )
+      ).toMatchSnapshot()
+    })
+
+    it('should be possible to use shorthands (timetable) with optional values like contacts', async () => {
+      expect(
+        await matchRequest(
+          SDK.timetable({
+            subject: 316,
+            office: 1308,
+            start: '2017-12-21',
+            end: '2017-12-26',
+            contacts: [1, 2, 3],
           })
         )
       ).toMatchSnapshot()

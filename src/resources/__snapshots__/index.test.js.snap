@@ -165,6 +165,7 @@ Object {
           "office",
           "start",
           "end",
+          "contacts",
         ],
         "resource": "timetable",
         "sub_resources": Object {},
