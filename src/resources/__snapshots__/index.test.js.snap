@@ -84,6 +84,12 @@ Object {
     "resource": "enterprise_settings",
     "sub_resources": Object {},
   },
+  "identity": Object {
+    "allowed_includes": Array [],
+    "filters": Array [],
+    "resource": "identity",
+    "sub_resources": Object {},
+  },
   "offices": Object {
     "allowed_includes": Array [
       "subject_settings",

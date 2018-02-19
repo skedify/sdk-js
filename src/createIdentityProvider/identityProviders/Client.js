@@ -16,8 +16,8 @@ function secondsToMilliseconds(seconds) {
 }
 
 export default class Client {
-  constructor(network, { client_id, realm } = {}) {
-    this._options = { client_id, realm }
+  constructor(network, { client_id, realm, resource_code } = {}) {
+    this._options = { client_id, realm, resource_code }
     this._network = network
 
     if (!client_id) {
@@ -38,17 +38,27 @@ export default class Client {
   }
 
   getAuthorization(force = false) {
-    const { client_id, realm } = this._options
+    const { client_id, realm, resource_code } = this._options
 
     if (this._current === undefined || force) {
       this._current = retry(
         (resolve, reject) => {
-          this._network
-            .post(`${realm}/access_tokens`, {
-              grant_type: 'public_client',
-              client_id: client_id,
-            })
-            .then(resolve, reject)
+          if (resource_code !== undefined) {
+            this._network
+              .post(`${realm}/access_tokens`, {
+                grant_type: 'resource_code',
+                client_id: client_id,
+                code: resource_code,
+              })
+              .then(resolve, reject)
+          } else {
+            this._network
+              .post(`${realm}/access_tokens`, {
+                grant_type: 'public_client',
+                client_id: client_id,
+              })
+              .then(resolve, reject)
+          }
         },
         {
           max_attempts: MAX_ATTEMPTS,

@@ -170,6 +170,31 @@ describe('API/Config', () => {
 
     expect(mock).not.toHaveBeenCalled()
   })
+
+  it('should be possible to create an SDK instance', () => {
+    const SDK = new Skedify.API({
+      auth_provider: Skedify.API.createAuthProviderString('client', {
+        client_id: 'someclientidtokengoeshere',
+        realm: 'https://api.example.com',
+      }),
+      locale: 'nl-BE',
+    })
+
+    expect(SDK).toBeDefined()
+  })
+
+  it('should be possible to create an SDK instance with a resource_code', () => {
+    const SDK = new Skedify.API({
+      auth_provider: Skedify.API.createAuthProviderString('client', {
+        client_id: 'someclientidtokengoeshere',
+        realm: 'https://api.example.com',
+        resource_code: 'someresourcecode',
+      }),
+      locale: 'nl-BE',
+    })
+
+    expect(SDK).toBeDefined()
+  })
 })
 
 describe('API', () => {
