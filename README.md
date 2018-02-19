@@ -22,10 +22,51 @@ One would create an SDK with a simple constructor function:
 
 ```js
 const SDK = new Skedify.API(options);
-// eg const SDK = Skedify.API({ auth_provider: 'client://client_id=sfUMCWu09e41WWNgyD2gJ0CgSBikiG9nhVo2iZSG&realm=https://api.example.com', locale: 'nl-BE' })
+// eg const SDK = Skedify.API({ auth_provider: 'client://client_id=someclientidtokengoeshere&realm=https://api.example.com', locale: 'nl-BE' })
 ```
 
 This would allow various authentication strategies to be represented in a similar way, using a "schema" methodology.
+
+### Construction utility
+
+We also expose a utility to make creating instances a bit easier:
+
+```js
+const SDK = new Skedify.API({
+  auth_provider: Skedify.API.createAuthProviderString("client", {
+    client_id: "someclientidtokengoeshere",
+    realm: "https://api.example.com"
+  }),
+  locale: "nl-BE"
+});
+
+// console.log(SDK.configuration) results in:
+{
+  "locale": "nl-BE",
+  "auth_provider": "client://client_id=someclientidtokengoeshere&realm=https%3A%2F%2Fapi.example.com"
+}
+```
+
+### Existing appointments using a `resource_code`
+
+If you already have an appointment you also have a `resource_code`. This code can be used to authenticate and get an `appointment_token`. You can achieve this by using the following code:
+
+```js
+const SDK = new Skedify.API({
+  auth_provider: Skedify.API.createAuthProviderString("client", {
+    client_id: "someclientidtokengoeshere",
+    realm: "https://api.example.com",
+    resource_code: "theresourcecodegoeshere" // This field is added in addition
+  }),
+  locale: "nl-BE"
+});
+
+// console.log(SDK.configuration) results in:
+{
+  "locale": "nl-BE",
+  "auth_provider": "client://client_id=someclientidtokengoeshere&realm=https%3A%2F%2Fapi.example.com&resource_code=theresourcecodegoeshere"
+}
+```
 
 ## Options/configuration
 
