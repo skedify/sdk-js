@@ -4,7 +4,7 @@ import { HTTP_VERB_GET } from '../../constants'
 
 export default function createCallConfig(
   defaultConfig,
-  { include, filters, method = HTTP_VERB_GET, data }
+  { include, filters, method = HTTP_VERB_GET, data, headers }
 ) {
   const config = Object.assign({ method, data }, defaultConfig)
 
@@ -28,6 +28,11 @@ export default function createCallConfig(
    * Setup params and stringify each value
    */
   config.params = stringifyQueryParamValues(config.params)
+
+  /**
+   * Setup headers
+   */
+  config.headers = Object.assign({}, config.headers, headers)
 
   /**
    * Return the config

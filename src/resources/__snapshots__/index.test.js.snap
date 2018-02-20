@@ -22,6 +22,9 @@ Object {
       "start",
       "end",
     ],
+    "headers": Object {
+      "recaptcha": [Function],
+    },
     "resource": "appointments",
     "sub_resources": Object {
       "answers": Object {
@@ -29,12 +32,14 @@ Object {
           "question",
         ],
         "filters": Array [],
+        "headers": Object {},
         "resource": "answers",
         "sub_resources": Object {},
       },
       "possibilities": Object {
         "allowed_includes": Array [],
         "filters": Array [],
+        "headers": Object {},
         "resource": "possibilities",
         "sub_resources": Object {},
       },
@@ -53,6 +58,7 @@ Object {
       "offices",
       "schedulable",
     ],
+    "headers": Object {},
     "resource": "contacts",
     "sub_resources": Object {},
   },
@@ -63,6 +69,7 @@ Object {
       "match",
       "limit",
     ],
+    "headers": Object {},
     "resource": "customers",
     "sub_resources": Object {},
   },
@@ -75,18 +82,21 @@ Object {
       "email",
       "external_id",
     ],
+    "headers": Object {},
     "resource": "employees",
     "sub_resources": Object {},
   },
   "enterpriseSettings": Object {
     "allowed_includes": Array [],
     "filters": Array [],
+    "headers": Object {},
     "resource": "enterprise_settings",
     "sub_resources": Object {},
   },
   "identity": Object {
     "allowed_includes": Array [],
     "filters": Array [],
+    "headers": Object {},
     "resource": "identity",
     "sub_resources": Object {},
   },
@@ -105,6 +115,7 @@ Object {
       "nearest_to_geo",
       "limit",
     ],
+    "headers": Object {},
     "resource": "offices",
     "sub_resources": Object {
       "subjectSettings": Object {
@@ -112,6 +123,7 @@ Object {
         "filters": Array [
           "subject_id",
         ],
+        "headers": Object {},
         "resource": "subject_settings",
         "sub_resources": Object {},
       },
@@ -123,6 +135,7 @@ Object {
       "languages.translations",
     ],
     "filters": Array [],
+    "headers": Object {},
     "resource": "subject_categories",
     "sub_resources": Object {},
   },
@@ -140,6 +153,7 @@ Object {
       "schedulable_with_contact",
       "schedulable",
     ],
+    "headers": Object {},
     "resource": "subjects",
     "sub_resources": Object {
       "questions": Object {
@@ -149,17 +163,20 @@ Object {
           "languages.translations",
         ],
         "filters": Array [],
+        "headers": Object {},
         "resource": "questions",
         "sub_resources": Object {
           "languages": Object {
             "allowed_includes": Array [],
             "filters": Array [],
+            "headers": Object {},
             "resource": "languages",
             "sub_resources": Object {},
           },
           "options": Object {
             "allowed_includes": Array [],
             "filters": Array [],
+            "headers": Object {},
             "resource": "options",
             "sub_resources": Object {},
           },
@@ -173,6 +190,7 @@ Object {
           "end",
           "contacts",
         ],
+        "headers": Object {},
         "resource": "timetable",
         "sub_resources": Object {},
       },
