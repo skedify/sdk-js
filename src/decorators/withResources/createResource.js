@@ -2,6 +2,8 @@ import { withResources } from '.'
 import { applyDecorators } from '..'
 import normalizeResponse from './normalizeResponse'
 
+import omit from '../../util/omit'
+
 const SHOULD_FORCE_AUTHORIZATION_REQUEST = IS_TEST
 
 import createCallConfig from './createCallConfig'
@@ -35,11 +37,26 @@ export default function createResource(
 ) {
   const requestConfig = {
     method: resourceDescription.method,
-    data: resourceDescription.data,
+    data: undefined,
     include: [],
     filters: {},
     headers: {},
   }
+
+  /**
+   * Add data and custom headers if necessary
+   */
+  const customHeaders = Object.keys(resourceDescription.headers)
+  requestConfig.data = omit(resourceDescription.data, customHeaders)
+
+  customHeaders.reduce(
+    (headers, key) =>
+      Object.assign(
+        headers,
+        resourceDescription.headers[key](resourceDescription.data[key])
+      ),
+    requestConfig.headers
+  )
 
   const responseInterceptors = []
 

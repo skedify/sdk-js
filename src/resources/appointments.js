@@ -18,6 +18,9 @@ export const appointments = createResourceDescription(
       'initiated_by',
     ],
     filters: ['state', 'start', 'end'],
+    headers: {
+      recaptcha: value => ({ 'X-Im-Not-A-Robot': value }),
+    },
   },
   {
     answers: createResourceDescription('answers', {

@@ -1,0 +1,23 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`omit should not break when trying to omit an non-existing key 1`] = `
+Object {
+  "foo": "bar",
+}
+`;
+
+exports[`omit should not omit anything if no keys to omit are given 1`] = `
+Object {
+  "bar": "baz",
+  "baz": "foo",
+  "foo": "bar",
+}
+`;
+
+exports[`omit should omit the keys that are given 1`] = `
+Object {
+  "foo": "bar",
+}
+`;
+
+exports[`omit should return an empty object on omitting everything 1`] = `Object {}`;

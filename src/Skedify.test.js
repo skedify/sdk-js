@@ -638,6 +638,8 @@ describe('API', () => {
               initiated_by_type: 'customer',
               customer: {},
               possibilities: [],
+              recaptcha:
+                'The response goes here, internally this gets mapped to a header',
             })
             .then(appointment => appointment.create())
         )
