@@ -1,14 +1,11 @@
 import createIdentityProvider from '../createIdentityProvider'
+import { set, get } from '../secret'
 
-function install(auth_provider) {
-  return {
-    on(instance) {
-      instance.__meta.identityProvider = createIdentityProvider(
-        auth_provider,
-        instance.__meta.network
-      )
-    },
-  }
+function installIdentityProvider(instance, auth_provider) {
+  const { network } = get(instance)
+  set(instance, {
+    identityProvider: createIdentityProvider(auth_provider, network),
+  })
 }
 
 export function withIdentityProvider() {
@@ -18,11 +15,11 @@ export function withIdentityProvider() {
 
     instance.onConfigurationChange(({ auth_provider }) => {
       if (original_auth_provider !== auth_provider) {
-        install(auth_provider).on(instance)
+        installIdentityProvider(instance, auth_provider)
         original_auth_provider = auth_provider
       }
     })
 
-    install(original_auth_provider).on(instance)
+    installIdentityProvider(instance, original_auth_provider)
   }
 }

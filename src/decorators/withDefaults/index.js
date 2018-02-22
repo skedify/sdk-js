@@ -1,8 +1,10 @@
 import createAcceptLanguageHeader from './createAcceptLanguageHeader'
+import { get } from '../../secret'
 
 function createDefaultHeaderInstaller(instance) {
   return function installDefaultHeaders({ locale }) {
-    instance.__meta.network.defaults.headers.common[
+    const { network } = get(instance)
+    network.defaults.headers.common[
       'Accept-Language'
     ] = createAcceptLanguageHeader(locale)
   }
