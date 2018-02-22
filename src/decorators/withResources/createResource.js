@@ -143,6 +143,29 @@ export default function createResource(meta, resourceDescription, parent) {
       return this
     }
 
+    /* eslint-disable class-methods-use-this */
+    update(data) {
+      const patchResource = createResource(
+        meta,
+        Object.assign({}, resourceDescription, {
+          data,
+          method: HTTP_VERB_PATCH,
+          name: 'patch',
+        }),
+        parent
+      )
+
+      const originalThen = patchResource.then
+
+      patchResource.then = function then(resolve) {
+        return resolve({
+          save: () => new Promise(originalThen),
+        })
+      }
+
+      return patchResource
+    }
+
     addResponseInterceptor(callback) {
       validateAddResponseInterceptorCallback({ callback })
 

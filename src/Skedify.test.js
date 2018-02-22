@@ -645,5 +645,38 @@ describe('API', () => {
         )
       ).toMatchSnapshot()
     })
+
+    it('should be possible to patch an entity', async () => {
+      expect(
+        await matchRequest(
+          SDK.appointments(1207)
+            .update({
+              state: 'cancelled',
+              cancelled_by_type: 'customer',
+              cancelled_by_id: 'customer id goes here',
+            })
+            .then(appointment => appointment.save())
+        )
+      ).toMatchSnapshot()
+    })
+
+    it('should be possible to read and patch when branched from the same base promise (do not mutate original promise)', async () => {
+      /** This test will make sure that we don't mutate the original promise */
+      const base = SDK.appointments(1207)
+
+      const patchRequest = await matchRequest(
+        base
+          .update({
+            state: 'cancelled',
+            cancelled_by_type: 'customer',
+            cancelled_by_id: 'customer id goes here',
+          })
+          .then(appointment => appointment.save())
+      )
+      const readRequest = await matchRequest(base)
+
+      expect(patchRequest).toMatchSnapshot()
+      expect(readRequest).toMatchSnapshot()
+    })
   })
 })
