@@ -646,10 +646,46 @@ describe('API', () => {
       ).toMatchSnapshot()
     })
 
+    it('should be possible to create an entity and add includes', async () => {
+      expect(
+        await matchRequest(
+          SDK.appointments()
+            .include(SDK.include.subject)
+            .new({
+              subject_id: 123,
+              office_id: 456,
+              meeting_type: 'office',
+              answers: [],
+              initiated_by_type: 'customer',
+              customer: {},
+              possibilities: [],
+              recaptcha:
+                'The response goes here, internally this gets mapped to a header',
+            })
+            .then(appointment => appointment.create())
+        )
+      ).toMatchSnapshot()
+    })
+
     it('should be possible to patch an entity', async () => {
       expect(
         await matchRequest(
           SDK.appointments(1207)
+            .update({
+              state: 'cancelled',
+              cancelled_by_type: 'customer',
+              cancelled_by_id: 'customer id goes here',
+            })
+            .then(appointment => appointment.save())
+        )
+      ).toMatchSnapshot()
+    })
+
+    it('should be possible to patch an entity and add includes', async () => {
+      expect(
+        await matchRequest(
+          SDK.appointments(1207)
+            .include(SDK.include.customer)
             .update({
               state: 'cancelled',
               cancelled_by_type: 'customer',

@@ -4,8 +4,6 @@ import createResource from './createResource'
 import withExternalIdentifier from './withExternalIdentifier'
 import { validateIncludeAlreadyCalled, validateParentId } from './invariants'
 
-import { HTTP_VERB_POST } from '../../constants'
-
 export function withResources(resources = rootResources, parent = undefined) {
   return instance => {
     Object.keys(resources).forEach(name => {
@@ -53,27 +51,7 @@ export function withResources(resources = rootResources, parent = undefined) {
           },
           {
             new(data) {
-              const newResource = createResource(
-                instance.__meta,
-                Object.assign({}, resource, {
-                  data,
-                  method: HTTP_VERB_POST,
-                  name: 'new',
-                }),
-                parent
-              )
-
-              const originalThen = newResource.then
-
-              newResource.then = function then(resolve) {
-                // TODO: Reject when validation fails
-
-                return resolve({
-                  create: () => new Promise(originalThen),
-                })
-              }
-
-              return newResource
+              return createResource(instance.__meta, resource, parent).new(data)
             },
           }
         ),
