@@ -68,7 +68,15 @@ Object {
 
 exports[`API API/Resources should be possible to create an entity 1`] = `
 Object {
-  "data": "{\\"subject_id\\":123,\\"office_id\\":456,\\"meeting_type\\":\\"office\\",\\"answers\\":[],\\"initiated_by_type\\":\\"customer\\",\\"customer\\":{},\\"possibilities\\":[]}",
+  "data": Object {
+    "answers": Array [],
+    "customer": Object {},
+    "initiated_by_type": "customer",
+    "meeting_type": "office",
+    "office_id": 456,
+    "possibilities": Array [],
+    "subject_id": 123,
+  },
   "headers": Object {
     "Accept": "application/json, text/plain, */*",
     "Accept-Language": "nl-BE, nl;q=0.667, *;q=0.333",
