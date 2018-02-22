@@ -312,6 +312,41 @@ SDK.appointments
   );
 ```
 
+If you still want to apply `includes` you can do that as follows:
+
+```js
+SDK.appointments()
+  .include(SDK.include.subjects)
+  .new({
+    /* insert properties of appointment here */
+  })
+  .then(appointment => appointment.create(), validation_error => {})
+  .then(
+    response => {
+      // The actual response as defined above goes here
+    },
+    response_error => {}
+  );
+```
+
+## Updating
+
+If you want to update an entity you can do it as follows:
+
+```js
+SDK.appointments(1207)
+  .update({
+    /* insert properties of appointment here */
+  })
+  .then(appointment => appointment.save(), validation_error => {})
+  .then(
+    response => {
+      // The actual response as defined above goes here
+    },
+    response_error => {}
+  );
+```
+
 > **NOTE**: adding validation is an optional feature that can be added on later without breaking backwards compatibility
 
 > **NOTE**: validation (or other) errors returned by the API could/should be machine-readable and parsed into a practical format usable by the SDK user.
