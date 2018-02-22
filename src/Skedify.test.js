@@ -629,7 +629,7 @@ describe('API', () => {
     it('should be possible to create an entity', async () => {
       expect(
         await matchRequest(
-          SDK.appointments
+          SDK.appointments()
             .new({
               subject_id: 123,
               office_id: 456,

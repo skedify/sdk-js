@@ -299,24 +299,7 @@ Such an action will be validated before actually attempting to perform it.
 The user is required to confirm the action by calling the `.create` method on the record
 
 ```js
-SDK.appointments
-  .new({
-    /* insert properties of appointment here */
-  })
-  .then(appointment => appointment.create(), validation_error => {})
-  .then(
-    response => {
-      // The actual response as defined above goes here
-    },
-    response_error => {}
-  );
-```
-
-If you still want to apply `includes` you can do that as follows:
-
-```js
 SDK.appointments()
-  .include(SDK.include.subjects)
   .new({
     /* insert properties of appointment here */
   })
