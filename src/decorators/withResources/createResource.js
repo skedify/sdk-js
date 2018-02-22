@@ -13,6 +13,7 @@ import {
   validateFilterCallbackExecution,
   validateAddResponseInterceptorCallback,
 } from './invariants'
+import { HTTP_VERB_PATCH, ALL_HTTP_VERBS } from '../../constants'
 
 function createURL(...parts) {
   return parts.filter(Boolean).join('/')
@@ -30,11 +31,8 @@ function createParentURL(parent) {
   )
 }
 
-export default function createResource(
-  { identityProvider, network },
-  resourceDescription,
-  parent
-) {
+export default function createResource(meta, resourceDescription, parent) {
+  const { identityProvider, network } = meta
   const requestConfig = {
     method: resourceDescription.method,
     data: undefined,
@@ -46,14 +44,20 @@ export default function createResource(
   /**
    * Add data and custom headers if necessary
    */
-  const customHeaders = Object.keys(resourceDescription.headers)
+  const combinedCustomHeaders = Object.assign(
+    {},
+    resourceDescription.headers[ALL_HTTP_VERBS],
+    resourceDescription.headers[requestConfig.method]
+  )
+
+  const customHeaders = Object.keys(combinedCustomHeaders)
   requestConfig.data = omit(resourceDescription.data, customHeaders)
 
   customHeaders.reduce(
     (headers, key) =>
       Object.assign(
         headers,
-        resourceDescription.headers[key](resourceDescription.data[key])
+        combinedCustomHeaders[key](resourceDescription.data[key])
       ),
     requestConfig.headers
   )
