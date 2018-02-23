@@ -629,7 +629,7 @@ describe('API', () => {
     it('should be possible to create an entity', async () => {
       expect(
         await matchRequest(
-          SDK.appointments
+          SDK.appointments()
             .new({
               subject_id: 123,
               office_id: 456,
@@ -644,6 +644,75 @@ describe('API', () => {
             .then(appointment => appointment.create())
         )
       ).toMatchSnapshot()
+    })
+
+    it('should be possible to create an entity and add includes', async () => {
+      expect(
+        await matchRequest(
+          SDK.appointments()
+            .include(SDK.include.subject)
+            .new({
+              subject_id: 123,
+              office_id: 456,
+              meeting_type: 'office',
+              answers: [],
+              initiated_by_type: 'customer',
+              customer: {},
+              possibilities: [],
+              recaptcha:
+                'The response goes here, internally this gets mapped to a header',
+            })
+            .then(appointment => appointment.create())
+        )
+      ).toMatchSnapshot()
+    })
+
+    it('should be possible to patch an entity', async () => {
+      expect(
+        await matchRequest(
+          SDK.appointments(1207)
+            .update({
+              state: 'cancelled',
+              cancelled_by_type: 'customer',
+              cancelled_by_id: 'customer id goes here',
+            })
+            .then(appointment => appointment.save())
+        )
+      ).toMatchSnapshot()
+    })
+
+    it('should be possible to patch an entity and add includes', async () => {
+      expect(
+        await matchRequest(
+          SDK.appointments(1207)
+            .include(SDK.include.customer)
+            .update({
+              state: 'cancelled',
+              cancelled_by_type: 'customer',
+              cancelled_by_id: 'customer id goes here',
+            })
+            .then(appointment => appointment.save())
+        )
+      ).toMatchSnapshot()
+    })
+
+    it('should be possible to read and patch when branched from the same base promise (do not mutate original promise)', async () => {
+      /** This test will make sure that we don't mutate the original promise */
+      const base = SDK.appointments(1207)
+
+      const patchRequest = await matchRequest(
+        base
+          .update({
+            state: 'cancelled',
+            cancelled_by_type: 'customer',
+            cancelled_by_id: 'customer id goes here',
+          })
+          .then(appointment => appointment.save())
+      )
+      const readRequest = await matchRequest(base)
+
+      expect(patchRequest).toMatchSnapshot()
+      expect(readRequest).toMatchSnapshot()
     })
   })
 })

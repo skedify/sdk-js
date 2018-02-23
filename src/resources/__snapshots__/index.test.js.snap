@@ -23,7 +23,9 @@ Object {
       "end",
     ],
     "headers": Object {
-      "recaptcha": [Function],
+      "post": Object {
+        "recaptcha": [Function],
+      },
     },
     "resource": "appointments",
     "sub_resources": Object {

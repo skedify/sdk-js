@@ -299,11 +299,29 @@ Such an action will be validated before actually attempting to perform it.
 The user is required to confirm the action by calling the `.create` method on the record
 
 ```js
-SDK.appointments
+SDK.appointments()
   .new({
     /* insert properties of appointment here */
   })
   .then(appointment => appointment.create(), validation_error => {})
+  .then(
+    response => {
+      // The actual response as defined above goes here
+    },
+    response_error => {}
+  );
+```
+
+## Updating
+
+If you want to update an entity you can do it as follows:
+
+```js
+SDK.appointments(1207)
+  .update({
+    /* insert properties of appointment here */
+  })
+  .then(appointment => appointment.save(), validation_error => {})
   .then(
     response => {
       // The actual response as defined above goes here

@@ -13,6 +13,11 @@ import {
   validateFilterCallbackExecution,
   validateAddResponseInterceptorCallback,
 } from './invariants'
+import {
+  HTTP_VERB_PATCH,
+  ALL_HTTP_VERBS,
+  HTTP_VERB_POST,
+} from '../../constants'
 
 function createURL(...parts) {
   return parts.filter(Boolean).join('/')
@@ -30,11 +35,22 @@ function createParentURL(parent) {
   )
 }
 
-export default function createResource(
-  { identityProvider, network },
-  resourceDescription,
-  parent
-) {
+function overrideThen(promise, replaceWith) {
+  const originalThen = promise.then
+
+  promise.then = function then(resolve) {
+    return resolve(replaceWith(originalThen))
+  }
+
+  return promise
+}
+
+export default function createResource(meta, resourceDescription, parent) {
+  const { identityProvider, network } = meta
+
+  /**
+   * Setup a place to store all information for the current resource
+   */
   const requestConfig = {
     method: resourceDescription.method,
     data: undefined,
@@ -44,22 +60,50 @@ export default function createResource(
   }
 
   /**
-   * Add data and custom headers if necessary
+   * Allow to "clone" the current resource
    */
-  const customHeaders = Object.keys(resourceDescription.headers)
-  requestConfig.data = omit(resourceDescription.data, customHeaders)
+  function clone() {
+    return createResource(meta, resourceDescription, parent).applyConfig(
+      Object.assign({}, requestConfig)
+    )
+  }
 
-  customHeaders.reduce(
-    (headers, key) =>
-      Object.assign(
-        headers,
-        resourceDescription.headers[key](resourceDescription.data[key])
-      ),
-    requestConfig.headers
-  )
+  /**
+   * Allow for post requests
+   */
+  function newEntity(data) {
+    return overrideThen(
+      clone().applyConfig({
+        data,
+        method: HTTP_VERB_POST,
+        name: 'new',
+      }),
+      originalThen => ({
+        create: () => new Promise(originalThen),
+      })
+    )
+  }
 
+  /**
+   * Allow for patch requests
+   */
+  function updateEntity(data) {
+    return overrideThen(
+      clone().applyConfig({
+        data,
+        method: HTTP_VERB_PATCH,
+        name: 'patch',
+      }),
+      originalThen => ({
+        save: () => new Promise(originalThen),
+      })
+    )
+  }
+
+  /**
+   * Allow to add response interceptors
+   */
   const responseInterceptors = []
-
   function executeResponseInterceptors(response) {
     return responseInterceptors.reduce(
       (interceptee, interceptor) => interceptor(interceptee),
@@ -67,6 +111,33 @@ export default function createResource(
     )
   }
 
+  function deriveHeadersFromData(config) {
+    const copy = Object.assign({}, config)
+
+    const combinedCustomHeaders = Object.assign(
+      {},
+      resourceDescription.headers[ALL_HTTP_VERBS],
+      resourceDescription.headers[copy.method]
+    )
+
+    const customHeaders = Object.keys(combinedCustomHeaders)
+    customHeaders.reduce(
+      (headers, key) =>
+        Object.assign(headers, combinedCustomHeaders[key](copy.data[key])),
+      copy.headers
+    )
+
+    /**
+     * Remove data used to derive headers
+     */
+    copy.data = omit(copy.data, customHeaders)
+
+    return copy
+  }
+
+  /**
+   * Create the final request
+   */
   function createRequest({ Realm, Authorization }) {
     return network(
       createCallConfig(
@@ -81,7 +152,7 @@ export default function createResource(
             Authorization,
           },
         },
-        requestConfig
+        deriveHeadersFromData(requestConfig)
       )
     )
   }
@@ -147,6 +218,13 @@ export default function createResource(
       return this
     }
 
+    // Allow to apply the config
+    applyConfig(nextConfig) {
+      Object.assign(requestConfig, nextConfig)
+
+      return this
+    }
+
     // eslint-disable-next-line class-methods-use-this
     then(onFulfilled, onRejected) {
       return identityProvider
@@ -176,6 +254,18 @@ export default function createResource(
           requestConfig,
         })
       },
+    },
+
+    // Expose a .new(data) method on the Resource
+    new: {
+      enumerable: false,
+      value: newEntity,
+    },
+
+    // Expose a .update(data) method on the Resource
+    update: {
+      enumerable: false,
+      value: updateEntity,
     },
   })
 }

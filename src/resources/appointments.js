@@ -1,4 +1,5 @@
 import createResourceDescription from './util/createResourceDescription'
+import { HTTP_VERB_POST } from '../constants'
 
 export const appointments = createResourceDescription(
   'appointments',
@@ -19,7 +20,9 @@ export const appointments = createResourceDescription(
     ],
     filters: ['state', 'start', 'end'],
     headers: {
-      recaptcha: value => ({ 'X-Im-Not-A-Robot': value }),
+      [HTTP_VERB_POST]: {
+        recaptcha: value => ({ 'X-Im-Not-A-Robot': value }),
+      },
     },
   },
   {
