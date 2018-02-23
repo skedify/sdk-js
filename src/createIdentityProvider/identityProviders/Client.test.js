@@ -93,6 +93,54 @@ describe('Identity Provider # Client', () => {
     expect(moxios.requests.count()).toBe(2)
   })
 
+  it('should be possible to authenticate with a resource_code', async () => {
+    const client = new Client(network, {
+      client_id: 'client 123',
+      realm: 'https://example.com',
+      resource_code: 'some resource code',
+    })
+
+    // Mock the authentication request
+    moxios.wait(() => {
+      moxios.requests.mostRecent().respondWith({
+        status: 200,
+        response: {
+          access_token: 'rMOUIcH85oh44KD7RM4XRk7jFPiG8RMLi2IPqFsQ',
+          token_type: 'Bearer',
+          expires_in: 5400,
+        },
+      })
+
+      // Mock the proxy call
+      moxios.wait(() => {
+        moxios.requests.mostRecent().respondWith({
+          status: 200,
+          response: {
+            data: {
+              url: 'https://api.example.com',
+            },
+          },
+        })
+      }, 0)
+    }, 0)
+
+    // Wait for our call
+    await client.getAuthorization()
+
+    const {
+      data,
+      headers,
+      method,
+      params,
+      url,
+    } = moxios.requests.mostRecent().config
+
+    expect({ data, headers, method, params, url }).toMatchSnapshot()
+
+    // A call to auth + proxy should have been made
+    expect(moxios.requests.count()).toBe(2)
+  })
+
   it('should be possible to re-use the same auth request', async () => {
     const client = new Client(network, {
       client_id: 'client 123',

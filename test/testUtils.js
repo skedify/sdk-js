@@ -60,6 +60,12 @@ export function matchRequest(
       url,
     } = moxios.requests.mostRecent().config
 
-    return { data, headers, method, params, url }
+    return {
+      data: data && JSON.parse(data),
+      headers,
+      method,
+      params,
+      url,
+    }
   })
 }

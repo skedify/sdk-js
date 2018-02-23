@@ -1,6 +1,6 @@
 export default function createResourceDescription(
   resource,
-  { includes = [], filters = [] } = {},
+  { includes = [], filters = [], headers = {} } = {},
   sub_resources = {}
 ) {
   return {
@@ -8,5 +8,6 @@ export default function createResourceDescription(
     allowed_includes: includes,
     filters,
     sub_resources,
+    headers,
   }
 }
