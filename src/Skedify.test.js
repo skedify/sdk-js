@@ -1,12 +1,10 @@
 /* eslint-disable max-nested-callbacks, max-statements */
-import {
+import Skedify, {
   installSkedifySDKMock,
   uninstallSkedifySDKMock,
   mockResponse,
   matchRequest,
-} from './Skedify.testing'
-
-import Skedify from './Skedify'
+} from './build/Skedify.prod'
 
 import * as exported from './constants/exported'
 

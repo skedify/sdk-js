@@ -1,4 +1,4 @@
-import SkedifyAPI from './SkedifyAPI'
+import SkedifyAPI from '../SkedifyAPI'
 
 const Skedify = window.Skedify || {}
 

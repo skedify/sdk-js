@@ -1,10 +1,10 @@
 import moxios from 'moxios'
-import { get } from '../src/secret'
+import { get } from '../secret'
 
 /**
  * Expose general test utils
  */
-export { matchRequest, mockResponse } from '../test/testUtils'
+export { matchRequest, mockResponse } from '../../test/testUtils'
 
 /**
  * Expose an install mock function

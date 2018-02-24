@@ -520,7 +520,7 @@ import {
   uninstallSkedifySDKMock,
   matchRequest,
   mockResponse
-} from "skedify-sdk/lib/test-utils";
+} from "skedify-sdk";
 const SDK = new Skedify.API(options);
 
 /**

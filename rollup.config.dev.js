@@ -1,15 +1,16 @@
 import replace from 'rollup-plugin-replace'
 
-import createConfig from './rollup.config.common'
+import { createUMDConfig } from './rollup.config.common'
 
-export default createConfig(common =>
-  Object.assign({}, common, {
-    input: './src/Skedify.dev.js',
-    output: Object.assign({}, common.output, {
+const createBaseConfig = common => specific => {
+  const base = Object.assign({}, common, specific)
+
+  return Object.assign({}, base, {
+    output: Object.assign({}, base.output, {
       sourcemap: true,
       indent: true,
     }),
-    plugins: common.plugins.concat([
+    plugins: base.plugins.concat([
       replace({
         'process.env.NODE_ENV': JSON.stringify('development'),
         IS_PRODUCTION: JSON.stringify(false),
@@ -18,4 +19,8 @@ export default createConfig(common =>
       }),
     ]),
   })
+}
+
+export default createUMDConfig(
+  createBaseConfig({ input: './src/build/Skedify.dev' })
 )
