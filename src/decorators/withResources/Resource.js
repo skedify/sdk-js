@@ -1,5 +1,4 @@
 import { set, get } from '../../secret'
-import { applyDecorators, withResources } from '..'
 import {
   validateIncludes,
   validateFilterCallback,
@@ -50,22 +49,6 @@ export default class Resource {
       // The parent resource
       parent,
     })
-
-    /**
-     * Allow for sub resources
-     */
-    if (
-      descriptor.sub_resources &&
-      Object.keys(descriptor.sub_resources).length > 0
-    ) {
-      applyDecorators(
-        withResources(
-          instance /* SDK instance */,
-          descriptor.sub_resources /* resources */,
-          this /* parent */
-        )
-      )(this /* target */)
-    }
   }
 
   include(...includes) {
