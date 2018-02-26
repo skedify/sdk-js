@@ -1,18 +1,40 @@
 import * as rootResources from '../../resources'
 
-import createResource from './createResource'
 import withExternalIdentifier from './withExternalIdentifier'
 import { validateIncludeAlreadyCalled, validateParentId } from './invariants'
+import Resource from './Resource'
+import { get } from '../../secret'
 
-export function withResources(resources = rootResources, parent = undefined) {
-  return instance => {
+function applySubResources(resource, withFn) {
+  const { descriptor, instance } = get(resource)
+
+  if (
+    descriptor.sub_resources &&
+    Object.keys(descriptor.sub_resources).length > 0
+  ) {
+    withFn(
+      instance /* SDK instance */,
+      descriptor.sub_resources /* resources */,
+      resource /* parent */
+    )(resource /* target */)
+  }
+
+  return resource
+}
+
+export function withResources(
+  instance,
+  resources = rootResources,
+  parent = undefined
+) {
+  return target => {
     Object.keys(resources).forEach(name => {
       const resource = resources[name]
 
       /**
        * Define instance.resource(optional_identifier)
        */
-      Object.defineProperty(instance, name, {
+      Object.defineProperty(target, name, {
         enumerable: true,
         value: Object.assign(identifier => {
           /**
@@ -27,24 +49,24 @@ export function withResources(resources = rootResources, parent = undefined) {
            * Allow for "external://abc"
            */
           if (`${identifier}`.includes('://')) {
-            return withExternalIdentifier(identifier)(
-              createResource(
-                instance.__meta,
-                Object.assign({}, resource, {
-                  name,
-                }),
-                parent
-              )
+            const nextResource = applySubResources(
+              new Resource(instance, Object.assign({ name }, resource), parent),
+              withResources
             )
+
+            return withExternalIdentifier(identifier)(nextResource)
           }
 
           /**
            * Create the resource object.
            */
-          return createResource(
-            instance.__meta,
-            Object.assign({}, resource, { identifier, name }),
-            parent
+          return applySubResources(
+            new Resource(
+              instance,
+              Object.assign({ identifier, name }, resource),
+              parent
+            ),
+            withResources
           )
         }),
       })

@@ -16,15 +16,18 @@ import {
   ERROR_SUBRESOURCE_INCLUDE_ALREADY_CALLED,
   ERROR_SUBRESOURCE_INVALID_PARENT_ID,
 } from '../../constants'
+import { get } from '../../secret'
 
 /**
  * Error when trying to use subresources but the parent has no `id`.
  */
 export function validateParentId({ parent, name, identifier }) {
-  if (parent.__meta.identifier === undefined) {
+  const { descriptor } = get(parent)
+
+  if (descriptor.identifier === undefined) {
     throw createResourceError(
       `You tried to call \`.${
-        parent.__meta.name
+        descriptor.name
       }(/* MISSING IDENTIFIER */).${name}(${
         identifier === undefined ? '' : JSON.stringify(identifier)
       })\` but the parent id is missing.`,
@@ -38,16 +41,18 @@ export function validateParentId({ parent, name, identifier }) {
  * Error when parent has includes defined already.
  */
 export function validateIncludeAlreadyCalled({ parent, name, identifier }) {
+  const { requestConfig, descriptor } = get(parent)
+
   if (
-    Array.isArray(parent.__meta.requestConfig.include) &&
-    parent.__meta.requestConfig.include.length > 0
+    Array.isArray(requestConfig.include) &&
+    requestConfig.include.length > 0
   ) {
     throw createResourceError(
       `You tried to call \`.${name}(${
         identifier === undefined ? '' : JSON.stringify(identifier)
-      })\` as a sub resource on \`.${parent.__meta.name}(${JSON.stringify(
-        parent.__meta.identifier
-      )})\`, but \`.include(${parent.__meta.requestConfig.include
+      })\` as a sub resource on \`.${descriptor.name}(${JSON.stringify(
+        descriptor.identifier
+      )})\`, but \`.include(${requestConfig.include
         .map(item => `"${item}"`)
         .join(
           ', '
@@ -88,18 +93,20 @@ export function validateResponseFromExternalIdentifier({ response }) {
 /**
  * Error when the resource includes "includes" that are not recognized for the current resource
  */
-export function validateIncludes({ resourceDescription, requestConfig }) {
+export function validateIncludes(resource) {
+  const { descriptor, requestConfig } = get(resource)
+
   if (
     requestConfig.include.some(
-      include => !resourceDescription.allowed_includes.includes(include)
+      include => !descriptor.allowed_includes.includes(include)
     )
   ) {
-    if (resourceDescription.allowed_includes.length === 0) {
+    if (descriptor.allowed_includes.length === 0) {
       throw createResourceError(
         `You tried to call \`.include(${requestConfig.include
           .map(item => `"${item}"`)
           .join(', ')})\` but there are no includes defined for ${
-          resourceDescription.resource
+          descriptor.resource
         }.`,
         ERROR_RESOURCE,
         ERROR_RESOURCE_INVALID_INCLUDE
@@ -109,10 +116,10 @@ export function validateIncludes({ resourceDescription, requestConfig }) {
         `You tried to call \`.include(${requestConfig.include
           .map(item => `"${item}"`)
           .join(', ')})\` but the only valid includes for ${
-          resourceDescription.resource
+          descriptor.resource
         } are ${joinAsSpeech(
           AND,
-          resourceDescription.allowed_includes.map(item => `\`${item}\``)
+          descriptor.allowed_includes.map(item => `\`${item}\``)
         )}.`,
         ERROR_RESOURCE,
         ERROR_RESOURCE_INVALID_INCLUDE
@@ -141,14 +148,16 @@ export function validateFilterCallback({ callback }) {
   }
 }
 
-export function validateFilterCallbackExecution({ resourceDescription }, run) {
+export function validateFilterCallbackExecution(resource, run) {
   try {
     run()
   } catch (err) {
+    const { descriptor } = get(resource)
+
     throw createResourceError(
       `${err.message}. You can only call ${joinAsSpeech(
         OR,
-        resourceDescription.filters.map(filter => `\`.${filter}()\``)
+        descriptor.filters.map(filter => `\`.${filter}()\``)
       )}.`,
       ERROR_RESOURCE,
       ERROR_RESOURCE_INVALID_FILTER
