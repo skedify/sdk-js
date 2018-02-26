@@ -1,17 +1,15 @@
 import { validateResponseFromExternalIdentifier } from './invariants'
 
+const TYPE_CONVERSION = {
+  external: 'external_id',
+}
+
 export default function withExternalIdentifier(identifier) {
   const [type, value] = identifier.split('://')
 
   return resource =>
     resource
-      .filter(item =>
-        item[
-          {
-            external: 'external_id',
-          }[type]
-        ](value)
-      )
+      .filter(item => item[TYPE_CONVERSION[type]](value))
       .addResponseInterceptor(response => {
         validateResponseFromExternalIdentifier({ response })
 

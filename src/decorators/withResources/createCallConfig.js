@@ -1,11 +1,18 @@
+import { HTTP_VERB_GET, ALL_HTTP_VERBS } from '../../constants'
+import { get } from '../../secret'
 import stringifyQueryParamValues from './stringifyQueryParamValues'
+import omit from '../../util/omit'
 
-import { HTTP_VERB_GET } from '../../constants'
+export default function createCallConfig(resource, defaultConfig) {
+  const { requestConfig, descriptor } = get(resource)
+  const {
+    include,
+    filters,
+    method = HTTP_VERB_GET,
+    data,
+    headers,
+  } = requestConfig
 
-export default function createCallConfig(
-  defaultConfig,
-  { include, filters, method = HTTP_VERB_GET, data, headers }
-) {
   const config = Object.assign({ method, data }, defaultConfig)
 
   /**
@@ -33,6 +40,26 @@ export default function createCallConfig(
    * Setup headers
    */
   config.headers = Object.assign({}, config.headers, headers)
+
+  /**
+   * Setup headers derived from `data`
+   */
+  const combinedHeaders = Object.assign(
+    {},
+    descriptor.headers[ALL_HTTP_VERBS],
+    descriptor.headers[method]
+  )
+
+  const customHeaders = Object.keys(combinedHeaders)
+  config.headers = customHeaders.reduce(
+    (list, key) => Object.assign(list, combinedHeaders[key](config.data[key])),
+    config.headers
+  )
+
+  /**
+   * Remove data used to derive headers
+   */
+  config.data = omit(config.data, customHeaders)
 
   /**
    * Return the config

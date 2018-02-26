@@ -2,18 +2,17 @@ import uglify from 'rollup-plugin-uglify'
 import { minify } from 'uglify-es'
 import replace from 'rollup-plugin-replace'
 
-import createConfig from './rollup.config.common'
+import { createUMDConfig } from './rollup.config.common'
 
-import testUtilsBuild from './rollup.config.test-utils'
+const createBaseConfig = common => specific => {
+  const base = Object.assign({}, common, specific)
 
-const productionBuild = createConfig(common =>
-  Object.assign({}, common, {
-    input: './src/Skedify.js',
-    output: Object.assign({}, common.output, {
+  return Object.assign({}, base, {
+    output: Object.assign({}, base.output, {
       sourcemap: false,
       indent: false,
     }),
-    plugins: common.plugins.concat([
+    plugins: base.plugins.concat([
       replace({
         'process.env.NODE_ENV': JSON.stringify('production'),
         IS_PRODUCTION: JSON.stringify(true),
@@ -34,6 +33,8 @@ const productionBuild = createConfig(common =>
       ),
     ]),
   })
-)
+}
 
-export default [].concat(productionBuild, testUtilsBuild)
+export default createUMDConfig(
+  createBaseConfig({ input: './src/build/Skedify.prod' })
+)

@@ -7,58 +7,43 @@ import babel from 'rollup-plugin-babel'
 
 import PACKAGE from './package.json'
 
-const defaultConfig = {
-  output: {
-    exports: 'default',
-    banner: `/* Copyright ${new Date().getUTCFullYear()} Skedify NV */`,
-  },
-  plugins: [
-    alias({
-      resolve: ['.js', ''],
-    }),
-    resolve({
-      module: true,
-      jsnext: true,
-      main: true,
-      browser: true,
-      extensions: ['.js', '/index.js'],
-      preferBuiltins: false,
-    }),
-    commonjs({
-      namedExports: {},
-    }),
-    babel({
-      include: ['node_modules/axios/**', 'src/**'],
-      runtimeHelpers: true,
-    }),
-    buble({
-      namedFunctionExpressions: false,
-      objectAssign: 'Object.assign',
-    }),
-    inject({
-      include: '**/*.js',
-      exclude: 'node_modules/**',
-    }),
-  ],
-}
+export function createUMDConfig(merger) {
+  return merger({
+    output: {
+      exports: 'named',
+      banner: `/* Copyright ${new Date().getUTCFullYear()} Skedify NV */`,
 
-function createConfig(merger) {
-  return [
-    {
-      output: {
-        format: 'umd',
-        name: 'Skedify',
-        file: PACKAGE.main,
-      },
+      format: 'umd',
+      name: 'Skedify',
+      file: PACKAGE.main,
     },
-    {
-      output: {
-        format: 'es',
-        name: 'Skedify',
-        file: PACKAGE.module,
-      },
-    },
-  ].map(config => merger(Object.assign({}, defaultConfig, config)))
+    plugins: [
+      alias({
+        resolve: ['.js', ''],
+      }),
+      resolve({
+        module: true,
+        jsnext: true,
+        main: true,
+        browser: true,
+        extensions: ['.js', '/index.js'],
+        preferBuiltins: false,
+      }),
+      commonjs({
+        namedExports: {},
+      }),
+      babel({
+        include: ['node_modules/axios/**', 'src/**'],
+        runtimeHelpers: true,
+      }),
+      buble({
+        namedFunctionExpressions: false,
+        objectAssign: 'Object.assign',
+      }),
+      inject({
+        include: '**/*.js',
+        exclude: 'node_modules/**',
+      }),
+    ],
+  })
 }
-
-export default createConfig
