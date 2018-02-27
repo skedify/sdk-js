@@ -8,10 +8,20 @@ describe('createIdentityProviderString', () => {
         Bar: 'Bar',
         Baz: 'http://foo.bar.baz/',
       })
-    ).toEqual('client://Foo=Foo&Bar=Bar&Baz=http%3A%2F%2Ffoo.bar.baz%2F')
+    ).toMatchSnapshot()
   })
 
   it('should be possible to pass no options at all', () => {
-    expect(createIdentityProviderString('client')).toEqual('client://')
+    expect(createIdentityProviderString('client')).toMatchSnapshot()
+  })
+
+  it('should filter out undefined values', () => {
+    expect(
+      createIdentityProviderString('client', {
+        Foo: 'Foo',
+        Bar: 'Bar',
+        Baz: undefined,
+      })
+    ).toMatchSnapshot()
   })
 })
