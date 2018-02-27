@@ -1,0 +1,7 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`createIdentityProviderString should be able to create an identity provider string 1`] = `"client://Foo=Foo&Bar=Bar&Baz=http%3A%2F%2Ffoo.bar.baz%2F"`;
+
+exports[`createIdentityProviderString should be possible to pass no options at all 1`] = `"client://"`;
+
+exports[`createIdentityProviderString should filter out undefined values 1`] = `"client://Foo=Foo&Bar=Bar"`;
