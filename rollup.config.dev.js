@@ -13,9 +13,6 @@ const createBaseConfig = common => specific => {
     plugins: base.plugins.concat([
       replace({
         'process.env.NODE_ENV': JSON.stringify('development'),
-        IS_PRODUCTION: JSON.stringify(false),
-        IS_DEVELOPMENT: JSON.stringify(true),
-        IS_TEST: JSON.stringify(false),
       }),
     ]),
   })

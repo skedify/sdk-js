@@ -446,6 +446,88 @@ exports[`API API/Resources should throw an error when no values are passed for t
 
 exports[`API API/Resources should throw an error when required props are missing from a shorthand call (timetable) 1`] = `"[RESOURCE]: You tried to call .timetable({\\"subject\\":316,\\"end\\":\\"2017-12-26\\"}) but \`office\` and \`start\` are also required."`;
 
+exports[`API API/testUtils matchRequest should be possible to get the request object 1`] = `
+Object {
+  "data": undefined,
+  "headers": Object {
+    "Accept": "application/json, text/plain, */*",
+    "Accept-Language": "nl-BE, nl;q=0.667, *;q=0.333",
+    "Authorization": "Bearer fake_example_access_token",
+  },
+  "method": "get",
+  "params": undefined,
+  "url": "https://api.example.com/appointments",
+}
+`;
+
+exports[`API API/testUtils matchRequest should be possible to match multiple requests in one go 1`] = `
+Object {
+  "data": undefined,
+  "headers": Object {
+    "Accept": "application/json, text/plain, */*",
+    "Accept-Language": "nl-BE, nl;q=0.667, *;q=0.333",
+    "Authorization": "Bearer fake_example_access_token",
+  },
+  "method": "get",
+  "params": undefined,
+  "url": "https://api.example.com/appointments",
+}
+`;
+
+exports[`API API/testUtils matchRequest should be possible to match multiple requests in one go 2`] = `
+Object {
+  "data": undefined,
+  "headers": Object {
+    "Accept": "application/json, text/plain, */*",
+    "Accept-Language": "nl-BE, nl;q=0.667, *;q=0.333",
+    "Authorization": "Bearer fake_example_access_token",
+  },
+  "method": "get",
+  "params": undefined,
+  "url": "https://api.example.com/appointments",
+}
+`;
+
+exports[`API API/testUtils mockResponse should be possible to mock a response (and get defaults) 1`] = `
+Object {
+  "data": undefined,
+  "headers": undefined,
+  "meta": undefined,
+  "status": 200,
+  "warnings": undefined,
+}
+`;
+
+exports[`API API/testUtils mockResponse should be possible to mock a response 1`] = `
+Object {
+  "data": "data goes here",
+  "headers": undefined,
+  "meta": "meta data goes here",
+  "status": 223,
+  "warnings": "warnings go here",
+}
+`;
+
+exports[`API API/testUtils mockResponse should be possible to mock responses of multiple calls 1`] = `
+Object {
+  "data": "my appointments data",
+  "headers": undefined,
+  "meta": undefined,
+  "status": 200,
+  "warnings": undefined,
+}
+`;
+
+exports[`API API/testUtils mockResponse should be possible to mock responses of multiple calls 2`] = `
+Object {
+  "data": "my subjects data",
+  "headers": undefined,
+  "meta": undefined,
+  "status": 200,
+  "warnings": undefined,
+}
+`;
+
 exports[`API should expose all available includes on the Skedify.API instance 1`] = `
 Object {
   "accepted_possibility": Object {

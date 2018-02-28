@@ -3,9 +3,6 @@ module.exports = {
   moduleFileExtensions: ['js'],
   globals: {
     'process.env.NODE_ENV': 'test',
-    IS_PRODUCTION: false,
-    IS_DEVELOPMENT: false,
-    IS_TEST: true,
   },
   transformIgnorePatterns: [
     'node_modules/(?!(babel-plugin-transform-polyfills)/)',

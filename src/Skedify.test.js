@@ -713,4 +713,44 @@ describe('API', () => {
       expect(readRequest).toMatchSnapshot()
     })
   })
+
+  describe('API/testUtils', () => {
+    describe('mockResponse', () => {
+      it('should be possible to mock a response (and get defaults)', async () => {
+        mockResponse()
+
+        expect(await SDK.appointments()).toMatchSnapshot()
+      })
+
+      it('should be possible to mock a response', async () => {
+        mockResponse(
+          'data goes here',
+          'meta data goes here',
+          'warnings go here',
+          223 // Some random 2XX status code to prove that we can mock it
+        )
+
+        expect(await SDK.appointments()).toMatchSnapshot()
+      })
+
+      it('should be possible to mock responses of multiple calls', async () => {
+        mockResponse('my appointments data')
+        expect(await SDK.appointments()).toMatchSnapshot()
+
+        mockResponse('my subjects data')
+        expect(await SDK.subjects()).toMatchSnapshot()
+      })
+    })
+
+    describe('matchRequest', () => {
+      it('should be possible to get the request object', async () => {
+        expect(await matchRequest(SDK.appointments())).toMatchSnapshot()
+      })
+
+      it('should be possible to match multiple requests in one go', async () => {
+        expect(await matchRequest(SDK.appointments())).toMatchSnapshot()
+        expect(await matchRequest(SDK.appointments())).toMatchSnapshot()
+      })
+    })
+  })
 })

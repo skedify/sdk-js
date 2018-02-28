@@ -17,9 +17,6 @@ parserOptions:
 globals:
   PACKAGE: yes
   VERSION: yes
-  IS_PRODUCTION: yes
-  IS_DEVELOPMENT: yes
-  IS_TEST: yes
 plugins:
   - better
   - filenames
