@@ -11,8 +11,6 @@ import createRequest from './createRequest'
 import executeResponseInterceptors from './executeResponseInterceptors'
 import clone from './clone'
 
-const SHOULD_FORCE_AUTHORIZATION_REQUEST = IS_TEST
-
 function overrideThen(resource, replaceWith) {
   const originalThen = resource.then.bind(resource)
 
@@ -151,7 +149,7 @@ export default class Resource {
     const { identityProvider } = get(instance)
 
     return identityProvider
-      .getAuthorization(SHOULD_FORCE_AUTHORIZATION_REQUEST)
+      .getAuthorization()
       .then(createRequest.bind(null, this))
       .then(normalizeResponse)
       .then(executeResponseInterceptors.bind(null, this))
