@@ -37,10 +37,10 @@ export default class Client {
     }
   }
 
-  getAuthorization(force = false) {
+  getAuthorization() {
     const { client_id, realm, resource_code } = this._options
 
-    if (this._current === undefined || force) {
+    if (this._current === undefined) {
       this._current = retry(
         (resolve, reject) => {
           if (resource_code !== undefined) {
