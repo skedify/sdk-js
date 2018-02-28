@@ -1,15 +1,13 @@
 language: node_js
 cache:
   directories:
-    - ~/.npm
+    - $HOME/.npm
 notifications:
   email: false
 node_js:
   - '9'
-  - '8'
 after_success:
-  - npm run publish-coverage
-  - npm run travis-deploy-once "npm run semantic-release"
+  - ./scripts/release.sh
 branches:
   except:
     - /^v\d+\.\d+\.\d+$/
