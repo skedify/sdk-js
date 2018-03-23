@@ -48,7 +48,17 @@ describe('API/Config', () => {
   })
 
   it('should allow correct forms of locale values', () => {
-    const valids = ['nl', 'nl-BE', 'nl-BE-VWV']
+    const valids = [
+      'nl',
+      'NL',
+      'nl-BE',
+      'nl-BE-VWV',
+      'nl-be',
+      'nl-BE-vwv',
+      'en',
+      'en-us',
+      'en-US',
+    ]
 
     valids.forEach(locale => {
       expect(() => new Skedify.API({ locale, auth_provider })).not.toThrow()
@@ -57,12 +67,9 @@ describe('API/Config', () => {
 
   it('should throw an error when the locale is wrongly formatted', () => {
     const invalids = [
-      'NL', // Because it needs to be lowercase.
-      'nl-be', // Because the "be" needs to be uppercase.
       'nl-BE+VWV', // Because + is not allowed.
       'nl-BE-', // There can not be a lost dash on the end.
       'nl-BE-VWVX', // Because maximum 3 characters in the last place are allowed.
-      'nl-BE-vwv', // The last branch should be uppercase as well.
     ]
 
     invalids.forEach(locale => {

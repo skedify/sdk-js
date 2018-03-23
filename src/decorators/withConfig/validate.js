@@ -23,17 +23,19 @@ export default function validate(config = {}) {
   }
 
   /**
-   * MANDATORY - Start with 2 lowercase a-z values. E.g.: nl
+   * MANDATORY - Start with 2 a-z values. E.g.: nl
    *
    * OPTIONAL:
    *  - Then have a dash. E.g.: -
-   *  - Then have 2 uppercase A-Z values. E.g.: BE
+   *  - Then have 2 a-z values. E.g.: be
    *  - Then have a space or dash. E.g.:  -
-   *  - Then have 1, 2 or 3 uppercase A-Z or numbers 0-9. E.g.: VWV
+   *  - Then have 1, 2 or 3 a-z or numbers 0-9. E.g.: vwv
    *
-   * Resulting in: `nl-BE-VWV`, `nl-BE` or `nl`
+   * Resulting in: `nl-be-vwv`, `nl-be` or `nl` (case insensitive)
    */
-  if (!/^[a-z]{2}(?:-[A-Z]{2}(?:[- ]{1}[A-Z09]{1,3})?)?$/.test(config.locale)) {
+  if (
+    !/^[a-z]{2}(?:-[A-Z]{2}(?:[- ]{1}[A-Z09]{1,3})?)?$/i.test(config.locale)
+  ) {
     throw createConfigError(
       'locale is not valid.',
       MISCONFIGURED,
