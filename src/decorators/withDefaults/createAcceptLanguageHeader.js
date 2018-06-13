@@ -9,7 +9,7 @@ export default function createAcceptLanguageHeader(locale) {
       }
 
       return `${lang};q=${Math.round(
-        (locales.length - index) / locales.length * 1000
+        ((locales.length - index) / locales.length) * 1000
       ) / 1000}`
     })
     .join(', ')
