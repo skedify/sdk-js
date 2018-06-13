@@ -77,7 +77,9 @@ export default class Resource {
               filters: Object.assign({}, requestConfig.filters, {
                 [filter]: Array.isArray(requestConfig.filters[filter])
                   ? [...requestConfig.filters[filter], ...params]
-                  : params !== undefined ? params : true, // Convert undefined to true
+                  : params !== undefined
+                    ? params
+                    : true, // Convert undefined to true
               }),
             })
 
