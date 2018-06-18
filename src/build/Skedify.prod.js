@@ -8,4 +8,5 @@ export * from './Skedify.testing'
 /**
  * Export the Skedify API
  */
+export const API = SkedifyAPI
 export default SkedifyAPI

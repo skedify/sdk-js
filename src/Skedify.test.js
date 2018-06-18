@@ -29,6 +29,10 @@ describe('API/Utils', () => {
       expect(Skedify.API[key]).toBe(exported[key])
     })
   })
+
+  it('should add the API to the window.Skedify object in browsers', () => {
+    expect(window.Skedify).toHaveProperty('API')
+  })
 })
 
 const auth_provider = Skedify.API.createAuthProviderString('client', {
