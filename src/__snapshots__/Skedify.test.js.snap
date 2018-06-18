@@ -528,7 +528,7 @@ Object {
 }
 `;
 
-exports[`API should expose all available includes on the Skedify.API instance 1`] = `
+exports[`API should expose all available includes on the API instance 1`] = `
 Object {
   "accepted_possibility": Object {
     "toString": [Function],

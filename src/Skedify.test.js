@@ -1,5 +1,6 @@
 /* eslint-disable max-nested-callbacks, max-statements */
-import Skedify, {
+import {
+  API,
   installSkedifySDKMock,
   uninstallSkedifySDKMock,
   mockResponse,
@@ -15,7 +16,7 @@ import * as exported from './constants/exported'
 describe('API/Utils', () => {
   it('should expose a util to create an auth_provider object', () => {
     expect(
-      Skedify.API.createAuthProviderString('client', {
+      API.createAuthProviderString('client', {
         Foo: 'Foo',
         Bar: 'Bar',
         Baz: 'http://foo.bar.baz/',
@@ -23,10 +24,10 @@ describe('API/Utils', () => {
     ).toEqual('client://Foo=Foo&Bar=Bar&Baz=http%3A%2F%2Ffoo.bar.baz%2F')
   })
 
-  it('should expose all error types and subtypes on the Skedify.API object', () => {
+  it('should expose all error types and subtypes on the API object', () => {
     Object.keys(exported).forEach(key => {
-      expect(Skedify.API).toHaveProperty(key)
-      expect(Skedify.API[key]).toBe(exported[key])
+      expect(API).toHaveProperty(key)
+      expect(API[key]).toBe(exported[key])
     })
   })
 
@@ -35,7 +36,7 @@ describe('API/Utils', () => {
   })
 })
 
-const auth_provider = Skedify.API.createAuthProviderString('client', {
+const auth_provider = API.createAuthProviderString('client', {
   client_id: 'someclientidtokengoeshere',
   realm: 'https://api.example.com',
 })
@@ -43,12 +44,12 @@ const auth_provider = Skedify.API.createAuthProviderString('client', {
 describe('API/Config', () => {
   // Test setup process
   it('should throw an error when no config is given', () => {
-    expect(() => new Skedify.API()).toThrow()
+    expect(() => new API()).toThrow()
   })
 
   it('should throw an error when the mandatory config items are not present', () => {
-    expect(() => new Skedify.API({ locale: 'nl-BE' })).toThrow()
-    expect(() => new Skedify.API({ auth_provider })).toThrow()
+    expect(() => new API({ locale: 'nl-BE' })).toThrow()
+    expect(() => new API({ auth_provider })).toThrow()
   })
 
   it('should allow correct forms of locale values', () => {
@@ -65,7 +66,7 @@ describe('API/Config', () => {
     ]
 
     valids.forEach(locale => {
-      expect(() => new Skedify.API({ locale, auth_provider })).not.toThrow()
+      expect(() => new API({ locale, auth_provider })).not.toThrow()
     })
   })
 
@@ -77,7 +78,7 @@ describe('API/Config', () => {
     ]
 
     invalids.forEach(locale => {
-      expect(() => new Skedify.API({ locale, auth_provider })).toThrowError(
+      expect(() => new API({ locale, auth_provider })).toThrowError(
         '[CONFIG]: locale is not valid.'
       )
     })
@@ -88,13 +89,13 @@ describe('API/Config', () => {
       auth_provider,
       locale: 'nl-BE',
     }
-    const SDK = new Skedify.API(config)
+    const SDK = new API(config)
 
     expect(SDK.configuration).toEqual(config)
   })
 
   it('should be possible to merge new config items', () => {
-    const SDK = new Skedify.API({
+    const SDK = new API({
       auth_provider,
       locale: 'nl-BE',
     })
@@ -108,7 +109,7 @@ describe('API/Config', () => {
   })
 
   it('should throw errors when merging new invalid config', () => {
-    const SDK = new Skedify.API({
+    const SDK = new API({
       auth_provider,
       locale: 'nl-BE',
     })
@@ -119,7 +120,7 @@ describe('API/Config', () => {
   })
 
   it('should throw an error when overriding the whole config object', () => {
-    const SDK = new Skedify.API({
+    const SDK = new API({
       auth_provider,
       locale: 'nl-BE',
     })
@@ -130,7 +131,7 @@ describe('API/Config', () => {
   })
 
   it('should throw an error when overriding items on the configuration object directly', () => {
-    const SDK = new Skedify.API({
+    const SDK = new API({
       auth_provider,
       locale: 'nl-BE',
     })
@@ -143,7 +144,7 @@ describe('API/Config', () => {
   it('should be possible to listen for configuration changes', () => {
     const mock = jest.fn()
 
-    const SDK = new Skedify.API({
+    const SDK = new API({
       auth_provider,
       locale: 'nl-BE',
     })
@@ -156,7 +157,7 @@ describe('API/Config', () => {
   })
 
   it('should throw an error when onConfigurationChange is not passed a function', () => {
-    const SDK = new Skedify.API({
+    const SDK = new API({
       auth_provider,
       locale: 'nl-BE',
     })
@@ -167,7 +168,7 @@ describe('API/Config', () => {
   it('should be possible to "un"-listen for configuration changes', () => {
     const mock = jest.fn()
 
-    const SDK = new Skedify.API({
+    const SDK = new API({
       auth_provider,
       locale: 'nl-BE',
     })
@@ -181,8 +182,8 @@ describe('API/Config', () => {
   })
 
   it('should be possible to create an SDK instance', () => {
-    const SDK = new Skedify.API({
-      auth_provider: Skedify.API.createAuthProviderString('client', {
+    const SDK = new API({
+      auth_provider: API.createAuthProviderString('client', {
         client_id: 'someclientidtokengoeshere',
         realm: 'https://api.example.com',
       }),
@@ -193,8 +194,8 @@ describe('API/Config', () => {
   })
 
   it('should be possible to create an SDK instance with a resource_code', () => {
-    const SDK = new Skedify.API({
-      auth_provider: Skedify.API.createAuthProviderString('client', {
+    const SDK = new API({
+      auth_provider: API.createAuthProviderString('client', {
         client_id: 'someclientidtokengoeshere',
         realm: 'https://api.example.com',
         resource_code: 'someresourcecode',
@@ -210,7 +211,7 @@ describe('API', () => {
   let SDK
 
   beforeAll(() => {
-    SDK = new Skedify.API({
+    SDK = new API({
       auth_provider,
       locale: 'nl-BE',
     })
@@ -221,7 +222,7 @@ describe('API', () => {
     installSkedifySDKMock(SDK)
   })
 
-  it('should expose all available includes on the Skedify.API instance', () => {
+  it('should expose all available includes on the API instance', () => {
     expect(SDK.include).toBeDefined()
 
     // The full object definition
@@ -299,7 +300,7 @@ describe('API', () => {
 
   it('should not reflect configuration changes in another instance (locale)', async () => {
     expect(await matchRequest(SDK.subjects())).toMatchSnapshot()
-    const SDK2 = new Skedify.API({
+    const SDK2 = new API({
       auth_provider,
       locale: 'fr-BE',
     })
@@ -317,7 +318,7 @@ describe('API', () => {
     const before = SDK.configuration
 
     SDK.configure({
-      auth_provider: Skedify.API.createAuthProviderString('client', {
+      auth_provider: API.createAuthProviderString('client', {
         client_id: 'someclientidtokengoeshere',
         realm: 'https://api.other.example.com',
       }),
