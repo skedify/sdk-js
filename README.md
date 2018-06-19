@@ -2,7 +2,7 @@
 
 **Release:**
 [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/skedify/sdk-js/develop/LICENSE)
-[![npm](https://img.shields.io/npm/v/skedify-sdk.svg?maxAge=2592000)](https://www.npmjs.com/package/skedify-sdk)
+[![npm](https://img.shields.io/npm/v/skedify-sdk.svg)](https://www.npmjs.com/package/skedify-sdk)
 [![Build Status](https://travis-ci.org/skedify/sdk-js.svg?branch=master)](https://travis-ci.org/skedify/sdk-js)
 [![Code Coverage](https://codecov.io/gh/skedify/sdk-js/branch/master/graph/badge.svg)](https://codecov.io/gh/skedify/sdk-js)
 
@@ -14,7 +14,7 @@
 
 ## Goal
 
-The goal of this SDK is to offer an easy to use tool to interact with the Skedify API when you're making a javascript integration.
+The goal of this SDK is to offer an easy to use tool to interact with the Skedify API when you're making a JavaScript integration.
 
 ## Construction
 
@@ -82,20 +82,20 @@ SDK.configure({ ... })
 
 The options are:
 
-* **auth_provider**: Authentication Provider, a string which symbolizes how/where to get an Authorization header
-* **locale**: A string combination of an ISO-639 Language Code and an optional ISO-3166 Country Code signifying the language preference of the user:
+- **auth_provider**: Authentication Provider, a string which symbolizes how/where to get an Authorization header
+- **locale**: A string combination of an ISO-639 Language Code and an optional ISO-3166 Country Code signifying the language preference of the user:
 
-  * **Correct values:**
+  - **Correct values:**
 
-    * `nl`
-    * `nl-BE`
-    * `nl-BE-VWV`
+    - `nl`
+    - `nl-BE`
+    - `nl-BE-VWV`
 
-  * **Incorrect values:**
+  - **Incorrect values:**
 
-    * `NL`: The first part should be lowercase.
-    * `nl-be`: The second part should be uppercase.
-    * `nl-BE-VWVX`: The last part can only contain 2 or 3 characters.
+    - `NL`: The first part should be lowercase.
+    - `nl-be`: The second part should be uppercase.
+    - `nl-BE-VWVX`: The last part can only contain 2 or 3 characters.
 
 ## Basic Usage
 

@@ -1,10 +1,16 @@
 import SkedifyAPI from '../SkedifyAPI'
 
-const Skedify = window.Skedify || {}
+// eslint-disable-next-line better/no-typeofs
+if (typeof window !== 'undefined') {
+  window.Skedify = window.Skedify || {}
 
-Object.defineProperty(Skedify, 'API', {
-  enumerable: true,
-  value: SkedifyAPI,
-})
+  /* istanbul ignore else */
+  if (!window.Skedify.hasOwnProperty('API')) {
+    Object.defineProperty(window.Skedify, 'API', {
+      enumerable: true,
+      value: SkedifyAPI,
+    })
+  }
+}
 
-export default Skedify
+export default SkedifyAPI

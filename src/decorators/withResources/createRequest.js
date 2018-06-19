@@ -1,5 +1,6 @@
 import { get } from '../../secret'
 import createCallConfig from './createCallConfig'
+import retry from '../../util/retry'
 
 function createURL(...parts) {
   return parts.filter(Boolean).join('/')
@@ -24,18 +25,23 @@ export default function createRequest(
   { Realm, Authorization }
 ) {
   const { instance, descriptor, parent } = get(resourceEntity)
+  const callConfig = createCallConfig(resourceEntity, {
+    url: createURL(
+      Realm,
+      createParentURL(parent),
+      descriptor.resource,
+      descriptor.identifier
+    ),
+    headers: {
+      Authorization,
+    },
+  })
 
-  return get(instance).network(
-    createCallConfig(resourceEntity, {
-      url: createURL(
-        Realm,
-        createParentURL(parent),
-        descriptor.resource,
-        descriptor.identifier
-      ),
-      headers: {
-        Authorization,
-      },
-    })
-  )
+  return callConfig.method === 'get'
+    ? retry((resolve, reject) => {
+        get(instance)
+          .network(callConfig)
+          .then(resolve, reject)
+      })
+    : get(instance).network(callConfig)
 }
