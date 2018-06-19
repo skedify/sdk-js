@@ -7,11 +7,7 @@ module.exports = {
   transformIgnorePatterns: [
     'node_modules/(?!(babel-plugin-transform-polyfills)/)',
   ],
-  collectCoverageFrom: [
-    'src/**/*.js',
-    '!src/**/*.dev.js',
-    '!src/util/external/**/*.js',
-  ],
+  collectCoverageFrom: ['src/**/*.js', '!src/**/*.dev.js'],
   coverageDirectory: './coverage/',
   collectCoverage: false,
   coverageThreshold: {
