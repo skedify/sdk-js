@@ -62,7 +62,30 @@ Object {
     ],
     "headers": Object {},
     "resource": "contacts",
-    "sub_resources": Object {},
+    "sub_resources": Object {
+      "offices": Object {
+        "allowed_includes": Array [],
+        "filters": Array [],
+        "headers": Object {},
+        "resource": "offices",
+        "sub_resources": Object {
+          "availabilityHours": Object {
+            "allowed_includes": Array [],
+            "filters": Array [],
+            "headers": Object {},
+            "resource": "availability_hours",
+            "sub_resources": Object {},
+          },
+          "availabilityHoursExceptions": Object {
+            "allowed_includes": Array [],
+            "filters": Array [],
+            "headers": Object {},
+            "resource": "availability_hours_exceptions",
+            "sub_resources": Object {},
+          },
+        },
+      },
+    },
   },
   "customers": Object {
     "allowed_includes": Array [],
@@ -120,6 +143,13 @@ Object {
     "headers": Object {},
     "resource": "offices",
     "sub_resources": Object {
+      "availabilityHoursExceptions": Object {
+        "allowed_includes": Array [],
+        "filters": Array [],
+        "headers": Object {},
+        "resource": "availability_hours_exceptions",
+        "sub_resources": Object {},
+      },
       "subjectSettings": Object {
         "allowed_includes": Array [],
         "filters": Array [
