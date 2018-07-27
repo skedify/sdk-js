@@ -414,6 +414,7 @@ Object {
     "external_id": "abc123",
     "id": "123",
   },
+  "errors": undefined,
   "headers": undefined,
   "meta": undefined,
   "status": 200,
@@ -505,6 +506,7 @@ Object {
 exports[`API API/testUtils mockResponse should be possible to mock a response (and get defaults) 1`] = `
 Object {
   "data": undefined,
+  "errors": undefined,
   "headers": undefined,
   "meta": undefined,
   "status": 200,
@@ -515,6 +517,7 @@ Object {
 exports[`API API/testUtils mockResponse should be possible to mock a response 1`] = `
 Object {
   "data": "data goes here",
+  "errors": undefined,
   "headers": undefined,
   "meta": "meta data goes here",
   "status": 223,
@@ -525,6 +528,7 @@ Object {
 exports[`API API/testUtils mockResponse should be possible to mock responses of multiple calls 1`] = `
 Object {
   "data": "my appointments data",
+  "errors": undefined,
   "headers": undefined,
   "meta": undefined,
   "status": 200,
@@ -535,6 +539,7 @@ Object {
 exports[`API API/testUtils mockResponse should be possible to mock responses of multiple calls 2`] = `
 Object {
   "data": "my subjects data",
+  "errors": undefined,
   "headers": undefined,
   "meta": undefined,
   "status": 200,
