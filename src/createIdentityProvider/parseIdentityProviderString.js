@@ -27,7 +27,7 @@ export default function parseIdentityProviderString(idp_descriptor = '') {
     .map(([key, value]) => ({
       [key]: decodeURIComponent(value),
     }))
-    .reduce((a, b) => Object.assign(a, b))
+    .reduce((a, b) => Object.assign(a, b), {})
 
   return { type, options }
 }

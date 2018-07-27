@@ -116,6 +116,20 @@ Object {
 }
 `;
 
+exports[`API API/Resources should be possible to delete an entity 1`] = `
+Object {
+  "data": undefined,
+  "headers": Object {
+    "Accept": "application/json, text/plain, */*",
+    "Accept-Language": "nl-BE, nl;q=0.667, *;q=0.333",
+    "Authorization": "Bearer fake_example_access_token",
+  },
+  "method": "delete",
+  "params": undefined,
+  "url": "https://api.example.com/appointments/1207",
+}
+`;
+
 exports[`API API/Resources should be possible to make subsequent calls to include to add multiple includes 1`] = `
 Object {
   "data": undefined,

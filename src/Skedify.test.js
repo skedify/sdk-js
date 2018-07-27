@@ -691,6 +691,16 @@ describe('API', () => {
       ).toMatchSnapshot()
     })
 
+    it('should be possible to delete an entity', async () => {
+      expect(
+        await matchRequest(
+          SDK.appointments(1207)
+            .delete()
+            .then(appointment => appointment.delete())
+        )
+      ).toMatchSnapshot()
+    })
+
     it('should be possible to patch an entity and add includes', async () => {
       expect(
         await matchRequest(
