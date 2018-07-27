@@ -1,5 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`retry should retry the same function but stop when it has reached max attempts 1`] = `"[RETRY]: Max retry attempts reached."`;
+exports[`retry should retry the same function but stop when it has reached max attempts 1`] = `[Error: [RETRY]: Max retry attempts reached. (some error)]`;
+
+exports[`retry should retry the same function but stop when it has reached max attempts 2`] = `[Error: [RETRY]: Max retry attempts reached.]`;
 
 exports[`retry should throw an error when a passed condition is true even though the retry is rejected 1`] = `"Still rejected"`;
