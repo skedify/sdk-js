@@ -1,0 +1,22 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Identity Provider # Token should be possible to authenticate 1`] = `
+Object {
+  "data": undefined,
+  "headers": Object {
+    "Accept": "application/json, text/plain, */*",
+    "Authorization": "Bearer some-access-token-goes-here",
+  },
+  "method": "get",
+  "params": undefined,
+  "url": "https://example.com/integrations/proxy",
+}
+`;
+
+exports[`Identity Provider # Token should error when access_token is not given 1`] = `"[IDENTITY PROVIDER]: access_token is a required option for \`Token\`"`;
+
+exports[`Identity Provider # Token should error when no options are given 1`] = `"[IDENTITY PROVIDER]: token_type is a required option for \`Token\`"`;
+
+exports[`Identity Provider # Token should error when realm is not given 1`] = `"[IDENTITY PROVIDER]: realm is a required option for \`Token\`"`;
+
+exports[`Identity Provider # Token should error when token_type is not given 1`] = `"[IDENTITY PROVIDER]: token_type is a required option for \`Token\`"`;

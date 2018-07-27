@@ -36,6 +36,45 @@ describe('API/Utils', () => {
   })
 })
 
+describe('auth providers', () => {
+  it('should be possilbe to use the `client` strategy', async () => {
+    const auth_provider = API.createAuthProviderString('client', {
+      client_id: 'someclientidtokengoeshere',
+      realm: 'https://api.example.com',
+    })
+
+    const SDK = new API({
+      auth_provider,
+      locale: 'nl-BE',
+    })
+
+    uninstallSkedifySDKMock(SDK)
+    installSkedifySDKMock(SDK)
+
+    mockResponse('my subjects data')
+    expect(await SDK.subjects()).toMatchSnapshot()
+  })
+
+  it('should be possilbe to use the `token` strategy', async () => {
+    const auth_provider = API.createAuthProviderString('token', {
+      token_type: 'Bearer',
+      access_token: 'some-access-token-goes-here',
+      realm: 'https://api.example.com',
+    })
+
+    const SDK = new API({
+      auth_provider,
+      locale: 'nl-BE',
+    })
+
+    uninstallSkedifySDKMock(SDK)
+    installSkedifySDKMock(SDK)
+
+    mockResponse('my subjects data')
+    expect(await SDK.subjects()).toMatchSnapshot()
+  })
+})
+
 const auth_provider = API.createAuthProviderString('client', {
   client_id: 'someclientidtokengoeshere',
   realm: 'https://api.example.com',
