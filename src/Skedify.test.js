@@ -695,6 +695,25 @@ describe('API', () => {
       ).toMatchSnapshot()
     })
 
+    it('should be possible to create an entity without recaptcha header', async () => {
+      // Note, the API itself might still reject the creation of the entity
+      expect(
+        await matchRequest(
+          SDK.appointments()
+            .new({
+              subject_id: 123,
+              office_id: 456,
+              meeting_type: 'office',
+              answers: [],
+              initiated_by_type: 'customer',
+              customer: {},
+              possibilities: [],
+            })
+            .then(appointment => appointment.create())
+        )
+      ).toMatchSnapshot()
+    })
+
     it('should be possible to create an entity and add includes', async () => {
       expect(
         await matchRequest(
