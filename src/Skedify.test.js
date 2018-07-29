@@ -16,12 +16,12 @@ import * as exported from './constants/exported'
 describe('API/Utils', () => {
   it('should expose a util to create an auth_provider object', () => {
     expect(
-      API.createAuthProviderString('client', {
+      API.createAuthProviderString('public_client', {
         Foo: 'Foo',
         Bar: 'Bar',
         Baz: 'http://foo.bar.baz/',
       })
-    ).toEqual('client://Foo=Foo&Bar=Bar&Baz=http%3A%2F%2Ffoo.bar.baz%2F')
+    ).toEqual('public_client://Foo=Foo&Bar=Bar&Baz=http%3A%2F%2Ffoo.bar.baz%2F')
   })
 
   it('should expose all error types and subtypes on the API object', () => {
@@ -37,8 +37,53 @@ describe('API/Utils', () => {
 })
 
 describe('auth providers', () => {
-  it('should be possilbe to use the `client` strategy', async () => {
-    const auth_provider = API.createAuthProviderString('client', {
+  it('should error when the `realm` is not provided for a certain auth provider strategy', () => {
+    const auth_provider = API.createAuthProviderString('public_client', {
+      client_id: 'someclientidtokengoeshere',
+    })
+
+    expect(
+      () =>
+        new API({
+          auth_provider,
+          locale: 'nl-BE',
+        })
+    ).toThrowErrorMatchingSnapshot()
+  })
+
+  it('should error when a required parameter is not provided for a certain auth provider strategy', () => {
+    const auth_provider = API.createAuthProviderString('public_client', {
+      // Missing client id
+      realm: 'https://api.example.com',
+    })
+
+    expect(
+      () =>
+        new API({
+          auth_provider,
+          locale: 'nl-BE',
+        })
+    ).toThrowErrorMatchingSnapshot()
+  })
+
+  it('should error when a parameter is given that is not required or optional or the realm for a certain auth provider strategy', () => {
+    const auth_provider = API.createAuthProviderString('public_client', {
+      client_id: 'someclientidtokengoeshere',
+      realm: 'https://api.example.com',
+      unnecessary_key: 'unnecessary_value',
+    })
+
+    expect(
+      () =>
+        new API({
+          auth_provider,
+          locale: 'nl-BE',
+        })
+    ).toThrowErrorMatchingSnapshot()
+  })
+
+  it('should be possilbe to use the `public_client` strategy', async () => {
+    const auth_provider = API.createAuthProviderString('public_client', {
       client_id: 'someclientidtokengoeshere',
       realm: 'https://api.example.com',
     })
@@ -75,7 +120,7 @@ describe('auth providers', () => {
   })
 })
 
-const auth_provider = API.createAuthProviderString('client', {
+const auth_provider = API.createAuthProviderString('public_client', {
   client_id: 'someclientidtokengoeshere',
   realm: 'https://api.example.com',
 })
@@ -222,7 +267,7 @@ describe('API/Config', () => {
 
   it('should be possible to create an SDK instance', () => {
     const SDK = new API({
-      auth_provider: API.createAuthProviderString('client', {
+      auth_provider: API.createAuthProviderString('public_client', {
         client_id: 'someclientidtokengoeshere',
         realm: 'https://api.example.com',
       }),
@@ -234,10 +279,10 @@ describe('API/Config', () => {
 
   it('should be possible to create an SDK instance with a resource_code', () => {
     const SDK = new API({
-      auth_provider: API.createAuthProviderString('client', {
+      auth_provider: API.createAuthProviderString('resource_code', {
         client_id: 'someclientidtokengoeshere',
         realm: 'https://api.example.com',
-        resource_code: 'someresourcecode',
+        code: 'someresourcecode',
       }),
       locale: 'nl-BE',
     })
@@ -357,7 +402,7 @@ describe('API', () => {
     const before = SDK.configuration
 
     SDK.configure({
-      auth_provider: API.createAuthProviderString('client', {
+      auth_provider: API.createAuthProviderString('public_client', {
         client_id: 'someclientidtokengoeshere',
         realm: 'https://api.other.example.com',
       }),

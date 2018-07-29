@@ -41,19 +41,16 @@ export default class Token {
     const { token_type, access_token, realm } = this._options
 
     if (this._current === undefined) {
-      this._current = Promise.resolve({
-        Authorization: `${token_type} ${access_token}`,
-        Realm: realm,
-      }).then(({ Realm, Authorization }) =>
-        this._network
-          .get(`${Realm}/integrations/proxy`, {
-            headers: { Authorization },
-          })
-          .then(({ data: response }) => ({
-            Realm: response.data.url,
-            Authorization,
-          }))
-      )
+      const Authorization = `${token_type} ${access_token}`
+
+      this._current = this._network
+        .get(`${realm}/integrations/proxy`, {
+          headers: { Authorization },
+        })
+        .then(({ data: response }) => ({
+          Realm: response.data.url,
+          Authorization,
+        }))
     }
 
     return this._current

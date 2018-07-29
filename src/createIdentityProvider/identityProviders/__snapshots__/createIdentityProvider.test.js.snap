@@ -1,0 +1,27 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`createIdentityProvider should be possible to create an identity provider without required or optional parameters, error on an unnecessary parameter 1`] = `
+"[IDENTITY PROVIDER]: unnecessary_key is not an optional or a required parameter for \`my_identity_provider\`
+  - Required parameters: <none>
+  - Optional parameters: <none>"
+`;
+
+exports[`createIdentityProvider should be possible to create an identity provider without required or optional parameters, error on multiple unnecessary parameters 1`] = `
+"[IDENTITY PROVIDER]: unnecessary_key_1 and unnecessary_key_2 are not optional or required parameters for \`my_identity_provider\`
+  - Required parameters: <none>
+  - Optional parameters: <none>"
+`;
+
+exports[`createIdentityProvider should error when a required parameter is missing 1`] = `
+"[IDENTITY PROVIDER]: required_b is a required parameter for \`my_identity_provider\`
+  - Required parameters: required_a and required_b
+  - Optional parameters: <none>"
+`;
+
+exports[`createIdentityProvider should error when muliptle required parameters are missing 1`] = `
+"[IDENTITY PROVIDER]: required_b and required_c are required parameters for \`my_identity_provider\`
+  - Required parameters: required_a, required_b and required_c
+  - Optional parameters: <none>"
+`;
+
+exports[`createIdentityProvider should error when no parameters are provided 1`] = `"[IDENTITY PROVIDER]: realm is a required option for \`my_identity_provider\`"`;

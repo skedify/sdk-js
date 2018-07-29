@@ -768,7 +768,7 @@ exports[`API/Config should throw an error when overriding items on the configura
 
 exports[`API/Config should throw an error when overriding the whole config object 1`] = `"[CONFIG]: You are not allowed to change the configuration object directly. Please use \`.configure({})\` instead."`;
 
-exports[`auth providers should be possilbe to use the \`client\` strategy 1`] = `
+exports[`auth providers should be possilbe to use the \`public_client\` strategy 1`] = `
 Object {
   "data": "my subjects data",
   "errors": undefined,
@@ -789,3 +789,17 @@ Object {
   "warnings": undefined,
 }
 `;
+
+exports[`auth providers should error when a parameter is given that is not required or optional or the realm for a certain auth provider strategy 1`] = `
+"[IDENTITY PROVIDER]: unnecessary_key is not an optional or a required parameter for \`public_client\`
+  - Required parameters: client_id
+  - Optional parameters: scope"
+`;
+
+exports[`auth providers should error when a required parameter is not provided for a certain auth provider strategy 1`] = `
+"[IDENTITY PROVIDER]: client_id is a required parameter for \`public_client\`
+  - Required parameters: client_id
+  - Optional parameters: scope"
+`;
+
+exports[`auth providers should error when the \`realm\` is not provided for a certain auth provider strategy 1`] = `"[IDENTITY PROVIDER]: realm is a required option for \`public_client\`"`;
