@@ -87,10 +87,10 @@ export function createIdentityProvider(
       }
     }
 
-    getAuthorization() {
+    getAuthorization(force = false) {
       const { realm } = this._parameters
 
-      if (this._current === undefined) {
+      if (this._current === undefined || force) {
         this._current = retry(
           (resolve, reject) => {
             // Get the access_token
@@ -129,10 +129,10 @@ export function createIdentityProvider(
 
           // Make sure to create a new access_token when the current one is going to expire
           .then(access => {
-            setTimeout(() => {
-              this._current = undefined
-              this.getAuthorization()
-            }, secondsToMilliseconds(access.Expiration - REFETCH_WINDOW))
+            setTimeout(
+              this.getAuthorization.bind(this, true),
+              secondsToMilliseconds(access.Expiration - REFETCH_WINDOW)
+            )
             return access
           })
       }
