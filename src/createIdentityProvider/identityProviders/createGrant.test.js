@@ -1,16 +1,16 @@
-import { createIdentityProvider } from './createIdentityProvider'
+import { createGrant } from './createGrant'
 
-describe('createIdentityProvider', () => {
+describe('createGrant', () => {
   const network = {} // Let's mock the network for now
 
   it('should error when no parameters are provided', () => {
-    const MyIdentityProvider = createIdentityProvider('my_identity_provider')
+    const MyIdentityProvider = createGrant('my_identity_provider')
 
     expect(() => new MyIdentityProvider()).toThrowErrorMatchingSnapshot()
   })
 
   it('should be possible to create an identity provider without required or optional parameters', () => {
-    const MyIdentityProvider = createIdentityProvider('my_identity_provider')
+    const MyIdentityProvider = createGrant('my_identity_provider')
     const myIdentityProviderInstance = new MyIdentityProvider(network, {
       realm: 'some-realm', // A realm is required though
     })
@@ -19,7 +19,7 @@ describe('createIdentityProvider', () => {
   })
 
   it('should be possible to create an identity provider without required or optional parameters, error on an unnecessary parameter', () => {
-    const MyIdentityProvider = createIdentityProvider('my_identity_provider')
+    const MyIdentityProvider = createGrant('my_identity_provider')
 
     expect(
       () =>
@@ -31,7 +31,7 @@ describe('createIdentityProvider', () => {
   })
 
   it('should be possible to create an identity provider without required or optional parameters, error on multiple unnecessary parameters', () => {
-    const MyIdentityProvider = createIdentityProvider('my_identity_provider')
+    const MyIdentityProvider = createGrant('my_identity_provider')
 
     expect(
       () =>
@@ -44,7 +44,7 @@ describe('createIdentityProvider', () => {
   })
 
   it('should error when a required parameter is missing', () => {
-    const MyIdentityProvider = createIdentityProvider('my_identity_provider', [
+    const MyIdentityProvider = createGrant('my_identity_provider', [
       'required_a',
       'required_b',
     ])
@@ -59,7 +59,7 @@ describe('createIdentityProvider', () => {
   })
 
   it('should error when muliptle required parameters are missing', () => {
-    const MyIdentityProvider = createIdentityProvider('my_identity_provider', [
+    const MyIdentityProvider = createGrant('my_identity_provider', [
       'required_a',
       'required_b',
       'required_c',

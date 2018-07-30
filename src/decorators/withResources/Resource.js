@@ -175,9 +175,9 @@ export default class Resource {
 
     return identityProvider
       .getAuthorization()
-      .then(createRequest.bind(null, this))
-      .then(normalizeResponse)
-      .then(executeResponseInterceptors.bind(null, this))
+      .then(createRequest.bind(this, this))
+      .then(normalizeResponse, normalizeResponse)
+      .then(executeResponseInterceptors.bind(this, this))
       .then(onFulfilled, onRejected)
   }
 

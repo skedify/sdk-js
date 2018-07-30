@@ -18,7 +18,6 @@ export const ERROR_SUBRESOURCE_INVALID_PARENT_ID = createToken()
 
 export const MISCONFIGURED = createToken()
 export const MISCONFIGURED_AUTH_PROVIDER = createToken()
-export const MISCONFIGURED_REALM = createToken()
 export const MISCONFIGURED_LOCALE = createToken()
 export const MISCONFIGURED_AUTH_PROVIDER_OPTIONS = createToken()
 

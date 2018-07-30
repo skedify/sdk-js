@@ -5,9 +5,7 @@ import { ERROR_RETRY, ERROR_RETRY_MAX_ATTEMPTS_REACHED } from '../constants'
 
 function delay(fn, ms) {
   return (...args) => {
-    setTimeout(() => {
-      fn(...args)
-    }, ms)
+    setTimeout(fn, ms, ...args)
   }
 }
 

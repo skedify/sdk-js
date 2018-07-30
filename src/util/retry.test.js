@@ -31,7 +31,7 @@ describe('retry', () => {
     expect(mock).toHaveBeenCalledTimes(2)
   })
 
-  it('should retry the same function but stop when it has reached max attempts', async () => {
+  it('should retry the same function but stop when it has reached max attempts (it should passthrough the original error)', async () => {
     const mock = jest.fn()
     const error = new Error('some error')
 

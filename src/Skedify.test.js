@@ -36,7 +36,7 @@ describe('API/Utils', () => {
   })
 })
 
-describe('auth providers', () => {
+describe('API/Auth Providers', () => {
   it('should error when the `realm` is not provided for a certain auth provider strategy', () => {
     const auth_provider = API.createAuthProviderString('public_client', {
       client_id: 'someclientidtokengoeshere',
@@ -82,7 +82,7 @@ describe('auth providers', () => {
     ).toThrowErrorMatchingSnapshot()
   })
 
-  it('should be possilbe to use the `public_client` strategy', async () => {
+  it('should be possible to use the `public_client` strategy', async () => {
     const auth_provider = API.createAuthProviderString('public_client', {
       client_id: 'someclientidtokengoeshere',
       realm: 'https://api.example.com',
@@ -100,7 +100,7 @@ describe('auth providers', () => {
     expect(await SDK.subjects()).toMatchSnapshot()
   })
 
-  it('should be possilbe to use the `token` strategy', async () => {
+  it('should be possible to use the `token` strategy', async () => {
     const auth_provider = API.createAuthProviderString('token', {
       token_type: 'Bearer',
       access_token: 'some-access-token-goes-here',
@@ -449,6 +449,26 @@ describe('API', () => {
         deep: [{ office_id: '5' }],
       },
     ])
+  })
+
+  describe('API/Response', () => {
+    it('should normalize the response when the call succeeds', async () => {
+      mockResponse([])
+      expect(await SDK.identity()).toMatchSnapshot()
+    })
+
+    it('should normalize the response when the call fails', async () => {
+      const data = []
+      const meta = []
+      const warnings = []
+
+      mockResponse(data, meta, warnings, 422)
+      expect(
+        await SDK.appointments()
+          .new({})
+          .then(appointment => appointment.create())
+      ).toMatchSnapshot()
+    })
   })
 
   describe('API/Resources', () => {

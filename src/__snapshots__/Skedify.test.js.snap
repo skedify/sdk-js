@@ -484,6 +484,28 @@ exports[`API API/Resources should throw an error when no values are passed for t
 
 exports[`API API/Resources should throw an error when required props are missing from a shorthand call (timetable) 1`] = `"[RESOURCE]: You tried to call .timetable({\\"subject\\":316,\\"end\\":\\"2017-12-26\\"}) but \`office\` and \`start\` are also required."`;
 
+exports[`API API/Response should normalize the response when the call fails 1`] = `
+Object {
+  "data": Array [],
+  "errors": undefined,
+  "headers": undefined,
+  "meta": Array [],
+  "status": 422,
+  "warnings": Array [],
+}
+`;
+
+exports[`API API/Response should normalize the response when the call succeeds 1`] = `
+Object {
+  "data": Array [],
+  "errors": undefined,
+  "headers": undefined,
+  "meta": undefined,
+  "status": 200,
+  "warnings": undefined,
+}
+`;
+
 exports[`API API/testUtils matchRequest should be possible to get the request object 1`] = `
 Object {
   "data": undefined,
@@ -762,44 +784,48 @@ Object {
 
 exports[`API should throw an error when an interceptor is added but it is not a function 1`] = `"[RESOURCE]: You tried to call \`.addResponseInterceptor(null)\` but it must receive a function."`;
 
+exports[`API/Auth Providers should be possible to use the \`public_client\` strategy 1`] = `
+Object {
+  "data": "my subjects data",
+  "errors": undefined,
+  "headers": undefined,
+  "meta": undefined,
+  "status": 200,
+  "warnings": undefined,
+}
+`;
+
+exports[`API/Auth Providers should be possible to use the \`token\` strategy 1`] = `
+Object {
+  "data": "my subjects data",
+  "errors": undefined,
+  "headers": undefined,
+  "meta": undefined,
+  "status": 200,
+  "warnings": undefined,
+}
+`;
+
+exports[`API/Auth Providers should error when a parameter is given that is not required or optional or the realm for a certain auth provider strategy 1`] = `
+"[IDENTITY PROVIDER]: unnecessary_key is not an optional or a required parameter for \`public_client\`
+  - Required parameters: client_id and realm
+  - Optional parameters: scope"
+`;
+
+exports[`API/Auth Providers should error when a required parameter is not provided for a certain auth provider strategy 1`] = `
+"[IDENTITY PROVIDER]: client_id is a required parameter for \`public_client\`
+  - Required parameters: client_id and realm
+  - Optional parameters: scope"
+`;
+
+exports[`API/Auth Providers should error when the \`realm\` is not provided for a certain auth provider strategy 1`] = `
+"[IDENTITY PROVIDER]: realm is a required parameter for \`public_client\`
+  - Required parameters: client_id and realm
+  - Optional parameters: scope"
+`;
+
 exports[`API/Config should throw an error when onConfigurationChange is not passed a function 1`] = `"[CONFIG]: You tried to call \`.onConfigurationChange(null)\` but it must receive a function."`;
 
 exports[`API/Config should throw an error when overriding items on the configuration object directly 1`] = `"Cannot assign to read only property 'locale' of object '#<Object>'"`;
 
 exports[`API/Config should throw an error when overriding the whole config object 1`] = `"[CONFIG]: You are not allowed to change the configuration object directly. Please use \`.configure({})\` instead."`;
-
-exports[`auth providers should be possilbe to use the \`public_client\` strategy 1`] = `
-Object {
-  "data": "my subjects data",
-  "errors": undefined,
-  "headers": undefined,
-  "meta": undefined,
-  "status": 200,
-  "warnings": undefined,
-}
-`;
-
-exports[`auth providers should be possilbe to use the \`token\` strategy 1`] = `
-Object {
-  "data": "my subjects data",
-  "errors": undefined,
-  "headers": undefined,
-  "meta": undefined,
-  "status": 200,
-  "warnings": undefined,
-}
-`;
-
-exports[`auth providers should error when a parameter is given that is not required or optional or the realm for a certain auth provider strategy 1`] = `
-"[IDENTITY PROVIDER]: unnecessary_key is not an optional or a required parameter for \`public_client\`
-  - Required parameters: client_id
-  - Optional parameters: scope"
-`;
-
-exports[`auth providers should error when a required parameter is not provided for a certain auth provider strategy 1`] = `
-"[IDENTITY PROVIDER]: client_id is a required parameter for \`public_client\`
-  - Required parameters: client_id
-  - Optional parameters: scope"
-`;
-
-exports[`auth providers should error when the \`realm\` is not provided for a certain auth provider strategy 1`] = `"[IDENTITY PROVIDER]: realm is a required option for \`public_client\`"`;
