@@ -5,35 +5,39 @@ import { ERROR_RETRY, ERROR_RETRY_MAX_ATTEMPTS_REACHED } from '../constants'
 
 function delay(fn, ms) {
   return (...args) => {
-    setTimeout(() => {
-      fn(...args)
-    }, ms)
+    setTimeout(fn, ms, ...args)
   }
 }
 
 export default function retry(
   executor,
-  { max_attempts = 3, delay_time = 1000, condition } = {}
+  { max_attempts = 3, delay_time = 1000, condition, error = undefined } = {}
 ) {
   if (max_attempts === 0) {
     return Promise.reject(
-      createRetryError(
-        'Max retry attempts reached.',
-        ERROR_RETRY,
-        ERROR_RETRY_MAX_ATTEMPTS_REACHED
+      Object.assign(
+        createRetryError(
+          error && error.message
+            ? `Max retry attempts reached. (${error.message})`
+            : `Max retry attempts reached.`,
+          ERROR_RETRY,
+          ERROR_RETRY_MAX_ATTEMPTS_REACHED
+        ),
+        { error }
       )
     )
   }
 
-  return new Promise(executor).catch(error => {
-    if (!isFunction(condition) || condition(error)) {
+  return new Promise(executor).catch(actual_error => {
+    if (!isFunction(condition) || condition(actual_error)) {
       return retry(delay(executor, delay_time), {
         max_attempts: max_attempts - 1,
         delay_time,
         condition,
+        error: actual_error,
       })
     }
 
-    throw error
+    throw actual_error
   })
 }

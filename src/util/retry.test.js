@@ -31,18 +31,44 @@ describe('retry', () => {
     expect(mock).toHaveBeenCalledTimes(2)
   })
 
+  it('should retry the same function but stop when it has reached max attempts (it should passthrough the original error)', async () => {
+    const mock = jest.fn()
+    const error = new Error('some error')
+
+    expect.assertions(3)
+
+    try {
+      await retry(
+        (resolve, reject) => {
+          mock()
+          reject(error)
+        },
+        { delay_time: 0 }
+      )
+    } catch (err) {
+      expect(err).toMatchSnapshot()
+      expect(err.error).toBe(error) // Make sure an error property is available
+    }
+
+    expect(mock).toHaveBeenCalledTimes(3)
+  })
+
   it('should retry the same function but stop when it has reached max attempts', async () => {
     const mock = jest.fn()
+    expect.assertions(3)
 
-    await expect(
-      retry(
+    try {
+      await retry(
         (resolve, reject) => {
           mock()
           reject()
         },
         { delay_time: 0 }
       )
-    ).rejects.toThrowErrorMatchingSnapshot()
+    } catch (err) {
+      expect(err).toMatchSnapshot()
+      expect(err.error).toBe(undefined)
+    }
 
     expect(mock).toHaveBeenCalledTimes(3)
   })

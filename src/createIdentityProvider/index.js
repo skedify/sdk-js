@@ -2,12 +2,8 @@ import { createIdentityProviderError } from '../util/createError'
 import { MISCONFIGURED, MISCONFIGURED_AUTH_PROVIDER } from '../constants'
 import joinAsSpeech, { AND } from '../util/joinAsSpeech'
 
-import Client from './identityProviders/Client'
 import parse from './parseIdentityProviderString'
-
-const IDPS = {
-  client: Client,
-}
+import { IDPS } from './identityProviders'
 
 export default function createIdentityProvider(idp_descriptor, network) {
   const { type, options } = parse(idp_descriptor)
@@ -16,7 +12,7 @@ export default function createIdentityProvider(idp_descriptor, network) {
     const providers = Object.keys(IDPS).map(key => `\`${key}\``)
 
     throw createIdentityProviderError(
-      `Identity provider \`${type}\` does not exist. The only option is ${joinAsSpeech(
+      `Identity provider \`${type}\` does not exist.\n\nThe only options are: ${joinAsSpeech(
         AND,
         providers
       )}.`,

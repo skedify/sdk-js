@@ -11,10 +11,8 @@ describe('parseIdentityProviderString', () => {
     })
   })
 
-  it('should throw an error when there are no options', () => {
-    expect(() =>
-      parseIdentityProviderString('type://')
-    ).toThrowErrorMatchingSnapshot()
+  it('should not throw an error when there are no options', () => {
+    expect(() => parseIdentityProviderString('type://')).not.toThrowError()
   })
 
   it('should throw an error when there is no type but there are options', () => {
