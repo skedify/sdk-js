@@ -4,6 +4,7 @@ module.exports = {
   globals: {
     'process.env.NODE_ENV': 'test',
   },
+  testURL: 'http://localhost',
   transformIgnorePatterns: [
     'node_modules/(?!(babel-plugin-transform-polyfills)/)',
   ],

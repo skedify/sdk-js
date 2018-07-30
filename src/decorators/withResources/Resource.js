@@ -5,7 +5,11 @@ import {
   validateFilterCallbackExecution,
   validateAddResponseInterceptorCallback,
 } from './invariants'
-import { HTTP_VERB_PATCH, HTTP_VERB_POST } from '../../constants'
+import {
+  HTTP_VERB_PATCH,
+  HTTP_VERB_POST,
+  HTTP_VERB_DELETE,
+} from '../../constants'
 import normalizeResponse from './normalizeResponse'
 import createRequest from './createRequest'
 import executeResponseInterceptors from './executeResponseInterceptors'
@@ -146,15 +150,34 @@ export default class Resource {
     return cloned
   }
 
+  delete() {
+    // Clone the current Resource
+    const cloned = overrideThen(clone(this), originalThen => ({
+      delete() {
+        return new Promise(originalThen)
+      },
+    }))
+
+    // Override request config
+    set(cloned, ({ requestConfig }) => ({
+      requestConfig: Object.assign({}, requestConfig, {
+        method: HTTP_VERB_DELETE,
+        name: 'delete',
+      }),
+    }))
+
+    return cloned
+  }
+
   then(onFulfilled, onRejected) {
     const { instance } = get(this)
     const { identityProvider } = get(instance)
 
     return identityProvider
       .getAuthorization()
-      .then(createRequest.bind(null, this))
-      .then(normalizeResponse)
-      .then(executeResponseInterceptors.bind(null, this))
+      .then(createRequest.bind(this, this))
+      .then(normalizeResponse, normalizeResponse)
+      .then(executeResponseInterceptors.bind(this, this))
       .then(onFulfilled, onRejected)
   }
 

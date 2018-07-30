@@ -22,5 +22,8 @@ export const offices = createResourceDescription(
     subjectSettings: createResourceDescription('subject_settings', {
       filters: ['subject_id'],
     }),
+    availabilityHoursExceptions: createResourceDescription(
+      'availability_hours_exceptions'
+    ),
   }
 )

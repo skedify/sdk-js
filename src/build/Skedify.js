@@ -6,10 +6,7 @@ if (typeof window !== 'undefined') {
 
   /* istanbul ignore else */
   if (!window.Skedify.hasOwnProperty('API')) {
-    Object.defineProperty(window.Skedify, 'API', {
-      enumerable: true,
-      value: SkedifyAPI,
-    })
+    window.Skedify.API = SkedifyAPI
   }
 }
 

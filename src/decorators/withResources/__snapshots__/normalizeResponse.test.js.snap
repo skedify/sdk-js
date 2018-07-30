@@ -1,0 +1,38 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`normalizeResponse should normalize a failed response 1`] = `
+Object {
+  "data": "data",
+  "errors": "errors",
+  "headers": Array [],
+  "meta": "meta",
+  "status": 200,
+  "warnings": "warnings",
+}
+`;
+
+exports[`normalizeResponse should normalize a failed response after a retry 1`] = `
+Object {
+  "data": "data",
+  "errors": "errors",
+  "headers": Array [],
+  "meta": "meta",
+  "status": 200,
+  "warnings": "warnings",
+}
+`;
+
+exports[`normalizeResponse should normalize a successful response 1`] = `
+Object {
+  "data": "data",
+  "errors": "errors",
+  "headers": Array [],
+  "meta": "meta",
+  "status": 200,
+  "warnings": "warnings",
+}
+`;
+
+exports[`normalizeResponse should rethrow an actual a failed network request 1`] = `"something failed"`;
+
+exports[`normalizeResponse should rethrow an actual a failed network request after a retry 1`] = `"something failed"`;
