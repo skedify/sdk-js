@@ -8,5 +8,8 @@ function buildChain(language, chain = [language]) {
 }
 
 export default function buildLanguageFallbackChain(language) {
-  return buildChain(language)
+  return (Array.isArray(language) ? language : [language]).reduce(
+    (result, part) => [...result, ...buildChain(part)],
+    []
+  )
 }

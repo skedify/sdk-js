@@ -33,8 +33,12 @@ export default function validate(config = {}) {
    *
    * Resulting in: `nl-be-vwv`, `nl-be` or `nl` (case insensitive)
    */
+  const locales = Array.isArray(config.locale) ? config.locale : [config.locale]
   if (
-    !/^[a-z]{2}(?:-[A-Z]{2}(?:[- ]{1}[A-Z09]{1,3})?)?$/i.test(config.locale)
+    locales.some(
+      locale =>
+        !/^[a-z]{2}(?:-[A-Z]{2}(?:[- ]{1}[A-Z09]{1,3})?)?$/i.test(locale)
+    )
   ) {
     throw createConfigError(
       'locale is not valid.',
