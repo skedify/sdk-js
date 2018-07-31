@@ -19,14 +19,18 @@ describe('normalizeResponse', () => {
     expect(normalizeResponse(createResponse())).toMatchSnapshot()
   })
 
-  it('should normalize a failed response', () => {
-    expect(
+  it('should normalize a failed response and throw it', () => {
+    expect.assertions(1)
+
+    try {
       normalizeResponse(
         Object.assign(new Error('something failed'), {
           response: createResponse(),
         })
       )
-    ).toMatchSnapshot()
+    } catch (err) {
+      expect(err).toMatchSnapshot()
+    }
   })
 
   it('should rethrow an actual a failed network request', () => {
@@ -35,8 +39,10 @@ describe('normalizeResponse', () => {
     ).toThrowErrorMatchingSnapshot()
   })
 
-  it('should normalize a failed response after a retry', () => {
-    expect(
+  it('should normalize a failed response after a retry and throw it', () => {
+    expect.assertions(1)
+
+    try {
       normalizeResponse(
         Object.assign(createRetryError(`Max retry attempts reached.`), {
           error: Object.assign(new Error('something failed'), {
@@ -44,7 +50,9 @@ describe('normalizeResponse', () => {
           }),
         })
       )
-    ).toMatchSnapshot()
+    } catch (err) {
+      expect(err).toMatchSnapshot()
+    }
   })
 
   it('should rethrow an actual a failed network request after a retry', () => {
