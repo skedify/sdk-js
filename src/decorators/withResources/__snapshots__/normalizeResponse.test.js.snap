@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`normalizeResponse should normalize a failed response 1`] = `
+exports[`normalizeResponse should normalize a failed response after a retry and throw it 1`] = `
 Object {
   "data": "data",
   "errors": "errors",
@@ -11,7 +11,7 @@ Object {
 }
 `;
 
-exports[`normalizeResponse should normalize a failed response after a retry 1`] = `
+exports[`normalizeResponse should normalize a failed response and throw it 1`] = `
 Object {
   "data": "data",
   "errors": "errors",

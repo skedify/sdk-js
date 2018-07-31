@@ -463,11 +463,16 @@ describe('API', () => {
       const warnings = []
 
       mockResponse(data, meta, warnings, 422)
-      expect(
+
+      expect.assertions(1)
+
+      try {
         await SDK.appointments()
           .new({})
           .then(appointment => appointment.create())
-      ).toMatchSnapshot()
+      } catch (err) {
+        expect(err).toMatchSnapshot()
+      }
     })
   })
 
