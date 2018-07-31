@@ -824,6 +824,20 @@ exports[`API/Auth Providers should error when the \`realm\` is not provided for 
   - Optional parameters: scope"
 `;
 
+exports[`API/Config should be possible to create an SDK instance with a list of locales 1`] = `
+Object {
+  "data": undefined,
+  "headers": Object {
+    "Accept": "application/json, text/plain, */*",
+    "Accept-Language": "nl-BE-VWV, nl-BE;q=0.875, nl;q=0.75, en-US;q=0.625, en;q=0.5, fr-BE;q=0.375, fr;q=0.25, *;q=0.125",
+    "Authorization": "Bearer fake_example_access_token",
+  },
+  "method": "get",
+  "params": undefined,
+  "url": "https://api.example.com/identity",
+}
+`;
+
 exports[`API/Config should throw an error when onConfigurationChange is not passed a function 1`] = `"[CONFIG]: You tried to call \`.onConfigurationChange(null)\` but it must receive a function."`;
 
 exports[`API/Config should throw an error when overriding items on the configuration object directly 1`] = `"Cannot assign to read only property 'locale' of object '#<Object>'"`;
