@@ -147,6 +147,12 @@ describe('API/Config', () => {
       'en',
       'en-us',
       'en-US',
+      ['nl', 'en'],
+      ['nl-BE', 'en'],
+      ['nl-BE', 'en-US'],
+      ['nl', 'en-US'],
+      ['nl', 'en', 'fr'],
+      ['nl-BE-VWV', 'en-US', 'fr-FR'],
     ]
 
     valids.forEach(locale => {
@@ -159,6 +165,9 @@ describe('API/Config', () => {
       'nl-BE+VWV', // Because + is not allowed.
       'nl-BE-', // There can not be a lost dash on the end.
       'nl-BE-VWVX', // Because maximum 3 characters in the last place are allowed.
+      ['nl-BE+VWV'], // Arrays are valid, but each item must be valid as well
+      ['nl-BE-'], // Arrays are valid, but each item must be valid as well
+      ['nl-BE-VWVX'], // Arrays are valid, but each item must be valid as well
     ]
 
     invalids.forEach(locale => {
@@ -274,7 +283,22 @@ describe('API/Config', () => {
       locale: 'nl-BE',
     })
 
-    expect(SDK).toBeDefined()
+    expect(SDK).toBeInstanceOf(API)
+  })
+
+  it('should be possible to create an SDK instance with a list of locales', async () => {
+    const SDK = new API({
+      auth_provider: API.createAuthProviderString('public_client', {
+        client_id: 'someclientidtokengoeshere',
+        realm: 'https://api.example.com',
+      }),
+      locale: ['nl-BE-VWV', 'en-US', 'fr-BE'],
+    })
+
+    expect(SDK).toBeInstanceOf(API)
+
+    installSkedifySDKMock(SDK)
+    expect(await matchRequest(SDK.identity())).toMatchSnapshot()
   })
 
   it('should be possible to create an SDK instance with a resource_code', () => {
@@ -287,7 +311,7 @@ describe('API/Config', () => {
       locale: 'nl-BE',
     })
 
-    expect(SDK).toBeDefined()
+    expect(SDK).toBeInstanceOf(API)
   })
 })
 
