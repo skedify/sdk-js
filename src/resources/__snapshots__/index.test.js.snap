@@ -125,6 +125,21 @@ Object {
     "resource": "identity",
     "sub_resources": Object {},
   },
+  "insights": Object {
+    "allowed_includes": Array [],
+    "filters": Array [],
+    "headers": Object {},
+    "resource": "insights",
+    "sub_resources": Object {
+      "auth": Object {
+        "allowed_includes": Array [],
+        "filters": Array [],
+        "headers": Object {},
+        "resource": "auth",
+        "sub_resources": Object {},
+      },
+    },
+  },
   "offices": Object {
     "allowed_includes": Array [
       "subject_settings",
