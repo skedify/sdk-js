@@ -153,6 +153,18 @@ Object {
 }
 `;
 
+exports[`API API/Resources should be possible to disable certain actions (delete) on a resource 1`] = `"[CONFIG]: You tried to call \`.delete()\` but this method is currently not allowed."`;
+
+exports[`API API/Resources should be possible to disable certain actions (new) but the other methods should still be possible 1`] = `"[CONFIG]: You tried to call \`.new({\\"id\\":\\"new identity id\\"})\` but this method is currently not allowed."`;
+
+exports[`API API/Resources should be possible to disable certain actions (new) but the other methods should still be possible 2`] = `"[CONFIG]: You tried to call \`.update({\\"id\\":\\"new identity id\\"})\` but this method is currently not allowed."`;
+
+exports[`API API/Resources should be possible to disable certain actions (new) but the other methods should still be possible 3`] = `"[CONFIG]: You tried to call \`.delete()\` but this method is currently not allowed."`;
+
+exports[`API API/Resources should be possible to disable certain actions (new) on a resource 1`] = `"[CONFIG]: You tried to call \`.new({\\"id\\":\\"new identity id\\"})\` but this method is currently not allowed."`;
+
+exports[`API API/Resources should be possible to disable certain actions (update) on a resource 1`] = `"[CONFIG]: You tried to call \`.update({\\"id\\":\\"new id\\"})\` but this method is currently not allowed."`;
+
 exports[`API API/Resources should be possible to make subsequent calls to include to add multiple includes 1`] = `
 Object {
   "data": undefined,
