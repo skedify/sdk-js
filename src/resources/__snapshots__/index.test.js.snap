@@ -17,6 +17,9 @@ Object {
       "answers",
       "initiated_by",
     ],
+    "allowed_methods": Array [
+      "*",
+    ],
     "filters": Array [
       "state",
       "start",
@@ -27,21 +30,30 @@ Object {
         "recaptcha": [Function],
       },
     },
+    "method": undefined,
     "resource": "appointments",
     "sub_resources": Object {
       "answers": Object {
         "allowed_includes": Array [
           "question",
         ],
+        "allowed_methods": Array [
+          "*",
+        ],
         "filters": Array [],
         "headers": Object {},
+        "method": undefined,
         "resource": "answers",
         "sub_resources": Object {},
       },
       "possibilities": Object {
         "allowed_includes": Array [],
+        "allowed_methods": Array [
+          "*",
+        ],
         "filters": Array [],
         "headers": Object {},
+        "method": undefined,
         "resource": "possibilities",
         "sub_resources": Object {},
       },
@@ -56,30 +68,46 @@ Object {
       "subjects.subject_category",
       "appointments",
     ],
+    "allowed_methods": Array [
+      "*",
+    ],
     "filters": Array [
       "offices",
       "schedulable",
     ],
     "headers": Object {},
+    "method": undefined,
     "resource": "contacts",
     "sub_resources": Object {
       "offices": Object {
         "allowed_includes": Array [],
+        "allowed_methods": Array [
+          "*",
+        ],
         "filters": Array [],
         "headers": Object {},
+        "method": undefined,
         "resource": "offices",
         "sub_resources": Object {
           "availabilityHours": Object {
             "allowed_includes": Array [],
+            "allowed_methods": Array [
+              "*",
+            ],
             "filters": Array [],
             "headers": Object {},
+            "method": undefined,
             "resource": "availability_hours",
             "sub_resources": Object {},
           },
           "availabilityHoursExceptions": Object {
             "allowed_includes": Array [],
+            "allowed_methods": Array [
+              "*",
+            ],
             "filters": Array [],
             "headers": Object {},
+            "method": undefined,
             "resource": "availability_hours_exceptions",
             "sub_resources": Object {},
           },
@@ -89,12 +117,16 @@ Object {
   },
   "customers": Object {
     "allowed_includes": Array [],
+    "allowed_methods": Array [
+      "*",
+    ],
     "filters": Array [
       "external_id",
       "match",
       "limit",
     ],
     "headers": Object {},
+    "method": undefined,
     "resource": "customers",
     "sub_resources": Object {},
   },
@@ -103,27 +135,62 @@ Object {
       "user",
       "enterprise",
     ],
+    "allowed_methods": Array [
+      "*",
+    ],
     "filters": Array [
       "email",
       "external_id",
     ],
     "headers": Object {},
+    "method": undefined,
     "resource": "employees",
     "sub_resources": Object {},
   },
   "enterpriseSettings": Object {
     "allowed_includes": Array [],
+    "allowed_methods": Array [
+      "*",
+    ],
     "filters": Array [],
     "headers": Object {},
+    "method": undefined,
     "resource": "enterprise_settings",
     "sub_resources": Object {},
   },
   "identity": Object {
     "allowed_includes": Array [],
+    "allowed_methods": Array [
+      "get",
+    ],
     "filters": Array [],
     "headers": Object {},
+    "method": undefined,
     "resource": "identity",
     "sub_resources": Object {},
+  },
+  "insights": Object {
+    "allowed_includes": Array [],
+    "allowed_methods": Array [
+      "*",
+    ],
+    "filters": Array [],
+    "headers": Object {},
+    "method": undefined,
+    "resource": "insights",
+    "sub_resources": Object {
+      "auth": Object {
+        "allowed_includes": Array [],
+        "allowed_methods": Array [
+          "post",
+        ],
+        "filters": Array [],
+        "headers": Object {},
+        "method": undefined,
+        "resource": "auth",
+        "sub_resources": Object {},
+      },
+    },
   },
   "offices": Object {
     "allowed_includes": Array [
@@ -131,6 +198,9 @@ Object {
       "contacts",
       "contacts.subjects",
       "contacts.user",
+    ],
+    "allowed_methods": Array [
+      "*",
     ],
     "filters": Array [
       "external_id",
@@ -141,21 +211,30 @@ Object {
       "limit",
     ],
     "headers": Object {},
+    "method": undefined,
     "resource": "offices",
     "sub_resources": Object {
       "availabilityHoursExceptions": Object {
         "allowed_includes": Array [],
+        "allowed_methods": Array [
+          "*",
+        ],
         "filters": Array [],
         "headers": Object {},
+        "method": undefined,
         "resource": "availability_hours_exceptions",
         "sub_resources": Object {},
       },
       "subjectSettings": Object {
         "allowed_includes": Array [],
+        "allowed_methods": Array [
+          "*",
+        ],
         "filters": Array [
           "subject_id",
         ],
         "headers": Object {},
+        "method": undefined,
         "resource": "subject_settings",
         "sub_resources": Object {},
       },
@@ -166,8 +245,12 @@ Object {
       "languages",
       "languages.translations",
     ],
+    "allowed_methods": Array [
+      "*",
+    ],
     "filters": Array [],
     "headers": Object {},
+    "method": undefined,
     "resource": "subject_categories",
     "sub_resources": Object {},
   },
@@ -178,6 +261,9 @@ Object {
       "languages",
       "languages.translations",
     ],
+    "allowed_methods": Array [
+      "*",
+    ],
     "filters": Array [
       "category_id",
       "external_id",
@@ -186,6 +272,7 @@ Object {
       "schedulable",
     ],
     "headers": Object {},
+    "method": undefined,
     "resource": "subjects",
     "sub_resources": Object {
       "questions": Object {
@@ -194,21 +281,33 @@ Object {
           "languages",
           "languages.translations",
         ],
+        "allowed_methods": Array [
+          "*",
+        ],
         "filters": Array [],
         "headers": Object {},
+        "method": undefined,
         "resource": "questions",
         "sub_resources": Object {
           "languages": Object {
             "allowed_includes": Array [],
+            "allowed_methods": Array [
+              "*",
+            ],
             "filters": Array [],
             "headers": Object {},
+            "method": undefined,
             "resource": "languages",
             "sub_resources": Object {},
           },
           "options": Object {
             "allowed_includes": Array [],
+            "allowed_methods": Array [
+              "*",
+            ],
             "filters": Array [],
             "headers": Object {},
+            "method": undefined,
             "resource": "options",
             "sub_resources": Object {},
           },
@@ -216,6 +315,9 @@ Object {
       },
       "timetable": Object {
         "allowed_includes": Array [],
+        "allowed_methods": Array [
+          "*",
+        ],
         "filters": Array [
           "office",
           "start",
@@ -223,6 +325,7 @@ Object {
           "contacts",
         ],
         "headers": Object {},
+        "method": undefined,
         "resource": "timetable",
         "sub_resources": Object {},
       },
