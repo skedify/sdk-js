@@ -1,4 +1,4 @@
-import { HTTP_VERB_GET, ALL_HTTP_VERBS } from '../../constants'
+import { HTTP_VERB_GET, HTTP_VERB_ALL_WILDCARD } from '../../constants'
 import { get } from '../../secret'
 import stringifyQueryParamValues from './stringifyQueryParamValues'
 import omit from '../../util/omit'
@@ -46,7 +46,7 @@ export default function createCallConfig(resource, defaultConfig) {
    */
   const combinedHeaders = Object.assign(
     {},
-    descriptor.headers[ALL_HTTP_VERBS],
+    descriptor.headers[HTTP_VERB_ALL_WILDCARD],
     descriptor.headers[method]
   )
 

@@ -9,11 +9,13 @@ import {
   HTTP_VERB_PATCH,
   HTTP_VERB_POST,
   HTTP_VERB_DELETE,
+  HTTP_VERB_ALL_WILDCARD,
 } from '../../constants'
 import normalizeResponse from './normalizeResponse'
 import createRequest from './createRequest'
 import executeResponseInterceptors from './executeResponseInterceptors'
 import clone from './clone'
+import { createConfigError } from '../../util/createError'
 
 function overrideThen(resource, replaceWith) {
   const originalThen = resource.then.bind(resource)
@@ -21,6 +23,12 @@ function overrideThen(resource, replaceWith) {
   resource.then = resolve => resolve(replaceWith(originalThen))
 
   return resource
+}
+
+function isAllowed(instance, method) {
+  return [HTTP_VERB_ALL_WILDCARD]
+    .concat(method)
+    .some(check => get(instance).descriptor.allowed_methods.includes(check))
 }
 
 export default class Resource {
@@ -111,6 +119,14 @@ export default class Resource {
   }
 
   new(data) {
+    if (!isAllowed(this, HTTP_VERB_POST)) {
+      throw createConfigError(
+        `You tried to call \`.new(${JSON.stringify(
+          data
+        )})\` but this method is currently not allowed.`
+      )
+    }
+
     // Clone the current Resource
     const cloned = overrideThen(clone(this), originalThen => ({
       create() {
@@ -131,6 +147,14 @@ export default class Resource {
   }
 
   update(data) {
+    if (!isAllowed(this, HTTP_VERB_PATCH)) {
+      throw createConfigError(
+        `You tried to call \`.update(${JSON.stringify(
+          data
+        )})\` but this method is currently not allowed.`
+      )
+    }
+
     // Clone the current Resource
     const cloned = overrideThen(clone(this), originalThen => ({
       save() {
@@ -151,6 +175,12 @@ export default class Resource {
   }
 
   delete() {
+    if (!isAllowed(this, HTTP_VERB_DELETE)) {
+      throw createConfigError(
+        `You tried to call \`.delete()\` but this method is currently not allowed.`
+      )
+    }
+
     // Clone the current Resource
     const cloned = overrideThen(clone(this), originalThen => ({
       delete() {

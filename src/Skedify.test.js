@@ -590,6 +590,47 @@ describe('API', () => {
       ).toMatchSnapshot()
     })
 
+    it('should be possible to disable certain actions (update) on a resource', () => {
+      expect(() =>
+        SDK.insights('cumulio')
+          .auth()
+          .update({
+            id: 'new id',
+          })
+      ).toThrowErrorMatchingSnapshot()
+    })
+
+    it('should be possible to disable certain actions (delete) on a resource', () => {
+      expect(() =>
+        SDK.insights('cumulio')
+          .auth()
+          .delete()
+      ).toThrowErrorMatchingSnapshot()
+    })
+
+    it('should be possible to disable certain actions (new) on a resource', () => {
+      expect(() =>
+        SDK.identity().new({
+          id: 'new identity id',
+        })
+      ).toThrowErrorMatchingSnapshot()
+    })
+
+    it('should be possible to disable certain actions (new) but the other methods should still be possible', () => {
+      expect(() =>
+        SDK.identity().new({
+          id: 'new identity id',
+        })
+      ).toThrowErrorMatchingSnapshot()
+      expect(() =>
+        SDK.identity().update({
+          id: 'new identity id',
+        })
+      ).toThrowErrorMatchingSnapshot()
+      expect(() => SDK.identity().delete()).toThrowErrorMatchingSnapshot()
+      expect(() => SDK.identity()).not.toThrowError()
+    })
+
     it('should throw an error when a subresource is used but no id is provided', () => {
       expect(() => SDK.subjects().questions()).toThrowErrorMatchingSnapshot()
     })
