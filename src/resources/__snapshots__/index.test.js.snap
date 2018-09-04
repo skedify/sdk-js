@@ -192,6 +192,20 @@ Object {
       },
     },
   },
+  "officeManagers": Object {
+    "allowed_includes": Array [
+      "user",
+      "offices",
+    ],
+    "allowed_methods": Array [
+      "*",
+    ],
+    "filters": Array [],
+    "headers": Object {},
+    "method": undefined,
+    "resource": "office_managers",
+    "sub_resources": Object {},
+  },
   "offices": Object {
     "allowed_includes": Array [
       "subject_settings",
