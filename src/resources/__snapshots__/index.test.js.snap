@@ -2,6 +2,17 @@
 
 exports[`resources should define all the resources 1`] = `
 Object {
+  "accessTokens": Object {
+    "allowed_includes": Array [],
+    "allowed_methods": Array [
+      "*",
+    ],
+    "filters": Array [],
+    "headers": Object {},
+    "method": undefined,
+    "resource": "access_tokens",
+    "sub_resources": Object {},
+  },
   "appointments": Object {
     "allowed_includes": Array [
       "subject",
