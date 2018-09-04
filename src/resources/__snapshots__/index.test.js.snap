@@ -192,6 +192,17 @@ Object {
       },
     },
   },
+  "integrations": Object {
+    "allowed_includes": Array [],
+    "allowed_methods": Array [
+      "*",
+    ],
+    "filters": Array [],
+    "headers": Object {},
+    "method": undefined,
+    "resource": "integrations",
+    "sub_resources": Object {},
+  },
   "officeManagers": Object {
     "allowed_includes": Array [
       "user",
