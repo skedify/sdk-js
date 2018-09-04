@@ -197,7 +197,12 @@ Object {
     "allowed_methods": Array [
       "*",
     ],
-    "filters": Array [],
+    "filters": Array [
+      Object {
+        "key": "filter[type]",
+        "name": "type",
+      },
+    ],
     "headers": Object {},
     "method": undefined,
     "resource": "integrations",
