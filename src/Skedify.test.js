@@ -663,6 +663,14 @@ describe('API', () => {
       ).toMatchSnapshot()
     })
 
+    it('should be possible to add filters to a resource that has special filter syntax', async () => {
+      expect(
+        await matchRequest(
+          SDK.integrations().filter(item => item.type('cumulio'))
+        )
+      ).toMatchSnapshot()
+    })
+
     it('should filter out undefined values when using filters', async () => {
       expect(
         await matchRequest(

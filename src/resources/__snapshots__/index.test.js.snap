@@ -2,6 +2,17 @@
 
 exports[`resources should define all the resources 1`] = `
 Object {
+  "accessTokens": Object {
+    "allowed_includes": Array [],
+    "allowed_methods": Array [
+      "*",
+    ],
+    "filters": Array [],
+    "headers": Object {},
+    "method": undefined,
+    "resource": "access_tokens",
+    "sub_resources": Object {},
+  },
   "appointments": Object {
     "allowed_includes": Array [
       "subject",
@@ -191,6 +202,36 @@ Object {
         "sub_resources": Object {},
       },
     },
+  },
+  "integrations": Object {
+    "allowed_includes": Array [],
+    "allowed_methods": Array [
+      "*",
+    ],
+    "filters": Array [
+      Object {
+        "key": "filter[type]",
+        "name": "type",
+      },
+    ],
+    "headers": Object {},
+    "method": undefined,
+    "resource": "integrations",
+    "sub_resources": Object {},
+  },
+  "officeManagers": Object {
+    "allowed_includes": Array [
+      "user",
+      "offices",
+    ],
+    "allowed_methods": Array [
+      "*",
+    ],
+    "filters": Array [],
+    "headers": Object {},
+    "method": undefined,
+    "resource": "office_managers",
+    "sub_resources": Object {},
   },
   "offices": Object {
     "allowed_includes": Array [

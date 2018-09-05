@@ -16,6 +16,7 @@ import createRequest from './createRequest'
 import executeResponseInterceptors from './executeResponseInterceptors'
 import clone from './clone'
 import { createConfigError } from '../../util/createError'
+import isObject from '../../util/isObject'
 
 function overrideThen(resource, replaceWith) {
   const originalThen = resource.then.bind(resource)
@@ -81,25 +82,27 @@ export default class Resource {
     /**
      * Create an object with each "filterable" value as a function
      */
-    const filterable = descriptor.filters.reduce(
-      (item, filter) =>
-        Object.assign(item, {
-          [filter]: params => {
-            Object.assign(requestConfig, {
-              filters: Object.assign({}, requestConfig.filters, {
-                [filter]: Array.isArray(requestConfig.filters[filter])
-                  ? [...requestConfig.filters[filter], ...params]
-                  : params !== undefined
-                    ? params
-                    : true, // Convert undefined to true
-              }),
-            })
+    const filterable = descriptor.filters.reduce((item, filter) => {
+      const { key, name } = isObject(filter)
+        ? filter
+        : { key: filter, name: filter }
 
-            return filterable
-          },
-        }),
-      {}
-    )
+      return Object.assign(item, {
+        [name]: params => {
+          Object.assign(requestConfig, {
+            filters: Object.assign({}, requestConfig.filters, {
+              [key]: Array.isArray(requestConfig.filters[key])
+                ? [...requestConfig.filters[key], ...params]
+                : params !== undefined
+                  ? params
+                  : true, // Convert undefined to true
+            }),
+          })
+
+          return filterable
+        },
+      })
+    }, {})
 
     validateFilterCallbackExecution(this, () => {
       callback(filterable)
