@@ -16,6 +16,22 @@ Object {
 }
 `;
 
+exports[`API API/Resources should be possible to add filters to a resource that has special filter syntax 1`] = `
+Object {
+  "data": undefined,
+  "headers": Object {
+    "Accept": "application/json, text/plain, */*",
+    "Accept-Language": "nl-BE, nl;q=0.667, *;q=0.333",
+    "Authorization": "Bearer fake_example_access_token",
+  },
+  "method": "get",
+  "params": Object {
+    "filter[type]": "cumulio",
+  },
+  "url": "https://api.example.com/integrations",
+}
+`;
+
 exports[`API API/Resources should be possible to add includes to the a single subject 1`] = `
 Object {
   "data": undefined,
