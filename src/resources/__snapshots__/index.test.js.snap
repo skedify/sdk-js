@@ -13,6 +13,19 @@ Object {
     "resource": "access_tokens",
     "sub_resources": Object {},
   },
+  "admins": Object {
+    "allowed_includes": Array [
+      "user",
+    ],
+    "allowed_methods": Array [
+      "*",
+    ],
+    "filters": Array [],
+    "headers": Object {},
+    "method": undefined,
+    "resource": "admins",
+    "sub_resources": Object {},
+  },
   "appointments": Object {
     "allowed_includes": Array [
       "subject",
@@ -93,6 +106,21 @@ Object {
         "sub_resources": Object {},
       },
     },
+  },
+  "centralPlanners": Object {
+    "allowed_includes": Array [
+      "user",
+    ],
+    "allowed_methods": Array [
+      "*",
+    ],
+    "filters": Array [
+      "id",
+    ],
+    "headers": Object {},
+    "method": undefined,
+    "resource": "central_planners",
+    "sub_resources": Object {},
   },
   "contacts": Object {
     "allowed_includes": Array [
@@ -222,6 +250,17 @@ Object {
     "resource": "enterprise_settings",
     "sub_resources": Object {},
   },
+  "enterprises": Object {
+    "allowed_includes": Array [],
+    "allowed_methods": Array [
+      "*",
+    ],
+    "filters": Array [],
+    "headers": Object {},
+    "method": undefined,
+    "resource": "enterprises",
+    "sub_resources": Object {},
+  },
   "identity": Object {
     "allowed_includes": Array [],
     "allowed_methods": Array [
@@ -270,6 +309,17 @@ Object {
     "headers": Object {},
     "method": undefined,
     "resource": "integrations",
+    "sub_resources": Object {},
+  },
+  "languages": Object {
+    "allowed_includes": Array [],
+    "allowed_methods": Array [
+      "*",
+    ],
+    "filters": Array [],
+    "headers": Object {},
+    "method": undefined,
+    "resource": "languages",
     "sub_resources": Object {},
   },
   "modules": Object {
@@ -330,7 +380,19 @@ Object {
     "headers": Object {},
     "method": undefined,
     "resource": "office_managers",
-    "sub_resources": Object {},
+    "sub_resources": Object {
+      "offices": Object {
+        "allowed_includes": Array [],
+        "allowed_methods": Array [
+          "*",
+        ],
+        "filters": Array [],
+        "headers": Object {},
+        "method": undefined,
+        "resource": "offices",
+        "sub_resources": Object {},
+      },
+    },
   },
   "offices": Object {
     "allowed_includes": Array [
@@ -494,6 +556,91 @@ Object {
         "headers": Object {},
         "method": undefined,
         "resource": "timetable",
+        "sub_resources": Object {},
+      },
+    },
+  },
+  "users": Object {
+    "allowed_includes": Array [
+      "employees",
+      "sync_accounts",
+    ],
+    "allowed_methods": Array [
+      "*",
+    ],
+    "filters": Array [],
+    "headers": Object {},
+    "method": undefined,
+    "resource": "users",
+    "sub_resources": Object {
+      "calendars": Object {
+        "allowed_includes": Array [
+          "sync_accounts",
+        ],
+        "allowed_methods": Array [
+          "*",
+        ],
+        "filters": Array [],
+        "headers": Object {},
+        "method": undefined,
+        "resource": "calendars",
+        "sub_resources": Object {
+          "events": Object {
+            "allowed_includes": Array [],
+            "allowed_methods": Array [
+              "*",
+            ],
+            "filters": Array [
+              "start",
+              "end",
+              "split",
+              "group_by",
+            ],
+            "headers": Object {},
+            "method": undefined,
+            "resource": "events",
+            "sub_resources": Object {},
+          },
+        },
+      },
+      "employees": Object {
+        "allowed_includes": Array [
+          "roles",
+        ],
+        "allowed_methods": Array [
+          "*",
+        ],
+        "filters": Array [],
+        "headers": Object {},
+        "method": undefined,
+        "resource": "employees",
+        "sub_resources": Object {},
+      },
+      "events": Object {
+        "allowed_includes": Array [],
+        "allowed_methods": Array [
+          "*",
+        ],
+        "filters": Array [
+          "start",
+          "end",
+          "split",
+          "group_by",
+        ],
+        "headers": Object {},
+        "method": undefined,
+        "resource": "events",
+        "sub_resources": Object {},
+      },
+      "syncAccounts": Object {
+        "allowed_includes": Array [],
+        "allowed_methods": Array [
+          "*",
+        ],
+        "filters": Array [],
+        "headers": Object {},
+        "method": undefined,
+        "resource": "sync_accounts",
         "sub_resources": Object {},
       },
     },
