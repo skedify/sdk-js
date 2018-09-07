@@ -11,17 +11,34 @@ export default function convertIdsToString(json) {
 
   if (json instanceof Object) {
     return Object.keys(json).reduce((result, key) => {
-      if (
-        !EXCEPTIONS.includes(key) &&
-        (key === 'id' ||
-          (key.length > 3 && key.lastIndexOf('_id') === key.length - 3))
-      ) {
-        result[key] = json[key] != null ? json[key].toString() : json[key]
-      } else {
-        result[key] = convertIdsToString(json[key])
+      if (EXCEPTIONS.includes(key)) {
+        return Object.assign(result, {
+          [key]: convertIdsToString(json[key]),
+        })
       }
 
-      return result
+      if (
+        key === 'id' ||
+        (key.length > 3 && key.lastIndexOf('_id') === key.length - 3)
+      ) {
+        return Object.assign(result, {
+          [key]: json[key] != null ? json[key].toString() : json[key],
+        })
+      }
+
+      if (
+        (key === 'ids' ||
+          (key.length > 4 && key.lastIndexOf('_ids') === key.length - 4)) &&
+        Array.isArray(json[key])
+      ) {
+        return Object.assign(result, {
+          [key]: json[key].map(item => (item != null ? item.toString() : item)),
+        })
+      }
+
+      return Object.assign(result, {
+        [key]: convertIdsToString(json[key]),
+      })
     }, {})
   }
 
