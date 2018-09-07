@@ -219,6 +219,52 @@ Object {
     "resource": "integrations",
     "sub_resources": Object {},
   },
+  "modules": Object {
+    "allowed_includes": Array [],
+    "allowed_methods": Array [
+      "*",
+    ],
+    "filters": Array [],
+    "headers": Object {},
+    "method": undefined,
+    "resource": "modules",
+    "sub_resources": Object {
+      "languages": Object {
+        "allowed_includes": Array [],
+        "allowed_methods": Array [
+          "*",
+        ],
+        "filters": Array [],
+        "headers": Object {},
+        "method": undefined,
+        "resource": "languages",
+        "sub_resources": Object {
+          "translations": Object {
+            "allowed_includes": Array [],
+            "allowed_methods": Array [
+              "*",
+            ],
+            "filters": Array [],
+            "headers": Object {},
+            "method": undefined,
+            "resource": "translations",
+            "sub_resources": Object {},
+          },
+        },
+      },
+      "translations": Object {
+        "allowed_includes": Array [],
+        "allowed_methods": Array [
+          "*",
+        ],
+        "filters": Array [],
+        "headers": Object {},
+        "method": undefined,
+        "resource": "translations",
+        "sub_resources": Object {},
+      },
+    },
+  },
   "officeManagers": Object {
     "allowed_includes": Array [
       "user",
