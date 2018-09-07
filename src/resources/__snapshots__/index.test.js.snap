@@ -57,6 +57,30 @@ Object {
         "resource": "answers",
         "sub_resources": Object {},
       },
+      "availableContacts": Object {
+        "allowed_includes": Array [
+          "user",
+        ],
+        "allowed_methods": Array [
+          "*",
+        ],
+        "filters": Array [],
+        "headers": Object {},
+        "method": undefined,
+        "resource": "available_contacts",
+        "sub_resources": Object {},
+      },
+      "messages": Object {
+        "allowed_includes": Array [],
+        "allowed_methods": Array [
+          "*",
+        ],
+        "filters": Array [],
+        "headers": Object {},
+        "method": undefined,
+        "resource": "messages",
+        "sub_resources": Object {},
+      },
       "possibilities": Object {
         "allowed_includes": Array [],
         "allowed_methods": Array [
@@ -90,6 +114,22 @@ Object {
     "method": undefined,
     "resource": "contacts",
     "sub_resources": Object {
+      "appointments": Object {
+        "allowed_includes": Array [
+          "possibilities",
+          "accepted_possibility",
+          "customer",
+          "subject",
+        ],
+        "allowed_methods": Array [
+          "*",
+        ],
+        "filters": Array [],
+        "headers": Object {},
+        "method": undefined,
+        "resource": "appointments",
+        "sub_resources": Object {},
+      },
       "offices": Object {
         "allowed_includes": Array [],
         "allowed_methods": Array [
@@ -123,6 +163,19 @@ Object {
             "sub_resources": Object {},
           },
         },
+      },
+      "subjects": Object {
+        "allowed_includes": Array [
+          "questions",
+        ],
+        "allowed_methods": Array [
+          "*",
+        ],
+        "filters": Array [],
+        "headers": Object {},
+        "method": undefined,
+        "resource": "subjects",
+        "sub_resources": Object {},
       },
     },
   },
@@ -283,6 +336,7 @@ Object {
     "allowed_includes": Array [
       "subject_settings",
       "contacts",
+      "contacts.employee",
       "contacts.subjects",
       "contacts.user",
     ],
@@ -310,6 +364,32 @@ Object {
         "headers": Object {},
         "method": undefined,
         "resource": "availability_hours_exceptions",
+        "sub_resources": Object {},
+      },
+      "contacts": Object {
+        "allowed_includes": Array [
+          "user",
+        ],
+        "allowed_methods": Array [
+          "*",
+        ],
+        "filters": Array [],
+        "headers": Object {},
+        "method": undefined,
+        "resource": "contacts",
+        "sub_resources": Object {},
+      },
+      "officeManagers": Object {
+        "allowed_includes": Array [
+          "user",
+        ],
+        "allowed_methods": Array [
+          "*",
+        ],
+        "filters": Array [],
+        "headers": Object {},
+        "method": undefined,
+        "resource": "office_managers",
         "sub_resources": Object {},
       },
       "subjectSettings": Object {
