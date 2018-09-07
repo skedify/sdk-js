@@ -14,6 +14,17 @@ export const contacts = createResourceDescription(
     filters: ['offices', 'schedulable'],
   },
   {
+    appointments: createResourceDescription('appointments', {
+      includes: [
+        'possibilities',
+        'accepted_possibility',
+        'customer',
+        'subject',
+      ],
+    }),
+    subjects: createResourceDescription('subjects', {
+      includes: ['questions'],
+    }),
     offices: createResourceDescription(
       'offices',
       {},
