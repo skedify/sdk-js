@@ -21,6 +21,20 @@ describe('convertIdsToString', () => {
     })
   })
 
+  it('should convert an array of ids to an array of id strings', () => {
+    const response = {
+      data: {
+        office_ids: [1, 2, null, 3, undefined, 4],
+      },
+    }
+
+    expect(convertIdsToString(response)).toEqual({
+      data: {
+        office_ids: ['1', '2', null, '3', undefined, '4'],
+      },
+    })
+  })
+
   it('should convert simple ids to string', () => {
     const response = { id: 1 }
     expect(convertIdsToString(response)).toEqual({ id: '1' })

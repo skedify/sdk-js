@@ -6,6 +6,7 @@ export const offices = createResourceDescription(
     includes: [
       'subject_settings',
       'contacts',
+      'contacts.employee',
       'contacts.subjects',
       'contacts.user',
     ],
@@ -19,6 +20,12 @@ export const offices = createResourceDescription(
     ],
   },
   {
+    contacts: createResourceDescription('contacts', {
+      includes: ['user'],
+    }),
+    officeManagers: createResourceDescription('office_managers', {
+      includes: ['user'],
+    }),
     subjectSettings: createResourceDescription('subject_settings', {
       filters: ['subject_id'],
     }),

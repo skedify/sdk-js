@@ -13,6 +13,19 @@ Object {
     "resource": "access_tokens",
     "sub_resources": Object {},
   },
+  "admins": Object {
+    "allowed_includes": Array [
+      "user",
+    ],
+    "allowed_methods": Array [
+      "*",
+    ],
+    "filters": Array [],
+    "headers": Object {},
+    "method": undefined,
+    "resource": "admins",
+    "sub_resources": Object {},
+  },
   "appointments": Object {
     "allowed_includes": Array [
       "subject",
@@ -57,6 +70,30 @@ Object {
         "resource": "answers",
         "sub_resources": Object {},
       },
+      "availableContacts": Object {
+        "allowed_includes": Array [
+          "user",
+        ],
+        "allowed_methods": Array [
+          "*",
+        ],
+        "filters": Array [],
+        "headers": Object {},
+        "method": undefined,
+        "resource": "available_contacts",
+        "sub_resources": Object {},
+      },
+      "messages": Object {
+        "allowed_includes": Array [],
+        "allowed_methods": Array [
+          "*",
+        ],
+        "filters": Array [],
+        "headers": Object {},
+        "method": undefined,
+        "resource": "messages",
+        "sub_resources": Object {},
+      },
       "possibilities": Object {
         "allowed_includes": Array [],
         "allowed_methods": Array [
@@ -69,6 +106,21 @@ Object {
         "sub_resources": Object {},
       },
     },
+  },
+  "centralPlanners": Object {
+    "allowed_includes": Array [
+      "user",
+    ],
+    "allowed_methods": Array [
+      "*",
+    ],
+    "filters": Array [
+      "id",
+    ],
+    "headers": Object {},
+    "method": undefined,
+    "resource": "central_planners",
+    "sub_resources": Object {},
   },
   "contacts": Object {
     "allowed_includes": Array [
@@ -90,6 +142,22 @@ Object {
     "method": undefined,
     "resource": "contacts",
     "sub_resources": Object {
+      "appointments": Object {
+        "allowed_includes": Array [
+          "possibilities",
+          "accepted_possibility",
+          "customer",
+          "subject",
+        ],
+        "allowed_methods": Array [
+          "*",
+        ],
+        "filters": Array [],
+        "headers": Object {},
+        "method": undefined,
+        "resource": "appointments",
+        "sub_resources": Object {},
+      },
       "offices": Object {
         "allowed_includes": Array [],
         "allowed_methods": Array [
@@ -123,6 +191,19 @@ Object {
             "sub_resources": Object {},
           },
         },
+      },
+      "subjects": Object {
+        "allowed_includes": Array [
+          "questions",
+        ],
+        "allowed_methods": Array [
+          "*",
+        ],
+        "filters": Array [],
+        "headers": Object {},
+        "method": undefined,
+        "resource": "subjects",
+        "sub_resources": Object {},
       },
     },
   },
@@ -167,6 +248,17 @@ Object {
     "headers": Object {},
     "method": undefined,
     "resource": "enterprise_settings",
+    "sub_resources": Object {},
+  },
+  "enterprises": Object {
+    "allowed_includes": Array [],
+    "allowed_methods": Array [
+      "*",
+    ],
+    "filters": Array [],
+    "headers": Object {},
+    "method": undefined,
+    "resource": "enterprises",
     "sub_resources": Object {},
   },
   "identity": Object {
@@ -219,6 +311,63 @@ Object {
     "resource": "integrations",
     "sub_resources": Object {},
   },
+  "languages": Object {
+    "allowed_includes": Array [],
+    "allowed_methods": Array [
+      "*",
+    ],
+    "filters": Array [],
+    "headers": Object {},
+    "method": undefined,
+    "resource": "languages",
+    "sub_resources": Object {},
+  },
+  "modules": Object {
+    "allowed_includes": Array [],
+    "allowed_methods": Array [
+      "*",
+    ],
+    "filters": Array [],
+    "headers": Object {},
+    "method": undefined,
+    "resource": "modules",
+    "sub_resources": Object {
+      "languages": Object {
+        "allowed_includes": Array [],
+        "allowed_methods": Array [
+          "*",
+        ],
+        "filters": Array [],
+        "headers": Object {},
+        "method": undefined,
+        "resource": "languages",
+        "sub_resources": Object {
+          "translations": Object {
+            "allowed_includes": Array [],
+            "allowed_methods": Array [
+              "*",
+            ],
+            "filters": Array [],
+            "headers": Object {},
+            "method": undefined,
+            "resource": "translations",
+            "sub_resources": Object {},
+          },
+        },
+      },
+      "translations": Object {
+        "allowed_includes": Array [],
+        "allowed_methods": Array [
+          "*",
+        ],
+        "filters": Array [],
+        "headers": Object {},
+        "method": undefined,
+        "resource": "translations",
+        "sub_resources": Object {},
+      },
+    },
+  },
   "officeManagers": Object {
     "allowed_includes": Array [
       "user",
@@ -231,12 +380,25 @@ Object {
     "headers": Object {},
     "method": undefined,
     "resource": "office_managers",
-    "sub_resources": Object {},
+    "sub_resources": Object {
+      "offices": Object {
+        "allowed_includes": Array [],
+        "allowed_methods": Array [
+          "*",
+        ],
+        "filters": Array [],
+        "headers": Object {},
+        "method": undefined,
+        "resource": "offices",
+        "sub_resources": Object {},
+      },
+    },
   },
   "offices": Object {
     "allowed_includes": Array [
       "subject_settings",
       "contacts",
+      "contacts.employee",
       "contacts.subjects",
       "contacts.user",
     ],
@@ -264,6 +426,32 @@ Object {
         "headers": Object {},
         "method": undefined,
         "resource": "availability_hours_exceptions",
+        "sub_resources": Object {},
+      },
+      "contacts": Object {
+        "allowed_includes": Array [
+          "user",
+        ],
+        "allowed_methods": Array [
+          "*",
+        ],
+        "filters": Array [],
+        "headers": Object {},
+        "method": undefined,
+        "resource": "contacts",
+        "sub_resources": Object {},
+      },
+      "officeManagers": Object {
+        "allowed_includes": Array [
+          "user",
+        ],
+        "allowed_methods": Array [
+          "*",
+        ],
+        "filters": Array [],
+        "headers": Object {},
+        "method": undefined,
+        "resource": "office_managers",
         "sub_resources": Object {},
       },
       "subjectSettings": Object {
@@ -368,6 +556,91 @@ Object {
         "headers": Object {},
         "method": undefined,
         "resource": "timetable",
+        "sub_resources": Object {},
+      },
+    },
+  },
+  "users": Object {
+    "allowed_includes": Array [
+      "employees",
+      "sync_accounts",
+    ],
+    "allowed_methods": Array [
+      "*",
+    ],
+    "filters": Array [],
+    "headers": Object {},
+    "method": undefined,
+    "resource": "users",
+    "sub_resources": Object {
+      "calendars": Object {
+        "allowed_includes": Array [
+          "sync_accounts",
+        ],
+        "allowed_methods": Array [
+          "*",
+        ],
+        "filters": Array [],
+        "headers": Object {},
+        "method": undefined,
+        "resource": "calendars",
+        "sub_resources": Object {
+          "events": Object {
+            "allowed_includes": Array [],
+            "allowed_methods": Array [
+              "*",
+            ],
+            "filters": Array [
+              "start",
+              "end",
+              "split",
+              "group_by",
+            ],
+            "headers": Object {},
+            "method": undefined,
+            "resource": "events",
+            "sub_resources": Object {},
+          },
+        },
+      },
+      "employees": Object {
+        "allowed_includes": Array [
+          "roles",
+        ],
+        "allowed_methods": Array [
+          "*",
+        ],
+        "filters": Array [],
+        "headers": Object {},
+        "method": undefined,
+        "resource": "employees",
+        "sub_resources": Object {},
+      },
+      "events": Object {
+        "allowed_includes": Array [],
+        "allowed_methods": Array [
+          "*",
+        ],
+        "filters": Array [
+          "start",
+          "end",
+          "split",
+          "group_by",
+        ],
+        "headers": Object {},
+        "method": undefined,
+        "resource": "events",
+        "sub_resources": Object {},
+      },
+      "syncAccounts": Object {
+        "allowed_includes": Array [],
+        "allowed_methods": Array [
+          "*",
+        ],
+        "filters": Array [],
+        "headers": Object {},
+        "method": undefined,
+        "resource": "sync_accounts",
         "sub_resources": Object {},
       },
     },
