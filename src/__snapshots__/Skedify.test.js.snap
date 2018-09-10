@@ -641,6 +641,9 @@ Object {
     },
   },
   "contacts": Object {
+    "employee": Object {
+      "toString": [Function],
+    },
     "subjects": Object {
       "toString": [Function],
     },
@@ -650,6 +653,9 @@ Object {
     },
   },
   "customer": Object {
+    "toString": [Function],
+  },
+  "employees": Object {
     "toString": [Function],
   },
   "enterprise": Object {
@@ -688,6 +694,9 @@ Object {
   "questions": Object {
     "toString": [Function],
   },
+  "roles": Object {
+    "toString": [Function],
+  },
   "subject": Object {
     "subject_category": Object {
       "toString": [Function],
@@ -704,6 +713,9 @@ Object {
     "subject_category": Object {
       "toString": [Function],
     },
+    "toString": [Function],
+  },
+  "sync_accounts": Object {
     "toString": [Function],
   },
   "user": Object {

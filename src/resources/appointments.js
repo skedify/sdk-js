@@ -32,6 +32,10 @@ export const appointments = createResourceDescription(
     },
   },
   {
+    availableContacts: createResourceDescription('available_contacts', {
+      includes: ['user'],
+    }),
+    messages: createResourceDescription('messages'),
     answers: createResourceDescription('answers', {
       includes: ['question'],
     }),
