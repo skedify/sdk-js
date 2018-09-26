@@ -142,7 +142,7 @@ export function createGrant(
           force,
           realm,
           parameters,
-          reset: this.getAuthorization.bind(null, true),
+          reset: this.getAuthorization.bind(this, true),
         })
       }
 
