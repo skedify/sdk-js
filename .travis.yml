@@ -5,7 +5,8 @@ cache:
 notifications:
   email: false
 node_js:
-  - '9'
+  - "10"
+  - "9"
 after_success:
   - ./scripts/release.sh
 branches:
