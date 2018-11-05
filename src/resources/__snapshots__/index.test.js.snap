@@ -142,6 +142,41 @@ Object {
     "method": undefined,
     "resource": "contacts",
     "sub_resources": Object {
+      "appliedDayTemplates": Object {
+        "allowed_includes": Array [
+          "day_templates",
+          "day_templates.day_time_slots",
+        ],
+        "allowed_methods": Array [
+          "*",
+        ],
+        "filters": Array [
+          "start",
+          "end",
+        ],
+        "headers": Object {},
+        "method": undefined,
+        "resource": "applied_day_templates",
+        "sub_resources": Object {},
+      },
+      "appliedWeekTemplates": Object {
+        "allowed_includes": Array [
+          "week_templates",
+          "week_templates.week_time_slots",
+        ],
+        "allowed_methods": Array [
+          "*",
+        ],
+        "filters": Array [
+          "start",
+          "end",
+          "split",
+        ],
+        "headers": Object {},
+        "method": undefined,
+        "resource": "applied_week_templates",
+        "sub_resources": Object {},
+      },
       "appointments": Object {
         "allowed_includes": Array [
           "possibilities",
@@ -157,6 +192,51 @@ Object {
         "method": undefined,
         "resource": "appointments",
         "sub_resources": Object {},
+      },
+      "availability": Object {
+        "allowed_includes": Array [
+          "offices",
+        ],
+        "allowed_methods": Array [
+          "*",
+        ],
+        "filters": Array [
+          "office",
+          "start",
+          "end",
+        ],
+        "headers": Object {},
+        "method": undefined,
+        "resource": "availability",
+        "sub_resources": Object {},
+      },
+      "dayTemplates": Object {
+        "allowed_includes": Array [
+          "day_time_slots",
+          "day_time_slots.offices",
+        ],
+        "allowed_methods": Array [
+          "*",
+        ],
+        "filters": Array [],
+        "headers": Object {},
+        "method": undefined,
+        "resource": "day_templates",
+        "sub_resources": Object {
+          "dayTimeSlots": Object {
+            "allowed_includes": Array [
+              "offices",
+            ],
+            "allowed_methods": Array [
+              "*",
+            ],
+            "filters": Array [],
+            "headers": Object {},
+            "method": undefined,
+            "resource": "day_time_slots",
+            "sub_resources": Object {},
+          },
+        },
       },
       "offices": Object {
         "allowed_includes": Array [],
@@ -204,6 +284,34 @@ Object {
         "method": undefined,
         "resource": "subjects",
         "sub_resources": Object {},
+      },
+      "weekTemplates": Object {
+        "allowed_includes": Array [
+          "week_time_slots",
+          "week_time_slots.offices",
+        ],
+        "allowed_methods": Array [
+          "*",
+        ],
+        "filters": Array [],
+        "headers": Object {},
+        "method": undefined,
+        "resource": "week_templates",
+        "sub_resources": Object {
+          "weekTimeSlots": Object {
+            "allowed_includes": Array [
+              "offices",
+            ],
+            "allowed_methods": Array [
+              "*",
+            ],
+            "filters": Array [],
+            "headers": Object {},
+            "method": undefined,
+            "resource": "week_time_slots",
+            "sub_resources": Object {},
+          },
+        },
       },
     },
   },
