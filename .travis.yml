@@ -5,9 +5,13 @@ cache:
 notifications:
   email: false
 node_js:
-  - '9'
+  - "10"
+before_script:
+  - npm run build
+  - npm audit --only=prod --audit-level=critical
 after_success:
-  - ./scripts/release.sh
+  - npm run publish-coverage
+  - npm run travis-deploy-once "npm run semantic-release"
 branches:
   except:
     - /^v\d+\.\d+\.\d+$/
