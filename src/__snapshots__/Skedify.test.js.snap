@@ -655,6 +655,18 @@ Object {
   "customer": Object {
     "toString": [Function],
   },
+  "day_templates": Object {
+    "day_time_slots": Object {
+      "toString": [Function],
+    },
+    "toString": [Function],
+  },
+  "day_time_slots": Object {
+    "offices": Object {
+      "toString": [Function],
+    },
+    "toString": [Function],
+  },
   "employees": Object {
     "toString": [Function],
   },
@@ -719,6 +731,18 @@ Object {
     "toString": [Function],
   },
   "user": Object {
+    "toString": [Function],
+  },
+  "week_templates": Object {
+    "toString": [Function],
+    "week_time_slots": Object {
+      "toString": [Function],
+    },
+  },
+  "week_time_slots": Object {
+    "offices": Object {
+      "toString": [Function],
+    },
     "toString": [Function],
   },
 }

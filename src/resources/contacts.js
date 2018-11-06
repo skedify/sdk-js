@@ -22,6 +22,29 @@ export const contacts = createResourceDescription(
         'subject',
       ],
     }),
+    availability: createResourceDescription('availability', {
+      includes: ['offices'],
+      filters: ['office', 'start', 'end'],
+    }),
+    appliedWeekTemplates: createResourceDescription('applied_week_templates', {
+      includes: ['week_templates', 'week_templates.week_time_slots'],
+      filters: ['start', 'end', 'split'],
+    }),
+    appliedDayTemplates: createResourceDescription('applied_day_templates', {
+      includes: ['day_templates', 'day_templates.day_time_slots'],
+      filters: ['start', 'end'],
+    }),
+    dayTemplates: createResourceDescription(
+      'day_templates',
+      {
+        includes: ['day_time_slots', 'day_time_slots.offices'],
+      },
+      {
+        dayTimeSlots: createResourceDescription('day_time_slots', {
+          includes: ['offices'],
+        }),
+      }
+    ),
     subjects: createResourceDescription('subjects', {
       includes: ['questions'],
     }),
@@ -33,6 +56,17 @@ export const contacts = createResourceDescription(
         availabilityHoursExceptions: createResourceDescription(
           'availability_hours_exceptions'
         ),
+      }
+    ),
+    weekTemplates: createResourceDescription(
+      'week_templates',
+      {
+        includes: ['week_time_slots', 'week_time_slots.offices'],
+      },
+      {
+        weekTimeSlots: createResourceDescription('week_time_slots', {
+          includes: ['offices'],
+        }),
       }
     ),
   }
