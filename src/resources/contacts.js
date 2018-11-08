@@ -27,11 +27,11 @@ export const contacts = createResourceDescription(
       filters: ['office', 'start', 'end'],
     }),
     appliedWeekTemplates: createResourceDescription('applied_week_templates', {
-      includes: ['week_templates', 'week_templates.week_time_slots'],
+      includes: ['week_template', 'week_template.week_time_slots'],
       filters: ['start', 'end', 'split'],
     }),
     appliedDayTemplates: createResourceDescription('applied_day_templates', {
-      includes: ['day_templates', 'day_templates.day_time_slots'],
+      includes: ['day_template', 'day_template.day_time_slots'],
       filters: ['start', 'end'],
     }),
     dayTemplates: createResourceDescription(

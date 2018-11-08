@@ -144,8 +144,8 @@ Object {
     "sub_resources": Object {
       "appliedDayTemplates": Object {
         "allowed_includes": Array [
-          "day_templates",
-          "day_templates.day_time_slots",
+          "day_template",
+          "day_template.day_time_slots",
         ],
         "allowed_methods": Array [
           "*",
@@ -161,8 +161,8 @@ Object {
       },
       "appliedWeekTemplates": Object {
         "allowed_includes": Array [
-          "week_templates",
-          "week_templates.week_time_slots",
+          "week_template",
+          "week_template.week_time_slots",
         ],
         "allowed_methods": Array [
           "*",
