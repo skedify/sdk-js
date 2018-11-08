@@ -655,7 +655,7 @@ Object {
   "customer": Object {
     "toString": [Function],
   },
-  "day_templates": Object {
+  "day_template": Object {
     "day_time_slots": Object {
       "toString": [Function],
     },
@@ -733,7 +733,7 @@ Object {
   "user": Object {
     "toString": [Function],
   },
-  "week_templates": Object {
+  "week_template": Object {
     "toString": [Function],
     "week_time_slots": Object {
       "toString": [Function],
