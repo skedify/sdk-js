@@ -124,12 +124,12 @@ Object {
   },
   "contacts": Object {
     "allowed_includes": Array [
-      "user",
+      "appointments",
       "offices",
       "offices.subject_settings",
       "subjects",
       "subjects.subject_category",
-      "appointments",
+      "user",
     ],
     "allowed_methods": Array [
       "*",
@@ -179,9 +179,9 @@ Object {
       },
       "appointments": Object {
         "allowed_includes": Array [
-          "possibilities",
           "accepted_possibility",
           "customer",
+          "possibilities",
           "subject",
         ],
         "allowed_methods": Array [
@@ -213,7 +213,9 @@ Object {
       "dayTemplates": Object {
         "allowed_includes": Array [
           "day_time_slots",
+          "day_time_slots.availability_settings",
           "day_time_slots.offices",
+          "day_time_slots.subjects",
         ],
         "allowed_methods": Array [
           "*",
@@ -225,7 +227,11 @@ Object {
         "sub_resources": Object {
           "dayTimeSlots": Object {
             "allowed_includes": Array [
+              "availability_settings",
+              "contact_office_availability_settings",
+              "contact_office_subject_availability_settings",
               "offices",
+              "subjects",
             ],
             "allowed_methods": Array [
               "*",
@@ -234,7 +240,36 @@ Object {
             "headers": Object {},
             "method": undefined,
             "resource": "day_time_slots",
-            "sub_resources": Object {},
+            "sub_resources": Object {
+              "contactOfficeAvailabilitySettings": Object {
+                "allowed_includes": Array [
+                  "contact_office",
+                ],
+                "allowed_methods": Array [
+                  "*",
+                ],
+                "filters": Array [],
+                "headers": Object {},
+                "method": undefined,
+                "resource": "contact_office_availability_settings",
+                "sub_resources": Object {},
+              },
+              "contactOfficeSubjectAvailabilitySettings": Object {
+                "allowed_includes": Array [
+                  "contact_office_subject",
+                  "contact_office_subject.office",
+                  "contact_office_subject.subject",
+                ],
+                "allowed_methods": Array [
+                  "*",
+                ],
+                "filters": Array [],
+                "headers": Object {},
+                "method": undefined,
+                "resource": "contact_office_subject_availability_settings",
+                "sub_resources": Object {},
+              },
+            },
           },
         },
       },
@@ -288,7 +323,9 @@ Object {
       "weekTemplates": Object {
         "allowed_includes": Array [
           "week_time_slots",
+          "week_time_slots.availability_settings",
           "week_time_slots.offices",
+          "week_time_slots.subjects",
         ],
         "allowed_methods": Array [
           "*",
@@ -300,7 +337,11 @@ Object {
         "sub_resources": Object {
           "weekTimeSlots": Object {
             "allowed_includes": Array [
+              "availability_settings",
+              "contact_office_availability_settings",
+              "contact_office_subject_availability_settings",
               "offices",
+              "subjects",
             ],
             "allowed_methods": Array [
               "*",
@@ -309,7 +350,36 @@ Object {
             "headers": Object {},
             "method": undefined,
             "resource": "week_time_slots",
-            "sub_resources": Object {},
+            "sub_resources": Object {
+              "contactOfficeAvailabilitySettings": Object {
+                "allowed_includes": Array [
+                  "contact_office",
+                ],
+                "allowed_methods": Array [
+                  "*",
+                ],
+                "filters": Array [],
+                "headers": Object {},
+                "method": undefined,
+                "resource": "contact_office_availability_settings",
+                "sub_resources": Object {},
+              },
+              "contactOfficeSubjectAvailabilitySettings": Object {
+                "allowed_includes": Array [
+                  "contact_office_subject",
+                  "contact_office_subject.office",
+                  "contact_office_subject.subject",
+                ],
+                "allowed_methods": Array [
+                  "*",
+                ],
+                "filters": Array [],
+                "headers": Object {},
+                "method": undefined,
+                "resource": "contact_office_subject_availability_settings",
+                "sub_resources": Object {},
+              },
+            },
           },
         },
       },
