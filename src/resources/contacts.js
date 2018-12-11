@@ -4,21 +4,21 @@ export const contacts = createResourceDescription(
   'contacts',
   {
     includes: [
-      'user',
+      'appointments',
       'offices',
       'offices.subject_settings',
       'subjects',
       'subjects.subject_category',
-      'appointments',
+      'user',
     ],
     filters: ['offices', 'schedulable'],
   },
   {
     appointments: createResourceDescription('appointments', {
       includes: [
-        'possibilities',
         'accepted_possibility',
         'customer',
+        'possibilities',
         'subject',
       ],
     }),
@@ -37,12 +37,44 @@ export const contacts = createResourceDescription(
     dayTemplates: createResourceDescription(
       'day_templates',
       {
-        includes: ['day_time_slots', 'day_time_slots.offices'],
+        includes: [
+          'day_time_slots',
+          'day_time_slots.availability_settings',
+          'day_time_slots.offices',
+          'day_time_slots.subjects',
+        ],
       },
       {
-        dayTimeSlots: createResourceDescription('day_time_slots', {
-          includes: ['offices'],
-        }),
+        dayTimeSlots: createResourceDescription(
+          'day_time_slots',
+          {
+            includes: [
+              'availability_settings',
+              'contact_office_availability_settings',
+              'contact_office_subject_availability_settings',
+              'offices',
+              'subjects',
+            ],
+          },
+          {
+            contactOfficeAvailabilitySettings: createResourceDescription(
+              'contact_office_availability_settings',
+              {
+                includes: ['contact_office'],
+              }
+            ),
+            contactOfficeSubjectAvailabilitySettings: createResourceDescription(
+              'contact_office_subject_availability_settings',
+              {
+                includes: [
+                  'contact_office_subject',
+                  'contact_office_subject.office',
+                  'contact_office_subject.subject',
+                ],
+              }
+            ),
+          }
+        ),
       }
     ),
     subjects: createResourceDescription('subjects', {
@@ -61,12 +93,44 @@ export const contacts = createResourceDescription(
     weekTemplates: createResourceDescription(
       'week_templates',
       {
-        includes: ['week_time_slots', 'week_time_slots.offices'],
+        includes: [
+          'week_time_slots',
+          'week_time_slots.availability_settings',
+          'week_time_slots.offices',
+          'week_time_slots.subjects',
+        ],
       },
       {
-        weekTimeSlots: createResourceDescription('week_time_slots', {
-          includes: ['offices'],
-        }),
+        weekTimeSlots: createResourceDescription(
+          'week_time_slots',
+          {
+            includes: [
+              'availability_settings',
+              'contact_office_availability_settings',
+              'contact_office_subject_availability_settings',
+              'offices',
+              'subjects',
+            ],
+          },
+          {
+            contactOfficeAvailabilitySettings: createResourceDescription(
+              'contact_office_availability_settings',
+              {
+                includes: ['contact_office'],
+              }
+            ),
+            contactOfficeSubjectAvailabilitySettings: createResourceDescription(
+              'contact_office_subject_availability_settings',
+              {
+                includes: [
+                  'contact_office_subject',
+                  'contact_office_subject.office',
+                  'contact_office_subject.subject',
+                ],
+              }
+            ),
+          }
+        ),
       }
     ),
   }
