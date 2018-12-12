@@ -5,10 +5,14 @@ export const contacts = createResourceDescription(
   {
     includes: [
       'appointments',
+      'contact_office_subjects',
+      'contact_office_subjects.subject',
+      'contact_office_subjects.subject.subject_category',
+      'contact_offices',
+      'contact_offices.office',
       'offices',
-      'offices.subject_settings',
-      'subjects',
       'subjects.subject_category',
+      'subjects',
       'user',
     ],
     filters: ['offices', 'schedulable'],
@@ -49,7 +53,7 @@ export const contacts = createResourceDescription(
           'day_time_slots',
           {
             includes: [
-              'availability_settings',
+              'availability_settings', // This is a shorthand to include `contact_office_availability_settings` and `contact_office_subject_availability_settings`
               'contact_office_availability_settings',
               'contact_office_subject_availability_settings',
               'offices',
@@ -105,7 +109,7 @@ export const contacts = createResourceDescription(
           'week_time_slots',
           {
             includes: [
-              'availability_settings',
+              'availability_settings', // This is a shorthand to include `contact_office_availability_settings` and `contact_office_subject_availability_settings`
               'contact_office_availability_settings',
               'contact_office_subject_availability_settings',
               'offices',

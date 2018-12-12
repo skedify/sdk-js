@@ -661,10 +661,40 @@ Object {
   "contact_office_subject_availability_settings": Object {
     "toString": [Function],
   },
-  "contacts": Object {
-    "employee": Object {
+  "contact_office_subjects": Object {
+    "contact_office": Object {
+      "contact": Object {
+        "toString": [Function],
+        "user": Object {
+          "toString": [Function],
+        },
+      },
       "toString": [Function],
     },
+    "subject": Object {
+      "subject_category": Object {
+        "toString": [Function],
+      },
+      "toString": [Function],
+    },
+    "toString": [Function],
+  },
+  "contact_offices": Object {
+    "contact": Object {
+      "subjects": Object {
+        "toString": [Function],
+      },
+      "toString": [Function],
+      "user": Object {
+        "toString": [Function],
+      },
+    },
+    "office": Object {
+      "toString": [Function],
+    },
+    "toString": [Function],
+  },
+  "contacts": Object {
     "subjects": Object {
       "toString": [Function],
     },
@@ -713,9 +743,6 @@ Object {
     "toString": [Function],
   },
   "offices": Object {
-    "subject_settings": Object {
-      "toString": [Function],
-    },
     "toString": [Function],
   },
   "options": Object {

@@ -4,11 +4,18 @@ export const offices = createResourceDescription(
   'offices',
   {
     includes: [
-      'subject_settings',
+      'contact_office_subjects.contact_office',
+      'contact_office_subjects.contact_office.contact.user',
+      'contact_office_subjects.contact_office.contact',
+      'contact_office_subjects.subject',
+      'contact_offices.contact',
+      'contact_offices.contact.user',
+      'contact_offices.contact.subjects',
+      'contact_offices',
       'contacts',
-      'contacts.employee',
       'contacts.subjects',
       'contacts.user',
+      'subject_settings',
     ],
     filters: [
       'external_id',

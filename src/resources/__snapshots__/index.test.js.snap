@@ -125,10 +125,14 @@ Object {
   "contacts": Object {
     "allowed_includes": Array [
       "appointments",
+      "contact_office_subjects",
+      "contact_office_subjects.subject",
+      "contact_office_subjects.subject.subject_category",
+      "contact_offices",
+      "contact_offices.office",
       "offices",
-      "offices.subject_settings",
-      "subjects",
       "subjects.subject_category",
+      "subjects",
       "user",
     ],
     "allowed_methods": Array [
@@ -574,11 +578,18 @@ Object {
   },
   "offices": Object {
     "allowed_includes": Array [
-      "subject_settings",
+      "contact_office_subjects.contact_office",
+      "contact_office_subjects.contact_office.contact.user",
+      "contact_office_subjects.contact_office.contact",
+      "contact_office_subjects.subject",
+      "contact_offices.contact",
+      "contact_offices.contact.user",
+      "contact_offices.contact.subjects",
+      "contact_offices",
       "contacts",
-      "contacts.employee",
       "contacts.subjects",
       "contacts.user",
+      "subject_settings",
     ],
     "allowed_methods": Array [
       "*",

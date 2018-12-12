@@ -27,17 +27,19 @@ function objectifyIncludes(collection) {
 }
 
 function unflattenDotNotation(obj) {
-  return Object.keys(obj).reduce((result, key) => {
-    key.split('.').reduce((innerObj, innerKey, index, dots) => {
-      const isLast = index + 1 === dots.length
-      const next = isLast ? obj[key] : innerObj[innerKey]
+  return Object.keys(obj)
+    .sort((a, b) => a.length - b.length)
+    .reduce((result, key) => {
+      key.split('.').reduce((innerObj, innerKey, index, dots) => {
+        const isLast = index + 1 === dots.length
+        const next = isLast ? obj[key] : innerObj[innerKey]
 
-      innerObj[innerKey] = next
+        innerObj[innerKey] = next
 
-      return innerObj[innerKey]
-    }, result)
-    return result
-  }, {})
+        return innerObj[innerKey]
+      }, result)
+      return result
+    }, {})
 }
 
 export function withExposedIncludes() {
