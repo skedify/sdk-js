@@ -644,6 +644,12 @@ Object {
     },
   },
   "contact_office": Object {
+    "contact": Object {
+      "toString": [Function],
+    },
+    "office": Object {
+      "toString": [Function],
+    },
     "toString": [Function],
   },
   "contact_office_availability_settings": Object {
@@ -740,6 +746,9 @@ Object {
     },
   },
   "office": Object {
+    "toString": [Function],
+  },
+  "office_manager": Object {
     "toString": [Function],
   },
   "offices": Object {

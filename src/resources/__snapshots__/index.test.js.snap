@@ -122,6 +122,49 @@ Object {
     "resource": "central_planners",
     "sub_resources": Object {},
   },
+  "contactOfficeSubjects": Object {
+    "allowed_includes": Array [
+      "contact_office",
+      "contact_office.contact",
+      "contact_office.office",
+      "subject",
+    ],
+    "allowed_methods": Array [
+      "get",
+      "post",
+      "delete",
+    ],
+    "filters": Array [
+      "id",
+      "contact_office_id",
+      "subject_id",
+    ],
+    "headers": Object {},
+    "method": undefined,
+    "resource": "contact_office_subjects",
+    "sub_resources": Object {},
+  },
+  "contactOffices": Object {
+    "allowed_includes": Array [
+      "contact",
+      "contact.user",
+      "office",
+    ],
+    "allowed_methods": Array [
+      "get",
+      "post",
+      "delete",
+    ],
+    "filters": Array [
+      "id",
+      "contact_id",
+      "office_id",
+    ],
+    "headers": Object {},
+    "method": undefined,
+    "resource": "contact_offices",
+    "sub_resources": Object {},
+  },
   "contacts": Object {
     "allowed_includes": Array [
       "appointments",
@@ -549,6 +592,26 @@ Object {
         "sub_resources": Object {},
       },
     },
+  },
+  "officeManagerOffices": Object {
+    "allowed_includes": Array [
+      "office_manager",
+      "office",
+    ],
+    "allowed_methods": Array [
+      "get",
+      "post",
+      "delete",
+    ],
+    "filters": Array [
+      "id",
+      "office_manager_id",
+      "office_id",
+    ],
+    "headers": Object {},
+    "method": undefined,
+    "resource": "office_manager_offices",
+    "sub_resources": Object {},
   },
   "officeManagers": Object {
     "allowed_includes": Array [
