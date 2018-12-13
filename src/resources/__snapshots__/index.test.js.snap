@@ -7,6 +7,7 @@ Object {
     "allowed_methods": Array [
       "*",
     ],
+    "deprecated": false,
     "filters": Array [],
     "headers": Object {},
     "method": undefined,
@@ -20,6 +21,7 @@ Object {
     "allowed_methods": Array [
       "*",
     ],
+    "deprecated": false,
     "filters": Array [],
     "headers": Object {},
     "method": undefined,
@@ -44,6 +46,7 @@ Object {
     "allowed_methods": Array [
       "*",
     ],
+    "deprecated": false,
     "filters": Array [
       "state",
       "start",
@@ -64,6 +67,7 @@ Object {
         "allowed_methods": Array [
           "*",
         ],
+        "deprecated": false,
         "filters": Array [],
         "headers": Object {},
         "method": undefined,
@@ -77,6 +81,7 @@ Object {
         "allowed_methods": Array [
           "*",
         ],
+        "deprecated": false,
         "filters": Array [],
         "headers": Object {},
         "method": undefined,
@@ -88,6 +93,7 @@ Object {
         "allowed_methods": Array [
           "*",
         ],
+        "deprecated": false,
         "filters": Array [],
         "headers": Object {},
         "method": undefined,
@@ -99,6 +105,7 @@ Object {
         "allowed_methods": Array [
           "*",
         ],
+        "deprecated": false,
         "filters": Array [],
         "headers": Object {},
         "method": undefined,
@@ -114,6 +121,7 @@ Object {
     "allowed_methods": Array [
       "*",
     ],
+    "deprecated": false,
     "filters": Array [
       "id",
     ],
@@ -134,6 +142,7 @@ Object {
       "post",
       "delete",
     ],
+    "deprecated": false,
     "filters": Array [
       "id",
       "contact_office_id",
@@ -155,6 +164,7 @@ Object {
       "post",
       "delete",
     ],
+    "deprecated": false,
     "filters": Array [
       "id",
       "contact_id",
@@ -181,6 +191,7 @@ Object {
     "allowed_methods": Array [
       "*",
     ],
+    "deprecated": false,
     "filters": Array [
       "offices",
       "schedulable",
@@ -197,6 +208,7 @@ Object {
         "allowed_methods": Array [
           "*",
         ],
+        "deprecated": false,
         "filters": Array [
           "start",
           "end",
@@ -214,6 +226,7 @@ Object {
         "allowed_methods": Array [
           "*",
         ],
+        "deprecated": false,
         "filters": Array [
           "start",
           "end",
@@ -234,6 +247,7 @@ Object {
         "allowed_methods": Array [
           "*",
         ],
+        "deprecated": false,
         "filters": Array [],
         "headers": Object {},
         "method": undefined,
@@ -247,6 +261,7 @@ Object {
         "allowed_methods": Array [
           "*",
         ],
+        "deprecated": false,
         "filters": Array [
           "office",
           "start",
@@ -267,6 +282,7 @@ Object {
         "allowed_methods": Array [
           "*",
         ],
+        "deprecated": false,
         "filters": Array [],
         "headers": Object {},
         "method": undefined,
@@ -283,6 +299,7 @@ Object {
             "allowed_methods": Array [
               "*",
             ],
+            "deprecated": false,
             "filters": Array [],
             "headers": Object {},
             "method": undefined,
@@ -295,6 +312,7 @@ Object {
                 "allowed_methods": Array [
                   "*",
                 ],
+                "deprecated": false,
                 "filters": Array [],
                 "headers": Object {},
                 "method": undefined,
@@ -310,6 +328,7 @@ Object {
                 "allowed_methods": Array [
                   "*",
                 ],
+                "deprecated": false,
                 "filters": Array [],
                 "headers": Object {},
                 "method": undefined,
@@ -325,6 +344,7 @@ Object {
         "allowed_methods": Array [
           "*",
         ],
+        "deprecated": true,
         "filters": Array [],
         "headers": Object {},
         "method": undefined,
@@ -335,6 +355,7 @@ Object {
             "allowed_methods": Array [
               "*",
             ],
+            "deprecated": false,
             "filters": Array [],
             "headers": Object {},
             "method": undefined,
@@ -346,6 +367,7 @@ Object {
             "allowed_methods": Array [
               "*",
             ],
+            "deprecated": false,
             "filters": Array [],
             "headers": Object {},
             "method": undefined,
@@ -361,6 +383,7 @@ Object {
         "allowed_methods": Array [
           "*",
         ],
+        "deprecated": true,
         "filters": Array [],
         "headers": Object {},
         "method": undefined,
@@ -377,6 +400,7 @@ Object {
         "allowed_methods": Array [
           "*",
         ],
+        "deprecated": false,
         "filters": Array [],
         "headers": Object {},
         "method": undefined,
@@ -393,6 +417,7 @@ Object {
             "allowed_methods": Array [
               "*",
             ],
+            "deprecated": false,
             "filters": Array [],
             "headers": Object {},
             "method": undefined,
@@ -405,6 +430,7 @@ Object {
                 "allowed_methods": Array [
                   "*",
                 ],
+                "deprecated": false,
                 "filters": Array [],
                 "headers": Object {},
                 "method": undefined,
@@ -420,6 +446,7 @@ Object {
                 "allowed_methods": Array [
                   "*",
                 ],
+                "deprecated": false,
                 "filters": Array [],
                 "headers": Object {},
                 "method": undefined,
@@ -437,6 +464,7 @@ Object {
     "allowed_methods": Array [
       "*",
     ],
+    "deprecated": false,
     "filters": Array [
       "external_id",
       "match",
@@ -455,6 +483,7 @@ Object {
     "allowed_methods": Array [
       "*",
     ],
+    "deprecated": false,
     "filters": Array [
       "email",
       "external_id",
@@ -469,6 +498,7 @@ Object {
     "allowed_methods": Array [
       "*",
     ],
+    "deprecated": false,
     "filters": Array [],
     "headers": Object {},
     "method": undefined,
@@ -480,6 +510,7 @@ Object {
     "allowed_methods": Array [
       "*",
     ],
+    "deprecated": false,
     "filters": Array [],
     "headers": Object {},
     "method": undefined,
@@ -491,6 +522,7 @@ Object {
     "allowed_methods": Array [
       "get",
     ],
+    "deprecated": false,
     "filters": Array [],
     "headers": Object {},
     "method": undefined,
@@ -502,6 +534,7 @@ Object {
     "allowed_methods": Array [
       "*",
     ],
+    "deprecated": false,
     "filters": Array [],
     "headers": Object {},
     "method": undefined,
@@ -512,6 +545,7 @@ Object {
         "allowed_methods": Array [
           "post",
         ],
+        "deprecated": false,
         "filters": Array [],
         "headers": Object {},
         "method": undefined,
@@ -525,6 +559,7 @@ Object {
     "allowed_methods": Array [
       "*",
     ],
+    "deprecated": false,
     "filters": Array [
       Object {
         "key": "filter[type]",
@@ -541,6 +576,7 @@ Object {
     "allowed_methods": Array [
       "*",
     ],
+    "deprecated": false,
     "filters": Array [],
     "headers": Object {},
     "method": undefined,
@@ -552,6 +588,7 @@ Object {
     "allowed_methods": Array [
       "*",
     ],
+    "deprecated": false,
     "filters": Array [],
     "headers": Object {},
     "method": undefined,
@@ -562,6 +599,7 @@ Object {
         "allowed_methods": Array [
           "*",
         ],
+        "deprecated": false,
         "filters": Array [],
         "headers": Object {},
         "method": undefined,
@@ -572,6 +610,7 @@ Object {
             "allowed_methods": Array [
               "*",
             ],
+            "deprecated": false,
             "filters": Array [],
             "headers": Object {},
             "method": undefined,
@@ -585,6 +624,7 @@ Object {
         "allowed_methods": Array [
           "*",
         ],
+        "deprecated": false,
         "filters": Array [],
         "headers": Object {},
         "method": undefined,
@@ -603,6 +643,7 @@ Object {
       "post",
       "delete",
     ],
+    "deprecated": false,
     "filters": Array [
       "id",
       "office_manager_id",
@@ -621,6 +662,7 @@ Object {
     "allowed_methods": Array [
       "*",
     ],
+    "deprecated": false,
     "filters": Array [],
     "headers": Object {},
     "method": undefined,
@@ -631,6 +673,7 @@ Object {
         "allowed_methods": Array [
           "*",
         ],
+        "deprecated": true,
         "filters": Array [],
         "headers": Object {},
         "method": undefined,
@@ -656,6 +699,7 @@ Object {
     "allowed_methods": Array [
       "*",
     ],
+    "deprecated": false,
     "filters": Array [
       "external_id",
       "schedulable_for_subject",
@@ -673,6 +717,7 @@ Object {
         "allowed_methods": Array [
           "*",
         ],
+        "deprecated": false,
         "filters": Array [],
         "headers": Object {},
         "method": undefined,
@@ -686,6 +731,7 @@ Object {
         "allowed_methods": Array [
           "*",
         ],
+        "deprecated": true,
         "filters": Array [],
         "headers": Object {},
         "method": undefined,
@@ -699,6 +745,7 @@ Object {
         "allowed_methods": Array [
           "*",
         ],
+        "deprecated": true,
         "filters": Array [],
         "headers": Object {},
         "method": undefined,
@@ -710,6 +757,7 @@ Object {
         "allowed_methods": Array [
           "*",
         ],
+        "deprecated": true,
         "filters": Array [
           "subject_id",
         ],
@@ -728,6 +776,7 @@ Object {
     "allowed_methods": Array [
       "*",
     ],
+    "deprecated": false,
     "filters": Array [],
     "headers": Object {},
     "method": undefined,
@@ -744,6 +793,7 @@ Object {
     "allowed_methods": Array [
       "*",
     ],
+    "deprecated": false,
     "filters": Array [
       "category_id",
       "external_id",
@@ -764,6 +814,7 @@ Object {
         "allowed_methods": Array [
           "*",
         ],
+        "deprecated": false,
         "filters": Array [],
         "headers": Object {},
         "method": undefined,
@@ -774,6 +825,7 @@ Object {
             "allowed_methods": Array [
               "*",
             ],
+            "deprecated": false,
             "filters": Array [],
             "headers": Object {},
             "method": undefined,
@@ -785,6 +837,7 @@ Object {
             "allowed_methods": Array [
               "*",
             ],
+            "deprecated": false,
             "filters": Array [],
             "headers": Object {},
             "method": undefined,
@@ -798,6 +851,7 @@ Object {
         "allowed_methods": Array [
           "*",
         ],
+        "deprecated": false,
         "filters": Array [
           "office",
           "start",
@@ -819,6 +873,7 @@ Object {
     "allowed_methods": Array [
       "*",
     ],
+    "deprecated": false,
     "filters": Array [],
     "headers": Object {},
     "method": undefined,
@@ -831,6 +886,7 @@ Object {
         "allowed_methods": Array [
           "*",
         ],
+        "deprecated": false,
         "filters": Array [],
         "headers": Object {},
         "method": undefined,
@@ -841,6 +897,7 @@ Object {
             "allowed_methods": Array [
               "*",
             ],
+            "deprecated": false,
             "filters": Array [
               "start",
               "end",
@@ -861,6 +918,7 @@ Object {
         "allowed_methods": Array [
           "*",
         ],
+        "deprecated": false,
         "filters": Array [],
         "headers": Object {},
         "method": undefined,
@@ -872,6 +930,7 @@ Object {
         "allowed_methods": Array [
           "*",
         ],
+        "deprecated": false,
         "filters": Array [
           "start",
           "end",
@@ -888,6 +947,7 @@ Object {
         "allowed_methods": Array [
           "*",
         ],
+        "deprecated": false,
         "filters": Array [],
         "headers": Object {},
         "method": undefined,

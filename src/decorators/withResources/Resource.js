@@ -4,6 +4,7 @@ import {
   validateFilterCallback,
   validateFilterCallbackExecution,
   validateAddResponseInterceptorCallback,
+  validateDeprecations,
 } from './invariants'
 import {
   HTTP_VERB_PATCH,
@@ -205,6 +206,8 @@ export default class Resource {
   then(onFulfilled, onRejected) {
     const { instance } = get(this)
     const { identityProvider } = get(instance)
+
+    validateDeprecations(this)
 
     return identityProvider
       .getAuthorization()

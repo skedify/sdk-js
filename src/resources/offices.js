@@ -28,12 +28,15 @@ export const offices = createResourceDescription(
   {
     contacts: createResourceDescription('contacts', {
       includes: ['user'],
+      deprecated: true,
     }),
     officeManagers: createResourceDescription('office_managers', {
       includes: ['user'],
+      deprecated: true,
     }),
     subjectSettings: createResourceDescription('subject_settings', {
       filters: ['subject_id'],
+      deprecated: true,
     }),
     availabilityHoursExceptions: createResourceDescription(
       'availability_hours_exceptions'

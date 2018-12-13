@@ -83,10 +83,11 @@ export const contacts = createResourceDescription(
     ),
     subjects: createResourceDescription('subjects', {
       includes: ['questions'],
+      deprecated: true,
     }),
     offices: createResourceDescription(
       'offices',
-      {},
+      { deprecated: true },
       {
         availabilityHours: createResourceDescription('availability_hours'),
         availabilityHoursExceptions: createResourceDescription(

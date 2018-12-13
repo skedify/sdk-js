@@ -8,6 +8,7 @@ export default function createResourceDescription(
     headers = {},
     method = undefined,
     allowed_methods = [HTTP_VERB_ALL_WILDCARD],
+    deprecated = false,
   } = {},
   sub_resources = {}
 ) {
@@ -19,5 +20,6 @@ export default function createResourceDescription(
     headers,
     method,
     allowed_methods,
+    deprecated,
   }
 }
