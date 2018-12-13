@@ -164,3 +164,38 @@ export function validateFilterCallbackExecution(resource, run) {
     )
   }
 }
+
+function getCallChain(resource, chain = []) {
+  const { descriptor, parent } = get(resource)
+
+  const next = [
+    {
+      name: descriptor.name,
+      identifier: descriptor.identifier,
+    },
+    ...chain,
+  ]
+
+  if (parent === undefined) {
+    return next
+  }
+
+  return getCallChain(parent, next)
+}
+
+export function validateDeprecations(resource) {
+  const { descriptor } = get(resource)
+  if (descriptor.deprecated) {
+    // eslint-disable-next-line no-console
+    console.warn(
+      `The call to ${getCallChain(resource)
+        .map(
+          ({ name, identifier }) =>
+            `.${name}(${
+              identifier === undefined ? '' : JSON.stringify(identifier)
+            })`
+        )
+        .join('')} is deprecated.`
+    )
+  }
+}

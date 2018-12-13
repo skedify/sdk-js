@@ -7,6 +7,7 @@ Object {
     "allowed_methods": Array [
       "*",
     ],
+    "deprecated": false,
     "filters": Array [],
     "headers": Object {},
     "method": undefined,
@@ -20,6 +21,7 @@ Object {
     "allowed_methods": Array [
       "*",
     ],
+    "deprecated": false,
     "filters": Array [],
     "headers": Object {},
     "method": undefined,
@@ -44,6 +46,7 @@ Object {
     "allowed_methods": Array [
       "*",
     ],
+    "deprecated": false,
     "filters": Array [
       "state",
       "start",
@@ -64,6 +67,7 @@ Object {
         "allowed_methods": Array [
           "*",
         ],
+        "deprecated": false,
         "filters": Array [],
         "headers": Object {},
         "method": undefined,
@@ -77,6 +81,7 @@ Object {
         "allowed_methods": Array [
           "*",
         ],
+        "deprecated": false,
         "filters": Array [],
         "headers": Object {},
         "method": undefined,
@@ -88,6 +93,7 @@ Object {
         "allowed_methods": Array [
           "*",
         ],
+        "deprecated": false,
         "filters": Array [],
         "headers": Object {},
         "method": undefined,
@@ -99,6 +105,7 @@ Object {
         "allowed_methods": Array [
           "*",
         ],
+        "deprecated": false,
         "filters": Array [],
         "headers": Object {},
         "method": undefined,
@@ -114,6 +121,7 @@ Object {
     "allowed_methods": Array [
       "*",
     ],
+    "deprecated": false,
     "filters": Array [
       "id",
     ],
@@ -122,18 +130,68 @@ Object {
     "resource": "central_planners",
     "sub_resources": Object {},
   },
+  "contactOfficeSubjects": Object {
+    "allowed_includes": Array [
+      "contact_office",
+      "contact_office.contact",
+      "contact_office.office",
+      "subject",
+    ],
+    "allowed_methods": Array [
+      "get",
+      "post",
+      "delete",
+    ],
+    "deprecated": false,
+    "filters": Array [
+      "id",
+      "contact_office_id",
+      "subject_id",
+    ],
+    "headers": Object {},
+    "method": undefined,
+    "resource": "contact_office_subjects",
+    "sub_resources": Object {},
+  },
+  "contactOffices": Object {
+    "allowed_includes": Array [
+      "contact",
+      "contact.user",
+      "office",
+    ],
+    "allowed_methods": Array [
+      "get",
+      "post",
+      "delete",
+    ],
+    "deprecated": false,
+    "filters": Array [
+      "id",
+      "contact_id",
+      "office_id",
+    ],
+    "headers": Object {},
+    "method": undefined,
+    "resource": "contact_offices",
+    "sub_resources": Object {},
+  },
   "contacts": Object {
     "allowed_includes": Array [
       "appointments",
+      "contact_office_subjects",
+      "contact_office_subjects.subject",
+      "contact_office_subjects.subject.subject_category",
+      "contact_offices",
+      "contact_offices.office",
       "offices",
-      "offices.subject_settings",
-      "subjects",
       "subjects.subject_category",
+      "subjects",
       "user",
     ],
     "allowed_methods": Array [
       "*",
     ],
+    "deprecated": false,
     "filters": Array [
       "offices",
       "schedulable",
@@ -150,6 +208,7 @@ Object {
         "allowed_methods": Array [
           "*",
         ],
+        "deprecated": false,
         "filters": Array [
           "start",
           "end",
@@ -167,6 +226,7 @@ Object {
         "allowed_methods": Array [
           "*",
         ],
+        "deprecated": false,
         "filters": Array [
           "start",
           "end",
@@ -187,6 +247,7 @@ Object {
         "allowed_methods": Array [
           "*",
         ],
+        "deprecated": false,
         "filters": Array [],
         "headers": Object {},
         "method": undefined,
@@ -200,6 +261,7 @@ Object {
         "allowed_methods": Array [
           "*",
         ],
+        "deprecated": false,
         "filters": Array [
           "office",
           "start",
@@ -220,6 +282,7 @@ Object {
         "allowed_methods": Array [
           "*",
         ],
+        "deprecated": false,
         "filters": Array [],
         "headers": Object {},
         "method": undefined,
@@ -236,6 +299,7 @@ Object {
             "allowed_methods": Array [
               "*",
             ],
+            "deprecated": false,
             "filters": Array [],
             "headers": Object {},
             "method": undefined,
@@ -248,6 +312,7 @@ Object {
                 "allowed_methods": Array [
                   "*",
                 ],
+                "deprecated": false,
                 "filters": Array [],
                 "headers": Object {},
                 "method": undefined,
@@ -263,6 +328,7 @@ Object {
                 "allowed_methods": Array [
                   "*",
                 ],
+                "deprecated": false,
                 "filters": Array [],
                 "headers": Object {},
                 "method": undefined,
@@ -278,6 +344,7 @@ Object {
         "allowed_methods": Array [
           "*",
         ],
+        "deprecated": true,
         "filters": Array [],
         "headers": Object {},
         "method": undefined,
@@ -288,6 +355,7 @@ Object {
             "allowed_methods": Array [
               "*",
             ],
+            "deprecated": false,
             "filters": Array [],
             "headers": Object {},
             "method": undefined,
@@ -299,6 +367,7 @@ Object {
             "allowed_methods": Array [
               "*",
             ],
+            "deprecated": false,
             "filters": Array [],
             "headers": Object {},
             "method": undefined,
@@ -314,6 +383,7 @@ Object {
         "allowed_methods": Array [
           "*",
         ],
+        "deprecated": true,
         "filters": Array [],
         "headers": Object {},
         "method": undefined,
@@ -330,6 +400,7 @@ Object {
         "allowed_methods": Array [
           "*",
         ],
+        "deprecated": false,
         "filters": Array [],
         "headers": Object {},
         "method": undefined,
@@ -346,6 +417,7 @@ Object {
             "allowed_methods": Array [
               "*",
             ],
+            "deprecated": false,
             "filters": Array [],
             "headers": Object {},
             "method": undefined,
@@ -358,6 +430,7 @@ Object {
                 "allowed_methods": Array [
                   "*",
                 ],
+                "deprecated": false,
                 "filters": Array [],
                 "headers": Object {},
                 "method": undefined,
@@ -373,6 +446,7 @@ Object {
                 "allowed_methods": Array [
                   "*",
                 ],
+                "deprecated": false,
                 "filters": Array [],
                 "headers": Object {},
                 "method": undefined,
@@ -390,6 +464,7 @@ Object {
     "allowed_methods": Array [
       "*",
     ],
+    "deprecated": false,
     "filters": Array [
       "external_id",
       "match",
@@ -408,6 +483,7 @@ Object {
     "allowed_methods": Array [
       "*",
     ],
+    "deprecated": false,
     "filters": Array [
       "email",
       "external_id",
@@ -422,6 +498,7 @@ Object {
     "allowed_methods": Array [
       "*",
     ],
+    "deprecated": false,
     "filters": Array [],
     "headers": Object {},
     "method": undefined,
@@ -433,6 +510,7 @@ Object {
     "allowed_methods": Array [
       "*",
     ],
+    "deprecated": false,
     "filters": Array [],
     "headers": Object {},
     "method": undefined,
@@ -444,6 +522,7 @@ Object {
     "allowed_methods": Array [
       "get",
     ],
+    "deprecated": false,
     "filters": Array [],
     "headers": Object {},
     "method": undefined,
@@ -455,6 +534,7 @@ Object {
     "allowed_methods": Array [
       "*",
     ],
+    "deprecated": false,
     "filters": Array [],
     "headers": Object {},
     "method": undefined,
@@ -465,6 +545,7 @@ Object {
         "allowed_methods": Array [
           "post",
         ],
+        "deprecated": false,
         "filters": Array [],
         "headers": Object {},
         "method": undefined,
@@ -478,6 +559,7 @@ Object {
     "allowed_methods": Array [
       "*",
     ],
+    "deprecated": false,
     "filters": Array [
       Object {
         "key": "filter[type]",
@@ -494,6 +576,7 @@ Object {
     "allowed_methods": Array [
       "*",
     ],
+    "deprecated": false,
     "filters": Array [],
     "headers": Object {},
     "method": undefined,
@@ -505,6 +588,7 @@ Object {
     "allowed_methods": Array [
       "*",
     ],
+    "deprecated": false,
     "filters": Array [],
     "headers": Object {},
     "method": undefined,
@@ -515,6 +599,7 @@ Object {
         "allowed_methods": Array [
           "*",
         ],
+        "deprecated": false,
         "filters": Array [],
         "headers": Object {},
         "method": undefined,
@@ -525,6 +610,7 @@ Object {
             "allowed_methods": Array [
               "*",
             ],
+            "deprecated": false,
             "filters": Array [],
             "headers": Object {},
             "method": undefined,
@@ -538,6 +624,7 @@ Object {
         "allowed_methods": Array [
           "*",
         ],
+        "deprecated": false,
         "filters": Array [],
         "headers": Object {},
         "method": undefined,
@@ -545,6 +632,27 @@ Object {
         "sub_resources": Object {},
       },
     },
+  },
+  "officeManagerOffices": Object {
+    "allowed_includes": Array [
+      "office_manager",
+      "office",
+    ],
+    "allowed_methods": Array [
+      "get",
+      "post",
+      "delete",
+    ],
+    "deprecated": false,
+    "filters": Array [
+      "id",
+      "office_manager_id",
+      "office_id",
+    ],
+    "headers": Object {},
+    "method": undefined,
+    "resource": "office_manager_offices",
+    "sub_resources": Object {},
   },
   "officeManagers": Object {
     "allowed_includes": Array [
@@ -554,6 +662,7 @@ Object {
     "allowed_methods": Array [
       "*",
     ],
+    "deprecated": false,
     "filters": Array [],
     "headers": Object {},
     "method": undefined,
@@ -564,6 +673,7 @@ Object {
         "allowed_methods": Array [
           "*",
         ],
+        "deprecated": true,
         "filters": Array [],
         "headers": Object {},
         "method": undefined,
@@ -574,15 +684,22 @@ Object {
   },
   "offices": Object {
     "allowed_includes": Array [
-      "subject_settings",
+      "contact_office_subjects.contact_office.contact",
+      "contact_office_subjects.contact_office.contact.user",
+      "contact_office_subjects.subject",
+      "contact_offices.contact",
+      "contact_offices.contact.user",
+      "contact_offices.contact.subjects",
+      "contact_offices",
       "contacts",
-      "contacts.employee",
       "contacts.subjects",
       "contacts.user",
+      "subject_settings",
     ],
     "allowed_methods": Array [
       "*",
     ],
+    "deprecated": false,
     "filters": Array [
       "external_id",
       "schedulable_for_subject",
@@ -600,6 +717,7 @@ Object {
         "allowed_methods": Array [
           "*",
         ],
+        "deprecated": false,
         "filters": Array [],
         "headers": Object {},
         "method": undefined,
@@ -613,6 +731,7 @@ Object {
         "allowed_methods": Array [
           "*",
         ],
+        "deprecated": true,
         "filters": Array [],
         "headers": Object {},
         "method": undefined,
@@ -626,6 +745,7 @@ Object {
         "allowed_methods": Array [
           "*",
         ],
+        "deprecated": true,
         "filters": Array [],
         "headers": Object {},
         "method": undefined,
@@ -637,6 +757,7 @@ Object {
         "allowed_methods": Array [
           "*",
         ],
+        "deprecated": true,
         "filters": Array [
           "subject_id",
         ],
@@ -655,6 +776,7 @@ Object {
     "allowed_methods": Array [
       "*",
     ],
+    "deprecated": false,
     "filters": Array [],
     "headers": Object {},
     "method": undefined,
@@ -671,6 +793,7 @@ Object {
     "allowed_methods": Array [
       "*",
     ],
+    "deprecated": false,
     "filters": Array [
       "category_id",
       "external_id",
@@ -691,6 +814,7 @@ Object {
         "allowed_methods": Array [
           "*",
         ],
+        "deprecated": false,
         "filters": Array [],
         "headers": Object {},
         "method": undefined,
@@ -701,6 +825,7 @@ Object {
             "allowed_methods": Array [
               "*",
             ],
+            "deprecated": false,
             "filters": Array [],
             "headers": Object {},
             "method": undefined,
@@ -712,6 +837,7 @@ Object {
             "allowed_methods": Array [
               "*",
             ],
+            "deprecated": false,
             "filters": Array [],
             "headers": Object {},
             "method": undefined,
@@ -725,6 +851,7 @@ Object {
         "allowed_methods": Array [
           "*",
         ],
+        "deprecated": false,
         "filters": Array [
           "office",
           "start",
@@ -746,6 +873,7 @@ Object {
     "allowed_methods": Array [
       "*",
     ],
+    "deprecated": false,
     "filters": Array [],
     "headers": Object {},
     "method": undefined,
@@ -758,6 +886,7 @@ Object {
         "allowed_methods": Array [
           "*",
         ],
+        "deprecated": false,
         "filters": Array [],
         "headers": Object {},
         "method": undefined,
@@ -768,6 +897,7 @@ Object {
             "allowed_methods": Array [
               "*",
             ],
+            "deprecated": false,
             "filters": Array [
               "start",
               "end",
@@ -788,6 +918,7 @@ Object {
         "allowed_methods": Array [
           "*",
         ],
+        "deprecated": false,
         "filters": Array [],
         "headers": Object {},
         "method": undefined,
@@ -799,6 +930,7 @@ Object {
         "allowed_methods": Array [
           "*",
         ],
+        "deprecated": false,
         "filters": Array [
           "start",
           "end",
@@ -815,6 +947,7 @@ Object {
         "allowed_methods": Array [
           "*",
         ],
+        "deprecated": false,
         "filters": Array [],
         "headers": Object {},
         "method": undefined,

@@ -501,6 +501,18 @@ describe('API', () => {
   })
 
   describe('API/Resources', () => {
+    it('should warn the user when a resource is deprecated', async () => {
+      const mock = jest.spyOn(console, 'warn').mockImplementation(jest.fn)
+      await matchRequest(SDK.contacts(1).offices())
+
+      expect(mock).toHaveBeenCalledTimes(1)
+      expect(mock).toHaveBeenCalledWith(
+        'The call to .contacts(1).offices() is deprecated.'
+      )
+
+      mock.mockRestore()
+    })
+
     it('should expose a .subjects() resource method', () => {
       expect(SDK.subjects).toBeInstanceOf(Function)
     })
