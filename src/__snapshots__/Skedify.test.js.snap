@@ -631,6 +631,9 @@ Object {
   "appointments": Object {
     "toString": [Function],
   },
+  "availability_settings": Object {
+    "toString": [Function],
+  },
   "contact": Object {
     "employee": Object {
       "toString": [Function],
@@ -640,10 +643,64 @@ Object {
       "toString": [Function],
     },
   },
-  "contacts": Object {
-    "employee": Object {
+  "contact_office": Object {
+    "contact": Object {
       "toString": [Function],
     },
+    "office": Object {
+      "toString": [Function],
+    },
+    "toString": [Function],
+  },
+  "contact_office_availability_settings": Object {
+    "toString": [Function],
+  },
+  "contact_office_subject": Object {
+    "office": Object {
+      "toString": [Function],
+    },
+    "subject": Object {
+      "toString": [Function],
+    },
+    "toString": [Function],
+  },
+  "contact_office_subject_availability_settings": Object {
+    "toString": [Function],
+  },
+  "contact_office_subjects": Object {
+    "contact_office": Object {
+      "contact": Object {
+        "toString": [Function],
+        "user": Object {
+          "toString": [Function],
+        },
+      },
+      "toString": [Function],
+    },
+    "subject": Object {
+      "subject_category": Object {
+        "toString": [Function],
+      },
+      "toString": [Function],
+    },
+    "toString": [Function],
+  },
+  "contact_offices": Object {
+    "contact": Object {
+      "subjects": Object {
+        "toString": [Function],
+      },
+      "toString": [Function],
+      "user": Object {
+        "toString": [Function],
+      },
+    },
+    "office": Object {
+      "toString": [Function],
+    },
+    "toString": [Function],
+  },
+  "contacts": Object {
     "subjects": Object {
       "toString": [Function],
     },
@@ -662,7 +719,13 @@ Object {
     "toString": [Function],
   },
   "day_time_slots": Object {
+    "availability_settings": Object {
+      "toString": [Function],
+    },
     "offices": Object {
+      "toString": [Function],
+    },
+    "subjects": Object {
       "toString": [Function],
     },
     "toString": [Function],
@@ -685,10 +748,10 @@ Object {
   "office": Object {
     "toString": [Function],
   },
+  "office_manager": Object {
+    "toString": [Function],
+  },
   "offices": Object {
-    "subject_settings": Object {
-      "toString": [Function],
-    },
     "toString": [Function],
   },
   "options": Object {
@@ -740,7 +803,13 @@ Object {
     },
   },
   "week_time_slots": Object {
+    "availability_settings": Object {
+      "toString": [Function],
+    },
     "offices": Object {
+      "toString": [Function],
+    },
+    "subjects": Object {
       "toString": [Function],
     },
     "toString": [Function],

@@ -4,6 +4,7 @@ import {
   validateFilterCallback,
   validateFilterCallbackExecution,
   validateAddResponseInterceptorCallback,
+  validateDeprecations,
 } from './invariants'
 import {
   HTTP_VERB_PATCH,
@@ -94,8 +95,8 @@ export default class Resource {
               [key]: Array.isArray(requestConfig.filters[key])
                 ? [...requestConfig.filters[key], ...params]
                 : params !== undefined
-                  ? params
-                  : true, // Convert undefined to true
+                ? params
+                : true, // Convert undefined to true
             }),
           })
 
@@ -205,6 +206,8 @@ export default class Resource {
   then(onFulfilled, onRejected) {
     const { instance } = get(this)
     const { identityProvider } = get(instance)
+
+    validateDeprecations(this)
 
     return identityProvider
       .getAuthorization()

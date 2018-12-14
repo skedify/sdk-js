@@ -6,6 +6,8 @@ export const officeManagers = createResourceDescription(
     includes: ['user', 'offices'],
   },
   {
-    offices: createResourceDescription('offices'),
+    offices: createResourceDescription('offices', {
+      deprecated: true,
+    }),
   }
 )

@@ -1,15 +1,8 @@
-function buildChain(language, chain = [language]) {
-  if (!language.includes('-')) {
-    return chain
-  }
-
-  const fallback = language.substr(0, language.lastIndexOf('-'))
-  return buildChain(fallback, [...chain, fallback])
-}
+import buildChain from '../../util/buildChain'
 
 export default function buildLanguageFallbackChain(language) {
   return (Array.isArray(language) ? language : [language]).reduce(
-    (result, part) => [...result, ...buildChain(part)],
+    (result, part) => [...result, ...buildChain(part, '-')],
     []
   )
 }

@@ -4,11 +4,17 @@ export const offices = createResourceDescription(
   'offices',
   {
     includes: [
-      'subject_settings',
+      'contact_office_subjects.contact_office.contact',
+      'contact_office_subjects.contact_office.contact.user',
+      'contact_office_subjects.subject',
+      'contact_offices.contact',
+      'contact_offices.contact.user',
+      'contact_offices.contact.subjects',
+      'contact_offices',
       'contacts',
-      'contacts.employee',
       'contacts.subjects',
       'contacts.user',
+      'subject_settings',
     ],
     filters: [
       'external_id',
@@ -22,12 +28,15 @@ export const offices = createResourceDescription(
   {
     contacts: createResourceDescription('contacts', {
       includes: ['user'],
+      deprecated: true,
     }),
     officeManagers: createResourceDescription('office_managers', {
       includes: ['user'],
+      deprecated: true,
     }),
     subjectSettings: createResourceDescription('subject_settings', {
       filters: ['subject_id'],
+      deprecated: true,
     }),
     availabilityHoursExceptions: createResourceDescription(
       'availability_hours_exceptions'
