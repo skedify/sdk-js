@@ -475,6 +475,29 @@ Object {
     "resource": "customers",
     "sub_resources": Object {},
   },
+  "definedAvailability": Object {
+    "allowed_includes": Array [],
+    "allowed_methods": Array [
+      "get",
+    ],
+    "deprecated": false,
+    "filters": Array [
+      "start",
+      "end",
+      "contacts",
+      "offices",
+      "subjects",
+      "meeting_types",
+      Object {
+        "key": "format[timezone]",
+        "name": "timezone",
+      },
+    ],
+    "headers": Object {},
+    "method": undefined,
+    "resource": "defined_availability",
+    "sub_resources": Object {},
+  },
   "employees": Object {
     "allowed_includes": Array [
       "user",
@@ -871,6 +894,29 @@ Object {
         "sub_resources": Object {},
       },
     },
+  },
+  "unavailability": Object {
+    "allowed_includes": Array [],
+    "allowed_methods": Array [
+      "get",
+    ],
+    "deprecated": false,
+    "filters": Array [
+      "start",
+      "end",
+      "contacts",
+      "offices",
+      "subjects",
+      "meeting_types",
+      Object {
+        "key": "format[timezone]",
+        "name": "timezone",
+      },
+    ],
+    "headers": Object {},
+    "method": undefined,
+    "resource": "unavailability",
+    "sub_resources": Object {},
   },
   "users": Object {
     "allowed_includes": Array [
