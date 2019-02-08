@@ -475,6 +475,29 @@ Object {
     "resource": "customers",
     "sub_resources": Object {},
   },
+  "definedAvailability": Object {
+    "allowed_includes": Array [],
+    "allowed_methods": Array [
+      "get",
+    ],
+    "deprecated": false,
+    "filters": Array [
+      "start",
+      "end",
+      "contacts",
+      "offices",
+      "subjects",
+      "meeting_types",
+      Object {
+        "key": "format[timezone]",
+        "name": "timezone",
+      },
+    ],
+    "headers": Object {},
+    "method": undefined,
+    "resource": "defined_availability",
+    "sub_resources": Object {},
+  },
   "employees": Object {
     "allowed_includes": Array [
       "user",
@@ -685,17 +708,23 @@ Object {
   },
   "offices": Object {
     "allowed_includes": Array [
-      "contact_office_subjects.contact_office.contact",
-      "contact_office_subjects.contact_office.contact.user",
-      "contact_office_subjects.subject",
-      "contact_offices.contact",
-      "contact_offices.contact.user",
-      "contact_offices.contact.subjects",
-      "contact_offices",
-      "contacts",
-      "contacts.subjects",
-      "contacts.user",
       "subject_settings",
+      "contact_offices",
+      "contact_offices.contact",
+      "contact_offices.contact.employee",
+      "contact_offices.contact.contact_office_subjects",
+      "contact_offices.contact.contact_office_subjects.subject",
+      "contact_offices.contact.user",
+      "contacts",
+      "contacts.employee",
+      "contacts.user",
+      "office_manager_offices",
+      "office_manager_offices.office_manager",
+      "office_manager_offices.office_manager.user",
+      "office_manager_offices.office_manager.employee",
+      "office_managers",
+      "office_managers.user",
+      "office_managers.employee",
     ],
     "allowed_methods": Array [
       "*",
@@ -865,6 +894,29 @@ Object {
         "sub_resources": Object {},
       },
     },
+  },
+  "unavailability": Object {
+    "allowed_includes": Array [],
+    "allowed_methods": Array [
+      "get",
+    ],
+    "deprecated": false,
+    "filters": Array [
+      "start",
+      "end",
+      "contacts",
+      "offices",
+      "subjects",
+      "meeting_types",
+      Object {
+        "key": "format[timezone]",
+        "name": "timezone",
+      },
+    ],
+    "headers": Object {},
+    "method": undefined,
+    "resource": "unavailability",
+    "sub_resources": Object {},
   },
   "users": Object {
     "allowed_includes": Array [

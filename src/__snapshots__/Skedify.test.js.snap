@@ -668,15 +668,6 @@ Object {
     "toString": [Function],
   },
   "contact_office_subjects": Object {
-    "contact_office": Object {
-      "contact": Object {
-        "toString": [Function],
-        "user": Object {
-          "toString": [Function],
-        },
-      },
-      "toString": [Function],
-    },
     "subject": Object {
       "subject_category": Object {
         "toString": [Function],
@@ -687,7 +678,13 @@ Object {
   },
   "contact_offices": Object {
     "contact": Object {
-      "subjects": Object {
+      "contact_office_subjects": Object {
+        "subject": Object {
+          "toString": [Function],
+        },
+        "toString": [Function],
+      },
+      "employee": Object {
         "toString": [Function],
       },
       "toString": [Function],
@@ -701,7 +698,7 @@ Object {
     "toString": [Function],
   },
   "contacts": Object {
-    "subjects": Object {
+    "employee": Object {
       "toString": [Function],
     },
     "toString": [Function],
@@ -750,6 +747,27 @@ Object {
   },
   "office_manager": Object {
     "toString": [Function],
+  },
+  "office_manager_offices": Object {
+    "office_manager": Object {
+      "employee": Object {
+        "toString": [Function],
+      },
+      "toString": [Function],
+      "user": Object {
+        "toString": [Function],
+      },
+    },
+    "toString": [Function],
+  },
+  "office_managers": Object {
+    "employee": Object {
+      "toString": [Function],
+    },
+    "toString": [Function],
+    "user": Object {
+      "toString": [Function],
+    },
   },
   "offices": Object {
     "toString": [Function],
