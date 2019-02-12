@@ -2,7 +2,7 @@ import moxios from 'moxios'
 
 const WAIT_TIME = 0
 
-export function mockResponse(data, meta, warnings, status = 200) {
+function stubCommonRequests() {
   // Mock the authentication request
   moxios.stubRequest(/access_tokens/, {
     status: 200,
@@ -30,6 +30,26 @@ export function mockResponse(data, meta, warnings, status = 200) {
       },
     },
   })
+}
+
+export function mockMatchingURLResponse(
+  urlOrRegExp,
+  data,
+  meta,
+  warnings,
+  status = 200
+) {
+  stubCommonRequests()
+
+  // Mock the actual request
+  moxios.stubRequest(urlOrRegExp, {
+    status,
+    response: { data, meta, warnings },
+  })
+}
+
+export function mockResponse(data, meta, warnings, status = 200) {
+  stubCommonRequests()
 
   // Mock the actual request
   moxios.wait(() => {

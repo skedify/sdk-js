@@ -620,6 +620,28 @@ Object {
 }
 `;
 
+exports[`API API/testUtils mockResponse should be possible to mock responses of multiple calls that run simultaneously 1`] = `
+Object {
+  "data": "my appointments data",
+  "errors": undefined,
+  "headers": undefined,
+  "meta": undefined,
+  "status": 200,
+  "warnings": undefined,
+}
+`;
+
+exports[`API API/testUtils mockResponse should be possible to mock responses of multiple calls that run simultaneously 2`] = `
+Object {
+  "data": "my subjects data",
+  "errors": undefined,
+  "headers": undefined,
+  "meta": undefined,
+  "status": 200,
+  "warnings": undefined,
+}
+`;
+
 exports[`API should expose all available includes on the API instance 1`] = `
 Object {
   "accepted_possibility": Object {

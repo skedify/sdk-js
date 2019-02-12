@@ -519,7 +519,8 @@ import {
   installSkedifySDKMock,
   uninstallSkedifySDKMock,
   matchRequest,
-  mockResponse
+  mockResponse,
+  mockMatchingURLResponse
 } from "skedify-sdk";
 const SDK = new Skedify.API(options);
 
@@ -553,6 +554,17 @@ SDK.subjects().then(console.log)
   warnings: undefined,
   meta: undefined
 }
+
+/**
+ * If multiple calls happen, you can mock multiple calls based on a RegExp
+ *
+ * E.g.: mockMatchingURLResponse(urlOrRegExp, data, meta, warnings, status = 200)
+ */
+mockMatchingURLResponse(/appointments/, [{ id: 'appointment id 1' }])
+mockMatchingURLResponse(/subjects/, [{ id: 'subject id 1' }])
+
+SDK.appointments().then(console.log)
+SDK.subjects().then(console.log)
 
 
 /**
