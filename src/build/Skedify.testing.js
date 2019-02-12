@@ -4,7 +4,11 @@ import { get } from '../secret'
 /**
  * Expose general test utils
  */
-export { matchRequest, mockResponse } from '../../test/testUtils'
+export {
+  matchRequest,
+  mockResponse,
+  mockMatchingURLResponse,
+} from '../../test/testUtils'
 
 /**
  * Expose an install mock function

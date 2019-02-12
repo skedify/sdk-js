@@ -5,6 +5,7 @@ import {
   uninstallSkedifySDKMock,
   mockResponse,
   matchRequest,
+  mockMatchingURLResponse,
 } from './build/Skedify.prod'
 
 import * as exported from './constants/exported'
@@ -973,6 +974,14 @@ describe('API', () => {
         expect(await SDK.appointments()).toMatchSnapshot()
 
         mockResponse('my subjects data')
+        expect(await SDK.subjects()).toMatchSnapshot()
+      })
+
+      it('should be possible to mock responses of multiple calls that run simultaneously', async () => {
+        mockMatchingURLResponse(/appointments/, 'my appointments data')
+        mockMatchingURLResponse(/subjects/, 'my subjects data')
+
+        expect(await SDK.appointments()).toMatchSnapshot()
         expect(await SDK.subjects()).toMatchSnapshot()
       })
     })
