@@ -753,6 +753,12 @@ Object {
     },
     "toString": [Function],
   },
+  "employee": Object {
+    "enterprise": Object {
+      "toString": [Function],
+    },
+    "toString": [Function],
+  },
   "employees": Object {
     "toString": [Function],
   },
