@@ -473,6 +473,8 @@ Object {
 }
 `;
 
+exports[`API API/Resources should throw a slightly different error when calling a non existing filter function when there are no possible filters for this resource 1`] = `"[RESOURCE]: item.nonExistingMethod is not a function. There are no filters defined for this resource."`;
+
 exports[`API API/Resources should throw an error when a subresource is used but no id is provided 1`] = `"[RESOURCE]: You tried to call \`.subjects(/* MISSING IDENTIFIER */).questions()\` but the parent id is missing."`;
 
 exports[`API API/Resources should throw an error when a subresource with id is used but no parent id is provided 1`] = `"[RESOURCE]: You tried to call \`.subjects(/* MISSING IDENTIFIER */).questions(123)\` but the parent id is missing."`;
@@ -497,6 +499,8 @@ exports[`API API/Resources should throw an error when an external://abc123 call 
 exports[`API API/Resources should throw an error when an external://abc123 call returns no records 2`] = `Array []`;
 
 exports[`API API/Resources should throw an error when calling a non existing filter function 1`] = `"[RESOURCE]: item.nonExistingMethod is not a function. You can only call \`.category_id()\`, \`.external_id()\`, \`.schedulable_at_office()\`, \`.schedulable_with_contact()\` or \`.schedulable()\`."`;
+
+exports[`API API/Resources should throw an error when calling a non existing filter function and one of the defined filters is using an object alias 1`] = `"[RESOURCE]: item.nonExistingMethod is not a function. You can only call \`.type()\`."`;
 
 exports[`API API/Resources should throw an error when filter did not receive a callback 1`] = `"[RESOURCE]: \`.filter()\` expects a callback, but is given \`.filter(undefined)\`"`;
 

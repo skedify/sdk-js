@@ -704,6 +704,18 @@ describe('API', () => {
       ).toThrowErrorMatchingSnapshot()
     })
 
+    it('should throw an error when calling a non existing filter function and one of the defined filters is using an object alias', () => {
+      expect(() =>
+        SDK.integrations().filter(item => item.nonExistingMethod())
+      ).toThrowErrorMatchingSnapshot()
+    })
+
+    it('should throw a slightly different error when calling a non existing filter function when there are no possible filters for this resource', () => {
+      expect(() =>
+        SDK.users().filter(item => item.nonExistingMethod())
+      ).toThrowErrorMatchingSnapshot()
+    })
+
     it('should default to true when a filter is given with no value', async () => {
       expect(
         await matchRequest(SDK.subjects(1).filter(item => item.schedulable()))
