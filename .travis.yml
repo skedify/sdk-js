@@ -5,6 +5,7 @@ cache:
 notifications:
   email: false
 node_js:
+  - "11"
   - "10"
 before_script:
   - npm run build
