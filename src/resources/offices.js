@@ -45,7 +45,11 @@ export const offices = createResourceDescription(
       deprecated: true,
     }),
     availabilityHoursExceptions: createResourceDescription(
-      'availability_hours_exceptions'
+      'availability_hours_exceptions',
+      { deprecated: true }
+    ),
+    subjectAvailabilitySettings: createResourceDescription(
+      'subject_availability_settings'
     ),
   }
 )

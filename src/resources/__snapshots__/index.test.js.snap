@@ -355,7 +355,7 @@ Object {
             "allowed_methods": Array [
               "*",
             ],
-            "deprecated": false,
+            "deprecated": true,
             "filters": Array [],
             "headers": Object {},
             "method": undefined,
@@ -367,7 +367,7 @@ Object {
             "allowed_methods": Array [
               "*",
             ],
-            "deprecated": false,
+            "deprecated": true,
             "filters": Array [],
             "headers": Object {},
             "method": undefined,
@@ -496,6 +496,21 @@ Object {
     "headers": Object {},
     "method": undefined,
     "resource": "defined_availability",
+    "sub_resources": Object {},
+  },
+  "employeeActivations": Object {
+    "allowed_includes": Array [
+      "employee",
+      "employee.enterprise",
+    ],
+    "allowed_methods": Array [
+      "get",
+    ],
+    "deprecated": false,
+    "filters": Array [],
+    "headers": Object {},
+    "method": undefined,
+    "resource": "employee_activations",
     "sub_resources": Object {},
   },
   "employees": Object {
@@ -747,7 +762,7 @@ Object {
         "allowed_methods": Array [
           "*",
         ],
-        "deprecated": false,
+        "deprecated": true,
         "filters": Array [],
         "headers": Object {},
         "method": undefined,
@@ -780,6 +795,18 @@ Object {
         "headers": Object {},
         "method": undefined,
         "resource": "office_managers",
+        "sub_resources": Object {},
+      },
+      "subjectAvailabilitySettings": Object {
+        "allowed_includes": Array [],
+        "allowed_methods": Array [
+          "*",
+        ],
+        "deprecated": false,
+        "filters": Array [],
+        "headers": Object {},
+        "method": undefined,
+        "resource": "subject_availability_settings",
         "sub_resources": Object {},
       },
       "subjectSettings": Object {
@@ -835,6 +862,18 @@ Object {
     "method": undefined,
     "resource": "subjects",
     "sub_resources": Object {
+      "availabilitySettings": Object {
+        "allowed_includes": Array [],
+        "allowed_methods": Array [
+          "*",
+        ],
+        "deprecated": false,
+        "filters": Array [],
+        "headers": Object {},
+        "method": undefined,
+        "resource": "availability_settings",
+        "sub_resources": Object {},
+      },
       "questions": Object {
         "allowed_includes": Array [
           "options",

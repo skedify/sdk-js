@@ -89,9 +89,12 @@ export const contacts = createResourceDescription(
       'offices',
       { deprecated: true },
       {
-        availabilityHours: createResourceDescription('availability_hours'),
+        availabilityHours: createResourceDescription('availability_hours', {
+          deprecated: true,
+        }),
         availabilityHoursExceptions: createResourceDescription(
-          'availability_hours_exceptions'
+          'availability_hours_exceptions',
+          { deprecated: true }
         ),
       }
     ),
