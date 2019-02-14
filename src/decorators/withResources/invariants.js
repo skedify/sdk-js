@@ -154,10 +154,18 @@ export function validateFilterCallbackExecution(resource, run) {
   } catch (err) {
     const { descriptor } = get(resource)
 
+    if (descriptor.filters.length <= 0) {
+      throw createResourceError(
+        `${err.message}. There are no filters defined for this resource.`,
+        ERROR_RESOURCE,
+        ERROR_RESOURCE_INVALID_FILTER
+      )
+    }
+
     throw createResourceError(
       `${err.message}. You can only call ${joinAsSpeech(
         OR,
-        descriptor.filters.map(filter => `\`.${filter}()\``)
+        descriptor.filters.map(filter => `\`.${filter.name || filter}()\``)
       )}.`,
       ERROR_RESOURCE,
       ERROR_RESOURCE_INVALID_FILTER
