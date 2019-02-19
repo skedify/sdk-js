@@ -40,8 +40,7 @@
     "format": "npm run lint -- --fix",
     "check-coverage": "cross-env CI=true NODE_ENV=test jest --coverage",
     "commit": "git-cz",
-    "semantic-release": "semantic-release",
-    "travis-deploy-once": "travis-deploy-once"
+    "semantic-release": "semantic-release"
   },
   "devDependencies": {
     "@babel/preset-env": "^7.3.1",
@@ -76,8 +75,7 @@
     "rollup-plugin-terser": "^4.0.4",
     "rollup-watch": "^4.3.1",
     "semantic-release": "^15.13.3",
-    "serve": "^10.1.2",
-    "travis-deploy-once": "^5.0.11"
+    "serve": "^10.1.2"
   },
   "config": {
     "commitizen": {

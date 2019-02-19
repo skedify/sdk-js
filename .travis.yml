@@ -7,11 +7,26 @@ notifications:
 node_js:
   - "11"
   - "10"
-before_script:
-  - npm run build
-  - npm audit --only=prod --audit-level=critical
-after_success:
-  - npm run travis-deploy-once "npm run semantic-release"
+stages:
+  - test
+  - build
+  - audit
+  - name: release
+    if: branch = master AND type = push
+jobs:
+  include:
+    - stage: test
+      name: "Tests"
+      script: npm run test
+    - stage: build
+      name: "Build"
+      script: npm run build
+    - stage: audit
+      name: "Audit"
+      script: npm audit --only=prod --audit-level=critical
+    - stage: release
+      name: "Release"
+      script: npm run semantic-release
 branches:
   except:
     - /^v\d+\.\d+\.\d+$/
