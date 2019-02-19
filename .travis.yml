@@ -9,7 +9,8 @@ node_js:
   - "10"
 stages:
   - test
-  - build
+  - name: build
+    if: NOT (branch = master AND type = push)
   - audit
   - name: release
     if: branch = master AND type = push
@@ -26,7 +27,7 @@ jobs:
       script: npm audit --only=prod --audit-level=critical
     - stage: release
       name: "Release"
-      script: npm run semantic-release
+      script: npm run build && npm run semantic-release
 branches:
   except:
     - /^v\d+\.\d+\.\d+$/
