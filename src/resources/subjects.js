@@ -30,6 +30,7 @@ export const subjects = createResourceDescription(
     ),
     timetable: createResourceDescription('timetable', {
       filters: ['office', 'start', 'end', 'contacts'],
+      deprecated: true,
     }),
     availabilitySettings: createResourceDescription('availability_settings'),
   }
