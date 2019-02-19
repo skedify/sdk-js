@@ -5,7 +5,6 @@ import {
   withExposedIncludes,
   withIdentityProvider,
   withResources,
-  withShorthands,
   withNetwork,
   withSecretData,
 } from './decorators'
@@ -21,7 +20,6 @@ export default class SkedifyAPI {
       withDefaults(),
       withIdentityProvider(),
       withResources(this),
-      withShorthands(),
       withExposedIncludes()
     )(this)
   }
