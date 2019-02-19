@@ -6,7 +6,6 @@ export default function createResourceDescription(
     includes = [],
     filters = [],
     headers = {},
-    method = undefined,
     allowed_methods = [HTTP_VERB_ALL_WILDCARD],
     deprecated = false,
   } = {},
@@ -18,7 +17,6 @@ export default function createResourceDescription(
     filters,
     sub_resources,
     headers,
-    method,
     allowed_methods,
     deprecated,
   }

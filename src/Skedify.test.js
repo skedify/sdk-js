@@ -734,61 +734,6 @@ describe('API', () => {
       ).toMatchSnapshot()
     })
 
-    it('should be possible to create a more advanced combination of calls (timetable)', async () => {
-      expect(
-        await matchRequest(
-          SDK.subjects(316)
-            .timetable()
-            .filter(item =>
-              item
-                .office(1308)
-                .start('2017-12-21')
-                .end('2017-12-26')
-            )
-        )
-      ).toMatchSnapshot()
-    })
-
-    it('should be possible to use shorthands (timetable)', async () => {
-      expect(
-        await matchRequest(
-          SDK.timetable({
-            subject: 316,
-            office: 1308,
-            start: '2017-12-21',
-            end: '2017-12-26',
-          })
-        )
-      ).toMatchSnapshot()
-    })
-
-    it('should be possible to use shorthands (timetable) with optional values like contacts', async () => {
-      expect(
-        await matchRequest(
-          SDK.timetable({
-            subject: 316,
-            office: 1308,
-            start: '2017-12-21',
-            end: '2017-12-26',
-            contacts: [1, 2, 3],
-          })
-        )
-      ).toMatchSnapshot()
-    })
-
-    it('should throw an error when required props are missing from a shorthand call (timetable)', () => {
-      expect(() =>
-        SDK.timetable({
-          subject: 316,
-          end: '2017-12-26',
-        })
-      ).toThrowErrorMatchingSnapshot()
-    })
-
-    it('should throw an error when no values are passed for the timetable shorthand', () => {
-      expect(() => SDK.timetable()).toThrowErrorMatchingSnapshot()
-    })
-
     it('should be possible to use a shorthand for using external ids', async () => {
       expect(
         await matchRequest(SDK.customers('external://abc123'), [

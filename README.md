@@ -466,28 +466,6 @@ SDK.enterprise()
 SDK.enterpriseSettings().then(response => response.data[0]);
 ```
 
-### Timetable
-
-Timetable is a special endpoint, where most of the "filters" are required. To emphasize this, the filters must be passed on with the original method call.
-
-```js
-SDK.timetable({
-  subject: "subject id",
-  location: "location id",
-  contacts: ["contact id", "contact id"] // optional
-});
-
-// instead of
-.filter()
-SDK.timetable().filter(
-item => {
-  item.subject('subject id').location('location id')
-
-  // optional
-  item.contacts(['contact id 1', 'contact id 2'])
-});
-```
-
 ### Common actions on appointments
 
 Since certain mutations are very common, there should be shorthands for those
