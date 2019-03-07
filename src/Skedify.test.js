@@ -395,6 +395,48 @@ describe('API', () => {
       })
   })
 
+  it('should invoke a call once when .then is called multiple times', async () => {
+    const mock_data = [{ id: '1' }]
+    // If the SDK makes multiple calls, this test will fail with an "Async callback was not invoked within the 5000ms timeout specified by jest.setTimeout"
+    mockResponse(mock_data)
+
+    const call = SDK.subjects()
+    const [result1, result2, result3] = await Promise.all([call, call, call])
+
+    expect(result1.data).toEqual(mock_data)
+    expect(result2.data).toEqual(mock_data)
+    expect(result3.data).toEqual(mock_data)
+  })
+
+  it('should invoke a call once when .catch is called multiple times', async () => {
+    const mock_data = [{ id: '1' }]
+    // If the SDK makes multiple calls, this test will fail with an "Async callback was not invoked within the 5000ms timeout specified by jest.setTimeout"
+    mockResponse(mock_data)
+
+    const call = SDK.subjects()
+    const result1 = await call.catch(err => err)
+    const result2 = await call.catch(err => err)
+    const result3 = await call.catch(err => err)
+
+    expect(result1.data).toEqual(mock_data)
+    expect(result2.data).toEqual(mock_data)
+    expect(result3.data).toEqual(mock_data)
+  })
+
+  it('should be possible to invoke a normal fetch first, and after that create a resource', async () => {
+    const call = SDK.subjects()
+
+    // Fetch all subjects
+    expect(await matchRequest(call)).toMatchSnapshot()
+
+    // Create a new subject using the same initial promise setup
+    expect(
+      await matchRequest(
+        call.new({ title: 'Subject Title' }).then(subject => subject.create())
+      )
+    ).toMatchSnapshot()
+  })
+
   it('should reflect configuration changes in the request (locale)', async () => {
     expect(await matchRequest(SDK.subjects())).toMatchSnapshot()
 
