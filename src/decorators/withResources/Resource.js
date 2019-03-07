@@ -204,17 +204,26 @@ export default class Resource {
   }
 
   then(onFulfilled, onRejected) {
-    const { instance } = get(this)
+    const { instance, existing_call = null } = get(this)
     const { identityProvider } = get(instance)
+
+    // Call is already in progress
+    if (existing_call !== null) {
+      return existing_call.then(onFulfilled, onRejected)
+    }
 
     validateDeprecations(this)
 
-    return identityProvider
-      .getAuthorization()
-      .then(createRequest.bind(this, this))
-      .then(normalizeResponse, normalizeResponse)
-      .then(executeResponseInterceptors.bind(this, this))
-      .then(onFulfilled, onRejected)
+    get(this).existing_call = new Promise((resolve, reject) => {
+      identityProvider
+        .getAuthorization()
+        .then(createRequest.bind(this, this))
+        .then(normalizeResponse, normalizeResponse)
+        .then(executeResponseInterceptors.bind(this, this))
+        .then(resolve, reject)
+    })
+
+    return get(this).existing_call.then(onFulfilled, onRejected)
   }
 
   catch(onRejected) {
