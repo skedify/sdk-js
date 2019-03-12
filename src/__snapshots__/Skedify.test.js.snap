@@ -751,6 +751,9 @@ Object {
   },
   "office_manager": Object {
     "toString": [Function],
+    "user": Object {
+      "toString": [Function],
+    },
   },
   "office_manager_offices": Object {
     "office_manager": Object {
