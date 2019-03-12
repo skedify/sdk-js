@@ -633,6 +633,7 @@ Object {
   "officeManagerOffices": Object {
     "allowed_includes": Array [
       "office_manager",
+      "office_manager.user",
       "office",
     ],
     "allowed_methods": Array [
