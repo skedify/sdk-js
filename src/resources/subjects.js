@@ -8,6 +8,7 @@ export const subjects = createResourceDescription(
       'subject_category',
       'languages',
       'languages.translations',
+      'availability_settings',
     ],
     filters: [
       'category_id',

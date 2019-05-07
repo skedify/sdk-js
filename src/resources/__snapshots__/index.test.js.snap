@@ -795,6 +795,7 @@ Object {
       "subject_category",
       "languages",
       "languages.translations",
+      "availability_settings",
     ],
     "allowed_methods": Array [
       "*",
