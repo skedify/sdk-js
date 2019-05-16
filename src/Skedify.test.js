@@ -949,6 +949,30 @@ describe('API', () => {
     })
   })
 
+  it('should be possible to create an employee', async () => {
+    // Without an extra header
+    expect(
+      await matchRequest(
+        SDK.employees()
+          .new({})
+          .then(appointment => appointment.create())
+      )
+    ).toMatchSnapshot()
+  })
+
+  it('should be possible to create an employee without activation email', async () => {
+    // Without an extra header
+    expect(
+      await matchRequest(
+        SDK.employees()
+          .new({
+            suppress_activation_email: true,
+          })
+          .then(appointment => appointment.create())
+      )
+    ).toMatchSnapshot()
+  })
+
   describe('API/testUtils', () => {
     describe('mockResponse', () => {
       it('should be possible to mock a response (and get defaults)', async () => {

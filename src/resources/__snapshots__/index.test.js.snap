@@ -497,7 +497,11 @@ Object {
       "email",
       "external_id",
     ],
-    "headers": Object {},
+    "headers": Object {
+      "post": Object {
+        "suppress_activation_email": [Function],
+      },
+    },
     "resource": "employees",
     "sub_resources": Object {},
   },
