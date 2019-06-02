@@ -571,6 +571,9 @@ Object {
     "filters": Array [
       "email",
       "external_id",
+      "state",
+      "roles",
+      "match",
       "page",
       "per_page",
     ],

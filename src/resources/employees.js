@@ -3,7 +3,7 @@ import { HTTP_VERB_POST } from '../constants'
 
 export const employees = createResourceDescription('employees', {
   includes: ['user', 'enterprise', 'roles'],
-  filters: ['email', 'external_id'],
+  filters: ['email', 'external_id', 'state', 'roles', 'match'],
   headers: {
     [HTTP_VERB_POST]: {
       suppress_activation_email: value => {
