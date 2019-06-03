@@ -754,7 +754,7 @@ describe('API', () => {
 
     it('should throw a slightly different error when calling a non existing filter function when there are no possible filters for this resource', () => {
       expect(() =>
-        SDK.users().filter(item => item.nonExistingMethod())
+        SDK.accessTokens().filter(item => item.nonExistingMethod())
       ).toThrowErrorMatchingSnapshot()
     })
 

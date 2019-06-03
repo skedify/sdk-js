@@ -7,4 +7,5 @@ export const integrations = createResourceDescription('integrations', {
       key: 'filter[type]',
     },
   ],
+  enable_pagination: false,
 })

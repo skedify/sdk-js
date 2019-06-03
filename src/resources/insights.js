@@ -7,6 +7,7 @@ export const insights = createResourceDescription(
   {
     auth: createResourceDescription('auth', {
       allowed_methods: [HTTP_VERB_POST],
+      enable_pagination: false,
     }),
   }
 )

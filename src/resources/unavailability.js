@@ -15,4 +15,5 @@ export const unavailability = createResourceDescription('unavailability', {
       key: 'format[timezone]',
     },
   ],
+  enable_pagination: false,
 })
