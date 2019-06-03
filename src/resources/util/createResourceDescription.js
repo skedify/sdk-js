@@ -8,13 +8,14 @@ export default function createResourceDescription(
     headers = {},
     allowed_methods = [HTTP_VERB_ALL_WILDCARD],
     deprecated = false,
+    enable_pagination = true,
   } = {},
   sub_resources = {}
 ) {
   return {
     resource,
     allowed_includes: includes,
-    filters,
+    filters: enable_pagination ? [...filters, 'page', 'per_page'] : filters,
     sub_resources,
     headers,
     allowed_methods,

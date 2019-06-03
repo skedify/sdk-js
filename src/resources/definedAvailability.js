@@ -17,5 +17,6 @@ export const definedAvailability = createResourceDescription(
         key: 'format[timezone]',
       },
     ],
+    enable_pagination: false,
   }
 )
