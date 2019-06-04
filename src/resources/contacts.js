@@ -87,7 +87,7 @@ export const contacts = createResourceDescription(
     }),
     offices: createResourceDescription(
       'offices',
-      { deprecated: true },
+      { deprecated: true, includes: ['contacts'] },
       {
         availabilityHours: createResourceDescription('availability_hours', {
           deprecated: true,

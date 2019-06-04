@@ -7,6 +7,7 @@ export const officeManagers = createResourceDescription(
   },
   {
     offices: createResourceDescription('offices', {
+      includes: ['contacts'],
       deprecated: true,
     }),
   }
