@@ -367,7 +367,9 @@ Object {
         },
       },
       "offices": Object {
-        "allowed_includes": Array [],
+        "allowed_includes": Array [
+          "contacts",
+        ],
         "allowed_methods": Array [
           "*",
         ],
@@ -766,7 +768,9 @@ Object {
     "resource": "office_managers",
     "sub_resources": Object {
       "offices": Object {
-        "allowed_includes": Array [],
+        "allowed_includes": Array [
+          "contacts",
+        ],
         "allowed_methods": Array [
           "*",
         ],
