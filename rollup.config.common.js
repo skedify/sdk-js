@@ -22,9 +22,7 @@ export function createUMDConfig(merger) {
         resolve: ['.js', ''],
       }),
       resolve({
-        module: true,
-        jsnext: true,
-        main: true,
+        mainFields: ['module', 'jsnext', 'main', 'browser'],
         browser: true,
         extensions: ['.js', '/index.js'],
         preferBuiltins: false,
