@@ -26,6 +26,7 @@ export const offices = createResourceDescription(
       'external_id',
       'schedulable_for_subject',
       'schedulable_with_contact',
+      'schedulable_for_meeting_type',
       'schedulable',
       'nearest_to_geo',
       'limit',
