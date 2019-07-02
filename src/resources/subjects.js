@@ -15,6 +15,7 @@ export const subjects = createResourceDescription(
       'external_id',
       'schedulable_at_office',
       'schedulable_with_contact',
+      'schedulable_for_meeting_type',
       'schedulable',
     ],
   },
