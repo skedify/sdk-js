@@ -615,6 +615,17 @@ Object {
     "resource": "enterprises",
     "sub_resources": Object {},
   },
+  "featureFlags": Object {
+    "allowed_includes": Array [],
+    "allowed_methods": Array [
+      "*",
+    ],
+    "deprecated": false,
+    "filters": Array [],
+    "headers": Object {},
+    "resource": "feature_flags",
+    "sub_resources": Object {},
+  },
   "identity": Object {
     "allowed_includes": Array [],
     "allowed_methods": Array [
