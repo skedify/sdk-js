@@ -10,7 +10,11 @@ import { joinAsSpeech, AND } from '../../util/joinAsSpeech'
 import omit from '../../util/omit'
 
 const MAX_ATTEMPTS = 3
-const REFETCH_WINDOW = 20
+
+// When the token is valid for 90 minutes, than we will re-fetch a new token 81
+// minutes in instead of 89,666 minutes in which case it might be too late
+// already. We will use 90% of the token duration for now.
+const RE_FETCH_WINDOW = 0.9
 
 function secondsToMilliseconds(seconds) {
   return seconds * 1000
@@ -64,7 +68,7 @@ function defaultAuthorizationMethod({
       .then(access => {
         setTimeout(
           reset,
-          secondsToMilliseconds(access.Expiration - REFETCH_WINDOW)
+          secondsToMilliseconds(access.Expiration * RE_FETCH_WINDOW)
         )
         return access
       })
@@ -82,7 +86,7 @@ export function createGrant(
       this._network = network
       this._parameters = parameters
 
-      // Make sure `realm` is a required optoin
+      // Make sure `realm` is a required option
       const allRequiredParameters = [...requiredParameters, 'realm']
 
       const allPossibleParameters = [
@@ -136,14 +140,18 @@ export function createGrant(
       const parameters = omit(this._parameters, ['realm'])
 
       if (this._current === undefined || force) {
-        this._current = getAuthorizationMethod({
-          network: this._network,
-          grant_type,
-          force,
-          realm,
-          parameters,
-          reset: this.getAuthorization.bind(this, true),
-        })
+        // Ensure that the re-fetch of the token happens in a chain so that the
+        // access tokens and proxy call happens first before new calls come in.
+        this._current = Promise.resolve(this._current).then(() =>
+          getAuthorizationMethod({
+            network: this._network,
+            grant_type,
+            force,
+            realm,
+            parameters,
+            reset: this.getAuthorization.bind(this, true),
+          })
+        )
       }
 
       return this._current
