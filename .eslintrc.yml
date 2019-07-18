@@ -15,8 +15,8 @@ parserOptions:
     impliedStrict: true
     experimentalObjectRestSpread: true
 globals:
-  PACKAGE: yes
-  VERSION: yes
+  PACKAGE: readonly
+  VERSION: readonly
 plugins:
   - better
   - filenames
