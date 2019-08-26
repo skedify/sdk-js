@@ -911,6 +911,34 @@ Object {
       },
     },
   },
+  "outcomeLists": Object {
+    "allowed_includes": Array [],
+    "allowed_methods": Array [
+      "*",
+    ],
+    "deprecated": false,
+    "filters": Array [
+      "page",
+      "per_page",
+    ],
+    "headers": Object {},
+    "resource": "outcome_lists",
+    "sub_resources": Object {},
+  },
+  "outcomes": Object {
+    "allowed_includes": Array [],
+    "allowed_methods": Array [
+      "*",
+    ],
+    "deprecated": false,
+    "filters": Array [
+      "page",
+      "per_page",
+    ],
+    "headers": Object {},
+    "resource": "outcomes",
+    "sub_resources": Object {},
+  },
   "subjectCategories": Object {
     "allowed_includes": Array [
       "languages",
