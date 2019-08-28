@@ -479,6 +479,17 @@ Object {
 }
 `;
 
+exports[`API API/Response should try to recover from 401 errors by re-trying to authorize 1`] = `
+Object {
+  "data": Array [],
+  "errors": undefined,
+  "headers": undefined,
+  "meta": Array [],
+  "status": 200,
+  "warnings": Array [],
+}
+`;
+
 exports[`API API/testUtils matchRequest should be possible to get the request object 1`] = `
 Object {
   "data": undefined,

@@ -25,6 +25,8 @@ export default function createRequest(
   { Realm, Authorization }
 ) {
   const { instance, descriptor, parent } = get(resourceEntity)
+  const { identityProvider } = get(instance)
+
   const callConfig = createCallConfig(resourceEntity, {
     url: createURL(
       Realm,
@@ -37,11 +39,24 @@ export default function createRequest(
     },
   })
 
+  function tryToRecoverFromErrors(err) {
+    if (err && err.response && err.response.status === 401) {
+      return identityProvider
+        .getAuthorization(true)
+        .then(createRequest.bind(null, resourceEntity))
+    }
+
+    throw err
+  }
+
   return callConfig.method === 'get'
     ? retry((resolve, reject) => {
         get(instance)
           .network(callConfig)
+          .catch(tryToRecoverFromErrors)
           .then(resolve, reject)
       })
-    : get(instance).network(callConfig)
+    : get(instance)
+        .network(callConfig)
+        .catch(tryToRecoverFromErrors)
 }
