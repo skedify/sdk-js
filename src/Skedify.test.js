@@ -541,6 +541,25 @@ describe('API', () => {
         expect(err).toMatchSnapshot()
       }
     })
+
+    it('should try to recover from 401 errors by re-trying to authorize', async () => {
+      const data = []
+      const meta = []
+      const warnings = []
+
+      let first_call = true
+
+      mockMatchingURLResponse(/appointments/, data, meta, warnings, () => {
+        if (first_call) {
+          first_call = false
+          return 401
+        }
+
+        return 200
+      })
+
+      expect(await SDK.appointments()).toMatchSnapshot()
+    })
   })
 
   describe('API/Resources', () => {

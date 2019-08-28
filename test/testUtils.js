@@ -1,4 +1,5 @@
 import moxios from 'moxios'
+import isFunction from '../src/util/isFunction'
 
 const WAIT_TIME = 0
 
@@ -43,7 +44,13 @@ export function mockMatchingURLResponse(
 
   // Mock the actual request
   moxios.stubRequest(urlOrRegExp, {
-    status,
+    get status() {
+      if (isFunction(status)) {
+        return status()
+      }
+
+      return status
+    },
     response: { data, meta, warnings },
   })
 }
@@ -54,7 +61,13 @@ export function mockResponse(data, meta, warnings, status = 200) {
   // Mock the actual request
   moxios.wait(() => {
     moxios.requests.mostRecent().respondWith({
-      status,
+      get status() {
+        if (isFunction(status)) {
+          return status()
+        }
+
+        return status
+      },
       response: { data, meta, warnings },
     })
   }, WAIT_TIME)
