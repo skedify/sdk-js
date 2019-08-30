@@ -963,6 +963,8 @@ Object {
       "languages",
       "languages.translations",
       "availability_settings",
+      "outcome_list",
+      "outcome_list.outcomes",
     ],
     "allowed_methods": Array [
       "*",
