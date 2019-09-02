@@ -824,10 +824,19 @@ Object {
   "options": Object {
     "toString": [Function],
   },
+  "outcome": Object {
+    "toString": [Function],
+  },
   "outcome_list": Object {
     "outcomes": Object {
       "toString": [Function],
     },
+    "toString": [Function],
+  },
+  "outcome_lists": Object {
+    "toString": [Function],
+  },
+  "outcomes": Object {
     "toString": [Function],
   },
   "possibilities": Object {
