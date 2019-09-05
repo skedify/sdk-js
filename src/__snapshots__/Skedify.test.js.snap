@@ -455,7 +455,7 @@ exports[`API API/Resources should throw an error when include is used before the
 
 exports[`API API/Resources should throw an error when including a value but there are no includes defined on the resource 1`] = `"[RESOURCE]: You tried to call \`.include(\\"invalid\\")\` but there are no includes defined for timetable."`;
 
-exports[`API API/Resources should throw an error when including a value that is not defined on the resource 1`] = `"[RESOURCE]: You tried to call \`.include(\\"invalid\\")\` but the only valid includes for subjects are \`questions\`, \`subject_category\`, \`languages\`, \`languages.translations\` and \`availability_settings\`."`;
+exports[`API API/Resources should throw an error when including a value that is not defined on the resource 1`] = `"[RESOURCE]: You tried to call \`.include(\\"invalid\\")\` but the only valid includes for subjects are \`questions\`, \`subject_category\`, \`languages\`, \`languages.translations\`, \`availability_settings\`, \`outcome_list\` and \`outcome_list.outcomes\`."`;
 
 exports[`API API/Response should normalize the response when the call fails 1`] = `
 Object {
@@ -822,6 +822,21 @@ Object {
     "toString": [Function],
   },
   "options": Object {
+    "toString": [Function],
+  },
+  "outcome": Object {
+    "toString": [Function],
+  },
+  "outcome_list": Object {
+    "outcomes": Object {
+      "toString": [Function],
+    },
+    "toString": [Function],
+  },
+  "outcome_lists": Object {
+    "toString": [Function],
+  },
+  "outcomes": Object {
     "toString": [Function],
   },
   "possibilities": Object {

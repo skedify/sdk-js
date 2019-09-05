@@ -912,7 +912,9 @@ Object {
     },
   },
   "outcomeLists": Object {
-    "allowed_includes": Array [],
+    "allowed_includes": Array [
+      "outcomes",
+    ],
     "allowed_methods": Array [
       "*",
     ],
@@ -925,8 +927,27 @@ Object {
     "resource": "outcome_lists",
     "sub_resources": Object {},
   },
+  "outcomeOutcomeLists": Object {
+    "allowed_includes": Array [
+      "outcome",
+      "outcome_list",
+    ],
+    "allowed_methods": Array [
+      "*",
+    ],
+    "deprecated": false,
+    "filters": Array [
+      "page",
+      "per_page",
+    ],
+    "headers": Object {},
+    "resource": "outcome_outcome_lists",
+    "sub_resources": Object {},
+  },
   "outcomes": Object {
-    "allowed_includes": Array [],
+    "allowed_includes": Array [
+      "outcome_lists",
+    ],
     "allowed_methods": Array [
       "*",
     ],
@@ -963,6 +984,8 @@ Object {
       "languages",
       "languages.translations",
       "availability_settings",
+      "outcome_list",
+      "outcome_list.outcomes",
     ],
     "allowed_methods": Array [
       "*",
