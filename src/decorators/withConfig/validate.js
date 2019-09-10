@@ -6,15 +6,8 @@ import {
   MISCONFIGURED_LOCALE,
 } from '../../constants'
 
-export default function validate(config = {}) {
-  if (!(config instanceof Object)) {
-    throw createConfigError(
-      `expected object but received '${config}'`,
-      MISCONFIGURED
-    )
-  }
-
-  if (!config.hasOwnProperty('locale') || config.locale === undefined) {
+export function validateLocale(input) {
+  if (!input) {
     throw createConfigError(
       'locale must be configured.',
       MISCONFIGURED,
@@ -33,7 +26,7 @@ export default function validate(config = {}) {
    *
    * Resulting in: `nl-be-vwv`, `nl-be` or `nl` (case insensitive)
    */
-  const locales = Array.isArray(config.locale) ? config.locale : [config.locale]
+  const locales = Array.isArray(input) ? input : [input]
   if (
     locales.some(
       locale =>
@@ -46,6 +39,17 @@ export default function validate(config = {}) {
       MISCONFIGURED_LOCALE
     )
   }
+}
+
+export default function validate(config = {}) {
+  if (!(config instanceof Object)) {
+    throw createConfigError(
+      `expected object but received '${config}'`,
+      MISCONFIGURED
+    )
+  }
+
+  validateLocale(config.locale)
 
   if (
     !config.hasOwnProperty('auth_provider') ||
