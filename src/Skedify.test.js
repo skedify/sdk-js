@@ -518,6 +518,13 @@ describe('API', () => {
     ])
   })
 
+  it('should be possible to setup the language on a request level basis', async () => {
+    expect(await matchRequest(SDK.subjects().locale('fr-BE'))).toMatchSnapshot()
+
+    // Consecutive calls without the override should maintain the original languge.
+    expect(await matchRequest(SDK.subjects())).toMatchSnapshot()
+  })
+
   describe('API/Response', () => {
     it('should normalize the response when the call succeeds', async () => {
       mockResponse([])

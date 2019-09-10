@@ -18,6 +18,8 @@ import executeResponseInterceptors from './executeResponseInterceptors'
 import clone from './clone'
 import { createConfigError } from '../../util/createError'
 import isObject from '../../util/isObject'
+import createAcceptLanguageHeader from '../withDefaults/createAcceptLanguageHeader'
+import { validateLocale } from '../withConfig/validate'
 
 function overrideThen(resource, replaceWith) {
   const originalThen = resource.then.bind(resource)
@@ -61,6 +63,20 @@ export default class Resource {
       // The parent resource
       parent,
     })
+  }
+
+  locale(locale) {
+    validateLocale(locale)
+
+    set(this, ({ requestConfig }) => ({
+      requestConfig: Object.assign({}, requestConfig, {
+        headers: Object.assign({}, requestConfig.headers, {
+          'Accept-Language': createAcceptLanguageHeader(locale),
+        }),
+      }),
+    }))
+
+    return this
   }
 
   include(...includes) {
