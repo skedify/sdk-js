@@ -17,6 +17,8 @@ export const appointments = createResourceDescription(
       'accepted_possibility',
       'answers',
       'initiated_by',
+      'outcomes',
+      'appointment_outcomes',
     ],
     filters: ['state', 'start', 'end'],
     headers: {

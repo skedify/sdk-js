@@ -696,6 +696,12 @@ Object {
   "answers": Object {
     "toString": [Function],
   },
+  "appointment": Object {
+    "toString": [Function],
+  },
+  "appointment_outcomes": Object {
+    "toString": [Function],
+  },
   "appointments": Object {
     "toString": [Function],
   },

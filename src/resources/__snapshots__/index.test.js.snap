@@ -29,6 +29,23 @@ Object {
     "resource": "admins",
     "sub_resources": Object {},
   },
+  "appointmentOutcomes": Object {
+    "allowed_includes": Array [
+      "appointment",
+      "outcome",
+    ],
+    "allowed_methods": Array [
+      "*",
+    ],
+    "deprecated": false,
+    "filters": Array [
+      "page",
+      "per_page",
+    ],
+    "headers": Object {},
+    "resource": "appointment_outcomes",
+    "sub_resources": Object {},
+  },
   "appointments": Object {
     "allowed_includes": Array [
       "subject",
@@ -43,6 +60,8 @@ Object {
       "accepted_possibility",
       "answers",
       "initiated_by",
+      "outcomes",
+      "appointment_outcomes",
     ],
     "allowed_methods": Array [
       "*",
@@ -946,6 +965,7 @@ Object {
   },
   "outcomes": Object {
     "allowed_includes": Array [
+      "appointments",
       "outcome_lists",
     ],
     "allowed_methods": Array [
