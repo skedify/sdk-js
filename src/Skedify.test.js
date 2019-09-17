@@ -314,6 +314,24 @@ describe('API/Config', () => {
 
     expect(SDK).toBeInstanceOf(API)
   })
+
+  it('should be possible to create an SDK instance with default headers', async () => {
+    const SDK = new API({
+      auth_provider: API.createAuthProviderString('public_client', {
+        client_id: 'someclientidtokengoeshere',
+        realm: 'http://127.0.0.1',
+      }),
+      locale: 'nl-BE',
+      headers: {
+        Host: 'api.example.com',
+      },
+    })
+
+    uninstallSkedifySDKMock(SDK)
+    installSkedifySDKMock(SDK)
+
+    expect(await matchRequest(SDK.subjects())).toMatchSnapshot()
+  })
 })
 
 describe('API', () => {

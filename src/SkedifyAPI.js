@@ -17,7 +17,7 @@ export default class SkedifyAPI {
       withSecretData(),
       withNetwork(),
       withConfig(config),
-      withDefaults(),
+      withDefaults(config),
       withIdentityProvider(),
       withResources(this),
       withExposedIncludes()
