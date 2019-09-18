@@ -1006,6 +1006,7 @@ Object {
       "availability_settings",
       "outcome_list",
       "outcome_list.outcomes",
+      "outcome_list.outcome_outcome_lists",
     ],
     "allowed_methods": Array [
       "*",
