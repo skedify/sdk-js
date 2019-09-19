@@ -1,5 +1,6 @@
 export * from './accessTokens'
 export * from './admins'
+export * from './appointmentOutcomes'
 export * from './appointments'
 export * from './centralPlanners'
 export * from './contactOffices'

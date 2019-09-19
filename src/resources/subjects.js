@@ -11,6 +11,7 @@ export const subjects = createResourceDescription(
       'availability_settings',
       'outcome_list',
       'outcome_list.outcomes',
+      'outcome_list.outcome_outcome_lists',
     ],
     filters: [
       'category_id',
