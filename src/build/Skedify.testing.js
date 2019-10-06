@@ -8,6 +8,8 @@ export {
   matchRequest,
   mockResponse,
   mockMatchingURLResponse,
+  mostRecentRequest,
+  mockedRequests,
 } from '../../test/testUtils'
 
 /**

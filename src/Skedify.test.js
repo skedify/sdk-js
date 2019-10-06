@@ -6,6 +6,8 @@ import {
   mockResponse,
   matchRequest,
   mockMatchingURLResponse,
+  mostRecentRequest,
+  mockedRequests,
 } from './build/Skedify.prod'
 
 import * as exported from './constants/exported'
@@ -1061,6 +1063,54 @@ describe('API', () => {
       it('should be possible to match multiple requests in one go', async () => {
         expect(await matchRequest(SDK.appointments())).toMatchSnapshot()
         expect(await matchRequest(SDK.appointments())).toMatchSnapshot()
+      })
+    })
+
+    describe('mostRecentRequest', () => {
+      it('should return the latest request', async () => {
+        mockMatchingURLResponse(/appointments/, [{ id: 'appointment id 1' }])
+
+        await SDK.appointments()
+          .new({ value: 'x' })
+          .then(appointment => appointment.create())
+
+        expect(mostRecentRequest()).toMatchSnapshot()
+      })
+
+      it('should return the latest request with multiple SDKs', async () => {
+        mockMatchingURLResponse(/appointments/, [])
+        mockMatchingURLResponse(/subjects/, [])
+        mockMatchingURLResponse(/employees/, [])
+
+        const secondSDK = new API({
+          auth_provider,
+          locale: 'nl-BE',
+        })
+
+        installSkedifySDKMock(secondSDK)
+
+        await SDK.appointments()
+        expect(mostRecentRequest()).toMatchSnapshot()
+
+        await secondSDK.subjects()
+        expect(mostRecentRequest()).toMatchSnapshot()
+
+        await SDK.employees()
+        expect(mostRecentRequest()).toMatchSnapshot()
+      })
+    })
+
+    describe('mockedRequests', () => {
+      it('should list all the requests', async () => {
+        mockMatchingURLResponse(/appointments/, [])
+        mockMatchingURLResponse(/subjects/, [])
+        mockMatchingURLResponse(/employees/, [])
+
+        await SDK.appointments()
+        await SDK.subjects()
+        await SDK.employees()
+
+        expect(mockedRequests()).toMatchSnapshot()
       })
     })
   })
