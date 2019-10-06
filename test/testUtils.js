@@ -33,6 +33,18 @@ function stubCommonRequests() {
   })
 }
 
+function mapRequestConfig(config) {
+  const { data, headers, method, params, url } = config
+
+  return {
+    data: data && JSON.parse(data),
+    headers,
+    method,
+    params,
+    url,
+  }
+}
+
 export function mockMatchingURLResponse(
   urlOrRegExp,
   data,
@@ -73,6 +85,15 @@ export function mockResponse(data, meta, warnings, status = 200) {
   }, WAIT_TIME)
 }
 
+export function mostRecentRequest() {
+  const { config } = moxios.requests.mostRecent()
+  return mapRequestConfig(config)
+}
+
+export function mockedRequests() {
+  return moxios.requests.__items.map(({ config }) => mapRequestConfig(config))
+}
+
 export function matchRequest(
   promise,
   fakeData,
@@ -81,22 +102,5 @@ export function matchRequest(
   fakeStatus
 ) {
   mockResponse(fakeData, fakeMeta, fakeWarnings, fakeStatus)
-
-  return promise.then(() => {
-    const {
-      data,
-      headers,
-      method,
-      params,
-      url,
-    } = moxios.requests.mostRecent().config
-
-    return {
-      data: data && JSON.parse(data),
-      headers,
-      method,
-      params,
-      url,
-    }
-  })
+  return promise.then(() => mostRecentRequest())
 }
