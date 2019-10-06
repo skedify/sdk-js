@@ -499,6 +499,8 @@ import {
   matchRequest,
   mockResponse,
   mockMatchingURLResponse
+  mostRecentRequest,
+  mockedRequests
 } from "skedify-sdk";
 const SDK = new Skedify.API(options);
 
