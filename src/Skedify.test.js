@@ -1101,6 +1101,48 @@ describe('API', () => {
     })
 
     describe('mockedRequests', () => {
+      it('should not include setup requests (access tokens & proxy)', async () => {
+        const SDK2 = new API({
+          auth_provider,
+          locale: 'nl-BE',
+        })
+
+        installSkedifySDKMock(SDK2)
+
+        mockMatchingURLResponse(/appointments/, [])
+        mockMatchingURLResponse(/subjects/, [])
+        mockMatchingURLResponse(/employees/, [])
+
+        await SDK2.appointments()
+        await SDK2.subjects()
+        await SDK2.employees()
+
+        expect(mockedRequests()).toMatchSnapshot()
+      })
+
+      it('should not include setup requests (access tokens & proxy) but after setup they should be included', async () => {
+        const SDK2 = new API({
+          auth_provider,
+          locale: 'nl-BE',
+        })
+
+        installSkedifySDKMock(SDK2)
+
+        mockMatchingURLResponse(/appointments/, [])
+        mockMatchingURLResponse(/subjects/, [])
+        mockMatchingURLResponse(/employees/, [])
+        mockMatchingURLResponse(/access_tokens/, {
+          data: 'But this one should be included!',
+        })
+
+        await SDK2.appointments()
+        await SDK2.subjects()
+        await SDK2.employees()
+        await SDK2.accessTokens()
+
+        expect(mockedRequests()).toMatchSnapshot()
+      })
+
       it('should list all the requests', async () => {
         mockMatchingURLResponse(/appointments/, [])
         mockMatchingURLResponse(/subjects/, [])

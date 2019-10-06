@@ -5,7 +5,7 @@ const WAIT_TIME = 0
 
 function stubCommonRequests() {
   // Mock the authentication request
-  moxios.stubRequest(/access_tokens/, {
+  moxios.stubOnce('POST', /access_tokens/, {
     status: 200,
     response: {
       access_token: 'fake_example_access_token',
@@ -15,7 +15,7 @@ function stubCommonRequests() {
   })
 
   // Mock the proxy call
-  moxios.stubRequest(/\/integrations\/proxy/, {
+  moxios.stubOnce('GET', /\/integrations\/proxy/, {
     status: 200,
     response: {
       data: {
@@ -91,7 +91,21 @@ export function mostRecentRequest() {
 }
 
 export function mockedRequests() {
-  return moxios.requests.__items.map(({ config }) => mapRequestConfig(config))
+  // Hide these requests if they match AND if they appear in this order.
+  const requestsToHide = [/access_tokens/, /\/integrations\/proxy/]
+
+  return moxios.requests.__items
+    .filter((request, index) => {
+      if (
+        index < requestsToHide.length &&
+        requestsToHide[index].test(request.url)
+      ) {
+        return false
+      }
+
+      return true
+    })
+    .map(({ config }) => mapRequestConfig(config))
 }
 
 export function matchRequest(
