@@ -712,6 +712,20 @@ Object {
     "resource": "languages",
     "sub_resources": Object {},
   },
+  "locations": Object {
+    "allowed_includes": Array [],
+    "allowed_methods": Array [
+      "*",
+    ],
+    "deprecated": false,
+    "filters": Array [
+      "page",
+      "per_page",
+    ],
+    "headers": Object {},
+    "resource": "locations",
+    "sub_resources": Object {},
+  },
   "modules": Object {
     "allowed_includes": Array [],
     "allowed_methods": Array [
