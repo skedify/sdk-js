@@ -227,6 +227,7 @@ Object {
     "filters": Array [
       "offices",
       "schedulable",
+      "has_availability_sync_calendars",
       "page",
       "per_page",
     ],
