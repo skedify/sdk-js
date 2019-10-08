@@ -15,7 +15,7 @@ export const contacts = createResourceDescription(
       'subjects',
       'user',
     ],
-    filters: ['offices', 'schedulable'],
+    filters: ['offices', 'schedulable', 'has_availability_sync_calendars'],
   },
   {
     appointments: createResourceDescription('appointments', {
