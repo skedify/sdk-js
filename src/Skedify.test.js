@@ -96,11 +96,12 @@ describe('API/Auth Providers', () => {
       locale: 'nl-BE',
     })
 
-    uninstallSkedifySDKMock(SDK)
     installSkedifySDKMock(SDK)
 
     mockResponse('my subjects data')
     expect(await SDK.subjects()).toMatchSnapshot()
+
+    uninstallSkedifySDKMock(SDK)
   })
 
   it('should be possible to use the `token` strategy', async () => {
@@ -115,11 +116,12 @@ describe('API/Auth Providers', () => {
       locale: 'nl-BE',
     })
 
-    uninstallSkedifySDKMock(SDK)
     installSkedifySDKMock(SDK)
 
     mockResponse('my subjects data')
     expect(await SDK.subjects()).toMatchSnapshot()
+
+    uninstallSkedifySDKMock(SDK)
   })
 })
 
@@ -302,6 +304,7 @@ describe('API/Config', () => {
 
     installSkedifySDKMock(SDK)
     expect(await matchRequest(SDK.identity())).toMatchSnapshot()
+    uninstallSkedifySDKMock(SDK)
   })
 
   it('should be possible to create an SDK instance with a resource_code', () => {
@@ -329,10 +332,11 @@ describe('API/Config', () => {
       },
     })
 
-    uninstallSkedifySDKMock(SDK)
     installSkedifySDKMock(SDK)
 
     expect(await matchRequest(SDK.subjects())).toMatchSnapshot()
+
+    uninstallSkedifySDKMock(SDK)
   })
 })
 
@@ -346,10 +350,8 @@ describe('API', () => {
     })
   })
 
-  beforeEach(() => {
-    uninstallSkedifySDKMock(SDK)
-    installSkedifySDKMock(SDK)
-  })
+  beforeEach(() => installSkedifySDKMock(SDK))
+  afterEach(() => uninstallSkedifySDKMock(SDK))
 
   it('should expose all available includes on the API instance', () => {
     expect(SDK.include).toBeDefined()
@@ -574,16 +576,8 @@ describe('API', () => {
       const meta = []
       const warnings = []
 
-      let first_call = true
-
-      mockMatchingURLResponse(/appointments/, data, meta, warnings, () => {
-        if (first_call) {
-          first_call = false
-          return 401
-        }
-
-        return 200
-      })
+      mockMatchingURLResponse(/appointments/, data, meta, warnings, 401)
+      mockMatchingURLResponse(/appointments/, data, meta, warnings, 200)
 
       expect(await SDK.appointments()).toMatchSnapshot()
     })
@@ -1079,7 +1073,6 @@ describe('API', () => {
 
       it('should return the latest request with multiple SDKs', async () => {
         mockMatchingURLResponse(/appointments/, [])
-        mockMatchingURLResponse(/subjects/, [])
         mockMatchingURLResponse(/employees/, [])
 
         const secondSDK = new API({
@@ -1087,13 +1080,14 @@ describe('API', () => {
           locale: 'nl-BE',
         })
 
-        installSkedifySDKMock(secondSDK)
-
         await SDK.appointments()
         expect(mostRecentRequest()).toMatchSnapshot()
 
+        installSkedifySDKMock(secondSDK)
+        mockMatchingURLResponse(/subjects/, [])
         await secondSDK.subjects()
         expect(mostRecentRequest()).toMatchSnapshot()
+        uninstallSkedifySDKMock(secondSDK)
 
         await SDK.employees()
         expect(mostRecentRequest()).toMatchSnapshot()
@@ -1118,6 +1112,8 @@ describe('API', () => {
         await SDK2.employees()
 
         expect(mockedRequests()).toMatchSnapshot()
+
+        uninstallSkedifySDKMock(SDK2)
       })
 
       it('should not include setup requests (access tokens & proxy) but after setup they should be included', async () => {
@@ -1131,9 +1127,10 @@ describe('API', () => {
         mockMatchingURLResponse(/appointments/, [])
         mockMatchingURLResponse(/subjects/, [])
         mockMatchingURLResponse(/employees/, [])
-        mockMatchingURLResponse(/access_tokens/, {
-          data: 'But this one should be included!',
-        })
+        mockMatchingURLResponse(
+          /access_tokens/,
+          'But this one should be included!'
+        )
 
         await SDK2.appointments()
         await SDK2.subjects()
@@ -1141,6 +1138,18 @@ describe('API', () => {
         await SDK2.accessTokens()
 
         expect(mockedRequests()).toMatchSnapshot()
+
+        // Mocked requests should have been reset
+        expect(mockedRequests()).toHaveLength(0)
+
+        // Access token & proxy should be included again
+        mockMatchingURLResponse(/access_tokens\/self/)
+        mockMatchingURLResponse(/integrations\/proxy/)
+        await SDK2.accessTokens('self')
+        await SDK2.integrations('proxy')
+        expect(mockedRequests()).toHaveLength(2)
+
+        uninstallSkedifySDKMock(SDK2)
       })
 
       it('should list all the requests', async () => {
