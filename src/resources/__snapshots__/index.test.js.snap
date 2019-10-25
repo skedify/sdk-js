@@ -713,6 +713,40 @@ Object {
     "resource": "languages",
     "sub_resources": Object {},
   },
+  "leadSegmentSubjects": Object {
+    "allowed_includes": Array [
+      "lead_segment",
+      "subject",
+    ],
+    "allowed_methods": Array [
+      "*",
+    ],
+    "deprecated": false,
+    "filters": Array [
+      "page",
+      "per_page",
+    ],
+    "headers": Object {},
+    "resource": "lead_segment_subjects",
+    "sub_resources": Object {},
+  },
+  "leadSegments": Object {
+    "allowed_includes": Array [
+      "lead_segment_subjects",
+      "subjects",
+    ],
+    "allowed_methods": Array [
+      "*",
+    ],
+    "deprecated": false,
+    "filters": Array [
+      "page",
+      "per_page",
+    ],
+    "headers": Object {},
+    "resource": "lead_segments",
+    "sub_resources": Object {},
+  },
   "modules": Object {
     "allowed_includes": Array [],
     "allowed_methods": Array [
@@ -1004,6 +1038,7 @@ Object {
       "subject_category",
       "languages",
       "languages.translations",
+      "lead_segments",
       "availability_settings",
       "outcome_list",
       "outcome_list.outcomes",
