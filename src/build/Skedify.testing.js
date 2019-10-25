@@ -1,5 +1,5 @@
-import moxios from 'moxios'
 import { get } from '../secret'
+import { install, uninstall } from '../../test/mock'
 
 /**
  * Expose general test utils
@@ -16,12 +16,12 @@ export {
  * Expose an install mock function
  */
 export function installSkedifySDKMock(instance) {
-  moxios.install(get(instance).network)
+  install(get(instance).network)
 }
 
 /**
  * Expose an uninstall mock function
  */
 export function uninstallSkedifySDKMock(instance) {
-  moxios.uninstall(get(instance).network)
+  uninstall(get(instance).network)
 }
