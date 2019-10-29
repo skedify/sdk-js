@@ -443,7 +443,7 @@ exports[`API API/Resources should throw an error when an external://abc123 call 
 
 exports[`API API/Resources should throw an error when an external://abc123 call returns no records 2`] = `Array []`;
 
-exports[`API API/Resources should throw an error when calling a non existing filter function 1`] = `"[RESOURCE]: item.nonExistingMethod is not a function. You can only call \`.category_id()\`, \`.external_id()\`, \`.schedulable_at_office()\`, \`.schedulable_with_contact()\`, \`.schedulable_for_meeting_type()\`, \`.schedulable()\`, \`.page()\` or \`.per_page()\`."`;
+exports[`API API/Resources should throw an error when calling a non existing filter function 1`] = `"[RESOURCE]: item.nonExistingMethod is not a function. You can only call \`.category_id()\`, \`.external_id()\`, \`.lead_segment_code()\`, \`.schedulable_at_office()\`, \`.schedulable_for_meeting_type()\`, \`.schedulable_with_contact()\`, \`.schedulable()\`, \`.page()\` or \`.per_page()\`."`;
 
 exports[`API API/Resources should throw an error when calling a non existing filter function and one of the defined filters is using an object alias 1`] = `"[RESOURCE]: item.nonExistingMethod is not a function. You can only call \`.type()\`."`;
 
