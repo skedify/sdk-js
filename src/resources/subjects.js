@@ -17,9 +17,10 @@ export const subjects = createResourceDescription(
     filters: [
       'category_id',
       'external_id',
+      'lead_segment_code',
       'schedulable_at_office',
-      'schedulable_with_contact',
       'schedulable_for_meeting_type',
+      'schedulable_with_contact',
       'schedulable',
     ],
   },
