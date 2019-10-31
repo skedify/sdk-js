@@ -524,6 +524,23 @@ Object {
       },
     },
   },
+  "coverageRegions": Object {
+    "allowed_includes": Array [
+      "contact_office",
+      "postal_code",
+    ],
+    "allowed_methods": Array [
+      "*",
+    ],
+    "deprecated": false,
+    "filters": Array [
+      "page",
+      "per_page",
+    ],
+    "headers": Object {},
+    "resource": "coverage_regions",
+    "sub_resources": Object {},
+  },
   "customers": Object {
     "allowed_includes": Array [],
     "allowed_methods": Array [
