@@ -1075,6 +1075,9 @@ Object {
     },
     "toString": [Function],
   },
+  "postal_code": Object {
+    "toString": [Function],
+  },
   "question": Object {
     "toString": [Function],
   },
