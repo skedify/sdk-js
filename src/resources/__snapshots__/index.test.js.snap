@@ -143,6 +143,24 @@ Object {
       },
     },
   },
+  "callbacks": Object {
+    "allowed_includes": Array [
+      "customer",
+      "office",
+      "subject",
+    ],
+    "allowed_methods": Array [
+      "*",
+    ],
+    "deprecated": false,
+    "filters": Array [
+      "page",
+      "per_page",
+    ],
+    "headers": Object {},
+    "resource": "callbacks",
+    "sub_resources": Object {},
+  },
   "centralPlanners": Object {
     "allowed_includes": Array [
       "user",
@@ -574,6 +592,10 @@ Object {
       Object {
         "key": "format[timezone]",
         "name": "timezone",
+      },
+      Object {
+        "key": "location[geolocation]",
+        "name": "geolocation",
       },
     ],
     "headers": Object {},
