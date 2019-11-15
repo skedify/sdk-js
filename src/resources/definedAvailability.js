@@ -16,6 +16,10 @@ export const definedAvailability = createResourceDescription(
         name: 'timezone',
         key: 'format[timezone]',
       },
+      {
+        name: 'geolocation',
+        key: 'location[geolocation]',
+      },
     ],
     enable_pagination: false,
   }
