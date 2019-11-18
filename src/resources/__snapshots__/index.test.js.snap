@@ -552,6 +552,9 @@ Object {
     ],
     "deprecated": false,
     "filters": Array [
+      "contact_office_id",
+      "postal_code_id",
+      "meeting_types",
       "page",
       "per_page",
     ],
