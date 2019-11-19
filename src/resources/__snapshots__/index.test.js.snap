@@ -552,6 +552,9 @@ Object {
     ],
     "deprecated": false,
     "filters": Array [
+      "contact_office_id",
+      "postal_code_id",
+      "meeting_types",
       "page",
       "per_page",
     ],
@@ -1083,6 +1086,26 @@ Object {
     ],
     "headers": Object {},
     "resource": "subject_categories",
+    "sub_resources": Object {},
+  },
+  "subjectCoverageRegions": Object {
+    "allowed_includes": Array [
+      "postal_code",
+      "contact_office_subject",
+    ],
+    "allowed_methods": Array [
+      "*",
+    ],
+    "deprecated": false,
+    "filters": Array [
+      "postal_code_id",
+      "contact_office_subject_id",
+      "meeting_types",
+      "page",
+      "per_page",
+    ],
+    "headers": Object {},
+    "resource": "subject_coverage_regions",
     "sub_resources": Object {},
   },
   "subjects": Object {
