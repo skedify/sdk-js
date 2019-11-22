@@ -9,7 +9,6 @@ export const unavailability = createResourceDescription('unavailability', {
     'contacts',
     'offices',
     'subjects',
-    'meeting_types',
     {
       name: 'timezone',
       key: 'format[timezone]',
