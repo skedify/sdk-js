@@ -1253,7 +1253,6 @@ Object {
       "contacts",
       "offices",
       "subjects",
-      "meeting_types",
       Object {
         "key": "format[timezone]",
         "name": "timezone",
