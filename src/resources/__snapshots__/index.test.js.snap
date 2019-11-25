@@ -1236,6 +1236,10 @@ Object {
         "key": "format[timezone]",
         "name": "timezone",
       },
+      Object {
+        "key": "location[geolocation]",
+        "name": "geolocation",
+      },
     ],
     "headers": Object {},
     "resource": "timetable",
