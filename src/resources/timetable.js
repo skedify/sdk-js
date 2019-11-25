@@ -13,6 +13,10 @@ export const timetable = createResourceDescription('timetable', {
       name: 'timezone',
       key: 'format[timezone]',
     },
+    {
+      name: 'geolocation',
+      key: 'location[geolocation]',
+    },
   ],
   allowed_methods: [HTTP_VERB_GET],
   enable_pagination: false,
