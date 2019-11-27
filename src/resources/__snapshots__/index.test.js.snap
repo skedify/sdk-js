@@ -765,6 +765,8 @@ Object {
     ],
     "deprecated": false,
     "filters": Array [
+      "lead_segment_id",
+      "subject_id",
       "page",
       "per_page",
     ],
