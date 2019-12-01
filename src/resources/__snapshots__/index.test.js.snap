@@ -143,6 +143,23 @@ Object {
       },
     },
   },
+  "calendars": Object {
+    "allowed_includes": Array [
+      "sync_account",
+    ],
+    "allowed_methods": Array [
+      "*",
+    ],
+    "deprecated": false,
+    "filters": Array [
+      "id",
+      "page",
+      "per_page",
+    ],
+    "headers": Object {},
+    "resource": "calendars",
+    "sub_resources": Object {},
+  },
   "callbacks": Object {
     "allowed_includes": Array [
       "customer",

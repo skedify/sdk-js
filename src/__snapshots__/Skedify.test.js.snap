@@ -1105,6 +1105,9 @@ Object {
     },
     "toString": [Function],
   },
+  "sync_account": Object {
+    "toString": [Function],
+  },
   "sync_accounts": Object {
     "toString": [Function],
   },
