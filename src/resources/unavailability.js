@@ -13,6 +13,7 @@ export const unavailability = createResourceDescription('unavailability', {
       name: 'timezone',
       key: 'format[timezone]',
     },
+    'ignore_skedify_appointments',
   ],
   enable_pagination: false,
 })

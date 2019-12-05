@@ -1280,6 +1280,7 @@ Object {
         "key": "format[timezone]",
         "name": "timezone",
       },
+      "ignore_skedify_appointments",
     ],
     "headers": Object {},
     "resource": "unavailability",
