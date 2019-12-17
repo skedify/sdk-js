@@ -1045,6 +1045,9 @@ Object {
       "toString": [Function],
     },
   },
+  "office_subject_availability_settings": Object {
+    "toString": [Function],
+  },
   "offices": Object {
     "toString": [Function],
   },
