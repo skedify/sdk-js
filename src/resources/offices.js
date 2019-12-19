@@ -21,6 +21,7 @@ export const offices = createResourceDescription(
       'office_managers',
       'office_managers.user',
       'office_managers.employee',
+      'office_subject_availability_settings',
     ],
     filters: [
       'external_id',
@@ -51,6 +52,9 @@ export const offices = createResourceDescription(
     ),
     subjectAvailabilitySettings: createResourceDescription(
       'subject_availability_settings'
+    ),
+    officeSubjectAvailabilitySettings: createResourceDescription(
+      'office_subject_availability_settings'
     ),
   }
 )

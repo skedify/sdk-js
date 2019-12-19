@@ -930,6 +930,7 @@ Object {
       "office_managers",
       "office_managers.user",
       "office_managers.employee",
+      "office_subject_availability_settings",
     ],
     "allowed_methods": Array [
       "*",
@@ -993,6 +994,20 @@ Object {
         ],
         "headers": Object {},
         "resource": "office_managers",
+        "sub_resources": Object {},
+      },
+      "officeSubjectAvailabilitySettings": Object {
+        "allowed_includes": Array [],
+        "allowed_methods": Array [
+          "*",
+        ],
+        "deprecated": false,
+        "filters": Array [
+          "page",
+          "per_page",
+        ],
+        "headers": Object {},
+        "resource": "office_subject_availability_settings",
         "sub_resources": Object {},
       },
       "subjectAvailabilitySettings": Object {
