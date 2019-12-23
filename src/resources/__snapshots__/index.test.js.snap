@@ -68,6 +68,7 @@ Object {
     ],
     "deprecated": false,
     "filters": Array [
+      "uuid",
       "state",
       "start",
       "end",
@@ -171,6 +172,7 @@ Object {
     ],
     "deprecated": false,
     "filters": Array [
+      "uuid",
       "page",
       "per_page",
     ],
