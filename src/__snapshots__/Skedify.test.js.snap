@@ -413,7 +413,12 @@ Object {
   "errors": undefined,
   "headers": undefined,
   "meta": undefined,
+  "method": "get",
+  "query": Object {
+    "external_id": "abc123",
+  },
   "status": 200,
+  "url": "https://api.example.com/customers",
   "warnings": undefined,
 }
 `;
@@ -463,7 +468,10 @@ Object {
   "errors": undefined,
   "headers": undefined,
   "meta": Array [],
+  "method": "post",
+  "query": undefined,
   "status": 422,
+  "url": "https://api.example.com/appointments",
   "warnings": Array [],
 }
 `;
@@ -474,7 +482,10 @@ Object {
   "errors": undefined,
   "headers": undefined,
   "meta": undefined,
+  "method": "get",
+  "query": undefined,
   "status": 200,
+  "url": "https://api.example.com/identity",
   "warnings": undefined,
 }
 `;
@@ -485,7 +496,10 @@ Object {
   "errors": undefined,
   "headers": undefined,
   "meta": Array [],
+  "method": "get",
+  "query": undefined,
   "status": 200,
+  "url": "https://api.example.com/appointments",
   "warnings": Array [],
 }
 `;
@@ -538,7 +552,10 @@ Object {
   "errors": undefined,
   "headers": undefined,
   "meta": undefined,
+  "method": "get",
+  "query": undefined,
   "status": 200,
+  "url": "https://api.example.com/appointments",
   "warnings": undefined,
 }
 `;
@@ -549,7 +566,10 @@ Object {
   "errors": undefined,
   "headers": undefined,
   "meta": "meta data goes here",
+  "method": "get",
+  "query": undefined,
   "status": 223,
+  "url": "https://api.example.com/appointments",
   "warnings": "warnings go here",
 }
 `;
@@ -560,7 +580,10 @@ Object {
   "errors": undefined,
   "headers": undefined,
   "meta": undefined,
+  "method": "get",
+  "query": undefined,
   "status": 200,
+  "url": "https://api.example.com/appointments",
   "warnings": undefined,
 }
 `;
@@ -571,7 +594,10 @@ Object {
   "errors": undefined,
   "headers": undefined,
   "meta": undefined,
+  "method": "get",
+  "query": undefined,
   "status": 200,
+  "url": "https://api.example.com/subjects",
   "warnings": undefined,
 }
 `;
@@ -582,7 +608,10 @@ Object {
   "errors": undefined,
   "headers": undefined,
   "meta": undefined,
+  "method": "get",
+  "query": undefined,
   "status": 200,
+  "url": "https://api.example.com/appointments",
   "warnings": undefined,
 }
 `;
@@ -593,7 +622,10 @@ Object {
   "errors": undefined,
   "headers": undefined,
   "meta": undefined,
+  "method": "get",
+  "query": undefined,
   "status": 200,
+  "url": "https://api.example.com/subjects",
   "warnings": undefined,
 }
 `;
@@ -1244,7 +1276,10 @@ Object {
   "errors": undefined,
   "headers": undefined,
   "meta": undefined,
+  "method": "get",
+  "query": undefined,
   "status": 200,
+  "url": "https://api.example.com/subjects",
   "warnings": undefined,
 }
 `;
@@ -1255,7 +1290,10 @@ Object {
   "errors": undefined,
   "headers": undefined,
   "meta": undefined,
+  "method": "get",
+  "query": undefined,
   "status": 200,
+  "url": "https://api.example.com/subjects",
   "warnings": undefined,
 }
 `;
