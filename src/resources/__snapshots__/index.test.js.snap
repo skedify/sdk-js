@@ -696,6 +696,23 @@ Object {
     "resource": "enterprises",
     "sub_resources": Object {},
   },
+  "events": Object {
+    "allowed_includes": Array [],
+    "allowed_methods": Array [
+      "*",
+    ],
+    "deprecated": false,
+    "filters": Array [
+      "calendar",
+      "before",
+      "after",
+      "availability",
+      "sync_availability",
+    ],
+    "headers": Object {},
+    "resource": "events",
+    "sub_resources": Object {},
+  },
   "featureFlags": Object {
     "allowed_includes": Array [],
     "allowed_methods": Array [
