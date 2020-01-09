@@ -338,6 +338,83 @@ describe('API/Config', () => {
 
     uninstallSkedifySDKMock(SDK)
   })
+
+  it('should be possible to define custom domain endpoints per resource', async () => {
+    const SDK = new API({
+      auth_provider: API.createAuthProviderString('public_client', {
+        client_id: 'someclientidtokengoeshere',
+        realm: 'https://api.example.com',
+      }),
+      locale: 'nl-BE',
+      resource_domain_map: {
+        events: {
+          url: 'https://events-api.example.com',
+        },
+        'users.events': {
+          url: 'https://users-events-api.example.com',
+        },
+      },
+    })
+
+    installSkedifySDKMock(SDK)
+
+    expect(await matchRequest(SDK.subjects())).toMatchSnapshot()
+    expect(await matchRequest(SDK.events())).toMatchSnapshot()
+    expect(await matchRequest(SDK.users(1).events())).toMatchSnapshot()
+
+    // Just to verify that we didn't mutate shared configs
+    expect(await matchRequest(SDK.subjects())).toMatchSnapshot()
+
+    uninstallSkedifySDKMock(SDK)
+  })
+
+  it('should throw when a resource requires a custom domain endpoint when it is not defined', () => {
+    const SDK = new API({
+      auth_provider: API.createAuthProviderString('public_client', {
+        client_id: 'someclientidtokengoeshere',
+        realm: 'https://api.example.com',
+      }),
+      locale: 'nl-BE',
+    })
+
+    installSkedifySDKMock(SDK)
+
+    expect(() => SDK.events()).toThrowErrorMatchingSnapshot()
+
+    uninstallSkedifySDKMock(SDK)
+  })
+
+  it('should be possible to define custom domain endpoints per resource with headers', async () => {
+    const SDK = new API({
+      auth_provider: API.createAuthProviderString('public_client', {
+        client_id: 'someclientidtokengoeshere',
+        realm: 'https://api.example.com',
+      }),
+      locale: 'nl-BE',
+      headers: {
+        Host: 'main-api.example.com',
+        'X-Hello-Human': 'Hello Human!',
+      },
+      resource_domain_map: {
+        events: {
+          url: 'https://events-api.example.com',
+          headers: {
+            Host: 'events-api-host.example.com',
+          },
+        },
+      },
+    })
+
+    installSkedifySDKMock(SDK)
+
+    expect(await matchRequest(SDK.subjects())).toMatchSnapshot()
+    expect(await matchRequest(SDK.events())).toMatchSnapshot()
+
+    // Just to verify that we didn't mutate shared configs
+    expect(await matchRequest(SDK.subjects())).toMatchSnapshot()
+
+    uninstallSkedifySDKMock(SDK)
+  })
 })
 
 describe('API', () => {
