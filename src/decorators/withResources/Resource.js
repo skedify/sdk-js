@@ -35,6 +35,16 @@ function isAllowed(instance, method) {
     .some(check => get(instance).descriptor.allowed_methods.includes(check))
 }
 
+function createResourcePath(resource) {
+  if (resource === undefined) {
+    return []
+  }
+
+  const { parent, descriptor } = get(resource)
+
+  return [...createResourcePath(parent), descriptor.resource]
+}
+
 export default class Resource {
   constructor(instance, descriptor, parent) {
     /**
@@ -63,6 +73,18 @@ export default class Resource {
       // The parent resource
       parent,
     })
+
+    // A path to this resource, e.g.: users.calendars.events
+    const resource_path = createResourcePath(this).join('.')
+    get(this).resource_path = resource_path
+
+    if (descriptor.requires_domain_map) {
+      if (get(instance).resource_domain_map[resource_path] === undefined) {
+        throw new Error(
+          `The resource "${resource_path}" requires a custom resource domain map because this is likely to be a private service that needs a custom domain.`
+        )
+      }
+    }
   }
 
   locale(locale) {

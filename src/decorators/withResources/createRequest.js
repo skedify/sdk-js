@@ -24,17 +24,24 @@ export default function createRequest(
   resourceEntity,
   { Realm, Authorization }
 ) {
-  const { instance, descriptor, parent } = get(resourceEntity)
-  const { identityProvider } = get(instance)
+  const { instance, descriptor, resource_path, parent } = get(resourceEntity)
+  const { identityProvider, resource_domain_map, default_headers } = get(
+    instance
+  )
 
   const callConfig = createCallConfig(resourceEntity, {
     url: createURL(
-      Realm,
+      resource_domain_map[resource_path] !== undefined
+        ? resource_domain_map[resource_path].url
+        : Realm,
       createParentURL(parent),
       descriptor.resource,
       descriptor.identifier
     ),
     headers: {
+      ...(resource_domain_map[resource_path] !== undefined
+        ? resource_domain_map[resource_path].headers
+        : default_headers),
       Authorization,
     },
   })
