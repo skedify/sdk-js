@@ -35,6 +35,12 @@ export default function normalizeResponse(incomingResponse) {
     meta,
   }
 
+  if (response.request) {
+    responseBag.url = response.config.url
+    responseBag.method = response.config.method
+    responseBag.query = response.config.query || response.config.params
+  }
+
   if (error) {
     throw responseBag
   }

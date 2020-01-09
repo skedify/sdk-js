@@ -6,9 +6,7 @@ function createDefaultHeaderInstaller(instance, config) {
   return function installDefaultHeaders({ locale }) {
     const { network } = get(instance)
 
-    Object.keys(headers).forEach(header => {
-      network.defaults.headers.common[header] = headers[header]
-    })
+    get(instance).default_headers = headers
 
     network.defaults.headers.common[
       'Accept-Language'

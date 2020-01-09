@@ -413,7 +413,12 @@ Object {
   "errors": undefined,
   "headers": undefined,
   "meta": undefined,
+  "method": "get",
+  "query": Object {
+    "external_id": "abc123",
+  },
   "status": 200,
+  "url": "https://api.example.com/customers",
   "warnings": undefined,
 }
 `;
@@ -463,7 +468,10 @@ Object {
   "errors": undefined,
   "headers": undefined,
   "meta": Array [],
+  "method": "post",
+  "query": undefined,
   "status": 422,
+  "url": "https://api.example.com/appointments",
   "warnings": Array [],
 }
 `;
@@ -474,7 +482,10 @@ Object {
   "errors": undefined,
   "headers": undefined,
   "meta": undefined,
+  "method": "get",
+  "query": undefined,
   "status": 200,
+  "url": "https://api.example.com/identity",
   "warnings": undefined,
 }
 `;
@@ -485,7 +496,10 @@ Object {
   "errors": undefined,
   "headers": undefined,
   "meta": Array [],
+  "method": "get",
+  "query": undefined,
   "status": 200,
+  "url": "https://api.example.com/appointments",
   "warnings": Array [],
 }
 `;
@@ -538,7 +552,10 @@ Object {
   "errors": undefined,
   "headers": undefined,
   "meta": undefined,
+  "method": "get",
+  "query": undefined,
   "status": 200,
+  "url": "https://api.example.com/appointments",
   "warnings": undefined,
 }
 `;
@@ -549,7 +566,10 @@ Object {
   "errors": undefined,
   "headers": undefined,
   "meta": "meta data goes here",
+  "method": "get",
+  "query": undefined,
   "status": 223,
+  "url": "https://api.example.com/appointments",
   "warnings": "warnings go here",
 }
 `;
@@ -560,7 +580,10 @@ Object {
   "errors": undefined,
   "headers": undefined,
   "meta": undefined,
+  "method": "get",
+  "query": undefined,
   "status": 200,
+  "url": "https://api.example.com/appointments",
   "warnings": undefined,
 }
 `;
@@ -571,7 +594,10 @@ Object {
   "errors": undefined,
   "headers": undefined,
   "meta": undefined,
+  "method": "get",
+  "query": undefined,
   "status": 200,
+  "url": "https://api.example.com/subjects",
   "warnings": undefined,
 }
 `;
@@ -582,7 +608,10 @@ Object {
   "errors": undefined,
   "headers": undefined,
   "meta": undefined,
+  "method": "get",
+  "query": undefined,
   "status": 200,
+  "url": "https://api.example.com/appointments",
   "warnings": undefined,
 }
 `;
@@ -593,7 +622,10 @@ Object {
   "errors": undefined,
   "headers": undefined,
   "meta": undefined,
+  "method": "get",
+  "query": undefined,
   "status": 200,
+  "url": "https://api.example.com/subjects",
   "warnings": undefined,
 }
 `;
@@ -1244,7 +1276,10 @@ Object {
   "errors": undefined,
   "headers": undefined,
   "meta": undefined,
+  "method": "get",
+  "query": undefined,
   "status": 200,
+  "url": "https://api.example.com/subjects",
   "warnings": undefined,
 }
 `;
@@ -1255,7 +1290,10 @@ Object {
   "errors": undefined,
   "headers": undefined,
   "meta": undefined,
+  "method": "get",
+  "query": undefined,
   "status": 200,
+  "url": "https://api.example.com/subjects",
   "warnings": undefined,
 }
 `;
@@ -1307,8 +1345,113 @@ Object {
 }
 `;
 
+exports[`API/Config should be possible to define custom domain endpoints per resource 1`] = `
+Object {
+  "data": undefined,
+  "headers": Object {
+    "Accept": "application/json, text/plain, */*",
+    "Accept-Language": "nl-BE, nl;q=0.667, *;q=0.333",
+    "Authorization": "Bearer fake_example_access_token",
+  },
+  "method": "get",
+  "params": undefined,
+  "url": "https://api.example.com/subjects",
+}
+`;
+
+exports[`API/Config should be possible to define custom domain endpoints per resource 2`] = `
+Object {
+  "data": undefined,
+  "headers": Object {
+    "Accept": "application/json, text/plain, */*",
+    "Accept-Language": "nl-BE, nl;q=0.667, *;q=0.333",
+    "Authorization": "Bearer fake_example_access_token",
+  },
+  "method": "get",
+  "params": undefined,
+  "url": "https://events-api.example.com/events",
+}
+`;
+
+exports[`API/Config should be possible to define custom domain endpoints per resource 3`] = `
+Object {
+  "data": undefined,
+  "headers": Object {
+    "Accept": "application/json, text/plain, */*",
+    "Accept-Language": "nl-BE, nl;q=0.667, *;q=0.333",
+    "Authorization": "Bearer fake_example_access_token",
+  },
+  "method": "get",
+  "params": undefined,
+  "url": "https://users-events-api.example.com/users/1/events",
+}
+`;
+
+exports[`API/Config should be possible to define custom domain endpoints per resource 4`] = `
+Object {
+  "data": undefined,
+  "headers": Object {
+    "Accept": "application/json, text/plain, */*",
+    "Accept-Language": "nl-BE, nl;q=0.667, *;q=0.333",
+    "Authorization": "Bearer fake_example_access_token",
+  },
+  "method": "get",
+  "params": undefined,
+  "url": "https://api.example.com/subjects",
+}
+`;
+
+exports[`API/Config should be possible to define custom domain endpoints per resource with headers 1`] = `
+Object {
+  "data": undefined,
+  "headers": Object {
+    "Accept": "application/json, text/plain, */*",
+    "Accept-Language": "nl-BE, nl;q=0.667, *;q=0.333",
+    "Authorization": "Bearer fake_example_access_token",
+    "Host": "main-api.example.com",
+    "X-Hello-Human": "Hello Human!",
+  },
+  "method": "get",
+  "params": undefined,
+  "url": "https://api.example.com/subjects",
+}
+`;
+
+exports[`API/Config should be possible to define custom domain endpoints per resource with headers 2`] = `
+Object {
+  "data": undefined,
+  "headers": Object {
+    "Accept": "application/json, text/plain, */*",
+    "Accept-Language": "nl-BE, nl;q=0.667, *;q=0.333",
+    "Authorization": "Bearer fake_example_access_token",
+    "Host": "events-api-host.example.com",
+  },
+  "method": "get",
+  "params": undefined,
+  "url": "https://events-api.example.com/events",
+}
+`;
+
+exports[`API/Config should be possible to define custom domain endpoints per resource with headers 3`] = `
+Object {
+  "data": undefined,
+  "headers": Object {
+    "Accept": "application/json, text/plain, */*",
+    "Accept-Language": "nl-BE, nl;q=0.667, *;q=0.333",
+    "Authorization": "Bearer fake_example_access_token",
+    "Host": "main-api.example.com",
+    "X-Hello-Human": "Hello Human!",
+  },
+  "method": "get",
+  "params": undefined,
+  "url": "https://api.example.com/subjects",
+}
+`;
+
 exports[`API/Config should throw an error when onConfigurationChange is not passed a function 1`] = `"[CONFIG]: You tried to call \`.onConfigurationChange(null)\` but it must receive a function."`;
 
 exports[`API/Config should throw an error when overriding items on the configuration object directly 1`] = `"Cannot assign to read only property 'locale' of object '#<Object>'"`;
 
 exports[`API/Config should throw an error when overriding the whole config object 1`] = `"[CONFIG]: You are not allowed to change the configuration object directly. Please use \`.configure({})\` instead."`;
+
+exports[`API/Config should throw when a resource requires a custom domain endpoint when it is not defined 1`] = `"The resource \\"events\\" requires a custom resource domain map because this is likely to be a private service that needs a custom domain."`;

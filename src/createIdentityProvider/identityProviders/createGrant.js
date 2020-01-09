@@ -52,8 +52,15 @@ function defaultAuthorizationMethod({
       }))
 
       // Get the proxy url
-      .then(({ Realm, Authorization, Expiration }) =>
-        network
+      .then(auth_response => {
+        // Let's not use the proxy when in node environments
+        // eslint-disable-next-line better/no-typeofs
+        if (typeof window === 'undefined') {
+          return auth_response
+        }
+
+        const { Realm, Authorization, Expiration } = auth_response
+        return network
           .get(`${Realm}/integrations/proxy`, {
             headers: { Authorization },
           })
@@ -62,7 +69,7 @@ function defaultAuthorizationMethod({
             Authorization,
             Expiration,
           }))
-      )
+      })
 
       // Make sure to create a new access_token when the current one is going to expire
       .then(access => {

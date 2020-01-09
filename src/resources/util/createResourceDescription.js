@@ -9,6 +9,7 @@ export default function createResourceDescription(
     allowed_methods = [HTTP_VERB_ALL_WILDCARD],
     deprecated = false,
     enable_pagination = true,
+    requires_domain_map = false,
   } = {},
   sub_resources = {}
 ) {
@@ -20,5 +21,6 @@ export default function createResourceDescription(
     headers,
     allowed_methods,
     deprecated,
+    requires_domain_map,
   }
 }

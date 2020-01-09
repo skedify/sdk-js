@@ -7,6 +7,7 @@ import {
   withResources,
   withNetwork,
   withSecretData,
+  withResourceDomainMap,
 } from './decorators'
 
 import * as exported from './exported'
@@ -20,7 +21,8 @@ export default class SkedifyAPI {
       withDefaults(config),
       withIdentityProvider(),
       withResources(this),
-      withExposedIncludes()
+      withExposedIncludes(),
+      withResourceDomainMap(config)
     )(this)
   }
 }
