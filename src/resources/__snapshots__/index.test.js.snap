@@ -168,7 +168,23 @@ Object {
     "headers": Object {},
     "requires_domain_map": false,
     "resource": "calendars",
-    "sub_resources": Object {},
+    "sub_resources": Object {
+      "events": Object {
+        "allowed_includes": Array [],
+        "allowed_methods": Array [
+          "*",
+        ],
+        "deprecated": false,
+        "filters": Array [
+          "page",
+          "per_page",
+        ],
+        "headers": Object {},
+        "requires_domain_map": true,
+        "resource": "events",
+        "sub_resources": Object {},
+      },
+    },
   },
   "callbacks": Object {
     "allowed_includes": Array [
