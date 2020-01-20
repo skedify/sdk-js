@@ -1425,6 +1425,7 @@ Object {
     "Accept-Language": "nl-BE, nl;q=0.667, *;q=0.333",
     "Authorization": "Bearer fake_example_access_token",
     "Host": "events-api-host.example.com",
+    "X-Hello-Human": "Hello Human!",
   },
   "method": "get",
   "params": undefined,
