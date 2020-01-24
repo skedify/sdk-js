@@ -1410,6 +1410,18 @@ Object {
     "resource": "unavailability",
     "sub_resources": Object {},
   },
+  "uniqueEvents": Object {
+    "allowed_includes": Array [],
+    "allowed_methods": Array [
+      "post",
+    ],
+    "deprecated": false,
+    "filters": Array [],
+    "headers": Object {},
+    "requires_domain_map": true,
+    "resource": "unique_events",
+    "sub_resources": Object {},
+  },
   "users": Object {
     "allowed_includes": Array [
       "employees",
