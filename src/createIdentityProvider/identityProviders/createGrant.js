@@ -1,5 +1,3 @@
-import retry from '../../util/retry'
-
 import { createIdentityProviderError } from '../../util/createError'
 
 import {
@@ -8,8 +6,6 @@ import {
 } from '../../constants'
 import { joinAsSpeech, AND } from '../../util/joinAsSpeech'
 import omit from '../../util/omit'
-
-const MAX_ATTEMPTS = 3
 
 // When the token is valid for 90 minutes, than we will re-fetch a new token 81
 // minutes in instead of 89,666 minutes in which case it might be too late
@@ -28,22 +24,12 @@ function defaultAuthorizationMethod({
   grant_type,
 }) {
   return (
-    retry(
-      (resolve, reject) => {
-        // Get the access_token
-        network
-          .post(
-            `${realm}/access_tokens`,
-            Object.assign({}, parameters, {
-              grant_type,
-            })
-          )
-          .then(resolve, reject)
-      },
-      {
-        max_attempts: MAX_ATTEMPTS,
-      }
-    )
+    // Get the access_token
+    network
+      .post(
+        `${realm}/access_tokens`,
+        Object.assign({}, parameters, { grant_type })
+      )
       // Setup all the required parts to authenticate
       .then(({ data }) => ({
         Authorization: `${data.token_type} ${data.access_token}`,
