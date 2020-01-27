@@ -39,8 +39,15 @@ export const IDPS = {
         }))
 
         // Get the proxy url
-        .then(({ Realm, Authorization }) =>
-          network
+        .then(auth_response => {
+          // Let's not use the proxy when in node environments
+          // eslint-disable-next-line better/no-typeofs
+          if (typeof window === 'undefined') {
+            return auth_response
+          }
+
+          const { Realm, Authorization } = auth_response
+          return network
             .get(`${Realm}/integrations/proxy`, {
               headers: { Authorization },
             })
@@ -48,6 +55,6 @@ export const IDPS = {
               Realm: response.data.url,
               Authorization,
             }))
-        )
+        })
   ),
 }
