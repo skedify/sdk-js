@@ -157,7 +157,14 @@ export function createGrant(
             realm,
             parameters,
             reset: this.getAuthorization.bind(this, true),
-          })
+          }).catch(
+            () =>
+              new Promise((resolve, reject) => {
+                setTimeout(() => {
+                  this.getAuthorization(true).then(resolve, reject)
+                }, secondsToMilliseconds(30))
+              })
+          )
         )
       }
 
