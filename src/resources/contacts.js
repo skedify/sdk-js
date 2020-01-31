@@ -32,7 +32,7 @@ export const contacts = createResourceDescription(
     }),
     appliedWeekTemplates: createResourceDescription('applied_week_templates', {
       includes: ['week_template', 'week_template.week_time_slots'],
-      filters: ['start', 'end', 'split'],
+      filters: ['start', 'end'],
     }),
     appliedDayTemplates: createResourceDescription('applied_day_templates', {
       includes: ['day_template', 'day_template.day_time_slots'],
