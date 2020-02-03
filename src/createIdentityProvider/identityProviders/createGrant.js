@@ -148,14 +148,13 @@ export function createGrant(
               parameters,
               reset: this.getAuthorization.bind(this, true),
             }).catch(err => {
-              // Do we have some form of status code? If not, then we probably hit
-              // another error.
-              if (!err.response || !err.response.status) {
-                throw err
-              }
+              // eslint-disable-next-line no-console
+              console.log('Got error, will retry soon:', { err })
 
               return new Promise((resolve, reject) => {
                 setTimeout(() => {
+                  // eslint-disable-next-line no-console
+                  console.log('Re-trying...')
                   this.getAuthorization(true).then(resolve, reject)
                 }, secondsToMilliseconds(30))
               })
