@@ -128,7 +128,7 @@ export function createGrant(
       }
     }
 
-    getAuthorization(force = false) {
+    getAuthorization(force = false, tries = 2) {
       const { realm } = this._parameters
       const parameters = omit(this._parameters, ['realm'])
 
@@ -147,22 +147,43 @@ export function createGrant(
               realm,
               parameters,
               reset: this.getAuthorization.bind(this, true),
-            }).catch(err => {
-              // eslint-disable-next-line no-console
-              console.log('Got error, will retry soon:', { err })
-
-              return new Promise((resolve, reject) => {
-                setTimeout(() => {
-                  // eslint-disable-next-line no-console
-                  console.log('Re-trying...')
-                  this.getAuthorization(true).then(resolve, reject)
-                }, secondsToMilliseconds(30))
-              })
             })
         )
       }
 
-      return this._current
+      return this._current.catch(err => {
+        // Handle unauthorized response
+        if (err.response && err.response.status === 401) {
+          // When the grant type is a token, there is no way we can
+          // refresh the access token. Therefore we will stop immediately.
+          if (grant_type === 'token') {
+            throw err
+          }
+
+          // Check if we can retry to recover from a 401. It might be that your
+          // access token has expired and that we can create a new one using the
+          // given credentials. If your credentials are wrong a 401 will be
+          // returned as well. We can try to retry it for a few times if
+          // something funky is going on in the backend but after that we should
+          // just abort altogether.
+          if (tries <= 0) {
+            throw err
+          }
+
+          // Let's retry to recover from 401!
+          return this.getAuthorization(true, tries - 1)
+        }
+
+        return new Promise((resolve, reject) => {
+          // eslint-disable-next-line no-console
+          console.log('Got error, will retry soon:', { err })
+          setTimeout(() => {
+            // eslint-disable-next-line no-console
+            console.log('Re-trying...')
+            this.getAuthorization(true).then(resolve, reject)
+          }, secondsToMilliseconds(30))
+        })
+      })
     }
   }
 }
