@@ -45,12 +45,14 @@ export default function createRequest(
   })
 
   function tryToRecoverFromErrors(err) {
+    // Try to recover from 401 by refreshing the token.
     if (err && err.response && err.response.status === 401) {
       return identityProvider
         .getAuthorization(true)
         .then(createRequest.bind(null, resourceEntity))
     }
 
+    // Forward the error if it is not recoverable
     throw err
   }
 
