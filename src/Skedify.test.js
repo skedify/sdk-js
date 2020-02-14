@@ -118,6 +118,8 @@ describe('API/Auth Providers', () => {
 
     installSkedifySDKMock(SDK)
 
+    // For the identity call that happens in the grant/index.js
+    mockResponse([])
     mockResponse('my subjects data')
     expect(await SDK.subjects()).toMatchSnapshot()
 

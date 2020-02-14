@@ -56,5 +56,18 @@ export const IDPS = {
               Authorization,
             }))
         })
+
+        // Check if the identity call works for grant_type = token. This way we
+        // have our error handling in 1 single spot (createGrant) because when
+        // this fails, the error will be caught in the getAuthorization() fn.
+        // Downside is that we now _have_ to do an identity call.
+        .then(auth_response => {
+          const { Authorization, Realm } = auth_response
+          return network
+            .get(`${Realm}/identity`, {
+              headers: { Authorization },
+            })
+            .then(() => auth_response)
+        })
   ),
 }
