@@ -228,6 +228,21 @@ Object {
     "resource": "callbacks",
     "sub_resources": Object {},
   },
+  "cancellationReasons": Object {
+    "allowed_includes": Array [],
+    "allowed_methods": Array [
+      "*",
+    ],
+    "deprecated": false,
+    "filters": Array [
+      "page",
+      "per_page",
+    ],
+    "headers": Object {},
+    "requires_domain_map": false,
+    "resource": "cancellation_reasons",
+    "sub_resources": Object {},
+  },
   "centralPlanners": Object {
     "allowed_includes": Array [
       "user",
