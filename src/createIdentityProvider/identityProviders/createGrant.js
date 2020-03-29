@@ -156,7 +156,7 @@ export function createGrant(
         if (err.response && err.response.status === 401) {
           // When the grant type is a token, there is no way we can
           // refresh the access token. Therefore we will stop immediately.
-          if (grant_type === 'token') {
+          if (grant_type === 'token' || grant_type === 'testing') {
             throw err
           }
 

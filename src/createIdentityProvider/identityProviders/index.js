@@ -70,4 +70,11 @@ export const IDPS = {
             .then(() => auth_response)
         })
   ),
+
+  testing: createGrant('testing', [], [], ({ realm, parameters }) =>
+    Promise.resolve(parameters).then(() => ({
+      Authorization: `Bearer testing-access-token`,
+      Realm: realm,
+    }))
+  ),
 }
