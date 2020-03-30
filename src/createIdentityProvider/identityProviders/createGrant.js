@@ -45,7 +45,7 @@ function defaultAuthorizationMethod({
       })
 
       // Get the proxy url
-      .then(auth_response => {
+      .then((auth_response) => {
         // Let's not use the proxy when in node environments
         // eslint-disable-next-line better/no-typeofs
         if (typeof window === 'undefined') {
@@ -65,7 +65,7 @@ function defaultAuthorizationMethod({
       })
 
       // Make sure to create a new access_token when the current one is going to expire
-      .then(access => {
+      .then((access) => {
         setTimeout(
           reset,
           secondsToMilliseconds(access.Expiration * RE_FETCH_WINDOW)
@@ -96,14 +96,15 @@ export function createGrant(
       const givenParameters = Object.keys(parameters)
 
       const missingRequiredParameters = allRequiredParameters.filter(
-        required => !givenParameters.includes(required)
+        (required) => !givenParameters.includes(required)
       )
 
       const extraMessage = `\n  - Required parameters: ${joinAsSpeech(
         AND,
         allRequiredParameters
-      )}\n  - Optional parameters: ${joinAsSpeech(AND, optionalParameters) ||
-        '<none>'}`
+      )}\n  - Optional parameters: ${
+        joinAsSpeech(AND, optionalParameters) || '<none>'
+      }`
 
       if (missingRequiredParameters.length > 0) {
         throw createIdentityProviderError(
@@ -118,7 +119,7 @@ export function createGrant(
       }
 
       const unnecessaryParameters = givenParameters.filter(
-        parameter => !allPossibleParameters.includes(parameter)
+        (parameter) => !allPossibleParameters.includes(parameter)
       )
 
       if (unnecessaryParameters.length > 0) {
@@ -163,7 +164,7 @@ export function createGrant(
         )
       }
 
-      return this._current.catch(err => {
+      return this._current.catch((err) => {
         // Handle unauthorized response
         if (err.response && err.response.status === 401) {
           if (SKIP_RETRY_FOR_GRANTS.includes(grant_type)) {

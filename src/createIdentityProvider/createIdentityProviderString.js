@@ -1,7 +1,7 @@
 function encodeParams(options = {}) {
   return Object.keys(options)
-    .filter(key => options[key] !== undefined)
-    .map(key => `${key}=${encodeURIComponent(options[key])}`)
+    .filter((key) => options[key] !== undefined)
+    .map((key) => `${key}=${encodeURIComponent(options[key])}`)
     .join('&')
 }
 

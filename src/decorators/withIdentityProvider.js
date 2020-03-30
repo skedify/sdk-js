@@ -8,7 +8,7 @@ function installIdentityProvider(instance, auth_provider) {
 }
 
 export function withIdentityProvider() {
-  return instance => {
+  return (instance) => {
     // Original auth_provider
     let { auth_provider: original_auth_provider } = instance.configuration
 

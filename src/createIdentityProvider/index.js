@@ -9,7 +9,7 @@ export default function createIdentityProvider(idp_descriptor, instance) {
   const { type, options } = parse(idp_descriptor)
 
   if (IDPS[type] === undefined) {
-    const providers = Object.keys(IDPS).map(key => `\`${key}\``)
+    const providers = Object.keys(IDPS).map((key) => `\`${key}\``)
 
     throw createIdentityProviderError(
       `Identity provider \`${type}\` does not exist.\n\nThe only options are: ${joinAsSpeech(

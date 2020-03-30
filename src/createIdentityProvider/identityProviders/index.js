@@ -43,7 +43,7 @@ export const IDPS = {
           }))
 
           // Get the proxy url
-          .then(auth_response => {
+          .then((auth_response) => {
             // Let's not use the proxy when in node environments
             // eslint-disable-next-line better/no-typeofs
             if (typeof window === 'undefined') {
@@ -65,7 +65,7 @@ export const IDPS = {
           // have our error handling in 1 single spot (createGrant) because when
           // this fails, the error will be caught in the getAuthorization() fn.
           // Downside is that we now _have_ to do an identity call.
-          .then(auth_response => {
+          .then((auth_response) => {
             const { Authorization, Realm } = auth_response
             return network
               .get(`${Realm}/identity`, {

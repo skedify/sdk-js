@@ -32,7 +32,9 @@ export default function convertIdsToString(json) {
         Array.isArray(json[key])
       ) {
         return Object.assign(result, {
-          [key]: json[key].map(item => (item != null ? item.toString() : item)),
+          [key]: json[key].map((item) =>
+            item != null ? item.toString() : item
+          ),
         })
       }
 

@@ -3,7 +3,7 @@ import retry from './retry'
 describe('retry', () => {
   it('should not try to retry when everything is ok', async () => {
     expect(
-      await retry(resolve => {
+      await retry((resolve) => {
         resolve('ALL GOOD')
       })
     ).toEqual('ALL GOOD')

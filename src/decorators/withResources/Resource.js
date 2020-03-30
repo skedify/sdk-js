@@ -24,7 +24,7 @@ import { validateLocale } from '../withConfig/validate'
 function overrideThen(resource, replaceWith) {
   const originalThen = resource.then.bind(resource)
 
-  resource.then = resolve => resolve(replaceWith(originalThen))
+  resource.then = (resolve) => resolve(replaceWith(originalThen))
 
   return resource
 }
@@ -32,7 +32,7 @@ function overrideThen(resource, replaceWith) {
 function isAllowed(instance, method) {
   return [HTTP_VERB_ALL_WILDCARD]
     .concat(method)
-    .some(check => get(instance).descriptor.allowed_methods.includes(check))
+    .some((check) => get(instance).descriptor.allowed_methods.includes(check))
 }
 
 function createResourcePath(resource) {
@@ -127,7 +127,7 @@ export default class Resource {
         : { key: filter, name: filter }
 
       return Object.assign(item, {
-        [name]: params => {
+        [name]: (params) => {
           Object.assign(requestConfig, {
             filters: Object.assign({}, requestConfig.filters, {
               [key]: Array.isArray(requestConfig.filters[key])
@@ -170,7 +170,7 @@ export default class Resource {
     }
 
     // Clone the current Resource
-    const cloned = overrideThen(clone(this), originalThen => ({
+    const cloned = overrideThen(clone(this), (originalThen) => ({
       create() {
         return new Promise(originalThen)
       },
@@ -198,7 +198,7 @@ export default class Resource {
     }
 
     // Clone the current Resource
-    const cloned = overrideThen(clone(this), originalThen => ({
+    const cloned = overrideThen(clone(this), (originalThen) => ({
       save() {
         return new Promise(originalThen)
       },
@@ -224,7 +224,7 @@ export default class Resource {
     }
 
     // Clone the current Resource
-    const cloned = overrideThen(clone(this), originalThen => ({
+    const cloned = overrideThen(clone(this), (originalThen) => ({
       delete() {
         return new Promise(originalThen)
       },
