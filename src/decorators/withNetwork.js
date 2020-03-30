@@ -6,7 +6,7 @@ import { set } from '../secret'
 
 export function withNetwork() {
   // We need an axios network instance for each "instance" of the sdk.
-  return instance => {
+  return (instance) => {
     const network = axios.create()
 
     // If we are in a node environment, use the http adapter

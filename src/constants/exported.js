@@ -21,5 +21,7 @@ export const MISCONFIGURED_AUTH_PROVIDER = createToken()
 export const MISCONFIGURED_LOCALE = createToken()
 export const MISCONFIGURED_AUTH_PROVIDER_OPTIONS = createToken()
 
+export const MISCONFIGURED_LOGGER = createToken()
+
 export const MISCONFIGURED_TOKEN_TYPE = createToken()
 export const MISCONFIGURED_ACCESS_TOKEN = createToken()

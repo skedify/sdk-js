@@ -8,13 +8,13 @@ export function withConfig(initialConfig) {
 
   const configurationChangeListeners = []
 
-  return instance => {
+  return (instance) => {
     Object.defineProperties(instance, {
       configure: {
         value(config) {
           _configuration = validate(Object.assign({}, _configuration, config))
 
-          configurationChangeListeners.forEach(listener =>
+          configurationChangeListeners.forEach((listener) =>
             listener(_configuration)
           )
         },

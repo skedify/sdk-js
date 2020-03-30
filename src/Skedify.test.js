@@ -28,7 +28,7 @@ describe('API/Utils', () => {
   })
 
   it('should expose all error types and subtypes on the API object', () => {
-    Object.keys(exported).forEach(key => {
+    Object.keys(exported).forEach((key) => {
       expect(API).toHaveProperty(key)
       expect(API[key]).toBe(exported[key])
     })
@@ -143,6 +143,22 @@ describe('API/Config', () => {
     expect(() => new API({ auth_provider })).toThrow()
   })
 
+  it('should throw when an invalid logger is passed', () => {
+    expect(
+      () =>
+        new API({
+          auth_provider,
+          locale: 'nl-BE',
+          logger: {
+            // Missing a bunch of methods ()
+            trace() {
+              //
+            },
+          },
+        })
+    ).toThrow()
+  })
+
   it('should allow correct forms of locale values', () => {
     const valids = [
       'nl',
@@ -162,7 +178,7 @@ describe('API/Config', () => {
       ['nl-BE-VWV', 'en-US', 'fr-FR'],
     ]
 
-    valids.forEach(locale => {
+    valids.forEach((locale) => {
       expect(() => new API({ locale, auth_provider })).not.toThrow()
     })
   })
@@ -177,7 +193,7 @@ describe('API/Config', () => {
       ['nl-BE-VWVX'], // Arrays are valid, but each item must be valid as well
     ]
 
-    invalids.forEach(locale => {
+    invalids.forEach((locale) => {
       expect(() => new API({ locale, auth_provider })).toThrowError(
         '[CONFIG]: locale is not valid.'
       )
@@ -515,9 +531,9 @@ describe('API', () => {
     mockResponse(mock_data)
 
     const call = SDK.subjects()
-    const result1 = await call.catch(err => err)
-    const result2 = await call.catch(err => err)
-    const result3 = await call.catch(err => err)
+    const result1 = await call.catch((err) => err)
+    const result2 = await call.catch((err) => err)
+    const result3 = await call.catch((err) => err)
 
     expect(result1.data).toEqual(mock_data)
     expect(result2.data).toEqual(mock_data)
@@ -533,7 +549,7 @@ describe('API', () => {
     // Create a new subject using the same initial promise setup
     expect(
       await matchRequest(
-        call.new({ title: 'Subject Title' }).then(subject => subject.create())
+        call.new({ title: 'Subject Title' }).then((subject) => subject.create())
       )
     ).toMatchSnapshot()
   })
@@ -644,7 +660,7 @@ describe('API', () => {
       try {
         await SDK.appointments()
           .new({})
-          .then(appointment => appointment.create())
+          .then((appointment) => appointment.create())
       } catch (err) {
         expect(err).toMatchSnapshot()
       }
@@ -757,28 +773,22 @@ describe('API', () => {
     it('should be possible to use subresources by id and includes', async () => {
       expect(
         await matchRequest(
-          SDK.subjects(1)
-            .questions(2)
-            .include(SDK.include.options)
+          SDK.subjects(1).questions(2).include(SDK.include.options)
         )
       ).toMatchSnapshot()
     })
 
     it('should be possible to disable certain actions (update) on a resource', () => {
       expect(() =>
-        SDK.insights('cumulio')
-          .auth()
-          .update({
-            id: 'new id',
-          })
+        SDK.insights('cumulio').auth().update({
+          id: 'new id',
+        })
       ).toThrowErrorMatchingSnapshot()
     })
 
     it('should be possible to disable certain actions (delete) on a resource', () => {
       expect(() =>
-        SDK.insights('cumulio')
-          .auth()
-          .delete()
+        SDK.insights('cumulio').auth().delete()
       ).toThrowErrorMatchingSnapshot()
     })
 
@@ -815,22 +825,18 @@ describe('API', () => {
 
     it('should throw an error when include is used before the subresource is used', () => {
       expect(() =>
-        SDK.subjects(1)
-          .include(SDK.include.subject_category)
-          .questions()
+        SDK.subjects(1).include(SDK.include.subject_category).questions()
       ).toThrowErrorMatchingSnapshot()
 
       expect(() =>
-        SDK.subjects(1)
-          .include(SDK.include.subject_category)
-          .questions(123)
+        SDK.subjects(1).include(SDK.include.subject_category).questions(123)
       ).toThrowErrorMatchingSnapshot()
     })
 
     it('should be possible to add filters to a resource', async () => {
       expect(
         await matchRequest(
-          SDK.subjects(1).filter(item =>
+          SDK.subjects(1).filter((item) =>
             item.schedulable_with_contact(['1', '2'])
           )
         )
@@ -840,7 +846,7 @@ describe('API', () => {
     it('should be possible to add filters to a resource that has special filter syntax', async () => {
       expect(
         await matchRequest(
-          SDK.integrations().filter(item => item.type('cumulio'))
+          SDK.integrations().filter((item) => item.type('cumulio'))
         )
       ).toMatchSnapshot()
     })
@@ -848,7 +854,7 @@ describe('API', () => {
     it('should filter out undefined values when using filters', async () => {
       expect(
         await matchRequest(
-          SDK.subjects(1).filter(item =>
+          SDK.subjects(1).filter((item) =>
             item.schedulable_with_contact(['1', undefined, '2'])
           )
         )
@@ -861,32 +867,32 @@ describe('API', () => {
 
     it('should throw an error when calling a non existing filter function', () => {
       expect(() =>
-        SDK.subjects(1).filter(item => item.nonExistingMethod())
+        SDK.subjects(1).filter((item) => item.nonExistingMethod())
       ).toThrowErrorMatchingSnapshot()
     })
 
     it('should throw an error when calling a non existing filter function and one of the defined filters is using an object alias', () => {
       expect(() =>
-        SDK.integrations().filter(item => item.nonExistingMethod())
+        SDK.integrations().filter((item) => item.nonExistingMethod())
       ).toThrowErrorMatchingSnapshot()
     })
 
     it('should throw a slightly different error when calling a non existing filter function when there are no possible filters for this resource', () => {
       expect(() =>
-        SDK.accessTokens().filter(item => item.nonExistingMethod())
+        SDK.accessTokens().filter((item) => item.nonExistingMethod())
       ).toThrowErrorMatchingSnapshot()
     })
 
     it('should default to true when a filter is given with no value', async () => {
       expect(
-        await matchRequest(SDK.subjects(1).filter(item => item.schedulable()))
+        await matchRequest(SDK.subjects(1).filter((item) => item.schedulable()))
       ).toMatchSnapshot()
     })
 
     it('should be possible to merge filters with the same name', async () => {
       expect(
         await matchRequest(
-          SDK.subjects(1).filter(item =>
+          SDK.subjects(1).filter((item) =>
             item
               .schedulable_with_contact(['1', '2'])
               .schedulable_with_contact(['2', '3'])
@@ -931,7 +937,7 @@ describe('API', () => {
 
       expect.assertions(3)
 
-      return SDK.customers('external://abc123').catch(error => {
+      return SDK.customers('external://abc123').catch((error) => {
         expect(error).toMatchSnapshot()
         expect(error.response.data).toMatchSnapshot()
         expect(error.response.data).toBe(error.alternatives)
@@ -943,7 +949,7 @@ describe('API', () => {
 
       expect.assertions(2)
 
-      return SDK.customers('external://abc123').catch(error => {
+      return SDK.customers('external://abc123').catch((error) => {
         expect(error).toMatchSnapshot()
         expect(error.response.data).toMatchSnapshot()
       })
@@ -964,7 +970,7 @@ describe('API', () => {
               recaptcha:
                 'The response goes here, internally this gets mapped to a header',
             })
-            .then(appointment => appointment.create())
+            .then((appointment) => appointment.create())
         )
       ).toMatchSnapshot()
     })
@@ -983,7 +989,7 @@ describe('API', () => {
               customer: {},
               possibilities: [],
             })
-            .then(appointment => appointment.create())
+            .then((appointment) => appointment.create())
         )
       ).toMatchSnapshot()
     })
@@ -1004,7 +1010,7 @@ describe('API', () => {
               recaptcha:
                 'The response goes here, internally this gets mapped to a header',
             })
-            .then(appointment => appointment.create())
+            .then((appointment) => appointment.create())
         )
       ).toMatchSnapshot()
     })
@@ -1018,7 +1024,7 @@ describe('API', () => {
               cancelled_by_type: 'customer',
               cancelled_by_id: 'customer id goes here',
             })
-            .then(appointment => appointment.save())
+            .then((appointment) => appointment.save())
         )
       ).toMatchSnapshot()
     })
@@ -1028,7 +1034,7 @@ describe('API', () => {
         await matchRequest(
           SDK.appointments(1207)
             .delete()
-            .then(appointment => appointment.delete())
+            .then((appointment) => appointment.delete())
         )
       ).toMatchSnapshot()
     })
@@ -1043,7 +1049,7 @@ describe('API', () => {
               cancelled_by_type: 'customer',
               cancelled_by_id: 'customer id goes here',
             })
-            .then(appointment => appointment.save())
+            .then((appointment) => appointment.save())
         )
       ).toMatchSnapshot()
     })
@@ -1059,7 +1065,7 @@ describe('API', () => {
             cancelled_by_type: 'customer',
             cancelled_by_id: 'customer id goes here',
           })
-          .then(appointment => appointment.save())
+          .then((appointment) => appointment.save())
       )
       const readRequest = await matchRequest(base)
 
@@ -1074,7 +1080,7 @@ describe('API', () => {
       await matchRequest(
         SDK.employees()
           .new({})
-          .then(appointment => appointment.create())
+          .then((appointment) => appointment.create())
       )
     ).toMatchSnapshot()
   })
@@ -1087,7 +1093,7 @@ describe('API', () => {
           .new({
             suppress_activation_email: true,
           })
-          .then(appointment => appointment.create())
+          .then((appointment) => appointment.create())
       )
     ).toMatchSnapshot()
   })
@@ -1145,7 +1151,7 @@ describe('API', () => {
 
         await SDK.appointments()
           .new({ value: 'x' })
-          .then(appointment => appointment.create())
+          .then((appointment) => appointment.create())
 
         expect(mostRecentRequest()).toMatchSnapshot()
       })

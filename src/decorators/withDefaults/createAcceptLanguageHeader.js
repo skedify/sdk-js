@@ -8,9 +8,9 @@ export default function createAcceptLanguageHeader(locale) {
         return lang
       }
 
-      return `${lang};q=${Math.round(
-        ((locales.length - index) / locales.length) * 1000
-      ) / 1000}`
+      return `${lang};q=${
+        Math.round(((locales.length - index) / locales.length) * 1000) / 1000
+      }`
     })
     .join(', ')
 }

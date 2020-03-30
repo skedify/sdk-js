@@ -6,7 +6,7 @@ export const employees = createResourceDescription('employees', {
   filters: ['email', 'external_id', 'state', 'roles', 'match'],
   headers: {
     [HTTP_VERB_POST]: {
-      suppress_activation_email: value => {
+      suppress_activation_email: (value) => {
         if (value !== undefined) {
           return { 'X-suppress-activation-email': true }
         }

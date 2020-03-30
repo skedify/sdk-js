@@ -15,7 +15,7 @@ export default function parseIdentityProviderString(idp_descriptor = '') {
 
   const options = encoded_options
     .split('&')
-    .map(item => item.split('='))
+    .map((item) => item.split('='))
     .map(([key, value]) => ({
       [key]: decodeURIComponent(value),
     }))

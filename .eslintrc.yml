@@ -65,7 +65,7 @@ rules:
     - as-needed
   arrow-parens:
     - 2
-    - as-needed
+    - always
   prefer-destructuring: 2
   prefer-rest-params: 2
   prefer-spread: 2

@@ -1,7 +1,10 @@
 import { createGrant } from './createGrant'
+import { createDefaultLogger } from '../../util/createDefaultLogger'
+import { set } from '../../secret'
 
 describe('createGrant', () => {
-  const network = {} // Let's mock the network for now
+  const instance = {} // Let's mock the instance for now
+  set(instance, { logger: createDefaultLogger() })
 
   it('should error when no parameters are provided', () => {
     const MyIdentityProvider = createGrant('my_identity_provider')
@@ -11,7 +14,7 @@ describe('createGrant', () => {
 
   it('should be possible to create an identity provider without required or optional parameters', () => {
     const MyIdentityProvider = createGrant('my_identity_provider')
-    const myIdentityProviderInstance = new MyIdentityProvider(network, {
+    const myIdentityProviderInstance = new MyIdentityProvider(instance, {
       realm: 'some-realm', // A realm is required though
     })
 
@@ -23,7 +26,7 @@ describe('createGrant', () => {
 
     expect(
       () =>
-        new MyIdentityProvider(network, {
+        new MyIdentityProvider(instance, {
           realm: 'some-realm', // A realm is required though
           unnecessary_key: 'unnecessary_value',
         })
@@ -35,7 +38,7 @@ describe('createGrant', () => {
 
     expect(
       () =>
-        new MyIdentityProvider(network, {
+        new MyIdentityProvider(instance, {
           realm: 'some-realm', // A realm is required though
           unnecessary_key_1: 'unnecessary_value_1',
           unnecessary_key_2: 'unnecessary_value_2',
@@ -51,7 +54,7 @@ describe('createGrant', () => {
 
     expect(
       () =>
-        new MyIdentityProvider(network, {
+        new MyIdentityProvider(instance, {
           realm: 'some-realm',
           required_a: 'required a value', // Note that required_b is missing
         })
@@ -67,7 +70,7 @@ describe('createGrant', () => {
 
     expect(
       () =>
-        new MyIdentityProvider(network, {
+        new MyIdentityProvider(instance, {
           realm: 'some-realm',
           required_a: 'required a value', // Note that required_b and required_c are missing
         })
