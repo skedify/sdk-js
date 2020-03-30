@@ -143,6 +143,22 @@ describe('API/Config', () => {
     expect(() => new API({ auth_provider })).toThrow()
   })
 
+  it('should throw when an invalid logger is passed', () => {
+    expect(
+      () =>
+        new API({
+          auth_provider,
+          locale: 'nl-BE',
+          logger: {
+            // Missing a bunch of methods ()
+            trace() {
+              //
+            },
+          },
+        })
+    ).toThrow()
+  })
+
   it('should allow correct forms of locale values', () => {
     const valids = [
       'nl',

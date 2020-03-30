@@ -6,6 +6,7 @@ import {
 } from '../../constants'
 import { joinAsSpeech, AND } from '../../util/joinAsSpeech'
 import omit from '../../util/omit'
+import { get } from '../../secret'
 
 // When the token is valid for 90 minutes, than we will re-fetch a new token 81
 // minutes in instead of 89,666 minutes in which case it might be too late
@@ -17,12 +18,14 @@ function secondsToMilliseconds(seconds) {
 }
 
 function defaultAuthorizationMethod({
-  network,
+  instance,
   reset,
   realm,
   parameters,
   grant_type,
 }) {
+  const { network, logger } = get(instance)
+
   return (
     // Get the access_token
     network
@@ -31,11 +34,15 @@ function defaultAuthorizationMethod({
         Object.assign({}, parameters, { grant_type })
       )
       // Setup all the required parts to authenticate
-      .then(({ data }) => ({
-        Authorization: `${data.token_type} ${data.access_token}`,
-        Expiration: data.expires_in,
-        Realm: realm,
-      }))
+      .then(({ data }) => {
+        logger.info({ access: data }, 'Successfully gained access to API')
+
+        return {
+          Authorization: `${data.token_type} ${data.access_token}`,
+          Expiration: data.expires_in,
+          Realm: realm,
+        }
+      })
 
       // Get the proxy url
       .then(auth_response => {
@@ -68,6 +75,8 @@ function defaultAuthorizationMethod({
   )
 }
 
+const SKIP_RETRY_FOR_GRANTS = ['token', 'testing']
+
 export function createGrant(
   grant_type,
   requiredParameters = [],
@@ -75,10 +84,7 @@ export function createGrant(
   getAuthorizationMethod = defaultAuthorizationMethod
 ) {
   return class {
-    constructor(network, parameters = {}) {
-      this._network = network
-      this._parameters = parameters
-
+    constructor(instance, parameters = {}) {
       // Make sure `realm` is a required option
       const allRequiredParameters = [...requiredParameters, 'realm']
 
@@ -126,6 +132,12 @@ export function createGrant(
           MISCONFIGURED_AUTH_PROVIDER_OPTIONS
         )
       }
+
+      const { logger } = get(instance)
+
+      this._instance = instance
+      this._logger = logger
+      this._parameters = parameters
     }
 
     getAuthorization(force = false, tries = 2) {
@@ -141,7 +153,7 @@ export function createGrant(
         this._current = Promise.resolve(force ? undefined : this._current).then(
           () =>
             getAuthorizationMethod({
-              network: this._network,
+              instance: this._instance,
               grant_type,
               force,
               realm,
@@ -154,9 +166,7 @@ export function createGrant(
       return this._current.catch(err => {
         // Handle unauthorized response
         if (err.response && err.response.status === 401) {
-          // When the grant type is a token, there is no way we can
-          // refresh the access token. Therefore we will stop immediately.
-          if (grant_type === 'token' || grant_type === 'testing') {
+          if (SKIP_RETRY_FOR_GRANTS.includes(grant_type)) {
             throw err
           }
 
@@ -175,11 +185,9 @@ export function createGrant(
         }
 
         return new Promise((resolve, reject) => {
-          // eslint-disable-next-line no-console
-          console.log('Got error, will retry soon:', { err })
+          this._logger.error({ err }, 'Got error, will retry soon')
           setTimeout(() => {
-            // eslint-disable-next-line no-console
-            console.log('Re-trying...')
+            this._logger.trace({}, 'Re-trying to acquire a connection')
             this.getAuthorization(true).then(resolve, reject)
           }, secondsToMilliseconds(30))
         })

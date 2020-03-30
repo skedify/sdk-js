@@ -1,6 +1,7 @@
 import {
   applyDecorators,
   withConfig,
+  withLogger,
   withDefaults,
   withExposedIncludes,
   withIdentityProvider,
@@ -19,6 +20,7 @@ export default class SkedifyAPI {
       withNetwork(),
       withConfig(config),
       withDefaults(config),
+      withLogger(),
       withIdentityProvider(),
       withResources(this),
       withExposedIncludes(),

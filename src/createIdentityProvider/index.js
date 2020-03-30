@@ -5,7 +5,7 @@ import joinAsSpeech, { AND } from '../util/joinAsSpeech'
 import parse from './parseIdentityProviderString'
 import { IDPS } from './identityProviders'
 
-export default function createIdentityProvider(idp_descriptor, network) {
+export default function createIdentityProvider(idp_descriptor, instance) {
   const { type, options } = parse(idp_descriptor)
 
   if (IDPS[type] === undefined) {
@@ -21,5 +21,5 @@ export default function createIdentityProvider(idp_descriptor, network) {
     )
   }
 
-  return new IDPS[type](network, options)
+  return new IDPS[type](instance, options)
 }
