@@ -24,7 +24,7 @@ jobs:
       script: npm run build
     - stage: audit
       name: "Audit"
-      script: npm audit --only=prod --audit-level=critical
+      script: npm audit --production
     - stage: release
       name: "Release"
       script: npm run build && npm run semantic-release
