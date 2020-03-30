@@ -11,7 +11,6 @@ stages:
   - test
   - name: build
     if: NOT (branch = master AND type = push)
-  - audit
   - name: release
     if: branch = master AND type = push
 jobs:
@@ -22,9 +21,6 @@ jobs:
     - stage: build
       name: "Build"
       script: npm run build
-    - stage: audit
-      name: "Audit"
-      script: npm audit --production
     - stage: release
       name: "Release"
       script: npm run build && npm run semantic-release
