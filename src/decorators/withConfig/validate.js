@@ -29,7 +29,7 @@ export function validateLocale(input) {
   const locales = Array.isArray(input) ? input : [input]
   if (
     locales.some(
-      locale =>
+      (locale) =>
         !/^[a-z]{2}(?:-[A-Z]{2}(?:[- ]{1}[A-Z09]{1,3})?)?$/i.test(locale)
     )
   ) {

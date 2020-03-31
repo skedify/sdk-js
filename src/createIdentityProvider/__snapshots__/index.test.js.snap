@@ -3,7 +3,7 @@
 exports[`createIdentityProvider should error when a provider does not exist 1`] = `
 "[IDENTITY PROVIDER]: Identity provider \`example\` does not exist.
 
-The only options are: \`client_credentials\`, \`office365_code\`, \`password\`, \`public_client\`, \`public_client_password\`, \`public_client_password_reset\`, \`resource_code\`, \`saml\` and \`token\`."
+The only options are: \`client_credentials\`, \`office365_code\`, \`password\`, \`public_client\`, \`public_client_password\`, \`public_client_password_reset\`, \`resource_code\`, \`saml\`, \`token\` and \`testing\`."
 `;
 
 exports[`createIdentityProvider should error when a the idp descriptor is not defined or invalid 1`] = `"[IDENTITY PROVIDER]: You should provide a \`type\` as identity provider."`;

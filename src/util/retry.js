@@ -28,7 +28,7 @@ export default function retry(
     )
   }
 
-  return new Promise(executor).catch(actual_error => {
+  return new Promise(executor).catch((actual_error) => {
     if (!isFunction(condition) || condition(actual_error)) {
       return retry(delay(executor, delay_time), {
         max_attempts: max_attempts - 1,

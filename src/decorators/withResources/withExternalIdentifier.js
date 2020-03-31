@@ -7,10 +7,10 @@ const TYPE_CONVERSION = {
 export default function withExternalIdentifier(identifier) {
   const [type, value] = identifier.split('://')
 
-  return resource =>
+  return (resource) =>
     resource
-      .filter(item => item[TYPE_CONVERSION[type]](value))
-      .addResponseInterceptor(response => {
+      .filter((item) => item[TYPE_CONVERSION[type]](value))
+      .addResponseInterceptor((response) => {
         validateResponseFromExternalIdentifier({ response })
 
         /**

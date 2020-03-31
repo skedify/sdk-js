@@ -63,7 +63,5 @@ export default function createRequest(
           .catch(tryToRecoverFromErrors)
           .then(resolve, reject)
       })
-    : get(instance)
-        .network(callConfig)
-        .catch(tryToRecoverFromErrors)
+    : get(instance).network(callConfig).catch(tryToRecoverFromErrors)
 }

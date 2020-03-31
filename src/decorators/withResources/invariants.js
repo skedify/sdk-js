@@ -53,7 +53,7 @@ export function validateIncludeAlreadyCalled({ parent, name, identifier }) {
       })\` as a sub resource on \`.${descriptor.name}(${JSON.stringify(
         descriptor.identifier
       )})\`, but \`.include(${requestConfig.include
-        .map(item => `"${item}"`)
+        .map((item) => `"${item}"`)
         .join(
           ', '
         )})\` was already called and you can not call \`.include()\` before calling a sub resource.`,
@@ -98,13 +98,13 @@ export function validateIncludes(resource) {
 
   if (
     requestConfig.include.some(
-      include => !descriptor.allowed_includes.includes(include)
+      (include) => !descriptor.allowed_includes.includes(include)
     )
   ) {
     if (descriptor.allowed_includes.length === 0) {
       throw createResourceError(
         `You tried to call \`.include(${requestConfig.include
-          .map(item => `"${item}"`)
+          .map((item) => `"${item}"`)
           .join(', ')})\` but there are no includes defined for ${
           descriptor.resource
         }.`,
@@ -114,12 +114,12 @@ export function validateIncludes(resource) {
     } else {
       throw createResourceError(
         `You tried to call \`.include(${requestConfig.include
-          .map(item => `"${item}"`)
+          .map((item) => `"${item}"`)
           .join(', ')})\` but the only valid includes for ${
           descriptor.resource
         } are ${joinAsSpeech(
           AND,
-          descriptor.allowed_includes.map(item => `\`${item}\``)
+          descriptor.allowed_includes.map((item) => `\`${item}\``)
         )}.`,
         ERROR_RESOURCE,
         ERROR_RESOURCE_INVALID_INCLUDE
@@ -165,7 +165,7 @@ export function validateFilterCallbackExecution(resource, run) {
     throw createResourceError(
       `${err.message}. You can only call ${joinAsSpeech(
         OR,
-        descriptor.filters.map(filter => `\`.${filter.name || filter}()\``)
+        descriptor.filters.map((filter) => `\`.${filter.name || filter}()\``)
       )}.`,
       ERROR_RESOURCE,
       ERROR_RESOURCE_INVALID_FILTER

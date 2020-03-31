@@ -27,8 +27,8 @@ export function withResources(
   resources = rootResources,
   parent = undefined
 ) {
-  return target => {
-    Object.keys(resources).forEach(name => {
+  return (target) => {
+    Object.keys(resources).forEach((name) => {
       const resource = resources[name]
 
       /**
@@ -36,7 +36,7 @@ export function withResources(
        */
       Object.defineProperty(target, name, {
         enumerable: true,
-        value: Object.assign(identifier => {
+        value: Object.assign((identifier) => {
           /**
            * If we have a parent, we are a "sub resource".
            */

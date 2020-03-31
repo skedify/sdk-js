@@ -16,7 +16,7 @@ function createDefaultHeaderInstaller(instance, config) {
 }
 
 export function withDefaults(config) {
-  return instance => {
+  return (instance) => {
     const installDefaultHeaders = createDefaultHeaderInstaller(instance, config)
     installDefaultHeaders(instance.configuration)
 

@@ -1,15 +1,14 @@
 import createIdentityProvider from '../createIdentityProvider'
-import { set, get } from '../secret'
+import { set } from '../secret'
 
 function installIdentityProvider(instance, auth_provider) {
-  const { network } = get(instance)
   set(instance, {
-    identityProvider: createIdentityProvider(auth_provider, network),
+    identityProvider: createIdentityProvider(auth_provider, instance),
   })
 }
 
 export function withIdentityProvider() {
-  return instance => {
+  return (instance) => {
     // Original auth_provider
     let { auth_provider: original_auth_provider } = instance.configuration
 

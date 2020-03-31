@@ -23,7 +23,7 @@ export const appointments = createResourceDescription(
     filters: ['uuid', 'state', 'start', 'end'],
     headers: {
       [HTTP_VERB_POST]: {
-        recaptcha: value => {
+        recaptcha: (value) => {
           if (value !== undefined) {
             return { 'X-Im-Not-A-Robot': value }
           }

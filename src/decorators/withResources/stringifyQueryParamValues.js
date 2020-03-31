@@ -9,9 +9,7 @@ export default function stringifyQueryParamValues(params) {
     (stringifiedQueryParams, key) =>
       Object.assign(stringifiedQueryParams, {
         [key]: Array.isArray(params[key])
-          ? unique(params[key])
-              .filter(Boolean)
-              .join(',')
+          ? unique(params[key]).filter(Boolean).join(',')
           : params[key],
       }),
     {}

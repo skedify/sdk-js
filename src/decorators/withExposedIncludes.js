@@ -16,7 +16,7 @@ function collectIncludes(obj) {
 }
 
 function ensureAllIncludesExist(includes) {
-  const all_includes = includes.map(include => buildChain(include, '.'))
+  const all_includes = includes.map((include) => buildChain(include, '.'))
   return unique(flatten(all_includes)).sort((a, b) => a.length - b.length)
 }
 
@@ -49,7 +49,7 @@ function unflattenDotNotation(obj) {
 }
 
 function pipe(...fns) {
-  return input => fns.reduce((value, fn) => fn(value), input)
+  return (input) => fns.reduce((value, fn) => fn(value), input)
 }
 
 export function withExposedIncludes() {
@@ -60,7 +60,7 @@ export function withExposedIncludes() {
     unflattenDotNotation
   )
 
-  return instance => {
+  return (instance) => {
     instance.include = getIncludes(resources)
   }
 }
