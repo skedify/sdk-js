@@ -17,6 +17,7 @@ export const users = createResourceDescription(
       'calendars',
       {
         includes: ['sync_accounts'],
+        filters: ['is_sync_availability'],
       },
       {
         events: createResourceDescription('events', {
