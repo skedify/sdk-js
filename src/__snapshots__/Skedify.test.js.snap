@@ -814,6 +814,120 @@ Object {
 }
 `;
 
+exports[`API actions should be possible to create a single resource 1`] = `
+Object {
+  "data": Object {
+    "title": "subject title",
+  },
+  "headers": Object {
+    "Accept": "application/json, text/plain, */*",
+    "Accept-Language": "nl-BE, nl;q=0.667, *;q=0.333",
+    "Authorization": "Bearer fake_example_access_token",
+    "Content-Type": "application/json;charset=utf-8",
+  },
+  "method": "post",
+  "params": undefined,
+  "url": "https://api.example.com/subjects",
+}
+`;
+
+exports[`API actions should be possible to create multiple resources at once (bulk) 1`] = `
+Object {
+  "data": Array [
+    Object {
+      "title": "subject title 1",
+    },
+    Object {
+      "title": "subject title 2",
+    },
+  ],
+  "headers": Object {
+    "Accept": "application/json, text/plain, */*",
+    "Accept-Language": "nl-BE, nl;q=0.667, *;q=0.333",
+    "Authorization": "Bearer fake_example_access_token",
+    "Content-Type": "application/json;charset=utf-8",
+  },
+  "method": "post",
+  "params": undefined,
+  "url": "https://api.example.com/subjects",
+}
+`;
+
+exports[`API actions should be possible to delete a single resource 1`] = `
+Object {
+  "data": undefined,
+  "headers": Object {
+    "Accept": "application/json, text/plain, */*",
+    "Accept-Language": "nl-BE, nl;q=0.667, *;q=0.333",
+    "Authorization": "Bearer fake_example_access_token",
+  },
+  "method": "delete",
+  "params": undefined,
+  "url": "https://api.example.com/subjects/1",
+}
+`;
+
+exports[`API actions should be possible to delete multiple resource at once (bulk) 1`] = `
+Object {
+  "data": Array [
+    1,
+    2,
+    3,
+    4,
+  ],
+  "headers": Object {
+    "Accept": "application/json, text/plain, */*",
+    "Accept-Language": "nl-BE, nl;q=0.667, *;q=0.333",
+    "Authorization": "Bearer fake_example_access_token",
+    "Content-Type": "application/json;charset=utf-8",
+  },
+  "method": "delete",
+  "params": undefined,
+  "url": "https://api.example.com/subjects",
+}
+`;
+
+exports[`API actions should be possible to update a single resource 1`] = `
+Object {
+  "data": Object {
+    "title": "updated title",
+  },
+  "headers": Object {
+    "Accept": "application/json, text/plain, */*",
+    "Accept-Language": "nl-BE, nl;q=0.667, *;q=0.333",
+    "Authorization": "Bearer fake_example_access_token",
+    "Content-Type": "application/json;charset=utf-8",
+  },
+  "method": "patch",
+  "params": undefined,
+  "url": "https://api.example.com/subjects/1",
+}
+`;
+
+exports[`API actions should be possible to update multiple resource at once (bulk) 1`] = `
+Object {
+  "data": Array [
+    Object {
+      "id": 1,
+      "title": "updated title",
+    },
+    Object {
+      "id": 1,
+      "title": "updated title",
+    },
+  ],
+  "headers": Object {
+    "Accept": "application/json, text/plain, */*",
+    "Accept-Language": "nl-BE, nl;q=0.667, *;q=0.333",
+    "Authorization": "Bearer fake_example_access_token",
+    "Content-Type": "application/json;charset=utf-8",
+  },
+  "method": "patch",
+  "params": undefined,
+  "url": "https://api.example.com/subjects",
+}
+`;
+
 exports[`API should be possible to create an employee 1`] = `
 Object {
   "data": Object {},

@@ -321,13 +321,41 @@ SDK.appointments(1207)
   .update({
     /* insert properties of appointment here */
   })
-  .then(appointment => appointment.save(), validation_error => {})
+  .then(appointment => appointment.save())
   .then(
     response => {
       // The actual response as defined above goes here
     },
     response_error => {}
   );
+```
+
+If you want to update multiple entities at once, you can use an array as the data and omit the identifier:
+
+```js
+SDK.appointments()
+  .update([{ id: 1 }, { id: 2 }, { id: 3 }])
+  .then(appointment => appointment.save());
+```
+
+## Delete
+
+If you want to delete an entity you can do it as follows:
+
+```js
+SDK.appointments(1207)
+  .delete()
+  .then(appointment => appointment.delete());
+```
+
+If you want to delete multiple entities at once, you can use an array as the identifier:
+
+```js
+SDK.appointments([1, 2, 3, 4])
+  .delete()
+  .then(appointment => appointment.delete());
+
+// Behind the scenes this will map to `DELETE /appointments` with a body of `[ 1, 2, 3, 4 ]`
 ```
 
 > **NOTE**: adding validation is an optional feature that can be added on later without breaking backwards compatibility

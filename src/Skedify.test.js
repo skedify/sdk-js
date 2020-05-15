@@ -1080,7 +1080,7 @@ describe('API', () => {
       await matchRequest(
         SDK.employees()
           .new({})
-          .then((appointment) => appointment.create())
+          .then((employee) => employee.create())
       )
     ).toMatchSnapshot()
   })
@@ -1093,9 +1093,72 @@ describe('API', () => {
           .new({
             suppress_activation_email: true,
           })
-          .then((appointment) => appointment.create())
+          .then((employee) => employee.create())
       )
     ).toMatchSnapshot()
+  })
+
+  describe('actions', () => {
+    it('should be possible to create a single resource', async () => {
+      expect(
+        await matchRequest(
+          SDK.subjects()
+            .new({ title: 'subject title' })
+            .then(({ create }) => create())
+        )
+      ).toMatchSnapshot()
+    })
+    it('should be possible to create multiple resources at once (bulk)', async () => {
+      expect(
+        await matchRequest(
+          SDK.subjects()
+            .new([{ title: 'subject title 1' }, { title: 'subject title 2' }])
+            .then(({ create }) => create())
+        )
+      ).toMatchSnapshot()
+    })
+
+    it('should be possible to update a single resource', async () => {
+      expect(
+        await matchRequest(
+          SDK.subjects(1)
+            .update({ title: 'updated title' })
+            .then(({ save }) => save())
+        )
+      ).toMatchSnapshot()
+    })
+    it('should be possible to update multiple resource at once (bulk)', async () => {
+      expect(
+        await matchRequest(
+          SDK.subjects(/* Note that this id is omitted */)
+            .update([
+              // Note that this is an array, each item MUST include an id
+              { id: 1, title: 'updated title' },
+              { id: 1, title: 'updated title' },
+            ])
+            .then(({ save }) => save())
+        )
+      ).toMatchSnapshot()
+    })
+
+    it('should be possible to delete a single resource', async () => {
+      expect(
+        await matchRequest(
+          SDK.subjects(1)
+            .delete()
+            .then((s) => s.delete())
+        )
+      ).toMatchSnapshot()
+    })
+    it('should be possible to delete multiple resource at once (bulk)', async () => {
+      expect(
+        await matchRequest(
+          SDK.subjects([1, 2, 3, 4])
+            .delete()
+            .then((s) => s.delete())
+        )
+      ).toMatchSnapshot()
+    })
   })
 
   describe('API/testUtils', () => {

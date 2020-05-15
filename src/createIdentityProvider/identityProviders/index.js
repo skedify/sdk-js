@@ -45,6 +45,7 @@ export const IDPS = {
           // Get the proxy url
           .then((auth_response) => {
             // Let's not use the proxy when in node environments
+            // istanbul ignore next
             // eslint-disable-next-line better/no-typeofs
             if (typeof window === 'undefined') {
               return auth_response
@@ -77,10 +78,15 @@ export const IDPS = {
     }
   ),
 
-  testing: createGrant('testing', [], [], ({ realm, parameters }) =>
-    Promise.resolve(parameters).then(() => ({
-      Authorization: `Bearer testing-access-token`,
-      Realm: realm,
-    }))
+  testing: createGrant(
+    'testing',
+    [],
+    [],
+    // istanbul ignore next
+    ({ realm, parameters }) =>
+      Promise.resolve(parameters).then(() => ({
+        Authorization: `Bearer testing-access-token`,
+        Realm: realm,
+      }))
   ),
 }
