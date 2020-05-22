@@ -8,6 +8,7 @@ node_js:
   - "11"
   - "10"
 stages:
+  - lint
   - test
   - name: build
     if: NOT (branch = master AND type = push)
@@ -18,6 +19,9 @@ jobs:
     - stage: test
       name: "Tests"
       script: npm run test
+    - stage: lint
+      name: "Lint"
+      script: npm run lint
     - stage: build
       name: "Build"
       script: npm run build

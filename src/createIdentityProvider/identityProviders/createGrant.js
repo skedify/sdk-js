@@ -47,6 +47,7 @@ function defaultAuthorizationMethod({
       // Get the proxy url
       .then((auth_response) => {
         // Let's not use the proxy when in node environments
+        // istanbul ignore next
         // eslint-disable-next-line better/no-typeofs
         if (typeof window === 'undefined') {
           return auth_response
@@ -164,6 +165,7 @@ export function createGrant(
         )
       }
 
+      // istanbul ignore next
       return this._current.catch((err) => {
         // Handle unauthorized response
         if (err.response && err.response.status === 401) {
