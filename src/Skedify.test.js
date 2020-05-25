@@ -1099,6 +1099,10 @@ describe('API', () => {
   })
 
   describe('actions', () => {
+    function factory(amount, creator) {
+      return [...Array(amount).keys()].map(creator)
+    }
+
     it('should be possible to create a single resource', async () => {
       expect(
         await matchRequest(
@@ -1112,7 +1116,7 @@ describe('API', () => {
       expect(
         await matchRequest(
           SDK.subjects()
-            .new([{ title: 'subject title 1' }, { title: 'subject title 2' }])
+            .new(factory(5, (idx) => ({ title: `subject title ${idx + 1}` })))
             .then(({ create }) => create())
         )
       ).toMatchSnapshot()
@@ -1131,11 +1135,13 @@ describe('API', () => {
       expect(
         await matchRequest(
           SDK.subjects(/* Note that this id is omitted */)
-            .update([
+            .update(
               // Note that this is an array, each item MUST include an id
-              { id: 1, title: 'updated title' },
-              { id: 1, title: 'updated title' },
-            ])
+              factory(5, (idx) => ({
+                id: idx + 1,
+                title: `updated title ${idx + 1}`,
+              }))
+            )
             .then(({ save }) => save())
         )
       ).toMatchSnapshot()
@@ -1153,7 +1159,7 @@ describe('API', () => {
     it('should be possible to delete multiple resource at once (bulk)', async () => {
       expect(
         await matchRequest(
-          SDK.subjects([1, 2, 3, 4])
+          SDK.subjects(factory(5, (idx) => idx + 1))
             .delete()
             .then((s) => s.delete())
         )

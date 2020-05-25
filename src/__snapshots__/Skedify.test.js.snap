@@ -840,6 +840,15 @@ Object {
     Object {
       "title": "subject title 2",
     },
+    Object {
+      "title": "subject title 3",
+    },
+    Object {
+      "title": "subject title 4",
+    },
+    Object {
+      "title": "subject title 5",
+    },
   ],
   "headers": Object {
     "Accept": "application/json, text/plain, */*",
@@ -874,6 +883,7 @@ Object {
     2,
     3,
     4,
+    5,
   ],
   "headers": Object {
     "Accept": "application/json, text/plain, */*",
@@ -909,11 +919,23 @@ Object {
   "data": Array [
     Object {
       "id": 1,
-      "title": "updated title",
+      "title": "updated title 1",
     },
     Object {
-      "id": 1,
-      "title": "updated title",
+      "id": 2,
+      "title": "updated title 2",
+    },
+    Object {
+      "id": 3,
+      "title": "updated title 3",
+    },
+    Object {
+      "id": 4,
+      "title": "updated title 4",
+    },
+    Object {
+      "id": 5,
+      "title": "updated title 5",
     },
   ],
   "headers": Object {
