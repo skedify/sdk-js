@@ -4,6 +4,7 @@ import {
   installSkedifySDKMock,
   uninstallSkedifySDKMock,
   mockResponse,
+  mockNoContent,
   matchRequest,
   mockMatchingURLResponse,
   mostRecentRequest,
@@ -652,8 +653,9 @@ describe('API', () => {
       const data = []
       const meta = []
       const warnings = []
+      const errors = undefined
 
-      mockResponse(data, meta, warnings, 422)
+      mockResponse(data, meta, warnings, errors, 422)
 
       expect.assertions(1)
 
@@ -1099,71 +1101,407 @@ describe('API', () => {
   })
 
   describe('actions', () => {
+    const IGNORE_META = {}
+    const IGNORE_WARNINGS = []
+
     function factory(amount, creator) {
       return [...Array(amount).keys()].map(creator)
     }
 
-    it('should be possible to create a single resource', async () => {
-      expect(
-        await matchRequest(
-          SDK.subjects()
-            .new({ title: 'subject title' })
-            .then(({ create }) => create())
-        )
-      ).toMatchSnapshot()
-    })
-    it('should be possible to create multiple resources at once (bulk)', async () => {
-      expect(
-        await matchRequest(
-          SDK.subjects()
-            .new(factory(5, (idx) => ({ title: `subject title ${idx + 1}` })))
-            .then(({ create }) => create())
-        )
-      ).toMatchSnapshot()
-    })
+    describe('create', () => {
+      it('should be possible to create a single resource', async () => {
+        expect(
+          await matchRequest(
+            SDK.subjects()
+              .new({ title: 'subject title' })
+              .then(({ create }) => create())
+          )
+        ).toMatchSnapshot()
+      })
 
-    it('should be possible to update a single resource', async () => {
-      expect(
-        await matchRequest(
-          SDK.subjects(1)
-            .update({ title: 'updated title' })
-            .then(({ save }) => save())
-        )
-      ).toMatchSnapshot()
-    })
-    it('should be possible to update multiple resource at once (bulk)', async () => {
-      expect(
-        await matchRequest(
-          SDK.subjects(/* Note that this id is omitted */)
-            .update(
-              // Note that this is an array, each item MUST include an id
-              factory(5, (idx) => ({
-                id: idx + 1,
-                title: `updated title ${idx + 1}`,
-              }))
+      describe('bulk', () => {
+        it('should be possible to create multiple resources at once', async () => {
+          const ENTITIES_TO_CREATE = 2
+
+          expect(
+            await matchRequest(
+              SDK.subjects()
+                .new(
+                  factory(ENTITIES_TO_CREATE, (idx) => ({
+                    title: `subject title ${idx + 1}`,
+                  }))
+                )
+                .then(({ create }) => create())
             )
-            .then(({ save }) => save())
-        )
-      ).toMatchSnapshot()
+          ).toMatchSnapshot()
+        })
+
+        describe('batching', () => {
+          it('should be possible to create multiple groups of resources at once', async () => {
+            const ENTITIES_TO_CREATE = 5
+            const data = factory(ENTITIES_TO_CREATE, (idx) => ({
+              title: `subject title ${idx + 1}`,
+            }))
+
+            // TODO: How do we make this more clear? For tests we group by 3 by
+            //       default. This means that we need 2 mockResponses because
+            //       there should be a group of 3 and a group of 2.
+            mockResponse(data.slice(0, 3))
+            mockResponse(data.slice(3, 6))
+
+            const response = await SDK.subjects()
+              .new(data)
+              .then(({ create }) => create())
+
+            // Expecting that the data of the response is stitched back together
+            // correctly.
+            expect(response.data).toHaveLength(ENTITIES_TO_CREATE)
+            expect(response.data).toEqual(data)
+          })
+
+          it('should be possible to create multiple groups of resources at once with validation errors in the first group', async () => {
+            const ENTITIES_TO_CREATE = 5
+            const data = factory(ENTITIES_TO_CREATE, (idx) => ({
+              title: `subject title ${idx + 1}`,
+            }))
+
+            // TODO: How do we make this more clear? For tests we group by 3 by
+            //       default. This means that we need 2 mockResponses because
+            //       there should be a group of 3 and a group of 2.
+            mockResponse(
+              [...data.slice(0, 1), null, ...data.slice(2, 3)],
+              IGNORE_META,
+              IGNORE_WARNINGS,
+              [{ index: 1, message: 'Something is wrong' }],
+              422
+            )
+            mockResponse(data.slice(3, 6))
+
+            const response = await SDK.subjects()
+              .new(data)
+              .then(({ create }) => create())
+
+            // Expecting that the data of the response is stitched back together
+            // correctly.
+            expect(response.data).toHaveLength(ENTITIES_TO_CREATE)
+            expect(response.data).toEqual([
+              ...data.slice(0, 1),
+              null,
+              ...data.slice(2, 6),
+            ])
+            expect(response.errors).toEqual([
+              { index: 1, message: 'Something is wrong' },
+            ])
+          })
+
+          it('should be possible to create multiple groups of resources at once with validation errors in the last group', async () => {
+            const ENTITIES_TO_CREATE = 5
+            const data = factory(ENTITIES_TO_CREATE, (idx) => ({
+              title: `subject title ${idx + 1}`,
+            }))
+
+            // TODO: How do we make this more clear? For tests we group by 3 by
+            //       default. This means that we need 2 mockResponses because
+            //       there should be a group of 3 and a group of 2.
+            mockResponse(data.slice(0, 3))
+            mockResponse(
+              [null, ...data.slice(4, 5)],
+              IGNORE_META,
+              IGNORE_WARNINGS,
+              [{ index: 0, message: 'Something is wrong' }],
+              422
+            )
+
+            const response = await SDK.subjects()
+              .new(data)
+              .then(({ create }) => create())
+
+            // Expecting that the data of the response is stitched back together
+            // correctly.
+            expect(response.data).toHaveLength(ENTITIES_TO_CREATE)
+
+            // We want the data, with the error hole!
+            expect(response.data).toEqual([
+              ...data.slice(0, 3),
+              null,
+              ...data.slice(4, 5),
+            ])
+
+            // We want the errors with updated indexes
+            expect(response.errors).toEqual([
+              // The index should be increased because of the first group!
+              {
+                index:
+                  3 /* Previous group data length */ +
+                  0 /* Index of error in this group */,
+                message: 'Something is wrong',
+              },
+            ])
+          })
+        })
+      })
     })
 
-    it('should be possible to delete a single resource', async () => {
-      expect(
-        await matchRequest(
-          SDK.subjects(1)
-            .delete()
-            .then((s) => s.delete())
-        )
-      ).toMatchSnapshot()
+    describe('update', () => {
+      it('should be possible to update a single resource', async () => {
+        expect(
+          await matchRequest(
+            SDK.subjects(1)
+              .update({ title: 'updated title' })
+              .then(({ save }) => save())
+          )
+        ).toMatchSnapshot()
+      })
+
+      describe('bulk', () => {
+        it('should be possible to update multiple resources at once', async () => {
+          const ENTITIES_TO_UPDATE = 2
+
+          expect(
+            await matchRequest(
+              SDK.subjects(/* Note that this id is omitted */)
+                .update(
+                  // Note that this is an array, each item MUST include an id
+                  factory(ENTITIES_TO_UPDATE, (idx) => ({
+                    id: `${idx + 1}`,
+                    title: `updated title ${idx + 1}`,
+                  }))
+                )
+                .then(({ save }) => save())
+            )
+          ).toMatchSnapshot()
+        })
+
+        describe('batching', () => {
+          it('should be possible to update multiple groups of resources at once', async () => {
+            const ENTITIES_TO_UPDATE = 5
+            const data = factory(ENTITIES_TO_UPDATE, (idx) => ({
+              id: `${idx + 1}`,
+              title: `updated title ${idx + 1}`,
+            }))
+
+            // TODO: How do we make this more clear? For tests we group by 3 by
+            //       default. This means that we need 2 mockResponses because
+            //       there should be a group of 3 and a group of 2.
+            mockResponse(data.slice(0, 3))
+            mockResponse(data.slice(3, 6))
+
+            const response = await SDK.subjects()
+              .update(data)
+              .then(({ save }) => save())
+
+            // Expecting that the data of the response is stitched back together
+            // correctly.
+            expect(response.data).toHaveLength(ENTITIES_TO_UPDATE)
+            expect(response.data).toEqual(data)
+          })
+
+          it('should be possible to update multiple groups of resources at once with validation errors in the first group', async () => {
+            const ENTITIES_TO_UPDATE = 5
+            const data = factory(ENTITIES_TO_UPDATE, (idx) => ({
+              id: `${idx + 1}`,
+              title: `updated title ${idx + 1}`,
+            }))
+
+            // TODO: How do we make this more clear? For tests we group by 3 by
+            //       default. This means that we need 2 mockResponses because
+            //       there should be a group of 3 and a group of 2.
+            mockResponse(
+              [...data.slice(0, 1), null, ...data.slice(2, 3)],
+              IGNORE_META,
+              IGNORE_WARNINGS,
+              [{ index: 1, message: 'Something is wrong' }],
+              422
+            )
+            mockResponse(data.slice(3, 6))
+
+            const response = await SDK.subjects()
+              .update(data)
+              .then(({ save }) => save())
+
+            // Expecting that the data of the response is stitched back together
+            // correctly.
+            expect(response.data).toHaveLength(ENTITIES_TO_UPDATE)
+            expect(response.data).toEqual([
+              ...data.slice(0, 1),
+              null,
+              ...data.slice(2, 6),
+            ])
+            expect(response.errors).toEqual([
+              { index: 1, message: 'Something is wrong' },
+            ])
+          })
+
+          it('should be possible to update multiple groups of resources at once with validation errors in the last group', async () => {
+            const ENTITIES_TO_UPDATE = 5
+            const data = factory(ENTITIES_TO_UPDATE, (idx) => ({
+              id: `${idx + 1}`,
+              title: `updated title ${idx + 1}`,
+            }))
+
+            // TODO: How do we make this more clear? For tests we group by 3 by
+            //       default. This means that we need 2 mockResponses because
+            //       there should be a group of 3 and a group of 2.
+            mockResponse(data.slice(0, 3))
+            mockResponse(
+              [null, ...data.slice(4, 5)],
+              IGNORE_META,
+              IGNORE_WARNINGS,
+              [{ index: 0, message: 'Something is wrong' }],
+              422
+            )
+
+            const response = await SDK.subjects()
+              .update(data)
+              .then(({ save }) => save())
+
+            // Expecting that the data of the response is stitched back together
+            // correctly.
+            expect(response.data).toHaveLength(ENTITIES_TO_UPDATE)
+
+            // We want the data, with the error hole!
+            expect(response.data).toEqual([
+              ...data.slice(0, 3),
+              null,
+              ...data.slice(4, 5),
+            ])
+
+            // We want the errors with updated indexes
+            expect(response.errors).toEqual([
+              // The index should be increased because of the first group!
+              {
+                index:
+                  3 /* Previous group data length */ +
+                  0 /* Index of error in this group */,
+                message: 'Something is wrong',
+              },
+            ])
+          })
+        })
+      })
     })
-    it('should be possible to delete multiple resource at once (bulk)', async () => {
-      expect(
-        await matchRequest(
-          SDK.subjects(factory(5, (idx) => idx + 1))
-            .delete()
-            .then((s) => s.delete())
-        )
-      ).toMatchSnapshot()
+
+    describe('delete', () => {
+      it('should be possible to delete a single resource', async () => {
+        expect(
+          await matchRequest(
+            SDK.subjects(1)
+              .delete()
+              .then((subjects) => subjects.delete())
+          )
+        ).toMatchSnapshot()
+      })
+
+      describe('bulk', () => {
+        it('should be possible to delete multiple resources at once', async () => {
+          const ENTITIES_TO_DELETE = 2
+
+          expect(
+            await matchRequest(
+              SDK.subjects(factory(ENTITIES_TO_DELETE, (idx) => `${idx + 1}`))
+                .delete()
+                .then((subjects) => subjects.delete())
+            )
+          ).toMatchSnapshot()
+        })
+
+        describe('batching', () => {
+          it('should be possible to delete multiple groups of resources at once', async () => {
+            const ENTITIES_TO_DELETE = 5
+            const data = factory(ENTITIES_TO_DELETE, (idx) => `${idx + 1}`)
+
+            // TODO: How do we make this more clear? For tests we group by 3 by
+            //       default. This means that we need 2 mockResponses because
+            //       there should be a group of 3 and a group of 2.
+            mockNoContent()
+            mockNoContent()
+
+            const response = await SDK.subjects(data)
+              .delete()
+              .then((subjects) => subjects.delete())
+
+            // Every delete was successful, this means that a `DELETE` will
+            // return a 204 No Content
+            expect(response.data).toEqual(undefined)
+          })
+
+          it('should be possible to delete multiple groups of resources at once with validation errors in the first group', async () => {
+            const ENTITIES_TO_DELETE = 5
+            const data = factory(ENTITIES_TO_DELETE, (idx) => `${idx + 1}`)
+
+            // TODO: How do we make this more clear? For tests we group by 3 by
+            //       default. This means that we need 2 mockResponses because
+            //       there should be a group of 3 and a group of 2.
+            mockResponse(
+              [...data.slice(0, 1), null, ...data.slice(2, 3)],
+              IGNORE_META,
+              IGNORE_WARNINGS,
+              [{ index: 1, message: 'Something is wrong' }],
+              422
+            )
+            mockNoContent()
+
+            const response = await SDK.subjects(data)
+              .delete()
+              .then((subjects) => subjects.delete())
+
+            // Expecting that the data of the response is stitched back together
+            // correctly.
+            expect(response.data).toHaveLength(ENTITIES_TO_DELETE)
+            expect(response.data).toEqual([
+              ...data.slice(0, 1),
+              null,
+              ...data.slice(2, 6),
+            ])
+            expect(response.errors).toEqual([
+              { index: 1, message: 'Something is wrong' },
+            ])
+          })
+
+          it('should be possible to delete multiple groups of resources at once with validation errors in the last group', async () => {
+            const ENTITIES_TO_DELETE = 5
+            const data = factory(ENTITIES_TO_DELETE, (idx) => `${idx + 1}`)
+
+            // TODO: How do we make this more clear? For tests we group by 3 by
+            //       default. This means that we need 2 mockResponses because
+            //       there should be a group of 3 and a group of 2.
+            mockNoContent()
+            mockResponse(
+              [null, ...data.slice(4, 5)],
+              IGNORE_META,
+              IGNORE_WARNINGS,
+              [{ index: 0, message: 'Something is wrong' }],
+              422
+            )
+
+            const response = await SDK.subjects(data)
+              .delete()
+              .then((subjects) => subjects.delete())
+
+            // Expecting that the data of the response is stitched back together
+            // correctly.
+            expect(response.data).toHaveLength(ENTITIES_TO_DELETE)
+
+            // We want the data, with the error hole!
+            expect(response.data).toEqual([
+              ...data.slice(0, 3),
+              null,
+              ...data.slice(4, 5),
+            ])
+
+            // We want the errors with updated indexes
+            expect(response.errors).toEqual([
+              // The index should be increased because of the first group!
+              {
+                index:
+                  3 /* Previous group data length */ +
+                  0 /* Index of error in this group */,
+                message: 'Something is wrong',
+              },
+            ])
+          })
+        })
+      })
     })
   })
 
@@ -1180,6 +1518,7 @@ describe('API', () => {
           'data goes here',
           'meta data goes here',
           'warnings go here',
+          undefined,
           223 // Some random 2XX status code to prove that we can mock it
         )
 
