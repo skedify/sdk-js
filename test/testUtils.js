@@ -17,8 +17,12 @@ export function mockMatchingURLResponse(
   )
 }
 
-export function mockResponse(data, meta, warnings, status = 200) {
-  return mock.mockResponse({ data, meta, warnings }, status)
+export function mockResponse(data, meta, warnings, errors, status = 200) {
+  return mock.mockResponse({ data, meta, warnings, errors }, status)
+}
+
+export function mockNoContent() {
+  return mock.mockResponse('', 204)
 }
 
 export function matchRequest(

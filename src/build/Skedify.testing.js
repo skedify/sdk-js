@@ -7,6 +7,7 @@ import { install, uninstall } from '../../test/mock'
 export {
   matchRequest,
   mockResponse,
+  mockNoContent,
   mockMatchingURLResponse,
   mostRecentRequest,
   mockedRequests,
