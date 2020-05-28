@@ -26,7 +26,7 @@ function mockAdapter(config) {
     const { requests, responses } = storage()
     requests.push(request)
 
-    const responseIndex = responses.findIndex(response =>
+    const responseIndex = responses.findIndex((response) =>
       response.url instanceof RegExp
         ? response.url.test(request.url)
         : response.url === request.url
@@ -121,7 +121,7 @@ export function mockedRequests() {
 
   return requests
     .splice(0)
-    .filter(request => !ignoredRequests.includes(request))
+    .filter((request) => !ignoredRequests.includes(request))
 }
 
 export function install(instance) {
@@ -141,7 +141,7 @@ export function install(instance) {
       url,
       response.data,
       response.status
-    ).onRespond(request => storage().ignoredRequests.push(request))
+    ).onRespond((request) => storage().ignoredRequests.push(request))
   })
 }
 
