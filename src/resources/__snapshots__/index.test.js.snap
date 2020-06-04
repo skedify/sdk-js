@@ -1137,6 +1137,7 @@ Object {
   },
   "outcomeLists": Object {
     "allowed_includes": Array [
+      "outcome_outcome_lists",
       "outcomes",
     ],
     "allowed_methods": Array [
@@ -1174,6 +1175,7 @@ Object {
     "allowed_includes": Array [
       "appointments",
       "outcome_lists",
+      "outcome_outcome_lists",
     ],
     "allowed_methods": Array [
       "*",
