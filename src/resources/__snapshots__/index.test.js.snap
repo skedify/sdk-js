@@ -41,6 +41,8 @@ Object {
     ],
     "deprecated": false,
     "filters": Array [
+      "appointment_id",
+      "outcome_id",
       "page",
       "per_page",
     ],
