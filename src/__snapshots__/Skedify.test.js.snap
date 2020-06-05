@@ -460,7 +460,7 @@ exports[`API API/Resources should throw an error when include is used before the
 
 exports[`API API/Resources should throw an error when including a value but there are no includes defined on the resource 1`] = `"[RESOURCE]: You tried to call \`.include(\\"invalid\\")\` but there are no includes defined for timetable."`;
 
-exports[`API API/Resources should throw an error when including a value that is not defined on the resource 1`] = `"[RESOURCE]: You tried to call \`.include(\\"invalid\\")\` but the only valid includes for subjects are \`questions\`, \`subject_category\`, \`languages\`, \`languages.translations\`, \`lead_segments\`, \`availability_settings\`, \`outcome_list\`, \`outcome_list.outcomes\` and \`outcome_list.outcome_outcome_lists\`."`;
+exports[`API API/Resources should throw an error when including a value that is not defined on the resource 1`] = `"[RESOURCE]: You tried to call \`.include(\\"invalid\\")\` but the only valid includes for subjects are \`questions\`, \`subject_category\`, \`languages\`, \`languages.translations\`, \`lead_segments\`, \`availability_settings\`, \`completion_outcome_list\`, \`completion_outcome_list.outcomes\`, \`completion_outcome_list.outcome_outcome_lists\`, \`customer_cancellation_outcome_list\`, \`customer_cancellation_outcome_list.outcomes\`, \`customer_cancellation_outcome_list.outcome_outcome_lists\`, \`contact_cancellation_outcome_list\`, \`contact_cancellation_outcome_list.outcomes\` and \`contact_cancellation_outcome_list.outcome_outcome_lists\`."`;
 
 exports[`API API/Response should normalize the response when the call fails 1`] = `
 Object {
@@ -1036,6 +1036,15 @@ Object {
   "availability_settings": Object {
     "toString": [Function],
   },
+  "completion_outcome_list": Object {
+    "outcome_outcome_lists": Object {
+      "toString": [Function],
+    },
+    "outcomes": Object {
+      "toString": [Function],
+    },
+    "toString": [Function],
+  },
   "contact": Object {
     "employee": Object {
       "toString": [Function],
@@ -1044,6 +1053,15 @@ Object {
     "user": Object {
       "toString": [Function],
     },
+  },
+  "contact_cancellation_outcome_list": Object {
+    "outcome_outcome_lists": Object {
+      "toString": [Function],
+    },
+    "outcomes": Object {
+      "toString": [Function],
+    },
+    "toString": [Function],
   },
   "contact_office": Object {
     "contact": Object {
@@ -1109,6 +1127,15 @@ Object {
     },
   },
   "customer": Object {
+    "toString": [Function],
+  },
+  "customer_cancellation_outcome_list": Object {
+    "outcome_outcome_lists": Object {
+      "toString": [Function],
+    },
+    "outcomes": Object {
+      "toString": [Function],
+    },
     "toString": [Function],
   },
   "day_template": Object {
@@ -1202,12 +1229,6 @@ Object {
     "toString": [Function],
   },
   "outcome_list": Object {
-    "outcome_outcome_lists": Object {
-      "toString": [Function],
-    },
-    "outcomes": Object {
-      "toString": [Function],
-    },
     "toString": [Function],
   },
   "outcome_lists": Object {
