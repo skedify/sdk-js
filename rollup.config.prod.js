@@ -3,7 +3,7 @@ import { terser } from 'rollup-plugin-terser'
 
 import { createUMDConfig } from './rollup.config.common'
 
-const createBaseConfig = common => specific => {
+const createBaseConfig = (common) => (specific) => {
   const base = Object.assign({}, common, specific)
   const sourcemap = false
 
@@ -17,9 +17,8 @@ const createBaseConfig = common => specific => {
         'process.env.NODE_ENV': JSON.stringify('production'),
       }),
       terser({
-        sourcemap,
         output: {
-          comments: function(node, comment) {
+          comments: function (node, comment) {
             return (
               comment.type === 'comment2' && /Copyright/i.test(comment.value)
             )

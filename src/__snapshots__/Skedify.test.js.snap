@@ -1213,6 +1213,9 @@ Object {
   "outcome_lists": Object {
     "toString": [Function],
   },
+  "outcome_outcome_lists": Object {
+    "toString": [Function],
+  },
   "outcomes": Object {
     "toString": [Function],
   },

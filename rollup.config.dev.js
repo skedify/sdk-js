@@ -2,7 +2,7 @@ import replace from 'rollup-plugin-replace'
 
 import { createUMDConfig } from './rollup.config.common'
 
-const createBaseConfig = common => specific => {
+const createBaseConfig = (common) => (specific) => {
   const base = Object.assign({}, common, specific)
 
   return Object.assign({}, base, {
