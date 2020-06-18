@@ -1032,6 +1032,10 @@ Object {
       "schedulable_for_meeting_type",
       "schedulable",
       "nearest_to_geo",
+      Object {
+        "key": "location[geolocation]",
+        "name": "geolocation",
+      },
       "limit",
       "page",
       "per_page",

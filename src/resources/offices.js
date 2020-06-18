@@ -30,6 +30,7 @@ export const offices = createResourceDescription(
       'schedulable_for_meeting_type',
       'schedulable',
       'nearest_to_geo',
+      { name: 'geolocation', key: 'location[geolocation]' },
       'limit',
     ],
   },
