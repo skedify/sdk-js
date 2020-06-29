@@ -256,33 +256,39 @@ export default function createRequest(
   )
   const { identityProvider, resource_domain_map } = get(instance)
 
-  const callConfig = createCallConfig(resourceEntity, {
-    url: createURL(
-      resource_domain_map[resource_path] !== undefined
-        ? resource_domain_map[resource_path].url
-        : Realm,
-      createParentURL(parent),
-      descriptor.resource,
+  const callConfig = createCallConfig(
+    resourceEntity,
+    Object.assign(
+      {
+        url: createURL(
+          resource_domain_map[resource_path] !== undefined
+            ? resource_domain_map[resource_path].url
+            : Realm,
+          createParentURL(parent),
+          descriptor.resource,
 
+          requestConfig.method === HTTP_VERB_DELETE &&
+            Array.isArray(descriptor.identifier)
+            ? undefined // We can omit the identifier when it is a DELETE of multiple resources
+            : descriptor.identifier
+        ),
+
+        headers: Object.assign(
+          {},
+          resource_domain_map[resource_path] !== undefined
+            ? resource_domain_map[resource_path].headers
+            : {},
+          { Authorization }
+        ),
+      },
+
+      // Convert the list of id's to the data body when it is a delete
       requestConfig.method === HTTP_VERB_DELETE &&
         Array.isArray(descriptor.identifier)
-        ? undefined // We can omit the identifier when it is a DELETE of multiple resources
-        : descriptor.identifier
-    ),
-
-    // Convert the list of id's to the data body when it is a delete
-    ...(requestConfig.method === HTTP_VERB_DELETE &&
-    Array.isArray(descriptor.identifier)
-      ? { data: descriptor.identifier }
-      : {}),
-
-    headers: {
-      ...(resource_domain_map[resource_path] !== undefined
-        ? resource_domain_map[resource_path].headers
-        : {}),
-      Authorization,
-    },
-  })
+        ? { data: descriptor.identifier }
+        : {}
+    )
+  )
 
   function tryToRecoverFromErrors(err) {
     // Try to recover from 401 by refreshing the token.
