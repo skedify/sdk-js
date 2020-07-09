@@ -28,7 +28,7 @@
     }
   },
   "scripts": {
-    "prebuild": "npm run lint && rimraf lib",
+    "prebuild": "rimraf lib",
     "build": "rollup -c rollup.config.prod.js",
     "watch": "rollup -c rollup.config.dev.js --watch",
     "test": "cross-env NODE_ENV=test jest",
