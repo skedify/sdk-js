@@ -1220,6 +1220,21 @@ Object {
     "resource": "postal_codes",
     "sub_resources": Object {},
   },
+  "recaptchaDomains": Object {
+    "allowed_includes": Array [],
+    "allowed_methods": Array [
+      "*",
+    ],
+    "deprecated": false,
+    "filters": Array [
+      "page",
+      "per_page",
+    ],
+    "headers": Object {},
+    "requires_domain_map": false,
+    "resource": "recaptcha_domains",
+    "sub_resources": Object {},
+  },
   "subjectCategories": Object {
     "allowed_includes": Array [
       "languages",
