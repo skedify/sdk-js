@@ -20,7 +20,7 @@ export const appointments = createResourceDescription(
       'outcomes',
       'appointment_outcomes',
     ],
-    filters: ['uuid', 'state', 'start', 'end'],
+    filters: ['uuid', 'state', 'start', 'end', 'contact'],
     headers: {
       [HTTP_VERB_POST]: {
         recaptcha: (value) => {
