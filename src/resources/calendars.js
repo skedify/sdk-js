@@ -4,7 +4,7 @@ export const calendars = createResourceDescription(
   'calendars',
   {
     includes: ['sync_account'],
-    filters: ['id'],
+    filters: ['id', 'is_sync_availability'],
   },
   {
     events: createResourceDescription('events', {
