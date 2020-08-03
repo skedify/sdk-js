@@ -1036,6 +1036,9 @@ Object {
   "availability_settings": Object {
     "toString": [Function],
   },
+  "calendars": Object {
+    "toString": [Function],
+  },
   "completion_outcome_list": Object {
     "outcome_outcome_lists": Object {
       "toString": [Function],
