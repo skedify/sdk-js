@@ -1515,7 +1515,9 @@ Object {
         "sub_resources": Object {},
       },
       "syncAccounts": Object {
-        "allowed_includes": Array [],
+        "allowed_includes": Array [
+          "calendars",
+        ],
         "allowed_methods": Array [
           "*",
         ],
