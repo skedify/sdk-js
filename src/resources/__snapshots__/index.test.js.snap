@@ -669,6 +669,14 @@ Object {
         "key": "location[geolocation]",
         "name": "geolocation",
       },
+      Object {
+        "key": "location[country]",
+        "name": "country",
+      },
+      Object {
+        "key": "location[postal_code]",
+        "name": "postal_code",
+      },
     ],
     "headers": Object {},
     "requires_domain_map": false,
@@ -1394,6 +1402,14 @@ Object {
       Object {
         "key": "location[geolocation]",
         "name": "geolocation",
+      },
+      Object {
+        "key": "location[country]",
+        "name": "country",
+      },
+      Object {
+        "key": "location[postal_code]",
+        "name": "postal_code",
       },
     ],
     "headers": Object {},
