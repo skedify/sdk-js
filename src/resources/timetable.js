@@ -11,6 +11,8 @@ export const timetable = createResourceDescription('timetable', {
     'contacts',
     { name: 'timezone', key: 'format[timezone]' },
     { name: 'geolocation', key: 'location[geolocation]' },
+    { name: 'country', key: 'location[country]' },
+    { name: 'postal_code', key: 'location[postal_code]' },
   ],
   allowed_methods: [HTTP_VERB_GET],
   enable_pagination: false,

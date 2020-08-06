@@ -14,6 +14,8 @@ export const definedAvailability = createResourceDescription(
       'meeting_types',
       { name: 'timezone', key: 'format[timezone]' },
       { name: 'geolocation', key: 'location[geolocation]' },
+      { name: 'country', key: 'location[country]' },
+      { name: 'postal_code', key: 'location[postal_code]' },
     ],
     enable_pagination: false,
   }

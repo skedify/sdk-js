@@ -669,6 +669,14 @@ Object {
         "key": "location[geolocation]",
         "name": "geolocation",
       },
+      Object {
+        "key": "location[country]",
+        "name": "country",
+      },
+      Object {
+        "key": "location[postal_code]",
+        "name": "postal_code",
+      },
     ],
     "headers": Object {},
     "requires_domain_map": false,
@@ -1395,6 +1403,14 @@ Object {
         "key": "location[geolocation]",
         "name": "geolocation",
       },
+      Object {
+        "key": "location[country]",
+        "name": "country",
+      },
+      Object {
+        "key": "location[postal_code]",
+        "name": "postal_code",
+      },
     ],
     "headers": Object {},
     "requires_domain_map": false,
@@ -1515,7 +1531,9 @@ Object {
         "sub_resources": Object {},
       },
       "syncAccounts": Object {
-        "allowed_includes": Array [],
+        "allowed_includes": Array [
+          "calendars",
+        ],
         "allowed_methods": Array [
           "*",
         ],

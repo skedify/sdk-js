@@ -2,22 +2,18 @@ import createResourceDescription from './util/createResourceDescription'
 
 export const users = createResourceDescription(
   'users',
+  { includes: ['employees', 'sync_accounts'] },
   {
-    includes: ['employees', 'sync_accounts'],
-  },
-  {
-    syncAccounts: createResourceDescription('sync_accounts'),
+    syncAccounts: createResourceDescription('sync_accounts', {
+      includes: ['calendars'],
+    }),
     events: createResourceDescription('events', {
       filters: ['start', 'end', 'split', 'group_by'],
     }),
-    employees: createResourceDescription('employees', {
-      includes: ['roles'],
-    }),
+    employees: createResourceDescription('employees', { includes: ['roles'] }),
     calendars: createResourceDescription(
       'calendars',
-      {
-        includes: ['sync_accounts'],
-      },
+      { includes: ['sync_accounts'] },
       {
         events: createResourceDescription('events', {
           filters: ['start', 'end', 'split', 'group_by'],
