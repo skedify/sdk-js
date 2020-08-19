@@ -702,6 +702,30 @@ Object {
     "resource": "defined_availability",
     "sub_resources": Object {},
   },
+  "emailPartials": Object {
+    "allowed_includes": Array [],
+    "allowed_methods": Array [
+      "*",
+    ],
+    "deprecated": false,
+    "filters": Array [],
+    "headers": Object {},
+    "requires_domain_map": false,
+    "resource": "email_partials",
+    "sub_resources": Object {},
+  },
+  "emailTemplates": Object {
+    "allowed_includes": Array [],
+    "allowed_methods": Array [
+      "*",
+    ],
+    "deprecated": false,
+    "filters": Array [],
+    "headers": Object {},
+    "requires_domain_map": false,
+    "resource": "email_templates",
+    "sub_resources": Object {},
+  },
   "employeeActivations": Object {
     "allowed_includes": Array [
       "employee",
