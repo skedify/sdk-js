@@ -1,5 +1,3 @@
-import crypto from 'crypto'
-
 /**
  * This code is copied from:
  * - https://www.npmjs.com/package/uuid
@@ -15,6 +13,9 @@ import crypto from 'crypto'
  * The fix here is inside the `rng()` function, where we check if the `getRandomValues` exists
  * If it doesn't we use `crypto.randomFillSync` instead.
  *
+ * Note that the code here was also SHRUNK DOWN for our use case. It doesn't have the same support as the real package!
+ * We only keep what we need!
+ *
  * Interesting: There is also a proposal to make UUID a standard in JavaScript: https://github.com/tc39/proposal-uuid
  * Might be something we can use in the future if it actually becomes a thing!
  */
@@ -29,9 +30,9 @@ const getRandomValues =
   // eslint-disable-next-line better/no-typeofs
   (typeof msCrypto !== 'undefined' &&
     // eslint-disable-next-line better/no-typeofs,no-undef
-    typeof msCrypto.getRandomValues === 'function' &&
+    /* istanbul ignore next */ typeof msCrypto.getRandomValues === 'function' &&
     // eslint-disable-next-line no-undef
-    msCrypto.getRandomValues.bind(msCrypto))
+    /* istanbul ignore next */ msCrypto.getRandomValues.bind(msCrypto))
 
 function rng() {
   if (getRandomValues) {
@@ -43,9 +44,9 @@ function rng() {
   return crypto.randomFillSync(rnds8)
 }
 
-const REGEX = /^(?:[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}|00000000-0000-0000-0000-000000000000)$/i
-
 function validate(uuid) {
+  const REGEX = /^(?:[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}|00000000-0000-0000-0000-000000000000)$/i
+
   // eslint-disable-next-line better/no-typeofs
   return typeof uuid === 'string' && REGEX.test(uuid)
 }
@@ -80,6 +81,7 @@ function stringify(arr, offset = 0) {
   // - One or more input array values don't map to a hex octet (leading to
   // "undefined" in the uuid)
   // - Invalid input values for the RFC `version` or `variant` fields
+  // istanbul ignore next
   if (!validate(uuid)) {
     throw new TypeError('Stringified UUID is invalid')
   }
@@ -87,7 +89,7 @@ function stringify(arr, offset = 0) {
   return uuid
 }
 
-function v4(options = {}, buf, offset = 0) {
+function v4(options = {}) {
   const rnds = options.random || (options.rng || rng)()
 
   // Per 4.4, set bits for version and `clock_seq_hi_and_reserved`
@@ -95,16 +97,6 @@ function v4(options = {}, buf, offset = 0) {
   rnds[6] = (rnds[6] & 0x0f) | 0x40
   // eslint-disable-next-line no-bitwise
   rnds[8] = (rnds[8] & 0x3f) | 0x80
-
-  // Copy bytes to buffer, if provided
-  if (buf) {
-    // eslint-disable-next-line better/no-fors
-    for (let i = 0; i < 16; ++i) {
-      buf[offset + i] = rnds[i]
-    }
-
-    return buf
-  }
 
   return stringify(rnds)
 }
