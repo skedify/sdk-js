@@ -1,17 +1,16 @@
+import crypto from 'crypto'
+
 describe('createToken', () => {
   beforeAll(() => {
     // I know we "fake" the browser implementation, however this way
     // we are still testing the browser detection itself.
-    global.crypto = {
-      randomFillSync: crypto.randomFillSync,
-      getRandomValues: (buffer) => crypto.randomFillSync(buffer),
-    }
+    crypto.getRandomValues = (buffer) => crypto.randomFillSync(buffer)
   })
 
   afterAll(() => {
     // Remove our fake implementation again
     //eslint-disable-next-line better/no-deletes
-    delete global.crypto.getRandomValues
+    delete crypto.getRandomValues
   })
 
   it('should generate a random string', () => {

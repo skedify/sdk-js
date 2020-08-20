@@ -1,3 +1,5 @@
+import crypto from 'crypto'
+
 /**
  * This code is copied from:
  * - https://www.npmjs.com/package/uuid
