@@ -1,9 +1,9 @@
-import alias from 'rollup-plugin-alias'
-import buble from 'rollup-plugin-buble'
-import commonjs from 'rollup-plugin-commonjs'
-import inject from 'rollup-plugin-inject'
-import resolve from 'rollup-plugin-node-resolve'
-import babel from 'rollup-plugin-babel'
+import alias from '@rollup/plugin-alias'
+import buble from '@rollup/plugin-buble'
+import commonjs from '@rollup/plugin-commonjs'
+import inject from '@rollup/plugin-inject'
+import resolve from '@rollup/plugin-node-resolve'
+import babel from '@rollup/plugin-babel'
 
 import PACKAGE from './package.json'
 
@@ -27,12 +27,10 @@ export function createUMDConfig(merger) {
         extensions: ['.js', '/index.js'],
         preferBuiltins: false,
       }),
-      commonjs({
-        namedExports: {},
-      }),
+      commonjs(),
       babel({
         include: ['node_modules/axios/**', 'src/**'],
-        runtimeHelpers: true,
+        babelHelpers: 'bundled',
       }),
       buble({
         namedFunctionExpressions: false,
