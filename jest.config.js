@@ -1,5 +1,5 @@
 module.exports = {
-  setupFiles: [],
+  setupFiles: ['./jest.setup.js'],
   moduleFileExtensions: ['js'],
   globals: {
     'process.env.NODE_ENV': 'test',
