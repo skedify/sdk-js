@@ -1,4 +1,4 @@
-import replace from 'rollup-plugin-replace'
+import replace from '@rollup/plugin-replace'
 
 import { createUMDConfig } from './rollup.config.common'
 
