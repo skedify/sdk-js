@@ -16,12 +16,7 @@ export function createUMDConfig(merger) {
       format: 'umd',
       name: 'Skedify',
       file: PACKAGE.main,
-
-      globals: {
-        crypto: 'crypto',
-      },
     },
-    external: ['crypto'],
     plugins: [
       alias({
         resolve: ['.js', ''],
