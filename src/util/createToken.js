@@ -1,5 +1,3 @@
-import crypto from 'crypto'
-
 /**
  * This code is copied from:
  * - https://www.npmjs.com/package/uuid
@@ -24,27 +22,32 @@ import crypto from 'crypto'
 
 const rnds8 = new Uint8Array(16)
 
-const getRandomValues =
-  // eslint-disable-next-line better/no-typeofs
-  (typeof crypto !== 'undefined' &&
-    crypto.getRandomValues &&
-    crypto.getRandomValues.bind(crypto)) ||
-  // eslint-disable-next-line better/no-typeofs
-  (typeof msCrypto !== 'undefined' &&
-    // eslint-disable-next-line better/no-typeofs,no-undef
-    /* istanbul ignore next */ typeof msCrypto.getRandomValues === 'function' &&
-    // eslint-disable-next-line no-undef
-    /* istanbul ignore next */ msCrypto.getRandomValues.bind(msCrypto))
+/* eslint-disable better/no-typeofs,no-undef */
+const IS_NODE_ENVIRONMENT =
+  typeof navigator === 'undefined' || navigator.userAgent.indexOf('jsdom') >= 0
 
+// If JSDom is detected then we are in a testing environment
+// We want this to count as a Node environment as well
+
+/* istanbul ignore next */
 function rng() {
-  if (getRandomValues) {
-    // For Browsers
-    return getRandomValues(rnds8)
+  if (IS_NODE_ENVIRONMENT) {
+    // If we're here, we're in a NodeJS environment
+    return crypto.randomFillSync(rnds8)
   }
 
-  // If we're here, we're in a NodeJS environment
-  return crypto.randomFillSync(rnds8)
+  // For Browsers, including IE11
+  const getRandomValues =
+    (typeof crypto !== 'undefined' &&
+      crypto.getRandomValues &&
+      crypto.getRandomValues.bind(crypto)) ||
+    (typeof msCrypto !== 'undefined' &&
+      typeof msCrypto.getRandomValues === 'function' &&
+      msCrypto.getRandomValues.bind(msCrypto))
+
+  return getRandomValues(rnds8)
 }
+/* eslint-enable better/no-typeofs,no-undef */
 
 function validate(uuid) {
   const REGEX = /^(?:[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}|00000000-0000-0000-0000-000000000000)$/i
