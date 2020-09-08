@@ -16,8 +16,16 @@ export {
 /**
  * Expose an install mock function
  */
-export function installSkedifySDKMock(instance) {
-  install(get(instance).network)
+export function installSkedifySDKMock(instance, options = {}) {
+  install(
+    get(instance).network,
+    Object.assign(
+      {
+        mockAccessTokensCall: true,
+      },
+      options
+    )
+  )
 }
 
 /**
