@@ -85,36 +85,37 @@ export function mostRecentRequest() {
   return requests[requests.length - 1]
 }
 
-const SETUP_REQUESTS = [
-  {
-    url: /access_tokens/,
-    response: {
-      status: 200,
-      data: {
-        access_token: 'fake_example_access_token',
-        token_type: 'Bearer',
-        expires_in: 5400,
-      },
+const ACCESS_TOKEN_CALL = {
+  url: /access_tokens/,
+  response: {
+    status: 200,
+    data: {
+      access_token: 'fake_example_access_token',
+      token_type: 'Bearer',
+      expires_in: 5400,
     },
   },
-  {
-    url: /\/integrations\/proxy/,
-    response: {
-      status: 200,
+}
+
+const PROXY_CALL = {
+  url: /\/integrations\/proxy/,
+  response: {
+    status: 200,
+    data: {
       data: {
-        data: {
-          // We need to use a getter to delay the execution of this function
-          // We need access to the mostRecent request, but if there is no most recent
-          // Request we can't access its url. Therefor once we are sure the /integrations/proxy
-          // Is executed, we can safely run the mostRecent() function.
-          get url() {
-            return mostRecentRequest().url.replace('/integrations/proxy', '')
-          },
+        // We need to use a getter to delay the execution of this function
+        // We need access to the mostRecent request, but if there is no most recent
+        // Request we can't access its url. Therefor once we are sure the /integrations/proxy
+        // Is executed, we can safely run the mostRecent() function.
+        get url() {
+          return mostRecentRequest().url.replace('/integrations/proxy', '')
         },
       },
     },
   },
-]
+}
+
+const SETUP_REQUESTS = [{ ...ACCESS_TOKEN_CALL }, { ...PROXY_CALL }]
 
 export function mockedRequests() {
   const { requests, ignoredRequests } = storage()
@@ -124,7 +125,14 @@ export function mockedRequests() {
     .filter((request) => !ignoredRequests.includes(request))
 }
 
-export function install(instance) {
+export function install(instance, options = {}) {
+  const { mockAccessTokensCall } = Object.assign(
+    {
+      mockAccessTokensCall: true,
+    },
+    options
+  )
+
   defaultAdapters.set(instance, instance.defaults.adapter)
   instance.defaults.adapter = mockAdapter
 
@@ -135,8 +143,10 @@ export function install(instance) {
     ignoredRequests: [],
   })
 
+  const setup_calls = mockAccessTokensCall ? SETUP_REQUESTS : [PROXY_CALL]
+
   // Stub setup requests
-  SETUP_REQUESTS.forEach(({ url, response }) => {
+  setup_calls.forEach(({ url, response }) => {
     mockMatchingURLResponse(
       url,
       response.data,
