@@ -103,6 +103,7 @@ const PROXY_CALL = {
     status: 200,
     data: {
       data: {
+        settings: {
           // We need to use a getter to delay the execution of this function
           // We need access to the mostRecent request, but if there is no most recent
           // Request we can't access its url. Therefor once we are sure the /integrations/proxy
@@ -113,6 +114,7 @@ const PROXY_CALL = {
         },
       },
     },
+  },
 }
 
 export function mockedRequests() {
