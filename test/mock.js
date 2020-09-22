@@ -103,19 +103,17 @@ const PROXY_CALL = {
     status: 200,
     data: {
       data: {
-        // We need to use a getter to delay the execution of this function
-        // We need access to the mostRecent request, but if there is no most recent
-        // Request we can't access its url. Therefor once we are sure the /integrations/proxy
-        // Is executed, we can safely run the mostRecent() function.
-        get url() {
-          return mostRecentRequest().url.replace('/integrations/proxy', '')
+          // We need to use a getter to delay the execution of this function
+          // We need access to the mostRecent request, but if there is no most recent
+          // Request we can't access its url. Therefor once we are sure the /integrations/proxy
+          // Is executed, we can safely run the mostRecent() function.
+          get url() {
+            return mostRecentRequest().url.replace('/integrations/proxy', '')
+          },
         },
       },
     },
-  },
 }
-
-const SETUP_REQUESTS = [{ ...ACCESS_TOKEN_CALL }, { ...PROXY_CALL }]
 
 export function mockedRequests() {
   const { requests, ignoredRequests } = storage()
@@ -126,9 +124,10 @@ export function mockedRequests() {
 }
 
 export function install(instance, options = {}) {
-  const { mockAccessTokensCall } = Object.assign(
+  const { mockAccessTokensCall, mockProxyCall } = Object.assign(
     {
       mockAccessTokensCall: true,
+      mockProxyCall: true,
     },
     options
   )
@@ -143,7 +142,10 @@ export function install(instance, options = {}) {
     ignoredRequests: [],
   })
 
-  const setup_calls = mockAccessTokensCall ? SETUP_REQUESTS : [PROXY_CALL]
+  const setup_calls = [
+    ...(mockAccessTokensCall ? [ACCESS_TOKEN_CALL] : []),
+    ...(mockProxyCall ? [PROXY_CALL] : []),
+  ]
 
   // Stub setup requests
   setup_calls.forEach(({ url, response }) => {

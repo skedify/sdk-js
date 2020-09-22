@@ -22,6 +22,7 @@ export function installSkedifySDKMock(instance, options = {}) {
     Object.assign(
       {
         mockAccessTokensCall: true,
+        mockProxyCall: true,
       },
       options
     )
