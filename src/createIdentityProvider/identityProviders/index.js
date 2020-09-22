@@ -56,10 +56,23 @@ export const IDPS = {
               .get(`${Realm}/integrations/proxy`, {
                 headers: { Authorization },
               })
-              .then(({ data: response }) => ({
-                Realm: response.data.url,
-                Authorization,
-              }))
+              .then(({ data: response }) => {
+                if (
+                  response.data &&
+                  response.data.settings &&
+                  response.data.settings.url
+                ) {
+                  return {
+                    Realm: response.data.settings.url,
+                    Authorization,
+                  }
+                }
+
+                return {
+                  Realm,
+                  Authorization,
+                }
+              })
           })
 
           // Check if the identity call works for grant_type = token. This way we
