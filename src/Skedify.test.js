@@ -643,6 +643,106 @@ describe('API', () => {
     expect(await matchRequest(SDK.subjects())).toMatchSnapshot()
   })
 
+  it('should not use a proxy url when none is given', async () => {
+    const SDK2 = new API({
+      auth_provider,
+      locale: 'nl-BE',
+    })
+
+    installSkedifySDKMock(SDK2, { mockProxyCall: false })
+
+    // No proxy url is returned
+    // Fallback/Default url should be used
+    mockMatchingURLResponse(/integrations/)
+    mockMatchingURLResponse(/subjects/, [])
+
+    await SDK2.subjects()
+
+    expect(mockedRequests()).toMatchSnapshot()
+
+    uninstallSkedifySDKMock(SDK2)
+  })
+
+  it('should use the proxy url when given', async () => {
+    const SDK2 = new API({
+      auth_provider,
+      locale: 'nl-BE',
+    })
+
+    installSkedifySDKMock(SDK2, { mockProxyCall: false })
+
+    // A proxy url is returned
+    // The proxy url should be used for the request
+    mockMatchingURLResponse(/integrations/, {
+      settings: { url: 'https://api-proxy.example.com' },
+    })
+    mockMatchingURLResponse(/subjects/, [])
+
+    await SDK2.subjects()
+
+    expect(mockedRequests()).toMatchSnapshot()
+
+    uninstallSkedifySDKMock(SDK2)
+  })
+
+  it('should use the proxy url when given for the token grant', async () => {
+    const auth_provider_token = API.createAuthProviderString('token', {
+      token_type: 'Bearer',
+      access_token: 'some-access-token-goes-here',
+      realm: 'https://api.example.com',
+    })
+
+    const SDK2 = new API({
+      auth_provider: auth_provider_token,
+      locale: 'nl-BE',
+    })
+
+    installSkedifySDKMock(SDK2, { mockProxyCall: false })
+
+    // A proxy url is returned
+    // The proxy url should be used for the request
+    mockMatchingURLResponse(/integrations/, {
+      settings: { url: 'https://api-proxy.example.com' },
+    })
+    // See grant/index.js
+    mockMatchingURLResponse(/identity/, [])
+    mockMatchingURLResponse(/subjects/, [])
+
+    await SDK2.subjects()
+
+    expect(mockedRequests()).toMatchSnapshot()
+
+    uninstallSkedifySDKMock(SDK2)
+  })
+
+  it('should not use a proxy url when none is given for the token grant', async () => {
+    const auth_provider_token = API.createAuthProviderString('token', {
+      token_type: 'Bearer',
+      access_token: 'some-access-token-goes-here',
+      realm: 'https://api.example.com',
+    })
+
+    const SDK2 = new API({
+      auth_provider: auth_provider_token,
+      locale: 'nl-BE',
+    })
+
+    installSkedifySDKMock(SDK2, { mockProxyCall: false })
+
+    // No proxy url is returned
+    // Fallback/Default url should be used
+    mockMatchingURLResponse(/integrations/)
+    // See grant/index.js
+    mockMatchingURLResponse(/identity/, [])
+    mockMatchingURLResponse(/subjects/, [])
+
+    await SDK2.subjects()
+
+    expect(mockedRequests()).toMatchSnapshot()
+
+    uninstallSkedifySDKMock(SDK2)
+  })
+
   describe('API/Response', () => {
     it('should normalize the response when the call succeeds', async () => {
       mockResponse([])
