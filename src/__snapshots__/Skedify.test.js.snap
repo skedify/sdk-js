@@ -1461,6 +1461,81 @@ Object {
 }
 `;
 
+exports[`API should not use a proxy url when none is given 1`] = `
+Array [
+  Object {
+    "data": undefined,
+    "headers": Object {
+      "Accept": "application/json, text/plain, */*",
+      "Accept-Language": "nl-BE, nl;q=0.667, *;q=0.333",
+      "Authorization": "Bearer fake_example_access_token",
+      "Cache-Control": "no-store",
+      "Pragma": "no-cache",
+    },
+    "method": "get",
+    "params": undefined,
+    "url": "https://api.example.com/integrations/proxy",
+  },
+  Object {
+    "data": undefined,
+    "headers": Object {
+      "Accept": "application/json, text/plain, */*",
+      "Accept-Language": "nl-BE, nl;q=0.667, *;q=0.333",
+      "Authorization": "Bearer fake_example_access_token",
+      "Cache-Control": "no-store",
+      "Pragma": "no-cache",
+    },
+    "method": "get",
+    "params": undefined,
+    "url": "https://api.example.com/subjects",
+  },
+]
+`;
+
+exports[`API should not use a proxy url when none is given for the token grant 1`] = `
+Array [
+  Object {
+    "data": undefined,
+    "headers": Object {
+      "Accept": "application/json, text/plain, */*",
+      "Accept-Language": "nl-BE, nl;q=0.667, *;q=0.333",
+      "Authorization": "Bearer some-access-token-goes-here",
+      "Cache-Control": "no-store",
+      "Pragma": "no-cache",
+    },
+    "method": "get",
+    "params": undefined,
+    "url": "https://api.example.com/integrations/proxy",
+  },
+  Object {
+    "data": undefined,
+    "headers": Object {
+      "Accept": "application/json, text/plain, */*",
+      "Accept-Language": "nl-BE, nl;q=0.667, *;q=0.333",
+      "Authorization": "Bearer some-access-token-goes-here",
+      "Cache-Control": "no-store",
+      "Pragma": "no-cache",
+    },
+    "method": "get",
+    "params": undefined,
+    "url": "https://api.example.com/identity",
+  },
+  Object {
+    "data": undefined,
+    "headers": Object {
+      "Accept": "application/json, text/plain, */*",
+      "Accept-Language": "nl-BE, nl;q=0.667, *;q=0.333",
+      "Authorization": "Bearer some-access-token-goes-here",
+      "Cache-Control": "no-store",
+      "Pragma": "no-cache",
+    },
+    "method": "get",
+    "params": undefined,
+    "url": "https://api.example.com/subjects",
+  },
+]
+`;
+
 exports[`API should reflect configuration changes in the request (auth_provider) 1`] = `
 Object {
   "data": undefined,
@@ -1526,6 +1601,81 @@ Object {
 `;
 
 exports[`API should throw an error when an interceptor is added but it is not a function 1`] = `"[RESOURCE]: You tried to call \`.addResponseInterceptor(null)\` but it must receive a function."`;
+
+exports[`API should use the proxy url when given 1`] = `
+Array [
+  Object {
+    "data": undefined,
+    "headers": Object {
+      "Accept": "application/json, text/plain, */*",
+      "Accept-Language": "nl-BE, nl;q=0.667, *;q=0.333",
+      "Authorization": "Bearer fake_example_access_token",
+      "Cache-Control": "no-store",
+      "Pragma": "no-cache",
+    },
+    "method": "get",
+    "params": undefined,
+    "url": "https://api.example.com/integrations/proxy",
+  },
+  Object {
+    "data": undefined,
+    "headers": Object {
+      "Accept": "application/json, text/plain, */*",
+      "Accept-Language": "nl-BE, nl;q=0.667, *;q=0.333",
+      "Authorization": "Bearer fake_example_access_token",
+      "Cache-Control": "no-store",
+      "Pragma": "no-cache",
+    },
+    "method": "get",
+    "params": undefined,
+    "url": "https://api-proxy.example.com/subjects",
+  },
+]
+`;
+
+exports[`API should use the proxy url when given for the token grant 1`] = `
+Array [
+  Object {
+    "data": undefined,
+    "headers": Object {
+      "Accept": "application/json, text/plain, */*",
+      "Accept-Language": "nl-BE, nl;q=0.667, *;q=0.333",
+      "Authorization": "Bearer some-access-token-goes-here",
+      "Cache-Control": "no-store",
+      "Pragma": "no-cache",
+    },
+    "method": "get",
+    "params": undefined,
+    "url": "https://api.example.com/integrations/proxy",
+  },
+  Object {
+    "data": undefined,
+    "headers": Object {
+      "Accept": "application/json, text/plain, */*",
+      "Accept-Language": "nl-BE, nl;q=0.667, *;q=0.333",
+      "Authorization": "Bearer some-access-token-goes-here",
+      "Cache-Control": "no-store",
+      "Pragma": "no-cache",
+    },
+    "method": "get",
+    "params": undefined,
+    "url": "https://api-proxy.example.com/identity",
+  },
+  Object {
+    "data": undefined,
+    "headers": Object {
+      "Accept": "application/json, text/plain, */*",
+      "Accept-Language": "nl-BE, nl;q=0.667, *;q=0.333",
+      "Authorization": "Bearer some-access-token-goes-here",
+      "Cache-Control": "no-store",
+      "Pragma": "no-cache",
+    },
+    "method": "get",
+    "params": undefined,
+    "url": "https://api-proxy.example.com/subjects",
+  },
+]
+`;
 
 exports[`API/Auth Providers should be possible to use the \`public_client\` strategy 1`] = `
 Object {

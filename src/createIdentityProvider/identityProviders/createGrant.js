@@ -58,11 +58,25 @@ function defaultAuthorizationMethod({
           .get(`${Realm}/integrations/proxy`, {
             headers: { Authorization },
           })
-          .then(({ data: response }) => ({
-            Realm: response.data.url,
-            Authorization,
-            Expiration,
-          }))
+          .then(({ data: response }) => {
+            if (
+              response.data &&
+              response.data.settings &&
+              response.data.settings.url
+            ) {
+              return {
+                Realm: response.data.settings.url,
+                Authorization,
+                Expiration,
+              }
+            }
+
+            return {
+              Realm,
+              Authorization,
+              Expiration,
+            }
+          })
       })
 
       // Make sure to create a new access_token when the current one is going to expire
