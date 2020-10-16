@@ -364,6 +364,25 @@ SDK.appointments([1, 2, 3, 4])
 
 > **NOTE**: the above design regarding validation and normalisation of error responses also apply to `.update()` and `.replace()` calls on entities.
 
+## Headers
+
+You can also specify custom headers on requests:
+
+```js
+SDK.appointments
+  .headers({'X-Scheduling-Rules', 'disallow-appointment-overlap'})
+  .update({
+    /* insert properties of appointment here */
+  })
+  .then(appointment => appointment.save())
+  .then(
+    response => {
+      // The actual response as defined above goes here
+    },
+    response_error => {}
+  );
+```
+
 ## External identifiers
 
 Users of the SDK will often want to interact with entities that correspond to entities in their own applications.
