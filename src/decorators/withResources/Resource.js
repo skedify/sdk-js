@@ -101,6 +101,16 @@ export default class Resource {
     return this
   }
 
+  headers(requested_headers) {
+    set(this, ({ requestConfig }) => ({
+      requestConfig: Object.assign({}, requestConfig, {
+        headers: Object.assign({}, requestConfig.headers, requested_headers),
+      }),
+    }))
+
+    return this
+  }
+
   include(...includes) {
     set(this, ({ requestConfig }) => ({
       requestConfig: Object.assign({}, requestConfig, {
