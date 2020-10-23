@@ -78,6 +78,7 @@ Object {
       "start",
       "end",
       "contact",
+      "office",
       "page",
       "per_page",
     ],
