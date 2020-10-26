@@ -387,6 +387,31 @@ describe('API/Config', () => {
     uninstallSkedifySDKMock(SDK)
   })
 
+  it('should be possible to set custom headers', async () => {
+    const SDK = new API({
+      auth_provider: API.createAuthProviderString('public_client', {
+        client_id: 'someclientidtokengoeshere',
+        realm: 'http://127.0.0.1',
+      }),
+      locale: 'nl-BE',
+      headers: {
+        Host: 'api.example.com',
+      },
+    })
+
+    installSkedifySDKMock(SDK)
+
+    expect(
+      await matchRequest(
+        SDK.appointments().headers({
+          'X-Scheduling-Rules': 'disallow-appointment-overlap',
+        })
+      )
+    ).toMatchSnapshot()
+
+    uninstallSkedifySDKMock(SDK)
+  })
+
   it('should throw when a resource requires a custom domain endpoint when it is not defined', () => {
     const SDK = new API({
       auth_provider: API.createAuthProviderString('public_client', {
