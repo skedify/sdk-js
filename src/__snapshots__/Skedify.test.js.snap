@@ -1874,6 +1874,24 @@ Object {
 }
 `;
 
+exports[`API/Config should be possible to set custom headers 1`] = `
+Object {
+  "data": undefined,
+  "headers": Object {
+    "Accept": "application/json, text/plain, */*",
+    "Accept-Language": "nl-BE, nl;q=0.667, *;q=0.333",
+    "Authorization": "Bearer fake_example_access_token",
+    "Cache-Control": "no-store",
+    "Host": "api.example.com",
+    "Pragma": "no-cache",
+    "X-Scheduling-Rules": "disallow-appointment-overlap",
+  },
+  "method": "get",
+  "params": undefined,
+  "url": "http://127.0.0.1/appointments",
+}
+`;
+
 exports[`API/Config should throw an error when onConfigurationChange is not passed a function 1`] = `"[CONFIG]: You tried to call \`.onConfigurationChange(null)\` but it must receive a function."`;
 
 exports[`API/Config should throw an error when overriding items on the configuration object directly 1`] = `"Cannot assign to read only property 'locale' of object '#<Object>'"`;

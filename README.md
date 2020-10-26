@@ -370,7 +370,7 @@ You can also specify custom headers on requests:
 
 ```js
 SDK.appointments
-  .headers({'X-Scheduling-Rules', 'disallow-appointment-overlap'})
+  .headers({ 'X-Scheduling-Rules' : 'disallow-appointment-overlap' })
   .update({
     /* insert properties of appointment here */
   })
