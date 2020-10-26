@@ -78,6 +78,7 @@ Object {
       "start",
       "end",
       "contact",
+      "office",
       "page",
       "per_page",
     ],
@@ -1044,6 +1045,14 @@ Object {
       Object {
         "key": "location[geolocation]",
         "name": "geolocation",
+      },
+      Object {
+        "key": "location[country]",
+        "name": "country",
+      },
+      Object {
+        "key": "location[postal_code]",
+        "name": "postal_code",
       },
       "limit",
       "page",

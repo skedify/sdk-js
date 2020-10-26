@@ -31,6 +31,8 @@ export const offices = createResourceDescription(
       'schedulable',
       'nearest_to_geo',
       { name: 'geolocation', key: 'location[geolocation]' },
+      { name: 'country', key: 'location[country]' },
+      { name: 'postal_code', key: 'location[postal_code]' },
       'limit',
     ],
   },
