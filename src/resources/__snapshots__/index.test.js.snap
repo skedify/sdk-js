@@ -156,6 +156,23 @@ Object {
       },
     },
   },
+  "calendarEventTemplates": Object {
+    "allowed_includes": Array [
+      "language",
+    ],
+    "allowed_methods": Array [
+      "*",
+    ],
+    "deprecated": false,
+    "filters": Array [
+      "page",
+      "per_page",
+    ],
+    "headers": Object {},
+    "requires_domain_map": false,
+    "resource": "calendar_event_templates",
+    "sub_resources": Object {},
+  },
   "calendars": Object {
     "allowed_includes": Array [
       "sync_account",
