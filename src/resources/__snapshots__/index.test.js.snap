@@ -1459,6 +1459,21 @@ Object {
     "resource": "timetable",
     "sub_resources": Object {},
   },
+  "timezones": Object {
+    "allowed_includes": Array [],
+    "allowed_methods": Array [
+      "get",
+    ],
+    "deprecated": false,
+    "filters": Array [
+      "page",
+      "per_page",
+    ],
+    "headers": Object {},
+    "requires_domain_map": false,
+    "resource": "timezones",
+    "sub_resources": Object {},
+  },
   "unavailability": Object {
     "allowed_includes": Array [],
     "allowed_methods": Array [
