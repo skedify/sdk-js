@@ -48,7 +48,7 @@ function mockAdapter(config) {
 
     return reject(
       new Error(
-        'There is no response, did you forget to call `mockResponse`? For more info please go to: https://github.com/skedify/sdk-js#testing'
+        `There is no response for \`${request.url}\`, did you forget to call \`mockResponse\`? For more info please go to: https://github.com/skedify/sdk-js#testing`
       )
     )
   })
