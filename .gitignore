@@ -1,5 +1,6 @@
 # dotfiles except allowed
 .*
+!.github
 !.gitattributes
 !.gitignore
 !.editorconfig
@@ -7,7 +8,6 @@
 !.eslintignore
 !.prettierignore
 !.babelrc
-!.travis.yml
 !.releaserc
 
 # dependencies
