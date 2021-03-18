@@ -954,6 +954,20 @@ Object {
     "resource": "lead_segments",
     "sub_resources": Object {},
   },
+  "listings": Object {
+    "allowed_includes": Array [],
+    "allowed_methods": Array [
+      "*",
+    ],
+    "deprecated": false,
+    "filters": Array [
+      "external_id",
+    ],
+    "headers": Object {},
+    "requires_domain_map": false,
+    "resource": "listings",
+    "sub_resources": Object {},
+  },
   "modules": Object {
     "allowed_includes": Array [],
     "allowed_methods": Array [

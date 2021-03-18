@@ -535,6 +535,28 @@ SDK.appointments('appointment id').then({ data } => {
 })
 ```
 
+## Custom Domain Map
+Some endpoints require a domain mapping when instantiating the SDK. Consider the 
+following example:
+
+```js
+const SDK = new API({
+    auth_provider: API.createAuthProviderString('public_client', {
+      client_id: 'someclientidtokengoeshere',
+      realm: 'https://api.example.com',
+    }),
+    locale: 'nl-BE',
+    resource_domain_map: {
+      events: {
+        url: 'https://events-api.example.com',
+      },
+      'users.events': {
+        url: 'https://users-events-api.example.com',
+      },
+    },
+  })
+```
+
 ## Testing
 
 If you want to test your application's code, you can use these test utils so that you can safely execute the calls.
