@@ -13,4 +13,5 @@ export const unavailability = createResourceDescription('unavailability', {
     'ignore_skedify_appointments',
   ],
   enable_pagination: false,
+  enable_id_filter: false,
 })

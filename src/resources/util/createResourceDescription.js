@@ -1,9 +1,5 @@
 import { HTTP_VERB_ALL_WILDCARD } from '../../constants'
 
-function addDefaultFilters(filters = []) {
-  return [...filters, 'id']
-}
-
 export default function createResourceDescription(
   resource,
   {
@@ -13,6 +9,7 @@ export default function createResourceDescription(
     allowed_methods = [HTTP_VERB_ALL_WILDCARD],
     deprecated = false,
     enable_pagination = true,
+    enable_id_filter = true,
     requires_domain_map = false,
   } = {},
   sub_resources = {}
@@ -20,9 +17,11 @@ export default function createResourceDescription(
   return {
     resource,
     allowed_includes: includes,
-    filters: addDefaultFilters(
-      enable_pagination ? [...filters, 'page', 'per_page'] : filters
-    ),
+    filters: [
+      ...filters,
+      ...(enable_pagination ? ['page', 'per_page'] : []),
+      ...(enable_id_filter ? ['id'] : []),
+    ],
     sub_resources,
     headers,
     allowed_methods,
