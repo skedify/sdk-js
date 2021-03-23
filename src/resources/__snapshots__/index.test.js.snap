@@ -1003,6 +1003,7 @@ Object {
     "deprecated": false,
     "filters": Array [
       "external_id",
+      "uuid",
     ],
     "headers": Object {},
     "requires_domain_map": false,
