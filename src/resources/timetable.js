@@ -16,4 +16,5 @@ export const timetable = createResourceDescription('timetable', {
   ],
   allowed_methods: [HTTP_VERB_GET],
   enable_pagination: false,
+  enable_id_filter: false,
 })

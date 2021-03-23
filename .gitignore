@@ -9,6 +9,7 @@
 !.prettierignore
 !.babelrc
 !.releaserc
+!.nvmrc
 
 # dependencies
 node_modules/
