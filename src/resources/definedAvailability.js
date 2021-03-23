@@ -18,5 +18,6 @@ export const definedAvailability = createResourceDescription(
       { name: 'postal_code', key: 'location[postal_code]' },
     ],
     enable_pagination: false,
+    enable_id_filter: false,
   }
 )
