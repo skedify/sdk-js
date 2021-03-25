@@ -54,11 +54,17 @@ describe('convertIdsToString', () => {
   })
 
   it('should skip conversion of **_id values when it is one of the exceptions', () => {
-    const response = { example_id: 1, something_else: 2, external_id: 3 }
+    const response = {
+      example_id: 1,
+      something_else: 2,
+      external_id: 3,
+      external_customer_id: { order: 0 },
+    }
     expect(convertIdsToString(response)).toEqual({
       example_id: '1',
       something_else: 2,
       external_id: 3, // This is an exception
+      external_customer_id: { order: 0 }, // This is also an exception
     })
   })
 
