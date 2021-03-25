@@ -1,4 +1,4 @@
-const EXCEPTIONS = ['external_id']
+const EXCEPTIONS = ['external_id', 'external_customer_id']
 
 export default function convertIdsToString(json) {
   if (json === null) {
