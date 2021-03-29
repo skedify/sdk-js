@@ -1003,6 +1003,7 @@ Object {
     "deprecated": false,
     "filters": Array [
       "external_id",
+      "schedulable",
       "uuid",
     ],
     "headers": Object {},
