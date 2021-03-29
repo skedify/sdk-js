@@ -1005,6 +1005,8 @@ Object {
       "external_id",
       "schedulable",
       "uuid",
+      "page",
+      "per_page",
     ],
     "headers": Object {},
     "requires_domain_map": false,
