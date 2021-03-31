@@ -8,6 +8,7 @@ import {
 } from './invariants'
 import {
   HTTP_VERB_PATCH,
+  HTTP_VERB_PUT,
   HTTP_VERB_POST,
   HTTP_VERB_DELETE,
   HTTP_VERB_ALL_WILDCARD,
@@ -220,6 +221,34 @@ export default class Resource {
         data,
         method: HTTP_VERB_PATCH,
         name: 'patch',
+      }),
+    }))
+
+    return cloned
+  }
+
+  replace(data) {
+    if (!isAllowed(this, HTTP_VERB_PUT)) {
+      throw createConfigError(
+        `You tried to call \`.replace(${JSON.stringify(
+          data
+        )})\` but this method is currently not allowed.`
+      )
+    }
+
+    // Clone the current Resource
+    const cloned = overrideThen(clone(this), (originalThen) => ({
+      save() {
+        return new Promise(originalThen)
+      },
+    }))
+
+    // Override request config
+    set(cloned, ({ requestConfig }) => ({
+      requestConfig: Object.assign({}, requestConfig, {
+        data,
+        method: HTTP_VERB_PUT,
+        name: 'put',
       }),
     }))
 

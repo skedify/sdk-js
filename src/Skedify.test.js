@@ -954,6 +954,14 @@ describe('API', () => {
       ).toThrowErrorMatchingSnapshot()
     })
 
+    it('should be possible to disable certain actions (replace) on a resource', () => {
+      expect(() =>
+        SDK.insights('cumulio').auth().replace({
+          id: 'new id',
+        })
+      ).toThrowErrorMatchingSnapshot()
+    })
+
     it('should be possible to disable certain actions (delete) on a resource', () => {
       expect(() =>
         SDK.insights('cumulio').auth().delete()
@@ -1188,6 +1196,20 @@ describe('API', () => {
         await matchRequest(
           SDK.appointments(1207)
             .update({
+              state: 'cancelled',
+              cancelled_by_type: 'customer',
+              cancelled_by_id: 'customer id goes here',
+            })
+            .then((appointment) => appointment.save())
+        )
+      ).toMatchSnapshot()
+    })
+
+    it('should be possible to replace an entity', async () => {
+      expect(
+        await matchRequest(
+          SDK.appointments(1207)
+            .replace({
               state: 'cancelled',
               cancelled_by_type: 'customer',
               cancelled_by_id: 'customer id goes here',

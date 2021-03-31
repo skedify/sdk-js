@@ -126,7 +126,7 @@ SDK.subjects() // the name of the collection is available as a function on the S
         // In addition to the attributes from the response data, the record will also have additional methods
         record.save(); // to save (only) the made changes to the API. Corresponds to a PATCH request.
         record.delete(); // to delete this one member from the collection. Corresponds to a DELETE request.
-        record.replace(); // to replace all data from this member with another but reusing the ID. Corresponds to a PUT request.11
+        record.replace(); // to replace all data from this member with another but reusing the ID. Corresponds to a PUT request.
       });
     },
     error => {
