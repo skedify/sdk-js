@@ -97,6 +97,8 @@ The options are:
     - `nl-be`: The second part should be uppercase.
     - `nl-BE-VWVX`: The last part can only contain 2 or 3 characters.
 
+- **onError**: A function called when there is an API error that can't be recovered automatically by the SDK
+
 ## Basic Usage
 
 Let's start with a simple use case: getting a list of subjects

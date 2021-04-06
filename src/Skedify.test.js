@@ -160,6 +160,17 @@ describe('API/Config', () => {
     ).toThrow()
   })
 
+  it('should throw when an invalid onError is passed', () => {
+    expect(
+      () =>
+        new API({
+          auth_provider,
+          locale: 'nl-BE',
+          onError: true,
+        })
+    ).toThrowError('[CONFIG]: onError must be a function.')
+  })
+
   it('should allow correct forms of locale values', () => {
     const valids = [
       'nl',
@@ -635,6 +646,36 @@ describe('API', () => {
     expect(() =>
       SDK.subjects().addResponseInterceptor(null)
     ).toThrowErrorMatchingSnapshot()
+  })
+
+  it('should call the onError callback of the configuration when there is an API error', async () => {
+    const mock = jest.fn()
+
+    const auth_provider_token = API.createAuthProviderString('token', {
+      token_type: 'Bearer',
+      access_token: 'some-access-token-goes-here',
+      realm: 'https://api.example.com',
+    })
+
+    const SDK2 = new API({
+      auth_provider: auth_provider_token,
+      locale: 'nl-BE',
+      onError: mock,
+    })
+
+    installSkedifySDKMock(SDK2, {
+      mockAccessTokensCall: false,
+    })
+
+    mockMatchingURLResponse(/identity/, [], [], [], 401)
+
+    await SDK2.subjects().catch((err) => {
+      expect(err).toMatchSnapshot()
+    })
+
+    expect(mock).toHaveBeenCalled()
+
+    uninstallSkedifySDKMock(SDK2)
   })
 
   it('should convert all the `id` and `XXX_id` keys to strings', async () => {
