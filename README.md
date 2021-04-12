@@ -3,13 +3,12 @@
 **Release:**
 [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/skedify/sdk-js/develop/LICENSE)
 [![npm](https://img.shields.io/npm/v/skedify-sdk.svg)](https://www.npmjs.com/package/skedify-sdk)
-[![Build Status](https://travis-ci.org/skedify/sdk-js.svg?branch=master)](https://travis-ci.org/skedify/sdk-js)
+[![Build Status](https://github.com/skedify/sdk-js/actions/workflows/release.yml/badge.svg?branch=master)](https://github.com/skedify/sdk-js/actions/workflows/release.yml)
 [![Code Coverage](https://codecov.io/gh/skedify/sdk-js/branch/master/graph/badge.svg)](https://codecov.io/gh/skedify/sdk-js)
 
 **Development:**
-[![Build Status](https://travis-ci.org/skedify/sdk-js.svg?branch=develop)](https://travis-ci.org/skedify/sdk-js)
+[![Build Status](https://github.com/skedify/sdk-js/actions/workflows/ci.yml/badge.svg?branch=develop)](https://github.com/skedify/sdk-js/actions/workflows/ci.yml)
 [![Code Coverage](https://codecov.io/gh/skedify/sdk-js/branch/develop/graph/badge.svg)](https://codecov.io/gh/skedify/sdk-js)
-[![GitHub issues](https://img.shields.io/github/issues/skedify/sdk-js.svg)](https://github.com/skedify/sdk-js/issues)
 [![Commitizen friendly](https://img.shields.io/badge/commitizen-friendly-brightgreen.svg)](http://commitizen.github.io/cz-cli/)
 
 ## Goal
@@ -96,6 +95,8 @@ The options are:
     - `NL`: The first part should be lowercase.
     - `nl-be`: The second part should be uppercase.
     - `nl-BE-VWVX`: The last part can only contain 2 or 3 characters.
+
+- **onError**: A function called when there is an API error that can't be recovered automatically by the SDK
 
 ## Basic Usage
 

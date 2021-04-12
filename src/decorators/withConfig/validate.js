@@ -4,7 +4,9 @@ import {
   MISCONFIGURED,
   MISCONFIGURED_AUTH_PROVIDER,
   MISCONFIGURED_LOCALE,
+  MISCONFIGURED_ON_ERROR_CALLBACK,
 } from '../../constants'
+import isFunction from '../../util/isFunction'
 
 export function validateLocale(input) {
   if (!input) {
@@ -50,6 +52,14 @@ export default function validate(config = {}) {
   }
 
   validateLocale(config.locale)
+
+  if (config.onError && !isFunction(config.onError)) {
+    throw createConfigError(
+      'onError must be a function.',
+      MISCONFIGURED,
+      MISCONFIGURED_ON_ERROR_CALLBACK
+    )
+  }
 
   if (
     !config.hasOwnProperty('auth_provider') ||

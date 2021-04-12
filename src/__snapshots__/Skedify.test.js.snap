@@ -1120,6 +1120,20 @@ Object {
 }
 `;
 
+exports[`API should call the onError callback of the configuration when there is an API error 1`] = `
+Object {
+  "data": Array [],
+  "errors": undefined,
+  "headers": undefined,
+  "meta": Array [],
+  "method": "get",
+  "query": undefined,
+  "status": 401,
+  "url": "https://api.example.com/identity",
+  "warnings": Array [],
+}
+`;
+
 exports[`API should expose all available includes on the API instance 1`] = `
 Object {
   "accepted_possibility": Object {
