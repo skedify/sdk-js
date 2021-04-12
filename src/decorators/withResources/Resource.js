@@ -271,7 +271,15 @@ export default class Resource {
         .then(resolve, reject)
     })
 
-    return get(this).existing_call.then(onFulfilled, onRejected)
+    return get(this).existing_call.then(onFulfilled, (...args) => {
+      if (instance.configuration.onError) {
+        instance.configuration.onError(...args)
+      }
+
+      if (onRejected) {
+        onRejected(...args)
+      }
+    })
   }
 
   catch(onRejected) {

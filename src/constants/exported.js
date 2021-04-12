@@ -20,6 +20,7 @@ export const MISCONFIGURED = createToken()
 export const MISCONFIGURED_AUTH_PROVIDER = createToken()
 export const MISCONFIGURED_LOCALE = createToken()
 export const MISCONFIGURED_AUTH_PROVIDER_OPTIONS = createToken()
+export const MISCONFIGURED_ON_ERROR_CALLBACK = createToken()
 
 export const MISCONFIGURED_LOGGER = createToken()
 
