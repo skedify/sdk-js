@@ -177,6 +177,8 @@ exports[`API API/Resources should be possible to disable certain actions (new) b
 
 exports[`API API/Resources should be possible to disable certain actions (new) on a resource 1`] = `"[CONFIG]: You tried to call \`.new({\\"id\\":\\"new identity id\\"})\` but this method is currently not allowed."`;
 
+exports[`API API/Resources should be possible to disable certain actions (replace) on a resource 1`] = `"[CONFIG]: You tried to call \`.replace({\\"id\\":\\"new id\\"})\` but this method is currently not allowed."`;
+
 exports[`API API/Resources should be possible to disable certain actions (update) on a resource 1`] = `"[CONFIG]: You tried to call \`.update({\\"id\\":\\"new id\\"})\` but this method is currently not allowed."`;
 
 exports[`API API/Resources should be possible to make subsequent calls to include to add multiple includes 1`] = `
@@ -291,6 +293,27 @@ Object {
     "Pragma": "no-cache",
   },
   "method": "get",
+  "params": undefined,
+  "url": "https://api.example.com/appointments/1207",
+}
+`;
+
+exports[`API API/Resources should be possible to replace an entity 1`] = `
+Object {
+  "data": Object {
+    "cancelled_by_id": "customer id goes here",
+    "cancelled_by_type": "customer",
+    "state": "cancelled",
+  },
+  "headers": Object {
+    "Accept": "application/json, text/plain, */*",
+    "Accept-Language": "nl-BE, nl;q=0.667, *;q=0.333",
+    "Authorization": "Bearer fake_example_access_token",
+    "Cache-Control": "no-store",
+    "Content-Type": "application/json;charset=utf-8",
+    "Pragma": "no-cache",
+  },
+  "method": "put",
   "params": undefined,
   "url": "https://api.example.com/appointments/1207",
 }
