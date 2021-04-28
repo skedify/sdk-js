@@ -38,7 +38,7 @@ jobs:
         run: npm run lint
 
       - name: Test
-        run: npm run test
+        run: npm run check-coverage
 
       - name: Build
         run: npm run build
