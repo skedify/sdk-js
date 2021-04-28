@@ -1610,6 +1610,7 @@ Object {
         "name": "timezone",
       },
       "ignore_skedify_appointments",
+      "mark_range_as_busy_on_failure",
     ],
     "headers": Object {},
     "requires_domain_map": false,
