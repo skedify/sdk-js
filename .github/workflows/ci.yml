@@ -12,7 +12,7 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [10.x, 11.x, 14.x]
+        node-version: [10.x, 14.x, 16.x]
 
     steps:
       - uses: actions/checkout@v2
@@ -38,7 +38,7 @@ jobs:
         run: npm run lint
 
       - name: Test
-        run: npm run test
+        run: npm run check-coverage
 
       - name: Build
         run: npm run build
