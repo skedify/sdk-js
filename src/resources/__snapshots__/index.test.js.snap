@@ -1503,7 +1503,10 @@ Object {
             "sub_resources": Object {},
           },
           "options": Object {
-            "allowed_includes": Array [],
+            "allowed_includes": Array [
+              "languages",
+              "languages.translations",
+            ],
             "allowed_methods": Array [
               "*",
             ],

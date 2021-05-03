@@ -41,7 +41,9 @@ export const subjects = createResourceDescription(
       },
       {
         languages: createResourceDescription('languages'),
-        options: createResourceDescription('options'),
+        options: createResourceDescription('options', {
+          includes: ['languages', 'languages.translations'],
+        }),
       }
     ),
     timetable: createResourceDescription('timetable', {
