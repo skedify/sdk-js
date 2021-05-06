@@ -305,9 +305,7 @@ export default class Resource {
         instance.configuration.onError(...args)
       }
 
-      if (onRejected) {
-        onRejected(...args)
-      }
+      return onRejected && onRejected(...args)
     })
   }
 
