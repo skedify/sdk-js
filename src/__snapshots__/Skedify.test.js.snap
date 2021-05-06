@@ -1143,6 +1143,22 @@ Object {
 }
 `;
 
+exports[`API should call the onError callback even if the catch callback is undefined 1`] = `
+Array [
+  Object {
+    "data": Array [],
+    "errors": undefined,
+    "headers": undefined,
+    "meta": Array [],
+    "method": "get",
+    "query": undefined,
+    "status": 500,
+    "url": "https://api.example.com/subjects",
+    "warnings": Array [],
+  },
+]
+`;
+
 exports[`API should call the onError callback of the configuration when there is an API error 1`] = `
 Object {
   "data": Array [],

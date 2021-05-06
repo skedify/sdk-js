@@ -678,6 +678,35 @@ describe('API', () => {
     uninstallSkedifySDKMock(SDK2)
   })
 
+  it('should call the onError callback even if the catch callback is undefined', async () => {
+    const mock = jest.fn()
+
+    SDK.configure({
+      onError: mock,
+    })
+
+    mockMatchingURLResponse(/subjects/, [], [], [], 500)
+    mockMatchingURLResponse(/subjects/, [], [], [], 500)
+    mockMatchingURLResponse(/subjects/, [], [], [], 500)
+
+    await SDK.subjects().then(undefined, undefined)
+
+    expect(mock).toHaveBeenCalled()
+    expect(mock.mock.calls[0]).toMatchSnapshot()
+  })
+
+  it('should not fail when the onError is not defined', async () => {
+    SDK.configure({
+      onError: undefined,
+    })
+
+    mockMatchingURLResponse(/subjects/, [], [], [], 500)
+    mockMatchingURLResponse(/subjects/, [], [], [], 500)
+    mockMatchingURLResponse(/subjects/, [], [], [], 500)
+
+    await SDK.subjects().then(undefined, undefined)
+  })
+
   it('should convert all the `id` and `XXX_id` keys to strings', async () => {
     mockResponse([
       { id: 1, foo: 'foo' },
