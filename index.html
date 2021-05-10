@@ -1,44 +1,139 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="icon"
+      type="image/png"
+      href="https://www.skedify.me/assets/img/favicons/favicon-16x16.png"
+    />
 
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Skedify SDK</title>
-</head>
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <head>
+      <style>
+        @import url('https://fonts.googleapis.com/css?family=Fira+Sans');
 
-<body>
+        div.wrapper {
+          line-height: 1.5;
+          font-family: 'Fira Sans', sans-serif !important;
+        }
+        h1 {
+          color: #324983;
+        }
+        a {
+          color: #324983;
+        }
+      </style>
+    </head>
+    <title>Skedify SDK</title>
+  </head>
 
-  <h1>Documentation</h1>
-  <pre>Open devtools, so that you can play with `SDK`.</pre>
+  <body style="margin: 2rem">
+    <div class="wrapper">
+      <h1>Documentation</h1>
+      <pre>Open devtools, so that you can play with `SDK`.</pre>
 
-  <script src="./lib/skedify-sdk.js"></script>
+      <h2>Snippet</h2>
+      <p>Use the following snippet to easily test the SDK:</p>
+      <ul>
+        <li>
+          <a
+            href="https://developer.chrome.com/docs/devtools/javascript/snippets/"
+            target="_blank"
+            >Chrome snippets</a
+          >
+        </li>
+        <li>
+          <a
+            href="https://developer.mozilla.org/en-US/docs/Tools/Web_Console/The_command_line_interpreter"
+            target="_blank"
+            >Firefox JavaScript Interpreter</a
+          >
+        </li>
+      </ul>
+    </div>
 
-  <script>
-    const onDOMContentLoaded = () => {
-      window.document.removeEventListener('DOMContentLoaded', onDOMContentLoaded)
+    <pre>
+      (function() {
+        const client_id = ''
+        const realm = 'https://api.skedify.com/enterprises/development'
+        const username = ''
+        const password = ''
+        const enterprise_id = '1'
+        const locale = 'nl'
+        console.clear();
+      
+      
+        const SDK = new Skedify.API({
+            auth_provider: Skedify.API.createAuthProviderString('public_client_password', {
+                client_id,
+                username,
+                password,
+                enterprise_id,
+                realm
+            }),
+            locale: locale,
+            logger: {
+              trace() {
+                console.log('trace');
+              },
+              info(data) {
+                console.log('info', data);
+              },
+              warn() {
+                console.log('warn');
+              },
+              debug() {
+                console.log('debug');
+              },
+              error() {
+                console.log('error');
+              },
+              fatal() {
+                console.log('fatal');
+              }
+            }
+        })
+      
+        window.SDK = SDK
+        console.log('window.SDK is available!')
+      
+      })();
+    </pre>
+  
+    <div class="wrapper">
+      <code>Example: SDK.appointments(2).then(console.log)</code>
+    </div>
 
-      const livereload = document.createElement('script')
+    <script src="./lib/skedify-sdk.js"></script>
 
-      livereload.src = `http://${
-        (location.host || 'localhost').split(':')[0]
+    <script>
+      const onDOMContentLoaded = () => {
+        window.document.removeEventListener(
+          'DOMContentLoaded',
+          onDOMContentLoaded
+        )
+
+        const livereload = document.createElement('script')
+
+        livereload.src = `http://${
+          (location.host || 'localhost').split(':')[0]
         }:35729/livereload.js?snipver=1`
-      document.head.appendChild(livereload)
-    }
+        document.head.appendChild(livereload)
+      }
 
-    window.document.addEventListener('DOMContentLoaded', onDOMContentLoaded)
-  </script>
+      window.document.addEventListener('DOMContentLoaded', onDOMContentLoaded)
+    </script>
 
-  <script>
-    window.SDK = new Skedify.API({
-      locale: 'nl-BE',
-      auth_provider: Skedify.API.createAuthProviderString('public_client', {
-        client_id: 'client id goes here',
-        realm: 'https://api.example.com',
-      }),
-    })
-  </script>
-</body>
-
+    <script>
+      window.SDK = new Skedify.API({
+        locale: 'nl-BE',
+        auth_provider: Skedify.API.createAuthProviderString('public_client', {
+          client_id: 'client id goes here',
+          realm: 'https://api.example.com',
+        }),
+      })
+    </script>
+  </body>
 </html>
