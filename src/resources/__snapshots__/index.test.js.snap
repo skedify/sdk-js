@@ -735,7 +735,7 @@ Object {
     "resource": "defined_availability",
     "sub_resources": Object {},
   },
-  "emailColors": Object {
+  "emailConfigs": Object {
     "allowed_includes": Array [],
     "allowed_methods": Array [
       "*",
@@ -744,7 +744,7 @@ Object {
     "filters": Array [],
     "headers": Object {},
     "requires_domain_map": false,
-    "resource": "email_colors",
+    "resource": "email_configs",
     "sub_resources": Object {},
   },
   "emailPartials": Object {
@@ -817,7 +817,28 @@ Object {
     },
     "requires_domain_map": false,
     "resource": "employees",
-    "sub_resources": Object {},
+    "sub_resources": Object {
+      "favoriteContacts": Object {
+        "allowed_includes": Array [],
+        "allowed_methods": Array [
+          "get",
+          "post",
+          "delete",
+        ],
+        "deprecated": false,
+        "filters": Array [
+          "office_id",
+          "contact_id",
+          "page",
+          "per_page",
+          "id",
+        ],
+        "headers": Object {},
+        "requires_domain_map": false,
+        "resource": "favorite_contacts",
+        "sub_resources": Object {},
+      },
+    },
   },
   "enterpriseSettings": Object {
     "allowed_includes": Array [],
