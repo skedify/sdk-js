@@ -858,7 +858,9 @@ Object {
     "sub_resources": Object {},
   },
   "enterprises": Object {
-    "allowed_includes": Array [],
+    "allowed_includes": Array [
+      "enterprise_settings",
+    ],
     "allowed_methods": Array [
       "*",
     ],
