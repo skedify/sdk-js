@@ -1328,6 +1328,9 @@ Object {
   "enterprise": Object {
     "toString": [Function],
   },
+  "enterprise_settings": Object {
+    "toString": [Function],
+  },
   "initiated_by": Object {
     "toString": [Function],
   },
