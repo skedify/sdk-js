@@ -736,18 +736,6 @@ Object {
     "resource": "defined_availability",
     "sub_resources": Object {},
   },
-  "emailConfigs": Object {
-    "allowed_includes": Array [],
-    "allowed_methods": Array [
-      "*",
-    ],
-    "deprecated": false,
-    "filters": Array [],
-    "headers": Object {},
-    "requires_domain_map": false,
-    "resource": "email_configs",
-    "sub_resources": Object {},
-  },
   "emailPartials": Object {
     "allowed_includes": Array [],
     "allowed_methods": Array [
@@ -758,6 +746,18 @@ Object {
     "headers": Object {},
     "requires_domain_map": false,
     "resource": "email_partials",
+    "sub_resources": Object {},
+  },
+  "emailSettings": Object {
+    "allowed_includes": Array [],
+    "allowed_methods": Array [
+      "*",
+    ],
+    "deprecated": false,
+    "filters": Array [],
+    "headers": Object {},
+    "requires_domain_map": false,
+    "resource": "email_settings",
     "sub_resources": Object {},
   },
   "emailTemplates": Object {
