@@ -646,3 +646,11 @@ Object {
 ## Contributing
 
 Use `npm run commit` when you want to commit a change.
+
+## Creating a release candidate
+
+To create a release candidate, push a new tag. The version in `package.json` will be the same as the tagname without the `v` prefix.
+
+```
+git tag v5.0.0-rc.1 && git push origin v5.0.0-rc.1
+```

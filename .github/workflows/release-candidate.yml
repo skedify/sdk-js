@@ -1,9 +1,9 @@
-name: Release
+name: Release Candidate
 
 on:
   push:
-    branches:
-      - "master"
+    tags:
+      - "v[0-9]+.[0-9]+.[0-9]+-rc.[0-9]+"
 
 jobs:
   build:
@@ -16,10 +16,24 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
+      - name: Get the version
+        id: get_version
+        run: echo ::set-output name=VERSION::$(echo ${GITHUB_REF/refs\/tags\//} | sed 's/^v//')
+
+      - name: Set the tag name to package.json
+        run: >-
+          node -e "
+            const fs = require('fs'); 
+            const packageJson = require('./package.json'); 
+            const version = '${{ steps.get_version.outputs.VERSION }}';
+            fs.writeFileSync('./package.json', JSON.stringify({ ...packageJson, version }));
+          "
+
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v2
         with:
           node-version: ${{ matrix.node-version }}
+          registry-url: 'https://registry.npmjs.org'
 
       - name: Cache node modules
         uses: actions/cache@v2
@@ -39,8 +53,10 @@ jobs:
       - name: Test
         run: npm run test
 
+      - name: Build
+        run: npm run build
+
       - name: Release
-        run: npm run build && npm run semantic-release
+        run: npm publish --tag next
         env:
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
-          GH_TOKEN: ${{ secrets.GH_TOKEN }}
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
