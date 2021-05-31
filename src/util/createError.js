@@ -25,9 +25,8 @@ export default Object.assign(createError, {
  * Shorthands
  */
 export const createConfigError = createError.withNamespace('config')
-export const createIdentityProviderError = createError.withNamespace(
-  'identity provider'
-)
+export const createIdentityProviderError =
+  createError.withNamespace('identity provider')
 export const createResourceError = createError.withNamespace('resource')
 export const createResponseError = createError.withNamespace('response')
 export const createRetryError = createError.withNamespace('retry')
