@@ -251,9 +251,8 @@ export default function createRequest(
   resourceEntity,
   { Realm, Authorization }
 ) {
-  const { instance, descriptor, resource_path, parent, requestConfig } = get(
-    resourceEntity
-  )
+  const { instance, descriptor, resource_path, parent, requestConfig } =
+    get(resourceEntity)
   const { identityProvider, resource_domain_map } = get(instance)
 
   const callConfig = createCallConfig(
