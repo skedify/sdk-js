@@ -9,9 +9,8 @@ function createDefaultHeaderInstaller(instance, config) {
     // Set default headers
     Object.assign(network.defaults.headers.common, headers)
 
-    network.defaults.headers.common[
-      'Accept-Language'
-    ] = createAcceptLanguageHeader(locale)
+    network.defaults.headers.common['Accept-Language'] =
+      createAcceptLanguageHeader(locale)
 
     // (Hopefully) prevent browsers from caching our requests
     // Previously IE11 would cache requests like /identity, this is an issue
