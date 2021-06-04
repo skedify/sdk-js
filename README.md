@@ -1,4 +1,4 @@
-# Skedify SDK / API client
+# Skedify SDK / API clientdf
 
 **Release:**
 [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/skedify/sdk-js/develop/LICENSE)
@@ -20,7 +20,7 @@ The goal of this SDK is to offer an easy to use tool to interact with the Skedif
 One would create an SDK with a simple constructor function:
 
 ```js
-const SDK = new Skedify.API(options);
+const SDK = new Skedify.API(options)
 // eg const SDK = Skedify.API({ auth_provider: 'client://client_id=someclientidtokengoeshere&realm=https://api.example.com', locale: 'nl-BE' })
 ```
 
@@ -106,7 +106,7 @@ Let's start with a simple use case: getting a list of subjects
 SDK.subjects() // the name of the collection is available as a function on the SDK instance
   .then(
     // the "collection" function performs a GET request to the corresponding endpoint and returns a Promise
-    response => {
+    (response) => {
       /**
        * `response` is an object that represents the response from the API.
        * It contains multiple attributes:
@@ -117,19 +117,19 @@ SDK.subjects() // the name of the collection is available as a function on the S
        *       This will be an array, where each item represents a member of the collection in
        *       an "ActiveRecord"-like style
        */
-      response.data.forEach(record => {
-        record.id; // will be normalized: all ID's will be in string form
-        record.title; // regular attributes will be accessible as properties
-        record.duration = 60; // regular attributes will also be editable by default
+      response.data.forEach((record) => {
+        record.id // will be normalized: all ID's will be in string form
+        record.title // regular attributes will be accessible as properties
+        record.duration = 60 // regular attributes will also be editable by default
         // This could be made extensible: a method record.isWritable('propName') could be added to check access rights.
         // Also, if not writable, trying to set a read-only attribute could throw an Error.
         // In addition to the attributes from the response data, the record will also have additional methods
-        record.save(); // to save (only) the made changes to the API. Corresponds to a PATCH request.
-        record.delete(); // to delete this one member from the collection. Corresponds to a DELETE request.
-        record.replace(); // to replace all data from this member with another but reusing the ID. Corresponds to a PUT request.
-      });
+        record.save() // to save (only) the made changes to the API. Corresponds to a PATCH request.
+        record.delete() // to delete this one member from the collection. Corresponds to a DELETE request.
+        record.replace() // to replace all data from this member with another but reusing the ID. Corresponds to a PUT request.
+      })
     },
-    error => {
+    (error) => {
       /**
        * `error` will always be an Error object.
        * It might contain a property `error.response`, in which case
@@ -142,7 +142,7 @@ SDK.subjects() // the name of the collection is available as a function on the S
        * as the original call on the collection.
        */
     }
-  );
+  )
 ```
 
 > **NOTE**: check that, if an ID is provided but is falsey, it's still treated as a call for a single item (throw Error in this case) and not incorrectly interpreted as a collection call
@@ -155,18 +155,18 @@ Instead of getting a collection, you could also directly access one member of a 
 This can be done by providing the ID of the member (as a string) to the collection function.
 
 ```js
-SDK.subjects("subject id here").then(
+SDK.subjects('subject id here').then(
   // the function performs a GET request to the corresponding endpoint and returns a Promise
-  response => {
+  (response) => {
     /**
      * `response` has the same properties as in the above call for the entire collection.
      * However, response.data will not be an Array of records, but instead be one record.
      */
   },
-  error => {
+  (error) => {
     // `error` has the same properties as in the above call for the entire collection.
   }
-);
+)
 ```
 
 ## Subresources
@@ -174,14 +174,14 @@ SDK.subjects("subject id here").then(
 You can get subresources by chaining the original collection call with a subresource call
 
 ```js
-SDK.subjects("subject id here")
+SDK.subjects('subject id here')
   .questions()
   .then(
-    response => {
+    (response) => {
       // response.data will contain an Array of "question" records for the corresponding subject
     },
-    error => {}
-  );
+    (error) => {}
+  )
 ```
 
 ## Includes
@@ -193,29 +193,35 @@ An include is described by the "collection" method on SDK. You can pass multiple
 ```js
 SDK.subjects()
   .include(SDK.include.subject_category, SDK.include.subjects.questions)
-  .then(response => {}, error => {});
+  .then(
+    (response) => {},
+    (error) => {}
+  )
 // is the same as
 SDK.subjects()
   .include(SDK.include.subject_category)
   .include(SDK.include.subjects.questions)
-  .then(response => {}, error => {});
+  .then(
+    (response) => {},
+    (error) => {}
+  )
 
 // also:
 
 SDK.subjects()
   .include(SDK.include.subject_category, SDK.include.subjects.questions)
   .then(
-    response => {
-      response.data.forEach(subjectRecord => {
+    (response) => {
+      response.data.forEach((subjectRecord) => {
         // subjectRecord.subject_category will contain a subject_category record
         // subjectRecord.questions will contain an Array of "question" records
         // All these records will have the same properties (such as ID normalization, follow-up request methods, ...).
         // Included records are deduplicated by ID, meaning eg two subjects that belong to the same category, will get the same subject_category record)
         // => if subject1.subject_category.id === subject2.subject_category.id then subject1.subject_category === subject2.subject_category
-      });
+      })
     },
-    error => {}
-  );
+    (error) => {}
+  )
 ```
 
 ## Sorting
@@ -243,28 +249,26 @@ The user can limit the amount of responses by using the `.limit` method. To achi
 SDK.subjects()
   .limit(10)
   .offset(10)
-  .then(response => {
+  .then((response) => {
     // in addition to the regular properties on response, it will also additionally have
     // a new `paging` property with the following props:
-    response.paging.size; // the amount of entities per page (=limit)
-    response.paging.current; // the current page you're on
-    response.paging.total; // the total amount of entities
-    response.paging.pages; // the amount of pages
-    response.paging.hasNext(); // check if there is a next page
-    response.paging.hasPrevious(); // check if there is a previous page
-    response.paging.next(); // start loading the next page. This will return a new Promise wich will resolve in a new response
-    response.paging.previous(); // start loading the previous page. This will return a new Promise wich will resolve in a new response
-  });
+    response.paging.size // the amount of entities per page (=limit)
+    response.paging.current // the current page you're on
+    response.paging.total // the total amount of entities
+    response.paging.pages // the amount of pages
+    response.paging.hasNext() // check if there is a next page
+    response.paging.hasPrevious() // check if there is a previous page
+    response.paging.next() // start loading the next page. This will return a new Promise wich will resolve in a new response
+    response.paging.previous() // start loading the previous page. This will return a new Promise wich will resolve in a new response
+  })
 
 // and also
-SDK.subjects()
-  .limit(10)
-  .page(3);
+SDK.subjects().limit(10).page(3)
 
 // is equivalent to
 SDK.subjects()
   .limit(10)
-  .offset(10 * (3 - 1));
+  .offset(10 * (3 - 1))
 
 // NOTE: the page() function requires the limit to be defined.
 ```
@@ -274,19 +278,19 @@ SDK.subjects()
 It should be possible to filter the result set based on certain conditions.
 
 ```js
-SDK.subjects().filter(item =>
+SDK.subjects().filter((item) =>
   item.or(
     item
-      .schedulable_at_office(["3"]) // chaining means AND implicitly
-      .schedulable_with_contact(["1", "2"])
+      .schedulable_at_office(['3']) // chaining means AND implicitly
+      .schedulable_with_contact(['1', '2'])
       .schedulable(),
-    item.schedulable_at_office(["6"]).schedulable_with_contact(["4", "5"])
+    item.schedulable_at_office(['6']).schedulable_with_contact(['4', '5'])
   )
-);
+)
 // multiple filters can also be applied by chain-calling filter multiple times.
-SDK.filter(cb).filter(cb); // chaining filter implies `AND`
+SDK.filter(cb).filter(cb) // chaining filter implies `AND`
 // If the user wants multiple filters to be applied with OR semantics, they can use the method `.orFilter`
-SDK.filter(cb).orFilter(cb);
+SDK.filter(cb).orFilter(cb)
 ```
 
 > **NOTE**: `item.or` is currently not supported by the API and therefor should not (yet) be implemented.
@@ -304,13 +308,16 @@ SDK.appointments()
   .new({
     /* insert properties of appointment here */
   })
-  .then(appointment => appointment.create(), validation_error => {})
   .then(
-    response => {
+    (appointment) => appointment.create(),
+    (validation_error) => {}
+  )
+  .then(
+    (response) => {
       // The actual response as defined above goes here
     },
-    response_error => {}
-  );
+    (response_error) => {}
+  )
 ```
 
 ## Updating
@@ -322,13 +329,13 @@ SDK.appointments(1207)
   .update({
     /* insert properties of appointment here */
   })
-  .then(appointment => appointment.save())
+  .then((appointment) => appointment.save())
   .then(
-    response => {
+    (response) => {
       // The actual response as defined above goes here
     },
-    response_error => {}
-  );
+    (response_error) => {}
+  )
 ```
 
 If you want to update multiple entities at once, you can use an array as the data and omit the identifier:
@@ -336,7 +343,7 @@ If you want to update multiple entities at once, you can use an array as the dat
 ```js
 SDK.appointments()
   .update([{ id: 1 }, { id: 2 }, { id: 3 }])
-  .then(appointment => appointment.save());
+  .then((appointment) => appointment.save())
 ```
 
 ## Delete
@@ -346,7 +353,7 @@ If you want to delete an entity you can do it as follows:
 ```js
 SDK.appointments(1207)
   .delete()
-  .then(appointment => appointment.delete());
+  .then((appointment) => appointment.delete())
 ```
 
 If you want to delete multiple entities at once, you can use an array as the identifier:
@@ -354,7 +361,7 @@ If you want to delete multiple entities at once, you can use an array as the ide
 ```js
 SDK.appointments([1, 2, 3, 4])
   .delete()
-  .then(appointment => appointment.delete());
+  .then((appointment) => appointment.delete())
 
 // Behind the scenes this will map to `DELETE /appointments` with a body of `[ 1, 2, 3, 4 ]`
 ```
@@ -371,17 +378,17 @@ You can also specify custom headers on requests:
 
 ```js
 SDK.appointments
-  .headers({ 'X-Scheduling-Rules' : 'disallow-appointment-overlap' })
+  .headers({ 'X-Scheduling-Rules': 'disallow-appointment-overlap' })
   .update({
     /* insert properties of appointment here */
   })
-  .then(appointment => appointment.save())
+  .then((appointment) => appointment.save())
   .then(
-    response => {
+    (response) => {
       // The actual response as defined above goes here
     },
-    response_error => {}
-  );
+    (response_error) => {}
+  )
 ```
 
 ## External identifiers
@@ -392,11 +399,11 @@ This means that often, developers will query/interact with entities based on the
 To make this use-case easier, ID strings can be overloaded with a schema to signify that an entity is reffered to by their external ID rather than the internal one.
 
 ```js
-SDK.appointments("external://abc").then(response => response.data);
+SDK.appointments('external://abc').then((response) => response.data)
 // instead of
 SDK.appointments()
-  .filter(item => item.external_id(["abc"]))
-  .then(response => response.data);
+  .filter((item) => item.external_id(['abc']))
+  .then((response) => response.data)
 ```
 
 By using an schema-like syntax, we make this mechanism extendable for multiple external ID's.
@@ -406,20 +413,20 @@ These systems could each assign their own external ID in their own namespace.
 ```js
 // assume there is an appointment known in various external systems
 const appointment = {
-  id: "123", // internal Skedify ID
-  external_id: "456", // currently only one external ID is supported, but later we might allow multiple:
+  id: '123', // internal Skedify ID
+  external_id: '456', // currently only one external ID is supported, but later we might allow multiple:
   external_ids: {
-    integration_one: "abc",
-    integration_two: "def",
-    integration_three: "ghi"
-  }
-};
+    integration_one: 'abc',
+    integration_two: 'def',
+    integration_three: 'ghi',
+  },
+}
 // then this appointment would be addressable by using either of these
-SDK.appointments("123");
-SDK.appointments("external://456");
-SDK.appointments("integration_one://abc");
-SDK.appointments("integration_two://def");
-SDK.appointments("integration_three://ghi");
+SDK.appointments('123')
+SDK.appointments('external://456')
+SDK.appointments('integration_one://abc')
+SDK.appointments('integration_two://def')
+SDK.appointments('integration_three://ghi')
 ```
 
 We assume (by default) that there is a one-on-one mapping between internal entities' IDs and external entities.
@@ -455,9 +462,9 @@ Some external applications might not follow our assumption that there is a one-o
 In this case, it remains possible to interact with the collection as a whole and filter:
 
 ```js
-SDK.appointments().filter(item => {
-  item.external_id("abc");
-});
+SDK.appointments().filter((item) => {
+  item.external_id('abc')
+})
 ```
 
 We might provide utility functions on top of the shorthand for common use cases, but these can only be implemented once we have a strong understanding of what/how integrations will interact with the external ID's
@@ -465,17 +472,17 @@ We might provide utility functions on top of the shorthand for common use cases,
 ```js
 // depending on user demand, we COULD support some of these utilities:
 // pretend like the first one is the correct one
-SDK.appointments("external://abc")
+SDK.appointments('external://abc')
   .firstOfMultiple()
-  .then(result => {
-    console.assert(result.data === appointment1);
-  });
+  .then((result) => {
+    console.assert(result.data === appointment1)
+  })
 // pretend like the most recently updated one is the correct one
-SDK.appointments("external://abc")
+SDK.appointments('external://abc')
   .mostRecentlyUpdatedOfMultiple()
-  .then(result => {
-    console.assert(result.data === appointment1);
-  });
+  .then((result) => {
+    console.assert(result.data === appointment1)
+  })
 // ... we should really wait and see what integrators want
 ```
 
@@ -488,16 +495,16 @@ For ease of use, some methods are exposed that are intentionally different from 
 The endpoint `/offices/:oid/subject_settings` offers entities which have a seperate ID and a subject_id. These are not identical, so searching for the overrides on a specific subject "should" be done using a filter. However, it makes more sense to treat the subjectid as an ID, since the overrides will only every be looked up in that way directly.
 
 ```js
-SDK.offices("officeid").subjectSettings("subjectid");
+SDK.offices('officeid').subjectSettings('subjectid')
 // instead of
-SDK.offices("officeid")
+SDK.offices('officeid')
   .subjectSettings()
-  .filter(item => item.subject_id("subjectid"))
-  .then(response => {
+  .filter((item) => item.subject_id('subjectid'))
+  .then((response) => {
     if (response.data.length !== 0) {
-      throw NotFoundError();
+      throw NotFoundError()
     }
-  });
+  })
 ```
 
 ### Enterprise settings
@@ -509,9 +516,9 @@ The `enterprise_settings` endpoint exposes a collection which will only every ha
 // TODO: There is only one enterprise, otherwise you need (enterprises(ID))
 SDK.enterprise()
   .settings()
-  .then(response => response.data);
+  .then((response) => response.data)
 // instead of
-SDK.enterpriseSettings().then(response => response.data[0]);
+SDK.enterpriseSettings().then((response) => response.data[0])
 ```
 
 ### Common actions on appointments
@@ -537,25 +544,26 @@ SDK.appointments('appointment id').then({ data } => {
 ```
 
 ## Custom Domain Map
-Some endpoints require a domain mapping when instantiating the SDK. Consider the 
+
+Some endpoints require a domain mapping when instantiating the SDK. Consider the
 following example:
 
 ```js
 const SDK = new API({
-    auth_provider: API.createAuthProviderString('public_client', {
-      client_id: 'someclientidtokengoeshere',
-      realm: 'https://api.example.com',
-    }),
-    locale: 'nl-BE',
-    resource_domain_map: {
-      events: {
-        url: 'https://events-api.example.com',
-      },
-      'users.events': {
-        url: 'https://users-events-api.example.com',
-      },
+  auth_provider: API.createAuthProviderString('public_client', {
+    client_id: 'someclientidtokengoeshere',
+    realm: 'https://api.example.com',
+  }),
+  locale: 'nl-BE',
+  resource_domain_map: {
+    events: {
+      url: 'https://events-api.example.com',
     },
-  })
+    'users.events': {
+      url: 'https://users-events-api.example.com',
+    },
+  },
+})
 ```
 
 ## Testing
