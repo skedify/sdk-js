@@ -69,6 +69,7 @@ Object {
       "initiated_by",
       "outcomes",
       "appointment_outcomes",
+      "calendar_links",
     ],
     "allowed_methods": Array [
       "*",
