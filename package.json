@@ -18,7 +18,8 @@
   },
   "homepage": "https://github.com/skedify/sdk-js",
   "files": [
-    "lib"
+    "lib",
+    "types"
   ],
   "scripts": {
     "prebuild": "npm run lint && rimraf lib",
@@ -69,7 +70,7 @@
     "rollup": "^2.50.5",
     "rollup-plugin-terser": "^7.0.2",
     "semantic-release": "^17.4.3",
-    "serve": "^11.3.2"
+    "serve": "^12.0.0"
   },
   "config": {
     "commitizen": {
