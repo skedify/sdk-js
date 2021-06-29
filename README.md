@@ -537,7 +537,7 @@ SDK.appointments('appointment id').then({ data } => {
 ```
 
 ## Custom Domain Map
-Some endpoints require a domain mapping when instantiating the SDK. Consider the 
+Some endpoints require a domain mapping when instantiating the SDK. Consider the
 following example:
 
 ```js
@@ -646,3 +646,21 @@ Object {
 ## Contributing
 
 Use `npm run commit` when you want to commit a change.
+
+
+## Typescript
+
+There are **experimental** type definition available.
+You can include them in your typescript project by adding a `.d.ts` file with the following content:
+`/// <reference types="skedify-sdk/types" />`
+
+So for example:
+
+`./src/skedify-sdk.d.ts`:
+```ts
+/// <reference types="skedify-sdk/types" />
+```
+
+Will add typescript definitions for a couple of exposed API's.
+
+Please note that these are **experimental** and will be updated with possible breaking changes.

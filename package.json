@@ -18,7 +18,8 @@
   },
   "homepage": "https://github.com/skedify/sdk-js",
   "files": [
-    "lib"
+    "lib",
+    "types"
   ],
   "scripts": {
     "prebuild": "npm run lint && rimraf lib",
