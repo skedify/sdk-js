@@ -255,7 +255,7 @@ export default class Resource {
     return cloned
   }
 
-  delete() {
+  delete(data) {
     if (!isAllowed(this, HTTP_VERB_DELETE)) {
       throw createConfigError(
         `You tried to call \`.delete()\` but this method is currently not allowed.`
@@ -274,6 +274,7 @@ export default class Resource {
       requestConfig: Object.assign({}, requestConfig, {
         method: HTTP_VERB_DELETE,
         name: 'delete',
+        data,
       }),
     }))
 
