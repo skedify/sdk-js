@@ -1193,6 +1193,9 @@ Object {
   "availability_settings": Object {
     "toString": [Function],
   },
+  "calendar_links": Object {
+    "toString": [Function],
+  },
   "calendars": Object {
     "toString": [Function],
   },

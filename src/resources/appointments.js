@@ -19,6 +19,7 @@ export const appointments = createResourceDescription(
       'initiated_by',
       'outcomes',
       'appointment_outcomes',
+      'calendar_links',
     ],
     filters: [
       'uuid',
