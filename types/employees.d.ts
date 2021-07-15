@@ -9,6 +9,9 @@ declare module "skedify-sdk" {
     last_name: string | null;
     language: string | null;
     phone_number: string | null;
+    /**
+     * @deprecated Use employee.profile_picture
+     */
     profile_picture: string | null;
     state: State;
     timezone: string;
