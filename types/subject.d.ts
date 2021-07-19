@@ -74,6 +74,11 @@ declare module "skedify-sdk" {
     updated_at?: string;
   }
 
+  export interface OfficeSubjectAvailabilitySettings extends SubjectAvailabilitySettings {
+    subject_id: string;
+    office_id: string
+  }
+
   export interface SubjectTranslation {
     id: string;
     subject_id: string;
