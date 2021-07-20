@@ -75,6 +75,7 @@ declare module "skedify-sdk" {
   }
 
   export interface OfficeSubjectAvailabilitySettings extends SubjectAvailabilitySettings {
+    id: string;
     subject_id: string;
     office_id: string
   }
