@@ -182,7 +182,10 @@ declare module "skedify-sdk" {
     employees(id: string): GenericAPI<Employee>;
 
     offices(): GenericAPI<Office[]>;
-    offices(id: string): GenericAPI<Office>;
+    offices(id: string): GenericAPI<Office> & {
+      subjectAvailabilitySettings(): GenericAPI<OfficeSubjectAvailabilitySettings[]>;
+      subjectAvailabilitySettings(id?: string): GenericAPI<OfficeSubjectAvailabilitySettings>;
+    };
 
     leadSegments(): GenericAPI<LeadSegment[]>;
     leadSegments(id: string): GenericAPI<LeadSegment>;
