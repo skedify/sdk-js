@@ -24,6 +24,7 @@ declare module "skedify-sdk" {
   type WithCreate<T, Response> = T & { create: () => Response };
   type WithDelete<T, Response> = T & { delete: () => Response };
 
+
   type WithFilter<T, AdditionalFilters> = {
     [key in keyof T | AdditionalFilters]: (param: T[key]) => void;
   };
