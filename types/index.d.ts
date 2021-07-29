@@ -1,3 +1,5 @@
+/// <reference path="appointment.d.ts" />
+/// <reference path="customer.d.ts" />
 /// <reference path="calendarEventTemplates.d.ts" />
 /// <reference path="contactOfficeSubjects.d.ts" />
 /// <reference path="contactOffices.d.ts" />
@@ -144,7 +146,7 @@ declare module "skedify-sdk" {
       outcome_lists: Include;
       outcome_outcome_lists: Include;
       outcomes: Include;
-      possibilities: Include;
+      possibilities: Include & { created_by: Include };
       postal_code: Include;
       question: Include;
       questions: Include;
@@ -166,6 +168,9 @@ declare module "skedify-sdk" {
 
     admins(): GenericAPI<Admin[]>;
     admins(id: string): GenericAPI<Admin>;
+
+    appointments(): GenericAPI<Appointment[]>;
+    appointments(id: string): GenericAPI<Appointment>;
 
     calendarEventTemplates(): GenericAPI<CalendarEventTemplate[]>;
     calendarEventTemplates(id: string): GenericAPI<CalendarEventTemplate>;
