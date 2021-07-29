@@ -7,10 +7,6 @@ declare module "skedify-sdk" {
     updated_at: string | null;
   }
 
-  export interface WithContact<T> {
-    contact: Contact & T;
-  }
-
   export interface WithOffice {
     office: Office;
   }
