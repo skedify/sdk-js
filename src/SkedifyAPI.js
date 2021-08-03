@@ -10,6 +10,7 @@ import {
   withSecretData,
   withResourceDomainMap,
 } from './decorators'
+import { withExposedAuthorization } from './decorators/withExposedAuthorization'
 
 import * as exported from './exported'
 
@@ -24,7 +25,8 @@ export default class SkedifyAPI {
       withIdentityProvider(),
       withResources(this),
       withExposedIncludes(),
-      withResourceDomainMap(config)
+      withResourceDomainMap(config),
+      withExposedAuthorization()
     )(this)
   }
 }
