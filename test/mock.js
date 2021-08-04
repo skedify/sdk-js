@@ -151,11 +151,9 @@ export function install(instance, options = {}) {
 
   // Stub setup requests
   setup_calls.forEach(({ url, response }) => {
-    mockMatchingURLResponse(
-      url,
-      response.data,
-      response.status
-    ).onRespond((request) => storage().ignoredRequests.push(request))
+    mockMatchingURLResponse(url, response.data, response.status).onRespond(
+      (request) => storage().ignoredRequests.push(request)
+    )
   })
 }
 

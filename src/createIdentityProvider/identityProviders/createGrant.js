@@ -37,8 +37,11 @@ function defaultAuthorizationMethod({
       .then(({ data }) => {
         logger.info({ access: data }, 'Successfully gained access to API')
 
+        const Authorization = `${data.token_type} ${data.access_token}`
+        instance.getAuthorizationHeader = () => Authorization
+
         return {
-          Authorization: `${data.token_type} ${data.access_token}`,
+          Authorization,
           Expiration: data.expires_in,
           Realm: realm,
         }
@@ -85,6 +88,7 @@ function defaultAuthorizationMethod({
           reset,
           secondsToMilliseconds(access.Expiration * RE_FETCH_WINDOW)
         )
+
         return access
       })
   )
