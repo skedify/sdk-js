@@ -75,7 +75,9 @@ declare module "skedify-sdk" {
       kind: string,
       options: {
         realm?: string;
-        token_type: string;
+        client_id?: string;
+        client_secret?: string;
+        token_type?: string;
         access_token?: string;
       }
     ): string;
