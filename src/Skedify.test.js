@@ -1,4 +1,5 @@
 /* eslint-disable max-nested-callbacks, max-statements */
+import { mockAccessTokensResponse } from '../test/testUtils'
 import {
   API,
   installSkedifySDKMock,
@@ -12,6 +13,7 @@ import {
 } from './build/Skedify.prod'
 
 import * as exported from './constants/exported'
+import isFunction from './util/isFunction'
 
 /**
  * We need to make sure that the public API works correctly
@@ -350,6 +352,31 @@ describe('API/Config', () => {
     expect(SDK).toBeInstanceOf(API)
   })
 
+  it('should be possible to get the Authorization header from the SDK instance', async () => {
+    const SDK = new API({
+      auth_provider: API.createAuthProviderString('public_client', {
+        client_id: 'someclientidtokengoeshere',
+        realm: 'http://127.0.0.1',
+      }),
+      locale: 'nl-BE',
+      headers: {
+        Host: 'api.example.com',
+      },
+    })
+
+    installSkedifySDKMock(SDK)
+    mockAccessTokensResponse({
+      access_token: 'fake_example_access_token',
+      token_type: 'Bearer',
+      expires_in: 5400,
+    })
+
+    expect(await matchRequest(SDK.subjects())).toMatchSnapshot()
+    expect(SDK.getAuthorizationHeader()).toMatchSnapshot()
+
+    uninstallSkedifySDKMock(SDK)
+  })
+
   it('should be possible to create an SDK instance with default headers', async () => {
     const SDK = new API({
       auth_provider: API.createAuthProviderString('public_client', {
@@ -496,6 +523,12 @@ describe('API', () => {
     expect(`${SDK.include.subject.subject_category}`).toEqual(
       'subject.subject_category'
     )
+  })
+
+  it('should expose the getAuthorization method on the API instance', () => {
+    expect(SDK.getAuthorizationHeader).toBeDefined()
+    expect(isFunction(SDK.getAuthorizationHeader))
+    expect(SDK.getAuthorizationHeader()).toBe(undefined)
   })
 
   it('should invoke a call when .then is called', () => {

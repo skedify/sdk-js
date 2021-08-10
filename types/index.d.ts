@@ -68,6 +68,18 @@ declare module "skedify-sdk" {
     locale?: string;
     onError?: (response: APIResponse<unknown>) => void;
     resource_domain_map?: { [key: string]: { url: string } };
+    logger?: {
+      trace: (payload: any, message: string) => void,
+      debug: (payload: any, message: string) => void,
+      info: (payload: any, message: string) => void,
+      warn: (payload: any, message: string) => void,
+      error: (payload: any, message: string) => void,
+      fatal: (payload: any, message: string) => void,
+    }
+    headers?: {
+      Host?: string,
+      [key: string]: string
+    }
   }
 
   export class API {
@@ -75,7 +87,9 @@ declare module "skedify-sdk" {
       kind: string,
       options: {
         realm?: string;
-        token_type: string;
+        client_id?: string;
+        client_secret?: string;
+        token_type?: string;
         access_token?: string;
       }
     ): string;

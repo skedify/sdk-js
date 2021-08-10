@@ -17,6 +17,10 @@ export function mockMatchingURLResponse(
   )
 }
 
+export function mockAccessTokensResponse(data) {
+  return mock.mockResponse(data, 200)
+}
+
 export function mockResponse(data, meta, warnings, errors, status = 200) {
   return mock.mockResponse({ data, meta, warnings, errors }, status)
 }
