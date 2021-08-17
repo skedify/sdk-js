@@ -4,7 +4,8 @@ import stringifyQueryParamValues from './stringifyQueryParamValues'
 import omit from '../../util/omit'
 
 export default function createCallConfig(resource, defaultConfig) {
-  const { requestConfig, descriptor } = get(resource)
+  const { requestConfig, descriptor, paging } = get(resource)
+
   const {
     include,
     filters,
@@ -29,6 +30,13 @@ export default function createCallConfig(resource, defaultConfig) {
    */
   if (Object.keys(filters).length > 0) {
     config.params = Object.assign({}, config.params, filters)
+  }
+
+  /**
+   * Setup Paging
+   */
+  if (Object.keys(paging).length > 0) {
+    config.params = Object.assign({}, config.params, paging)
   }
 
   /**
