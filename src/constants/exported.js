@@ -5,6 +5,7 @@ export const ERROR_RESOURCE_INVALID_FILTER = createToken()
 export const ERROR_RESOURCE_INVALID_INCLUDE = createToken()
 export const ERROR_RESOURCE_INVALID_RESPONSE_INTERCEPTOR = createToken()
 export const ERROR_RESOURCE_MISSING_ARGUMENT = createToken()
+export const ERROR_RESOURCE_MISSING_PAGING_METHOD = createToken()
 
 export const ERROR_RESPONSE = createToken()
 export const ERROR_RESPONSE_MULTIPLE_RESULTS_FOUND = createToken()

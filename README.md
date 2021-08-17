@@ -233,40 +233,30 @@ SDK.subjects().sort(item => {
 })
 ```
 
-## ~~Paging~~
+## Paging
 
-> **NOTE:** Pagination is currently not supported by the API itself. However some endpoints (customers, offices and recently used subjects) have a `limit` query parameter.
-
-The user can limit the amount of responses by using the `.limit` method. To achieve paging, the user can either use the `.offset` method to manually skip a number of entities. For convenience, the user can also use the `.page` method which will deduce the offset based on the limit (=page size)
+The user can limit the amount of responses by using the `.limit` & `.page` method.
 
 ```js
 SDK.subjects()
   .limit(10)
-  .offset(10)
-  .then(response => {
+  .page(1)
+  .then((response) => {
     // in addition to the regular properties on response, it will also additionally have
     // a new `paging` property with the following props:
-    response.paging.size; // the amount of entities per page (=limit)
-    response.paging.current; // the current page you're on
-    response.paging.total; // the total amount of entities
-    response.paging.pages; // the amount of pages
-    response.paging.hasNext(); // check if there is a next page
-    response.paging.hasPrevious(); // check if there is a previous page
-    response.paging.next(); // start loading the next page. This will return a new Promise wich will resolve in a new response
-    response.paging.previous(); // start loading the previous page. This will return a new Promise wich will resolve in a new response
-  });
+    response.paging.size // the amount of entities per page (=limit)
+    response.paging.current // the current page you're on
+    response.paging.total // the total amount of entities
+    response.paging.pages // the amount of pages
+    response.paging.hasNext() // check if there is a next page
+    response.paging.hasPrevious() // check if there is a previous page
 
-// and also
-SDK.subjects()
-  .limit(10)
-  .page(3);
+    // Not implemented yet:
+    response.paging.next() // start loading the next page. This will return a new Promise wich will resolve in a new response
+    response.paging.previous() // start loading the previous page. This will return a new Promise wich will resolve in a new response
+  })
 
-// is equivalent to
-SDK.subjects()
-  .limit(10)
-  .offset(10 * (3 - 1));
-
-// NOTE: the page() function requires the limit to be defined.
+// NOTE: the page() and limit() methods needs to be called together•
 ```
 
 ## Filters

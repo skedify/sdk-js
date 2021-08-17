@@ -5,6 +5,7 @@ import {
   validateFilterCallbackExecution,
   validateAddResponseInterceptorCallback,
   validateDeprecations,
+  validatePagingArguments,
 } from './invariants'
 import {
   HTTP_VERB_PATCH,
@@ -21,6 +22,7 @@ import { createConfigError } from '../../util/createError'
 import isObject from '../../util/isObject'
 import createAcceptLanguageHeader from '../withDefaults/createAcceptLanguageHeader'
 import { validateLocale } from '../withConfig/validate'
+import addPagingResponse from './addPagingResponse'
 
 function overrideThen(resource, replaceWith) {
   const originalThen = resource.then.bind(resource)
@@ -73,6 +75,9 @@ export default class Resource {
 
       // The parent resource
       parent,
+
+      // The paging metadata
+      paging: {},
     })
 
     // A path to this resource, e.g.: users.calendars.events
@@ -156,6 +161,32 @@ export default class Resource {
 
     validateFilterCallbackExecution(this, () => {
       callback(filterable)
+    })
+
+    return this
+  }
+
+  limit(limit) {
+    const { paging } = get(this)
+
+    set(this, {
+      paging: {
+        ...paging,
+        per_page: limit,
+      },
+    })
+
+    return this
+  }
+
+  page(page) {
+    const { paging } = get(this)
+
+    set(this, {
+      paging: {
+        ...paging,
+        page,
+      },
     })
 
     return this
@@ -291,11 +322,14 @@ export default class Resource {
 
     validateDeprecations(this)
 
+    validatePagingArguments(this)
+
     get(this).existing_call = new Promise((resolve, reject) => {
       identityProvider
         .getAuthorization()
         .then(createRequest.bind(this, this))
         .then(normalizeResponse, normalizeResponse)
+        .then(addPagingResponse)
         .then(executeResponseInterceptors.bind(this, this))
         .then(resolve, reject)
     })

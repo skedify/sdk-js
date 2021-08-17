@@ -15,6 +15,7 @@ import {
   ERROR_RESPONSE,
   ERROR_SUBRESOURCE_INCLUDE_ALREADY_CALLED,
   ERROR_SUBRESOURCE_INVALID_PARENT_ID,
+  ERROR_RESOURCE_MISSING_PAGING_METHOD,
 } from '../../constants'
 import { get } from '../../secret'
 
@@ -205,5 +206,20 @@ export function validateDeprecations(resource) {
         )
         .join('')} is deprecated.`
     )
+  }
+}
+
+export function validatePagingArguments(resource) {
+  const { paging } = get(resource)
+  const { per_page, page } = paging
+
+  if ([per_page, page].some(Boolean)) {
+    if (![per_page, page].every(Boolean)) {
+      throw createResourceError(
+        `Paging resources should both be called with limit() & page().`,
+        ERROR_RESOURCE,
+        ERROR_RESOURCE_MISSING_PAGING_METHOD
+      )
+    }
   }
 }
