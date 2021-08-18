@@ -2,15 +2,15 @@ function transformMeta(meta) {
   const { total, per_page, current_page, last_page, from, to } = meta
 
   const api = {
-    hasNext: () => current_page < last_page,
-    hasPrevious: () => current_page !== 1,
+    hasNext: current_page < last_page,
+    hasPrevious: current_page !== 1,
   }
 
   return {
     size: per_page,
-    current: current_page,
-    total,
-    pages: last_page,
+    currentPage: current_page,
+    totalResults: total,
+    totalPages: last_page,
     from,
     to,
     ...api,
@@ -31,13 +31,9 @@ export default function addPagingResponse(response) {
   const { meta } = response
 
   if (isPaging(meta)) {
-    Object.assign(
-      response,
-      {},
-      {
-        paging: { ...transformMeta(meta) },
-      }
-    )
+    Object.assign(response, {
+      paging: transformMeta(meta),
+    })
   }
 
   return response
