@@ -44,6 +44,9 @@ declare module "skedify-sdk" {
           cb: (filterItem: WithFilter<Entity, AdditionalFilters>) => unknown
         ) => GenericAPI<Entity>;
 
+    page(pageNo: number): GenericAPI<Entity>;
+    limit(limit: number): GenericAPI<Entity>;
+
     update: Entity extends Array<infer Item>
       ? (data: Partial<Item>) => GenericAPI<Item, WithSave<APIResponse<Item>, APIResponse<Item>>>
       : (data: Partial<Entity>) => GenericAPI<Entity, WithSave<APIResponse<Entity>, Response>>;
