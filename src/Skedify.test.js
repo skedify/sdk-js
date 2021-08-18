@@ -1960,9 +1960,9 @@ describe('API', () => {
         .then((response) => {
           expect(response.paging).toBeDefined()
           expect(response.paging.size).toBeDefined()
-          expect(response.paging.current).toBeDefined()
-          expect(response.paging.total).toBeDefined()
-          expect(response.paging.pages).toBeDefined()
+          expect(response.paging.currentPage).toBeDefined()
+          expect(response.paging.totalResults).toBeDefined()
+          expect(response.paging.totalPages).toBeDefined()
           expect(response.paging.from).toBeDefined()
           expect(response.paging.to).toBeDefined()
           expect(response.paging.hasNext).toBeDefined()
@@ -1970,7 +1970,7 @@ describe('API', () => {
         })
     })
 
-    describe('hasNext()', () => {
+    describe('hasNext', () => {
       it('should return `true` when there are next pages to fetch', async () => {
         const data = []
         mockMatchingURLResponse(/appointments/, data, meta)
@@ -1979,7 +1979,7 @@ describe('API', () => {
           .limit(10)
           .page(1)
           .then((response) => {
-            expect(response.paging.hasNext()).toBe(true)
+            expect(response.paging.hasNext).toBe(true)
           })
       })
 
@@ -1997,12 +1997,12 @@ describe('API', () => {
           .limit(10)
           .page(1)
           .then((response) => {
-            expect(response.paging.hasNext()).toBe(false)
+            expect(response.paging.hasNext).toBe(false)
           })
       })
     })
 
-    describe('hasPrevious()', () => {
+    describe('hasPrevious', () => {
       it('should return `true` when there are previous pages', async () => {
         const data = []
         mockMatchingURLResponse(
@@ -2017,7 +2017,7 @@ describe('API', () => {
           .limit(10)
           .page(1)
           .then((response) => {
-            expect(response.paging.hasPrevious()).toBe(true)
+            expect(response.paging.hasPrevious).toBe(true)
           })
       })
 
@@ -2029,7 +2029,7 @@ describe('API', () => {
           .limit(10)
           .page(1)
           .then((response) => {
-            expect(response.paging.hasPrevious()).toBe(false)
+            expect(response.paging.hasPrevious).toBe(false)
           })
       })
     })
