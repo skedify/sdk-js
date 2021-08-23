@@ -140,6 +140,7 @@ declare module "skedify-sdk" {
       employee: Include & { enterprise: Include };
       employees: Include;
       enterprise: Include;
+      enterprise_settings: Include;
       initiated_by: Include;
       language: Include;
       languages: Include & { translations: Include };
