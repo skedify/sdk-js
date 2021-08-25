@@ -25,6 +25,7 @@ declare module "skedify-sdk" {
   type WithSave<T, Response> = T & { save: () => Response };
   type WithCreate<T, Response> = T & { create: () => Response };
   type WithDelete<T, Response> = T & { delete: () => Response };
+  type GenericAPIWithPaging<Entity> = GenericAPI<Entity, APIResponse<Entity> & { paging: PagingResponse }>;
 
   type WithFilter<T, AdditionalFilters> = {
     [key in keyof T | AdditionalFilters]: (param: T[key]) => void;
@@ -43,6 +44,13 @@ declare module "skedify-sdk" {
       : <AdditionalFilters = "">(
           cb: (filterItem: WithFilter<Entity, AdditionalFilters>) => unknown
         ) => GenericAPI<Entity>;
+
+    page(pageNo: number): {
+      limit(limit: number): GenericAPIWithPaging<Entity>
+    };
+    limit(limit: number): {
+      page(pageNo: number): GenericAPIWithPaging<Entity>
+    };
 
     update: Entity extends Array<infer Item>
       ? (data: Partial<Item>) => GenericAPI<Item, WithSave<APIResponse<Item>, APIResponse<Item>>>

@@ -917,6 +917,31 @@ Object {
 }
 `;
 
+exports[`API Paging should be able to page the request  1`] = `
+Array [
+  Object {
+    "data": undefined,
+    "headers": Object {
+      "Accept": "application/json, text/plain, */*",
+      "Accept-Language": "nl-BE, nl;q=0.667, *;q=0.333",
+      "Authorization": "Bearer fake_example_access_token",
+      "Cache-Control": "no-store",
+      "Pragma": "no-cache",
+    },
+    "method": "get",
+    "params": Object {
+      "page": 1,
+      "per_page": 10,
+    },
+    "url": "https://api.example.com/appointments",
+  },
+]
+`;
+
+exports[`API Paging should error when the \`limit\` method is not called 1`] = `"[RESOURCE]: Paging resources should both be called with limit() & page()."`;
+
+exports[`API Paging should error when the \`page\` method is not called 1`] = `"[RESOURCE]: Paging resources should both be called with limit() & page()."`;
+
 exports[`API actions create bulk should be possible to create multiple resources at once 1`] = `
 Object {
   "data": Array [
