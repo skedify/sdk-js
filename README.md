@@ -245,11 +245,11 @@ SDK.subjects()
     // in addition to the regular properties on response, it will also additionally have
     // a new `paging` property with the following props:
     response.paging.size // the amount of entities per page (=limit)
-    response.paging.current // the current page you're on
-    response.paging.total // the total amount of entities
-    response.paging.pages // the amount of pages
-    response.paging.hasNext() // check if there is a next page
-    response.paging.hasPrevious() // check if there is a previous page
+    response.paging.currentPage // the current page you're on
+    response.paging.totalResults // the total amount of entities
+    response.paging.totalPages // the amount of pages
+    response.paging.hasNext // check if there is a next page
+    response.paging.hasPrevious // check if there is a previous page
 
     // Not implemented yet:
     response.paging.next() // start loading the next page. This will return a new Promise wich will resolve in a new response
