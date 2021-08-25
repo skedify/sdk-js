@@ -1908,4 +1908,130 @@ describe('API', () => {
       })
     })
   })
+
+  describe('Paging', () => {
+    const meta = {
+      total: 193,
+      per_page: 5,
+      current_page: 1,
+      last_page: 39,
+      from: 1,
+      to: 5,
+    }
+
+    it('should expose the paging methods on the resources', () => {
+      mockMatchingURLResponse(/appointments/, [])
+
+      expect(SDK.appointments().limit()).toBeDefined()
+      expect(SDK.appointments().page()).toBeDefined()
+    })
+
+    it('should error when the `page` method is not called', () => {
+      expect(() =>
+        SDK.appointments().limit(10).then(undefined, undefined)
+      ).toThrowErrorMatchingSnapshot()
+    })
+
+    it('should error when the `limit` method is not called', () => {
+      expect(() =>
+        SDK.appointments().page(10).then(undefined, undefined)
+      ).toThrowErrorMatchingSnapshot()
+    })
+
+    it('should be possible to chain the paging methods on the resources', () => {
+      expect(SDK.appointments().limit().page()).toBeDefined()
+    })
+
+    it('should be able to page the request ', async () => {
+      mockMatchingURLResponse(/appointments/, [])
+
+      await SDK.appointments().limit(10).page(1)
+
+      expect(mockedRequests()).toMatchSnapshot()
+    })
+
+    it('should expose paging properties on response', async () => {
+      const data = []
+      mockMatchingURLResponse(/appointments/, data, meta)
+
+      await SDK.appointments()
+        .limit(10)
+        .page(1)
+        .then((response) => {
+          expect(response.paging).toBeDefined()
+          expect(response.paging.size).toBeDefined()
+          expect(response.paging.currentPage).toBeDefined()
+          expect(response.paging.totalResults).toBeDefined()
+          expect(response.paging.totalPages).toBeDefined()
+          expect(response.paging.from).toBeDefined()
+          expect(response.paging.to).toBeDefined()
+          expect(response.paging.hasNext).toBeDefined()
+          expect(response.paging.hasPrevious).toBeDefined()
+        })
+    })
+
+    describe('hasNext', () => {
+      it('should return `true` when there are next pages to fetch', async () => {
+        const data = []
+        mockMatchingURLResponse(/appointments/, data, meta)
+
+        await SDK.appointments()
+          .limit(10)
+          .page(1)
+          .then((response) => {
+            expect(response.paging.hasNext).toBe(true)
+          })
+      })
+
+      it('should return `false` when there are no next pages to fetch', async () => {
+        const data = []
+        mockMatchingURLResponse(
+          /appointments/,
+          data,
+          Object.assign({}, meta, {
+            current_page: meta.last_page,
+          })
+        )
+
+        await SDK.appointments()
+          .limit(10)
+          .page(1)
+          .then((response) => {
+            expect(response.paging.hasNext).toBe(false)
+          })
+      })
+    })
+
+    describe('hasPrevious', () => {
+      it('should return `true` when there are previous pages', async () => {
+        const data = []
+        mockMatchingURLResponse(
+          /appointments/,
+          data,
+          Object.assign({}, meta, {
+            current_page: meta.last_page,
+          })
+        )
+
+        await SDK.appointments()
+          .limit(10)
+          .page(1)
+          .then((response) => {
+            expect(response.paging.hasPrevious).toBe(true)
+          })
+      })
+
+      it('should return `false` when there are no previous pages to fetch', async () => {
+        const data = []
+        mockMatchingURLResponse(/appointments/, data, meta)
+
+        await SDK.appointments()
+          .limit(10)
+          .page(1)
+          .then((response) => {
+            expect(response.paging.hasPrevious).toBe(false)
+          })
+      })
+    })
+  })
 })
