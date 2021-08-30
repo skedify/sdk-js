@@ -1396,6 +1396,23 @@ Object {
     "resource": "recaptcha_domains",
     "sub_resources": Object {},
   },
+  "resourceCodes": Object {
+    "allowed_includes": Array [],
+    "allowed_methods": Array [
+      "*",
+    ],
+    "deprecated": false,
+    "filters": Array [
+      "appointment_id",
+      "page",
+      "per_page",
+      "id",
+    ],
+    "headers": Object {},
+    "requires_domain_map": false,
+    "resource": "resource_codes",
+    "sub_resources": Object {},
+  },
   "subjectCategories": Object {
     "allowed_includes": Array [
       "languages",

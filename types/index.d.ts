@@ -20,6 +20,7 @@
 /// <reference path="subject.d.ts" />
 /// <reference path="subjectCategories.d.ts" />
 /// <reference path="users.d.ts" />
+/// <reference path="resourceCodes.d.ts" />
 
 declare module "skedify-sdk" {
   type WithSave<T, Response> = T & { save: () => Response };
@@ -270,5 +271,7 @@ declare module "skedify-sdk" {
     };
 
     identity(): Promise<APIResponse<{ id: string }>>;
+
+    resourceCodes(): GenericAPI<ResourceCode[]>;
   }
 }
