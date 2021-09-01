@@ -2,7 +2,7 @@
 New development will continue at an internal private repo: https://github.com/skedify/frontend-mono/tree/develop/packages/sdk-js
 
 **Note for public consumers**:
-We will still publish updates & the entire source code to NPM. You can use this repo to file any issues oyu may have.
+We will still publish updates & the entire source code to NPM. You can use this repo to file any issues you may have.
 We will keep the docs here up to date and keep watching the repo.
 
 
